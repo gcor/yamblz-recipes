@@ -1,0 +1,3 @@
+rootProject.name = 'kitchen'
+
+include ':app'
