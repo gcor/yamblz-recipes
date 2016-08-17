@@ -1,9 +1,9 @@
-import { combineReducers } from 'redux-immutable'
+import { combineReducers } from 'redux'
+import counter from './modules/counter'
 
-const applicationReducers = {
-  removeThisReducerOnceYouAddALegitOne: () => ({})
+const reducers = {
+  counter: counter
 }
 
-export default function createReducer () {
-  return combineReducers(applicationReducers)
-}
+const createReducers = () => (combineReducers(reducers))
+export default createReducers
