@@ -1,18 +1,21 @@
-import React, { Component } from 'react'
+import React from 'react'
 import App from './components/App'
 import { Provider } from 'react-redux'
-import createStore from './store/createStore'
+// import createStore from './store/createStore'
 
-const store = createStore()
+import { createStore, applyMiddleware } from 'redux'
+import thunk from 'redux-thunk'
+import reducers from './store/reducers'
+import createLogger from 'redux-logger'
 
-class Root extends Component {
-  render () {
-    return (
-      <Provider store={store}>
-        <App />
-      </Provider>
-    )
-  }
-}
+const logger = createLogger()
+const storeWithMiddlewares = applyMiddleware(thunk, logger)(createStore)
+let store = storeWithMiddlewares(reducers())
+
+const Root = () => (
+  <Provider store={store}>
+    <App />
+  </Provider>
+)
 
 module.exports = Root
