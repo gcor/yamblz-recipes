@@ -1,5 +1,5 @@
 const initialState = {
-  count: 5
+  count: 0
 }
 
 const INCREMENT = 'INCREMENT'
@@ -14,8 +14,8 @@ export const decrement = () => ({
 
 const counter = (state = initialState, action) => {
   switch (action.type) {
-    case INCREMENT: return {state, ...{count: state.count + 1}}
-    case DECREMENT: return {state, ...{count: state.count - 1}}
+    case INCREMENT: return {state, ...{count: state.count + 10}}
+    case DECREMENT: return {state, ...{count: state.count - 10}}
     default: return state
   }
 }
