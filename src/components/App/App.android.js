@@ -7,6 +7,7 @@ import Counter from '../Counter'
 // import FirstScreen from '../../containers/FirstScreen'
 import Navigation from '../Navigation'
 import Tabs from '../Tabs'
+import Recipe from '../Recipe'
 
 class App extends Component {
   render () {
@@ -14,6 +15,7 @@ class App extends Component {
       <View>
         <Counter />
         <Tabs />
+        <Recipe />
       </View>
     )
   }
