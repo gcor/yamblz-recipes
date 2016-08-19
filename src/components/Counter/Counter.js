@@ -4,9 +4,6 @@ import {
   Text
 } from 'react-native'
 
-import { increment, decrement } from '../../store/modules/counter'
-import { connect } from 'react-redux'
-
 import s from './styles'
 
 class Counter extends Component {
@@ -33,13 +30,4 @@ class Counter extends Component {
   }
 }
 
-const stateToProps = state => ({
-  count: state.counter.count
-})
-
-const dispatchToProps = dispatch => ({
-  increment: () => dispatch(increment()),
-  decrement: () => dispatch(decrement())
-})
-
-export default connect(stateToProps, dispatchToProps)(Counter)
+export default Counter

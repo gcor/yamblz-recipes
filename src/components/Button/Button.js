@@ -1,17 +1,18 @@
-import React, { Component, PropTypes } from 'react';
-import { Text, View, TouchableHighlight } from 'react-native';
+import React, { Component } from 'react'
+import { Text, View, TouchableHighlight } from 'react-native'
 import css from './Button.css'
 
 export default class Button extends Component {
-	_onPressButton(){
-		this.props.pushRoute('new');
+	_onPressButton () {
+		this.props.pushRoute('new')
+		console.log(this.props.pushRoute)
 	}
-	render() {
+	render () {
 		return (
-			<View style={[css.button/*, css.button_text_center*/]}>
-				<TouchableHighlight onPress={this._onPressButton}>
-					<View style={css.button__icon}></View>
-			    </TouchableHighlight>
+			<View style={[css.button]}>
+				<TouchableHighlight onPress={this._onPressButton.bind(this)}>
+					<View style={css.button__icon} />
+				</TouchableHighlight>
 				<Text style={css.button__text}>{ this.props.text.toUpperCase() }</Text>
 			</View>
 		)

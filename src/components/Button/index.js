@@ -2,7 +2,8 @@ import { connect } from 'react-redux'
 import { actions } from 'react-native-navigation-redux-helpers'
 import Navigation from './Navigation'
 
-const { popRoute, pushRoute} = actions
+// popRoute also exists
+const { pushRoute } = actions
 
 const stateToProps = state => ({})
 const dispatchToProps = dispatch => ({

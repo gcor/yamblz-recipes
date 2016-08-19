@@ -11,6 +11,8 @@ import { actions as navigationActions } from 'react-native-navigation-redux-help
 
 import styles from './styles'
 
+import Counter from '../Counter'
+
 const { jumpTo, pushRoute } = navigationActions
 
 class ApplicationTabs extends Component {
@@ -18,7 +20,7 @@ class ApplicationTabs extends Component {
     switch (tab) {
       case 'feed': return <Text>Feed</Text>
       case 'new': return <Text>New</Text>
-      default: return <Text>Default Screen</Text>
+      default: return <Counter />
     }
   }
 
