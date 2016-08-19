@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { actions } from 'react-native-navigation-redux-helpers'
 import Tabs from '../Tabs'
+import Home from '../../containers/Home'
 
 const {
   popRoute,
@@ -33,17 +34,15 @@ class Navigation extends Component {
     console.log(props.scene.route.key)
     let fake = 'new'
     switch (props.scene.route.key) {
-      case 'applicationTabs':
+      case 'new':
         return (
           <View style={{flex: 1}}>
             <Tabs />
           </View>
         )
-      case 'new':
+      case 'applicationTabs':
         return (
-          <View style={{flex: 1}}>
-            <Text style={{color: 'blue'}}>New tab</Text>
-          </View>
+            <Home/>
         )
       default:
         return (
