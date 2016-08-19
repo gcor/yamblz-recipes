@@ -14,7 +14,7 @@ export default class Tile extends Component {
 	render() {
 		return (
 			<View style={css.tile}>
-				{/*<Text style={css.tile__title}>{this.props.title.toUpperCase()}</Text>*/}
+				<Text style={css.tile__title}>{this.props.title.toUpperCase()}</Text>
         		<ListView 
         			contentContainerStyle={css.tile__list}
           			dataSource={this.state.dataSource}

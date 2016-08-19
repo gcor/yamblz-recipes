@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { ScrollView, StyleSheet, View, Text } from 'react-native';
 import Button from '../../components/Button/Button'
-import Slider from '../../components/Slider/Slider'
+import Slider from '../../components/Slider'
 import Tile from '../../components/Tile/Tile'
 
 export default class App extends Component {
@@ -26,6 +26,18 @@ export default class App extends Component {
 			stars: 5
 		}];
 		const thumbnails = [{
+			title: 'Супы',
+			recipeAmount: '20 рецептов'
+		},{
+			title: 'Мясо',
+			recipeAmount: '63 рецепта'
+		},{
+			title: 'Птица',
+			recipeAmount: '56 рецептов'
+		},{
+			title: 'Рыба',
+			recipeAmount: '17 рецепта'
+		},{
 			title: 'Супы',
 			recipeAmount: '20 рецептов'
 		},{
