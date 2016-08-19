@@ -2,10 +2,11 @@ import React, { Component } from 'react'
 import { Text, View, TouchableHighlight } from 'react-native'
 import css from './Button.css'
 
-export default class Button extends Component {
+class Button extends Component {
 	_onPressButton () {
-		this.props.pushRoute('new')
-		console.log(this.props.pushRoute)
+		const { navigation, pushRoute } = this.props
+		console.log(navigation.key)
+		pushRoute({key: 'new'}, navigation.key)
 	}
 	render () {
 		return (
@@ -13,8 +14,10 @@ export default class Button extends Component {
 				<TouchableHighlight onPress={this._onPressButton.bind(this)}>
 					<View style={css.button__icon} />
 				</TouchableHighlight>
-				<Text style={css.button__text}>{ this.props.text.toUpperCase() }</Text>
+				<Text style={css.button__text}>{this.props.text.toUpperCase()}</Text>
 			</View>
 		)
 	}
 }
+
+export default Button

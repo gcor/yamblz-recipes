@@ -40,7 +40,7 @@ class Navigation extends Component {
             <Tabs />
           </View>
         )
-      case 'applicationTabs': return <Home/>
+      case 'applicationTabs': return <Home />
       default:
         return (
           <View style={{flex: 1}}>
@@ -61,7 +61,7 @@ class Navigation extends Component {
 
   onGoSomewhere () {
     const { dispatch, navigation } = this.props
-    dispatch(pushRoute({ key: 'new' }, navigation.key))
+    dispatch(pushRoute({key: 'new'}, navigation.key))
   }
 }
 

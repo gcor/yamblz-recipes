@@ -4,5 +4,14 @@
 
 `cd prf-c-kitchen && npm install`
 
-`npm run android`
-test
+### Start development with android
+`npm run a`
+
+### With iOS
+`npm run i`
+
+
+
+## *Important*
+to open debugging menu on 5.x devices in console:
+`adb shell input keyevent 82`
