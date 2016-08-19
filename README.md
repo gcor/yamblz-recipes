@@ -5,3 +5,4 @@
 `cd prf-c-kitchen && npm install`
 
 `npm run android`
+test
