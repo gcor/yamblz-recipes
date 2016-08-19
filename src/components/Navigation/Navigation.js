@@ -1,7 +1,8 @@
-import { NavigationExperimental } from 'react-native'
+import { NavigationExperimental, Text, View } from 'react-native'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { actions } from 'react-native-navigation-redux-helpers'
+import Tabs from '../Tabs'
 
 const {
   popRoute,
@@ -13,14 +14,50 @@ const {
 } = NavigationExperimental
 
 class Navigation extends Component {
+  constructor (props) {
+    super(props)
+    this.renderScene = this.renderScene.bind(this)
+    this.renderOverlay = this.renderOverlay.bind(this)
+  }
   render () {
     return (
       <NavigationCardStack
+        onNavigate={() => {}}
         navigationState={this.props.navigation}
-        renderOverlay={this._renderOverlay}
-        renderScene={this._renderScene}/>
+        renderOverlay={this.renderOverlay}
+        renderScene={this.renderScene} />
     )
   }
+
+  renderScene (props) {
+    console.log(props.scene.route.key)
+    let fake = 'new'
+    switch (props.scene.route.key) {
+      case 'applicationTabs':
+        return (
+          <View style={{flex: 1}}>
+            <Tabs />
+          </View>
+        )
+      case 'new':
+        return (
+          <View style={{flex: 1}}>
+            <Text style={{color: 'blue'}}>New tab</Text>
+          </View>
+        )
+      default:
+        return (
+          <View style={{flex: 1}}>
+            <Text style={{color: 'blue'}}>default tab</Text>
+          </View>
+        )
+    }
+  }
+
+  renderOverlay (props) {
+    return null
+  }
+
   onGoBack () {
     const { dispatch, navigation } = this.props
     dispatch(popRoute(navigation.key))
@@ -28,20 +65,16 @@ class Navigation extends Component {
 
   onGoSomewhere () {
     const { dispatch, navigation } = this.props
-    dispatch(pushRoute({ key: 'sowhere else' }, navigation.key))
+    dispatch(pushRoute({ key: 'new' }, navigation.key))
   }
 }
 
-function mapDispatchToProps (dispatch) {
-  return {
-    dispatch
-  }
-}
+const dispatchToProps = dispatch => ({
+  dispatch
+})
 
-function mapStateToProps (state) {
-  return {
-    navigation: state.cardNavigation
-  }
-}
+const stateToProps = state => ({
+  navigation: state.navigation
+})
 
-export default connect(mapStateToProps, mapDispatchToProps)(Navigation)
+export default connect(stateToProps, dispatchToProps)(Navigation)

@@ -5,7 +5,7 @@ const initialState = {
   index: 0,
   routes: [
     {
-      key: 'applicationSection1',
+      key: 'applicationTabs',
       index: 0
     }
   ]

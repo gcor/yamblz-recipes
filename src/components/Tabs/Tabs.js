@@ -1,54 +1,97 @@
-import { TabBarIOS, Text, View } from 'react-native'
+import {
+  Text,
+  View,
+  TouchableHighlight,
+  DrawerLayoutAndroid,
+  ToolbarAndroid
+} from 'react-native'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { actions as navigationActions } from 'react-native-navigation-redux-helpers'
 
-const { jumpTo } = navigationActions
+import styles from './styles'
+
+const { jumpTo, pushRoute } = navigationActions
 
 class ApplicationTabs extends Component {
-  _renderTabContent (tab) {
-    switch (tab.key) {
+  renderTabContent (tab) {
+    switch (tab) {
       case 'feed': return <Text>Feed</Text>
-      case 'notifications': return <Text>Notifications</Text>
-      case 'settings': return <Text>Settings</Text>
-      default: return <Text>empty</Text>
+      case 'new': return <Text>New</Text>
+      default: return <Text>Default Screen</Text>
     }
-
   }
 
   render () {
-    const { dispatch, navigation } = this.props
-    const children = navigation.routes.map((tab, i) => {
-      return (
-        <View style={{height: 50, width: 150}} key={tab.key}>
-          <Text
-            icon={tab.icon}
-            selectedIcon={tab.selectedIcon}
-            title={tab.title}
-            onPress={() => dispatch(jumpTo(i, navigation.key))}
-            selected={this.props.navigation.index === i}>
-            { this._renderTabContent(tab) }
-          </Text>
-        </View>
-      )
-    })
+    const { navigation } = this.props
+    const onNavigate = action => {
+      this.drawer.closeDrawer()
+      this.props.dispatch(action)
+    }
+
+    var navigationView = (
+      <View style={{flex: 1, backgroundColor: '#fff'}}>
+        {this.props.navigation.routes.map((t, i) => {
+          return (
+            <TouchableHighlight
+              onPress={() => onNavigate(jumpTo(i, navigation.key))}
+              key={t.key}>
+              <Text>{t.title}</Text>
+            </TouchableHighlight>
+          )
+        })}
+      </View>
+    )
     return (
-      <TabBarIOS tintColor="black">
-        {children}
-      </TabBarIOS>
+      <DrawerLayoutAndroid
+        ref={(drawer) => { this.drawer = drawer }}
+        drawerWidth={300}
+        drawerPosition={DrawerLayoutAndroid.positions.Left}
+        renderNavigationView={() => navigationView}>
+				{this.renderApp()}
+      </DrawerLayoutAndroid>
+		)
+  }
+
+  renderApp () {
+    const selectedTab = this.props.navigation.routes[this.props.navigation.index]
+    const actions = [{
+      title: 'New Item',
+      icon: { uri: 'http://facebook.github.io/react/img/logo_og.png' },
+      show: 'always',
+      showWithText: false
+    }]
+    return (
+      <View style={{ flex: 1 }}>
+        <ToolbarAndroid
+          actions={actions}
+          onIconClicked={() => this.drawer.openDrawer()}
+          style={styles.toolbar}
+          title={selectedTab.title}
+          onActionSelected={this.onActionSelected.bind(this)}
+				/>
+				{this.renderTabContent(selectedTab)}
+      </View>
     )
   }
-}
 
-function mapDispatchToProps (dispatch) {
-  return {
-    dispatch
+  onActionSelected (position) {
+    const { dispatch } = this.props
+    if (position === 0) {
+      dispatch(pushRoute({
+        key: 'new',
+        title: 'Main Screen',
+        showBackButton: true
+      }, 'global'))
+    }
   }
 }
 
-function mapStateToProps (state) {
-  return {
-    navigation: state.tabs
-  }
-}
-export default connect(mapStateToProps, mapDispatchToProps)(ApplicationTabs)
+const stateToProps = state => ({
+  navigation: state.tabs
+})
+const dispatchToProps = dispatch => ({
+  dispatch
+})
+
+export default connect(stateToProps, dispatchToProps)(ApplicationTabs)
