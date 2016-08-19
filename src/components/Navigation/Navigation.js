@@ -40,10 +40,7 @@ class Navigation extends Component {
             <Tabs />
           </View>
         )
-      case 'applicationTabs':
-        return (
-            <Home/>
-        )
+      case 'applicationTabs': return <Home/>
       default:
         return (
           <View style={{flex: 1}}>
