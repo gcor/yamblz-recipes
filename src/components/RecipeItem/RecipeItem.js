@@ -1,30 +1,23 @@
 import React, { Component } from 'react'
 import { View, Text} from 'react-native'
+import css from './RecipeItem.css'
 
-class Recipe extends Component {
-  constructor () {
-    super()
-    this.state = {
-      data: 'no data'
-    }
-  }
-  componentWillMount () {
-    this.setState({
-      data: 'no data'
-    })
-
-    fetch('http://google.com')
-      .then(r => {
-        this.setState({
-          data: r.status
-        })
-      })
-  }
+class RecipeItem extends Component {
   render () {
     return (
-      <Text>{this.state.data}</Text>
+      <View>
+      	<View>
+      		<View></View>
+      		<Text>1</Text>
+      	</View>
+      	<View>
+      		<View></View>
+      	</View>
+      	<View>
+      	</View>
+      </View>
     )
   }
 }
 
-export default Recipe
+export default RecipeItem
