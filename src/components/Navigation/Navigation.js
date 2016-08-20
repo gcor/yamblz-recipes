@@ -1,5 +1,5 @@
 import { NavigationExperimental, Text, View } from 'react-native'
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { actions } from 'react-native-navigation-redux-helpers'
 import Tabs from '../Tabs'
@@ -32,21 +32,21 @@ class Navigation extends Component {
 
   renderScene (props) {
     console.log(props.scene.route.key)
-    let fake = 'new'
     switch (props.scene.route.key) {
-      case 'new':
-        return (
-          <View style={{flex: 1}}>
-            <Tabs />
-          </View>
-        )
-      case 'applicationTabs': return <Home />
-      default:
-        return (
-          <View style={{flex: 1}}>
-            <Text style={{color: 'blue'}}>default tab</Text>
-          </View>
-        )
+    case 'new':
+      return (
+        <View style={{flex: 1}}>
+          <Tabs />
+        </View>
+      )
+    // case 'recipes': return
+    case 'applicationTabs': return <Home />
+    default:
+      return (
+        <View style={{flex: 1}}>
+          <Text style={{color: 'blue'}}>default tab</Text>
+        </View>
+      )
     }
   }
 
@@ -63,6 +63,11 @@ class Navigation extends Component {
     const { dispatch, navigation } = this.props
     dispatch(pushRoute({key: 'new'}, navigation.key))
   }
+}
+
+Navigation.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  navigation: PropTypes.object.isRequired
 }
 
 const dispatchToProps = dispatch => ({

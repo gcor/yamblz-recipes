@@ -4,9 +4,9 @@ import navigation from './navigation'
 import tabs from './tabs'
 
 const reducers = {
-  counter,
-  navigation,
-  tabs
+	counter,
+	navigation,
+	tabs
 }
 
 const createReducers = () => (combineReducers(reducers))
