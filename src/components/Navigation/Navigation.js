@@ -3,7 +3,9 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { actions } from 'react-native-navigation-redux-helpers'
 import Tabs from '../Tabs'
+
 import Home from '../../containers/Home'
+import Recipe from '../../containers/Recipe'
 
 const {
 	popRoute,
@@ -33,13 +35,13 @@ class Navigation extends Component {
 	renderScene (props) {
 		console.log(props.scene.route.key)
 		switch (props.scene.route.key) {
-		case 'new':
+		case 'new': return <Recipe />
+		case 'recipe':
 			return (
 				<View style={{flex: 1}}>
 					<Tabs />
 				</View>
 			)
-		// case 'recipes': return
 		case 'applicationTabs': return <Home />
 		default:
 			return (

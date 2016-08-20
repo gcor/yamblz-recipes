@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ScrollView, Text, View, ListView } from 'react-native'
+import { ScrollView, Text, View, ListView, Image } from 'react-native'
 import css from './RecipeItem.css'
 import listCSS from '../List/List.css.js'
 
@@ -11,10 +11,9 @@ class RecipeItem extends Component {
 			recipeItemActions: ds.cloneWithRows(this.props.recipeItemData.actions)
 		}
 	}
-	_renderImage (image) {
-		return <View style={css.recipeItem__img}></View>
-	}
 	render () {
+		const { image } = this.props
+		console.log(image)
 		return (
 			<ScrollView style={css.recipeItem}>
 				<View style={css.recipeItem__header}>
@@ -24,7 +23,7 @@ class RecipeItem extends Component {
 					<Text style={css.recipeItem__title}>{this.props.recipeItemData.title}</Text>
 				</View>
 				<View style={css.recipeItem__body}>
-					{this._renderImage(this.props.recipeItemData.image)}
+					<Image source={{uri: image}} style={css.recipeItem__img} />
 				</View>
 				<View style={css.recipeItem__footer}>
 					<ListView
