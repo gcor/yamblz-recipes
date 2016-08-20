@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import { Text, View, TouchableHighlight } from 'react-native'
 import css from './Button.css'
 
@@ -18,6 +18,12 @@ class Button extends Component {
 			</View>
 		)
 	}
+}
+
+Button.propTypes = {
+	text: PropTypes.string.isRequired,
+	navigation: PropTypes.object.isRequired,
+	pushRoute: PropTypes.func.isRequired
 }
 
 export default Button

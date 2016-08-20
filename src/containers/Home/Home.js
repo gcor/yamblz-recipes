@@ -3,9 +3,8 @@ import { ScrollView, StyleSheet, View, Text } from 'react-native'
 import Button from '../../components/Button'
 import Slider from '../../components/Slider'
 import Tile from '../../components/Tile/Tile'
-import Recipe from '../../components/Recipe/Recipe'
 
-export default class App extends Component {
+class Home extends Component {
 	render () {
 		const cards = [{
 			title: 'Роял чизбургер',
@@ -52,22 +51,15 @@ export default class App extends Component {
 			title: 'Рыба',
 			recipeAmount: '17 рецепта'
 		}]
-		const recipeItemData = [{
-      step: 1,
-      title: 'Почистите рыбу',
-      actions: ['Удалите чешую', 'Сделайте надрез на брюхе', 'Удалите внутренности']
-    }, {
-      step: 2,
-      title: 'Нарежьте овощи',
-      actions: ['Лук колечками', 'Помидоры кубиками', 'Сельдерей кубиками']
-    }]
+
 		return (
 			<ScrollView>
-				<Recipe recipeItemData={recipeItemData}/>
-				{ /* <Button text='Каталог блюд' />
+				<Button text='Каталог блюд' />
 				<Slider title='Идеи для ланча' cards={cards} />
-				<Tile title='Лучшие рецепты' thumbnails={thumbnails} /> */ }
+				<Tile title='Лучшие рецепты' thumbnails={thumbnails} />
 			</ScrollView>
 		)
 	}
 }
+
+export default Home
