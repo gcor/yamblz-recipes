@@ -25,6 +25,6 @@ export default StyleSheet.create({
         height: Dimensions.get('window').width * 0.50 - 17.5,
         marginBottom: 15,
         borderWidth: 0,
-        elevation: 5
+        elevation: ui.elevation
     }
 });

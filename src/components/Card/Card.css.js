@@ -7,16 +7,7 @@ export default StyleSheet.create({
 		borderStyle: 'solid',
 		borderColor: 'transparent',
 		backgroundColor: 'white',
-
-		elevation: 5,
-
-		shadowColor: "#000000",
-		shadowOpacity: 0.8,
-		shadowRadius: 2,
-		shadowOffset: {
-			height: 1,
-			width: 0
-		}
+		elevation: ui.elevation
 	},
 	card__preview: {
 		backgroundColor: 'lightblue',
