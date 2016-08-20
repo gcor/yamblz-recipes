@@ -4,7 +4,6 @@ import ui from '../../constants/css'
 export default StyleSheet.create({
   recipeItem: {
     backgroundColor: 'white',
-    borderRadius: 5,
     margin: 10,
     paddingTop: 20,
     paddingBottom: 20

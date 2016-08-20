@@ -1,15 +1,15 @@
 import React, {Component} from 'react'
+import { View } from 'react-native'
 import RecipeItem from '../RecipeItem/RecipeItem'
 
 class Recipe extends Component {
   render () {
-    const recipeItemData = [{
-      step: 1,
-      title: 'Почистите рыбу',
-      actions: ['Удалите чешую', 'Сделайте надрез на брюхе', 'Удалите внутренности']
-    }]
     return (
-      <RecipeItem recipeItemData={recipeItemData[0]} />
+      <View>
+        {this.props.recipeItemData.map((item, index) => {
+          return <RecipeItem key={index} recipeItemData={item} />
+        })}
+      </View>
     )
   }
 }

@@ -52,9 +52,18 @@ export default class App extends Component {
 			title: 'Рыба',
 			recipeAmount: '17 рецепта'
 		}]
+		const recipeItemData = [{
+      step: 1,
+      title: 'Почистите рыбу',
+      actions: ['Удалите чешую', 'Сделайте надрез на брюхе', 'Удалите внутренности']
+    }, {
+      step: 2,
+      title: 'Нарежьте овощи',
+      actions: ['Лук колечками', 'Помидоры кубиками', 'Сельдерей кубиками']
+    }]
 		return (
 			<ScrollView>
-				<Recipe />
+				<Recipe recipeItemData={recipeItemData}/>
 				{ /* <Button text='Каталог блюд' />
 				<Slider title='Идеи для ланча' cards={cards} />
 				<Tile title='Лучшие рецепты' thumbnails={thumbnails} /> */ }
