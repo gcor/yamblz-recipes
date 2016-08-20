@@ -1,17 +1,14 @@
-import React, { Component } from 'react'
-import { View, Text} from 'react-native'
+import React, {Component} from 'react'
 import RecipeItem from '../RecipeItem/RecipeItem'
-import css from './Recipe.css'
 
 class Recipe extends Component {
   render () {
-    const recipeItemData = {
-      title: "Почистите рыбу",
+    const recipeItemData = [{
+      step: 1,
+      title: 'Почистите рыбу',
       actions: ['Удалите чешую', 'Сделайте надрез на брюхе', 'Удалите внутренности']
-    }
-    return (
-      <RecipeItem data={recipeItemData}/>
-    )
+    }]
+    return <RecipeItem recipeItemData={recipeItemData[0]}/>
   }
 }
 

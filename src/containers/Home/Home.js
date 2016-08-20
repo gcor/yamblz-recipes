@@ -6,20 +6,20 @@ import Tile from '../../components/Tile/Tile'
 import Recipe from '../../components/Recipe/Recipe'
 
 export default class App extends Component {
-	render() {
+	render () {
 		const cards = [{
 			title: 'Роял чизбургер',
 			time: '30 мин',
 			complexity: 'Сложно',
 			energy: '380 ккал',
 			stars: 4
-		},{
+		}, {
 			title: 'Гамбургер',
 			time: '15 мин',
 			complexity: 'Просто',
 			energy: '200 ккал',
 			stars: 5
-		},{
+		}, {
 			title: 'Биг мак',
 			time: '20 мин',
 			complexity: 'Средне',
@@ -29,34 +29,34 @@ export default class App extends Component {
 		const thumbnails = [{
 			title: 'Супы',
 			recipeAmount: '20 рецептов'
-		},{
+		}, {
 			title: 'Мясо',
 			recipeAmount: '63 рецепта'
-		},{
+		}, {
 			title: 'Птица',
 			recipeAmount: '56 рецептов'
-		},{
+		}, {
 			title: 'Рыба',
 			recipeAmount: '17 рецепта'
-		},{
+		}, {
 			title: 'Супы',
 			recipeAmount: '20 рецептов'
-		},{
+		}, {
 			title: 'Мясо',
 			recipeAmount: '63 рецепта'
-		},{
+		}, {
 			title: 'Птица',
 			recipeAmount: '56 рецептов'
-		},{
+		}, {
 			title: 'Рыба',
 			recipeAmount: '17 рецепта'
 		}]
 		return (
 			<ScrollView>
-				<Recipe/>
-				{/*<Button text='Каталог блюд' />
+				<Recipe />
+				{ /* <Button text='Каталог блюд' />
 				<Slider title='Идеи для ланча' cards={cards} />
-				<Tile title='Лучшие рецепты' thumbnails={thumbnails} />*/}
+				<Tile title='Лучшие рецепты' thumbnails={thumbnails} /> */ }
 			</ScrollView>
 		)
 	}
