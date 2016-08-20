@@ -1,11 +1,12 @@
+import Button from './Button'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import { actions } from 'react-native-navigation-redux-helpers'
-import Navigation from './Navigation'
 
-const { popRoute, pushRoute} = actions
-
-const stateToProps = state => ({})
-const dispatchToProps = dispatch => ({
-	pushRoute: routeName => dispatch(pushRoute(routeName))
+const stateToProps = state => ({
+	navigation: state.navigation
 })
-export default connect(stateToProps, dispatchToProps)(Navigation)
+const dispatchToProps = dispatch => (
+	bindActionCreators(actions, dispatch)
+)
+export default connect(stateToProps, dispatchToProps)(Button)

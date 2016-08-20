@@ -8,7 +8,7 @@ class RecipeItem extends Component {
       <View>
       	<View>
       		<View></View>
-      		<Text></Text>
+      		<Text>1</Text>
       	</View>
       	<View>
       		<View></View>

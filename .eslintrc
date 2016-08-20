@@ -23,10 +23,12 @@
     "react/jsx-no-bind": 0,
     "no-return-assign": 0,
     "max-len": 0,
-    "react/prop-types": 0,
+    "react/prop-types": 2,
     "generator-star-spacing": 0,
     "babel/generator-star-spacing": 1,
     "camelcase": 0,
-    "no-console": 2
+    "no-console": 2,
+    "indent": 0,
+    "react/jsx-indent": 2,
   }
 }

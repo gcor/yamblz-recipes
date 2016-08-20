@@ -1,2 +1,14 @@
 import Counter from './Counter'
-export default Counter
+import { connect } from 'react-redux'
+import { increment, decrement } from '../../store/modules/counter'
+
+const stateToProps = state => ({
+  count: state.counter.count
+})
+
+const dispatchToProps = dispatch => ({
+  increment: () => dispatch(increment()),
+  decrement: () => dispatch(decrement())
+})
+
+export default connect(stateToProps, dispatchToProps)(Counter)
