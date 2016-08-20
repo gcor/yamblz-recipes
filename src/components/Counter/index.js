@@ -1,6 +1,6 @@
 import Counter from './Counter'
 import { connect } from 'react-redux'
-import { increment, decrement } from '../../store/modules/counter'
+import { increment, decrement } from '../../reducers/counter'
 
 const stateToProps = state => ({
   count: state.counter.count

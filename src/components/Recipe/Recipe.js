@@ -8,7 +8,9 @@ class Recipe extends Component {
       title: 'Почистите рыбу',
       actions: ['Удалите чешую', 'Сделайте надрез на брюхе', 'Удалите внутренности']
     }]
-    return <RecipeItem recipeItemData={recipeItemData[0]}/>
+    return (
+      <RecipeItem recipeItemData={recipeItemData[0]} />
+    )
   }
 }
 

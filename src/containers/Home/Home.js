@@ -25,7 +25,7 @@ export default class App extends Component {
 			complexity: 'Средне',
 			energy: '300 ккал',
 			stars: 5
-		}];
+		}]
 		const thumbnails = [{
 			title: 'Супы',
 			recipeAmount: '20 рецептов'

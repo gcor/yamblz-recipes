@@ -28,8 +28,8 @@
     "generator-star-spacing": 0,
     "babel/generator-star-spacing": 1,
     "camelcase": 0,
-    "react/jsx-indent": 0,
-    indent: ["error", "tab"],
-    jsx-quotes: ["error", "prefer-single"]
+    "indent": ["error", 2],
+    no-mixed-spaces-and-tabs: [0, "smart-tabs"],
+    "jsx-quotes": ["error", "prefer-single"]
   }
 }
