@@ -36,7 +36,6 @@ class Navigation extends Component {
 		console.log(props.scene.route.key)
 		switch (props.scene.route.key) {
 		case 'new': return <Recipe />
-		// case 'recipes': return
 		case 'recipe':
 			return (
 				<View style={{flex: 1}}>

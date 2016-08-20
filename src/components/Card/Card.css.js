@@ -26,7 +26,7 @@ export default StyleSheet.create({
 		width: 16,
 		height: 16,
 		backgroundColor: 'silver',
-		margin:10
+		margin: 10
 	},
 	card__star_active: {
 		backgroundColor: 'gold'
@@ -59,4 +59,4 @@ export default StyleSheet.create({
 		marginTop: -2,
 		fontSize: 20
 	}
-});
+})

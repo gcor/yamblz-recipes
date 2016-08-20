@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
-import { View } from 'react-native'
+import { View, Text } from 'react-native'
 import RecipeItem from '../RecipeItem/RecipeItem'
+import css from './Recipe.css'
 
 class Recipe extends Component {
 	render () {
@@ -15,6 +16,7 @@ class Recipe extends Component {
 							image={this.props.recipe.image} />
 					)
 				})}
+				<Text style={css.recipe__note}>Мы напомним когда нужно будет проверить или помешать</Text>
 			</View>
 		)
 	}

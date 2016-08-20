@@ -39,7 +39,6 @@ class Home extends Component {
 			recipeAmount: '17 рецепта'
 		}, {
 			title: 'Супы',
-
 			recipeAmount: '20 рецептов'
 		}, {
 			title: 'Мясо',
@@ -51,7 +50,6 @@ class Home extends Component {
 			title: 'Рыба',
 			recipeAmount: '17 рецепта'
 		}]
-
 		return (
 			<ScrollView>
 				<Button text='Каталог блюд' />
