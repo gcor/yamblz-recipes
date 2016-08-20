@@ -3,6 +3,7 @@ import { ScrollView, StyleSheet, View, Text } from 'react-native';
 import Button from '../../components/Button/Button'
 import Slider from '../../components/Slider'
 import Tile from '../../components/Tile/Tile'
+import Recipe from '../../components/Recipe/Recipe'
 
 export default class App extends Component {
 	render() {
@@ -52,9 +53,10 @@ export default class App extends Component {
 		}]
 		return (
 			<ScrollView>
-				<Button text="Каталог блюд"/>
+				<Recipe/>
+				{/*<Button text="Каталог блюд"/>
 				<Slider title="Идеи для ланча" cards={cards}/>
-				<Tile title="Лучшие рецепты" thumbnails={thumbnails}/>
+				<Tile title="Лучшие рецепты" thumbnails={thumbnails}/>*/}
 			</ScrollView>
 		)
 	}
