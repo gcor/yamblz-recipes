@@ -40,6 +40,7 @@ export default class App extends Component {
 			recipeAmount: '17 рецепта'
 		}, {
 			title: 'Супы',
+
 			recipeAmount: '20 рецептов'
 		}, {
 			title: 'Мясо',

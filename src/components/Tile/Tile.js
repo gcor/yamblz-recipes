@@ -15,12 +15,12 @@ export default class Tile extends Component {
 		return (
 			<View style={css.tile}>
 				<Text style={css.tile__title}>{this.props.title.toUpperCase()}</Text>
-        		<ListView
-        			contentContainerStyle={css.tile__list}
-          			dataSource={this.state.dataSource}
-          			renderRow={this._renderThumbnail}
-        		/>
-      		</View>
+				<ListView
+					contentContainerStyle={css.tile__list}
+					dataSource={this.state.dataSource}
+					renderRow={this._renderThumbnail}
+				/>
+			</View>
 		)
 	}
 	_renderThumbnail(thumbnailData) {

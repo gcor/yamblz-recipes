@@ -1,15 +1,44 @@
-import { StyleSheet, Dimensions } from 'react-native'
+import { StyleSheet } from 'react-native'
 import ui from '../../constants/css'
 
 export default StyleSheet.create({
-  // recipeItem {},
-  // recipeItem__header {},
-  // recipeItem__step {},
-  // recipeItem__title {},
-  // recipeItem__body {},
-  // recipeItem__img {},
-  // recipeItem__footer {},
-  // recipeItem__list {},
-  // recipeItem__listPoint {},
-  // recipeItem__action {}
+  recipeItem: {
+    backgroundColor: 'white',
+    borderRadius: 5,
+    margin: 10,
+    paddingTop: 20,
+    paddingBottom: 20
+  },
+  recipeItem__header: {
+    flexDirection: 'row',
+    paddingBottom: 20
+  },
+  recipeItem__step: {
+    backgroundColor: ui.yellow,
+    paddingLeft: 25,
+    paddingRight: 10,
+    justifyContent: 'center',
+    marginRight: 20,
+    borderTopRightRadius: 100,
+    borderBottomRightRadius: 100
+  },
+  recipeItem__stepValue: {
+    fontSize: ui.fontS,
+    color: 'black'
+  },
+  recipeItem__title: {
+    fontSize: ui.fontL,
+    color: 'black'
+  },
+  recipeItem__body: {},
+  recipeItem__img: {
+    backgroundColor: 'silver',
+    height: 200
+  },
+  recipeItem__footer: {
+    marginTop: 20,
+    paddingTop: 20,
+    borderTopWidth: 1,
+    borderTopColor: '#eee'
+  }
 })

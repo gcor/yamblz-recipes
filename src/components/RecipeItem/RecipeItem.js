@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import { Text, View, ListView } from 'react-native'
+import { ScrollView, Text, View, ListView } from 'react-native'
 import css from './RecipeItem.css'
+import listCSS from '../List/List.css.js'
 
 class RecipeItem extends Component {
   constructor(props) {
@@ -12,10 +13,10 @@ class RecipeItem extends Component {
 	}
   render () {
     return (
-      <View style={css.recipeItem}>
+      <ScrollView style={css.recipeItem}>
         <View style={css.recipeItem__header}>
           <View style={css.recipeItem__step}>
-            <Text style={css.recipeItem__step}>{this.props.recipeItemData.step}</Text>
+            <Text style={css.recipeItem__stepValue}>{this.props.recipeItemData.step}</Text>
           </View>
           <Text style={css.recipeItem__title}>{this.props.recipeItemData.title}</Text>
         </View>
@@ -24,18 +25,19 @@ class RecipeItem extends Component {
         </View>
         <View style={css.recipeItem__footer}>
           <ListView
+            style={listCSS.list}
             dataSource={this.state.recipeItemActions}
             renderRow={this._renderActionItem}
           />
         </View>
-      </View>
+      </ScrollView>
     )
   }
   _renderActionItem (rowData) {
     return (
-      <View style={css.recipeItem__list}>
-        <View style={css.recipeItem__listPoint}></View>
-        <Text style={css.recipeItem__action}>{rowData}</Text>
+      <View style={listCSS.item}>
+        <View style={listCSS.item__point}></View>
+        <Text style={listCSS.item__value}>{rowData}</Text>
       </View>
     )
   }
