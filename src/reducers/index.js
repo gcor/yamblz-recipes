@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
-import counter from './modules/counter'
-import navigation from './modules/navigation'
-import tabs from './modules/tabs'
+import counter from './counter'
+import navigation from './navigation'
+import tabs from './tabs'
 
 const reducers = {
   counter,

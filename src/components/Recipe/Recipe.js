@@ -10,7 +10,7 @@ class Recipe extends Component {
       actions: ['Удалите чешую', 'Сделайте надрез на брюхе', 'Удалите внутренности']
     }
     return (
-      <RecipeItem data={recipeItemData}/>
+      <RecipeItem data={recipeItemData} />
     )
   }
 }
