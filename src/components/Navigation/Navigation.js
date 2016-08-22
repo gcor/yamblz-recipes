@@ -35,20 +35,20 @@ class Navigation extends Component {
 	renderScene (props) {
 		console.log(props.scene.route.key)
 		switch (props.scene.route.key) {
-		case 'new': return <Recipe />
-		case 'recipe':
-			return (
-				<View style={{flex: 1}}>
-					<Tabs />
-				</View>
-			)
-		case 'applicationTabs': return <Home />
-		default:
-			return (
-				<View style={{flex: 1}}>
-					<Text style={{color: 'blue'}}>default tab</Text>
-				</View>
-			)
+			case 'new': return <Recipe />
+			case 'recipe':
+				return (
+					<View style={{flex: 1}}>
+						<Tabs />
+					</View>
+				)
+			case 'applicationTabs': return <Home />
+			default:
+				return (
+					<View style={{flex: 1}}>
+						<Text style={{color: 'blue'}}>default tab</Text>
+					</View>
+				)
 		}
 	}
 
