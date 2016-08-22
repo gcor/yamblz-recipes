@@ -12,8 +12,6 @@ class RecipeItem extends Component {
 		}
 	}
 	render () {
-		const { image } = this.props
-		console.log(image)
 		return (
 			<ScrollView style={css.recipeItem}>
 				<View style={css.recipeItem__header}>
@@ -22,9 +20,7 @@ class RecipeItem extends Component {
 					</View>
 					<Text style={css.recipeItem__title}>{this.props.recipeItemData.title}</Text>
 				</View>
-				<View style={css.recipeItem__body}>
-					<Image source={{uri: image}} style={css.recipeItem__img} />
-				</View>
+				{this._renderImage()}
 				<View style={css.recipeItem__footer}>
 					<ListView
 						style={listCSS.list}
@@ -34,6 +30,17 @@ class RecipeItem extends Component {
 				</View>
 			</ScrollView>
 		)
+	}
+	_renderImage () {
+		const { image } = this.props
+		if (image) {
+			return (
+				<View style={css.recipeItem__body}>
+					<Image source={{uri: image}} style={css.recipeItem__img} />
+				</View>
+			)
+		}
+		return null
 	}
 	_renderActionItem (rowData) {
 		return (

@@ -10,17 +10,14 @@ import { connect } from 'react-redux'
 import { actions as navigationActions } from 'react-native-navigation-redux-helpers'
 
 import styles from './styles'
-
-import Counter from '../Counter'
-
 const { jumpTo, pushRoute } = navigationActions
 
 class ApplicationTabs extends Component {
 	renderTabContent (tab) {
 		switch (tab) {
-			case 'feed': return <Text>Feed</Text>
-			case 'new': return <Text>New</Text>
-			default: return <Counter />
+		case 'feed': return <Text>Feed</Text>
+		case 'new': return <Text>New</Text>
+		default: return <Text>default</Text>
 		}
 	}
 

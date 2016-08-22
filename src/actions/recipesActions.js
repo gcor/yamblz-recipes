@@ -13,7 +13,6 @@ export const fetchRecipes = () => {
 	return dispatch => {
 		let url = 'https://intense-earth-33481.herokuapp.com/recipes'
 		fetchData(url).then(recipes => {
-			console.log(recipes)
 			dispatch(_fetchRecipes(recipes))
 		})
 	}
