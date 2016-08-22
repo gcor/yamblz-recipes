@@ -1,9 +1,9 @@
-import React, { Component, PropTypes } from 'react';
-import { Text, View } from 'react-native';
-import css from './Card.css';
+import React, { Component, PropTypes } from 'react'
+import { Text, View } from 'react-native'
+import css from './Card.css'
 
 export default class Card extends Component {
-	render() {
+	render () {
 		return (
 			<View style={[css.card, this.props.style]}>
 				<View style={css.card__preview}>

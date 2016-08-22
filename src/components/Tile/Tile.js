@@ -13,7 +13,7 @@ class Tile extends Component {
 	}
 
 	_onPressHandler () {
-		this.props.navigatePush('Recipe')
+		this.props.navigatePush({key: 'Recipe', title: 'Рецепт'})
 	}
 
 	render () {

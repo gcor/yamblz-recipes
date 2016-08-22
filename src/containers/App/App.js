@@ -1,16 +1,14 @@
-'use strict'
-
-import React, {PropTypes} from 'react'
-import {NavigationExperimental, StyleSheet} from 'react-native'
+import React, { PropTypes } from 'react'
+import { NavigationExperimental, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
 
 import Home from '../Home'
 import Recipe from '../Recipe'
 import { navigatePop } from '../../actions/navigationActions'
+import s from './App.css'
 
 const {
 	CardStack: NavigationCardStack,
-	Card: NavigationCard,
 	Header: NavigationHeader
 } = NavigationExperimental
 
@@ -22,9 +20,6 @@ class AppContainerWithCardStack extends React.Component {
 		let { navigationState, backAction } = this.props
 
 		return (
-
-			// Redux is handling the reduction of our state for us. We grab the navigationState
-			// we have in our Redux store and pass it directly to the <NavigationCardStack />.
 			<NavigationCardStack
 				navigationState={navigationState}
 				onNavigateBack={backAction}
@@ -33,14 +28,21 @@ class AppContainerWithCardStack extends React.Component {
 					? 'vertical' : 'horizontal'
 				}
 				renderOverlay={props => (
-					<NavigationHeader
-						{...props}
+					<NavigationHeader {...props}
+						style={s.header}
 						onNavigateBack={backAction}
 						renderTitleComponent={props => {
 							const title = props.scene.route.title
-							return <NavigationHeader.Title>{title}</NavigationHeader.Title>
+							console.log(NavigationHeader.Title)
+							return (
+								<NavigationHeader.Title
+									title={11}
+									textStyle={{fontSize: 17}}
+									style={{fontSize: 32, color: 'blue'}}>
+									{title.toUpperCase()}
+								</NavigationHeader.Title>
+							)
 						}}
-						// When dealing with modals you may also want to override renderLeftComponent...
 					/>
 				)}
 				renderScene={this._renderScene}
@@ -52,10 +54,10 @@ class AppContainerWithCardStack extends React.Component {
 		const { route } = scene
 
 		switch (route.key) {
-		case 'Home':
-			return <Home />
-		case 'Recipe':
-			return <Recipe />
+			case 'Home':
+				return <Home />
+			case 'Recipe':
+				return <Recipe />
 		}
 	}
 }

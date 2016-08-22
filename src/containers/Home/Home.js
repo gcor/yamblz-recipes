@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { ScrollView, StyleSheet, Text } from 'react-native'
+import { ScrollView } from 'react-native'
 import Button from '../../components/Button'
 import Slider from '../../components/Slider'
 import Tile from '../../components/Tile'
@@ -52,7 +52,6 @@ class Home extends Component {
 		}]
 		return (
 			<ScrollView>
-				<Button text='Каталог блюд' route='recipe' />
 				<Slider title='Идеи для ланча' cards={cards} />
 				<Tile title='Лучшие рецепты' thumbnails={thumbnails} />
 			</ScrollView>
