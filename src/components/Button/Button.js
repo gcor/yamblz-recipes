@@ -4,9 +4,10 @@ import css from './Button.css'
 
 class Button extends Component {
 	_onPressButton () {
-		const { navigation, pushRoute } = this.props
-		console.log(navigation.key)
-		pushRoute({key: 'new'}, navigation.key)
+		if (this.props.route) {
+			const { navigationState, route } = this.props
+
+		}
 	}
 	render () {
 		return (
@@ -22,8 +23,8 @@ class Button extends Component {
 
 Button.propTypes = {
 	text: PropTypes.string.isRequired,
-	navigation: PropTypes.object.isRequired,
-	pushRoute: PropTypes.func.isRequired
+	navigationState: PropTypes.object.isRequired,
+	route: PropTypes.string
 }
 
 export default Button

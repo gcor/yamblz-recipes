@@ -15,12 +15,12 @@ class Slider extends Component {
 		return (
 			<View style={css.slider}>
 				<Text style={css.slider__title}>{this.props.title.toUpperCase()}</Text>
-        		<ListView
-        			horizontal={true}
-          			dataSource={this.state.dataSource}
-          			renderRow={this._renderCard}
-        		/>
-      		</View>
+				<ListView
+					horizontal
+					dataSource={this.state.dataSource}
+					renderRow={this._renderCard}
+				/>
+			</View>
 		)
 	}
 	_renderCard(cardData) {

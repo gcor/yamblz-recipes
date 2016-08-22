@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native'
 import ui from '../../constants/css'
 
 export default StyleSheet.create({
@@ -27,4 +27,4 @@ export default StyleSheet.create({
 		borderWidth: 0,
 		elevation: ui.elevation
 	}
-});
+})
