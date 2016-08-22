@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { ScrollView } from 'react-native'
 
 import Recipe from '../../components/Recipe/Recipe'
+import Header from '../../components/Header/Header'
 
 class RecipePage extends Component {
 	componentWillMount () {
@@ -33,6 +34,7 @@ class RecipePage extends Component {
 		}]
 		return (
 			<ScrollView>
+				<Header title='Запеченая форель с овощами' />
 				<Recipe recipeItemData={recipeItemData} recipe={this.props.recipe} />
 			</ScrollView>
 		)
