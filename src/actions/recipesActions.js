@@ -9,10 +9,11 @@ const fetchData = url => {
 	return fetch(url).then(r => r.json())
 }
 
-export const fetchRecipes = () => {
+export const fetchRecipes = (id) => {
 	return dispatch => {
-		let url = 'https://intense-earth-33481.herokuapp.com/recipes'
+		let url = `https://intense-earth-33481.herokuapp.com/recipes/${id}`
 		fetchData(url).then(recipes => {
+			console.log(recipes)
 			dispatch(_fetchRecipes(recipes))
 		})
 	}

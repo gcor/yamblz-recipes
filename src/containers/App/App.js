@@ -33,12 +33,9 @@ class AppContainerWithCardStack extends React.Component {
 						onNavigateBack={backAction}
 						renderTitleComponent={props => {
 							const title = props.scene.route.title
-							console.log(NavigationHeader.Title)
 							return (
 								<NavigationHeader.Title
-									title={11}
-									textStyle={{fontSize: 17}}
-									style={{fontSize: 32, color: 'blue'}}>
+									textStyle={{fontSize: 17}}>
 									{title.toUpperCase()}
 								</NavigationHeader.Title>
 							)

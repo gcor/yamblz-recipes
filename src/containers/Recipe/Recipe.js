@@ -6,7 +6,7 @@ import Button from '../../components/Button'
 
 class RecipePage extends Component {
 	componentWillMount () {
-		// this.props.fetchRecipes()
+		this.props.fetchRecipes('1')
 	}
 	render () {
 		const { recipe } = this.props

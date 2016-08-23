@@ -12,13 +12,15 @@ class Recipe extends Component {
 	}
 	renderSteps () {
 		const { data } = this.props
-		if (data.steps) {
-			return data.steps.map((step, index) => {
+		if (data.stages) {
+			console.log(data.stages)
+			return data.stages.map((stage, index) => {
 				return (
 					<RecipeItem
 						key={index}
-						recipeItemData={step}
-						image={data.image}
+						stage={stage}
+						numberOfStage={index + 1}
+						image={stage.image}
 					/>
 				)
 			})
