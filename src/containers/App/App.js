@@ -1,11 +1,11 @@
 import React, { PropTypes } from 'react'
-import { NavigationExperimental, StyleSheet } from 'react-native'
+import { View, NavigationExperimental } from 'react-native'
 import { connect } from 'react-redux'
 
 import Home from '../Home'
 import Recipe from '../Recipe'
 import { navigatePop } from '../../actions/navigationActions'
-import s from './App.css'
+import css from './App.css'
 
 const {
 	CardStack: NavigationCardStack,
@@ -23,19 +23,19 @@ class AppContainerWithCardStack extends React.Component {
 			<NavigationCardStack
 				navigationState={navigationState}
 				onNavigateBack={backAction}
-				style={styles.container}
+				style={css.container}
 				direction={navigationState.routes[navigationState.index].key === 'Modal'
 					? 'vertical' : 'horizontal'
 				}
 				renderOverlay={props => (
 					<NavigationHeader {...props}
-						style={s.header}
+						style={css.header}
 						onNavigateBack={backAction}
 						renderTitleComponent={props => {
 							const title = props.scene.route.title
 							return (
 								<NavigationHeader.Title
-									textStyle={{fontSize: 17}}>
+									textStyle={css.text__header}>
 									{title.toUpperCase()}
 								</NavigationHeader.Title>
 							)
@@ -63,12 +63,6 @@ AppContainerWithCardStack.propTypes = {
 	navigationState: PropTypes.object,
 	backAction: PropTypes.func.isRequired
 }
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1
-	}
-})
 
 export default connect(
 	state => ({

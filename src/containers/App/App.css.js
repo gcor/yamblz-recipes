@@ -4,24 +4,16 @@ import ui from '../../constants/css'
 export default StyleSheet.create({
 	header: {
 		backgroundColor: ui.yellow,
-		// height: 55,
 		flexDirection: 'row',
 		alignItems: 'center'
-		// position: 'relative',
-
 	},
-	button_text_center: {
-		justifyContent: 'center'
+	header__title: {
+		fontSize: ui.fontL
 	},
-	button__icon: {
-		width: 18,
-		height: 18,
-		backgroundColor: 'slategray',
-		marginLeft: 15,
-		marginRight: 15
+	container: {
+		flex: 1
 	},
-	button__text: {
-		color: 'black',
-		fontSize: 16
+	page: {
+		marginTop: 60
 	}
 })
