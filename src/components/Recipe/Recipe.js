@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { View, Text, InteractionManager } from 'react-native'
-import RecipeItem from '../RecipeItem/RecipeItem'
+import RecipeItem from '../RecipeItem'
+import Timer from '../Timer'
 import css from './Recipe.css'
 
 class Recipe extends Component {
@@ -13,7 +14,6 @@ class Recipe extends Component {
 	renderSteps () {
 		const { data } = this.props
 		if (data.stages) {
-			console.log(data.stages)
 			return data.stages.map((stage, index) => {
 				return (
 					<RecipeItem
@@ -41,6 +41,7 @@ class Recipe extends Component {
 		return (
 			<View>
 				{this.renderSteps()}
+				<Timer />
 				<Text style={css.recipe__note}>Мы напомним когда нужно будет проверить или помешать</Text>
 			</View>
 		)
