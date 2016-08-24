@@ -1,8 +1,8 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
 import { ScrollView } from 'react-native'
-import Button from '../../components/Button'
 import Slider from '../../components/Slider'
 import Tile from '../../components/Tile'
+import ui from '../../constants/css'
 
 class Home extends Component {
 	render () {
@@ -51,7 +51,7 @@ class Home extends Component {
 			recipeAmount: '17 рецепта'
 		}]
 		return (
-			<ScrollView>
+			<ScrollView style={ui.page}>
 				<Slider title='Идеи для ланча' cards={cards} />
 				<Tile title='Лучшие рецепты' thumbnails={thumbnails} />
 			</ScrollView>

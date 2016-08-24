@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { ScrollView, Text, View, ListView, Image } from 'react-native'
+import { Text, View, ListView, Image } from 'react-native'
 import css from './RecipeItem.css'
 import listCSS from '../List/List.css.js'
 
@@ -14,7 +14,7 @@ class RecipeItem extends Component {
 	render () {
 		const { stage, numberOfStage } = this.props
 		return (
-			<ScrollView style={css.recipeItem}>
+			<View style={css.recipeItem}>
 				<View style={css.recipeItem__header}>
 					<View style={css.recipeItem__step}>
 						<Text style={css.recipeItem__stepValue}>{numberOfStage}</Text>
@@ -29,7 +29,7 @@ class RecipeItem extends Component {
 						renderRow={this._renderActionItem}
 					/>
 				</View>
-			</ScrollView>
+			</View>
 		)
 	}
 	_renderImage () {
@@ -48,7 +48,7 @@ class RecipeItem extends Component {
 	_renderActionItem (rowData) {
 		return (
 			<View style={listCSS.item}>
-				<View style={listCSS.item__point} />
+				<View style={listCSS.item__point}></View>
 				<Text style={listCSS.item__value}>{rowData}</Text>
 			</View>
 		)

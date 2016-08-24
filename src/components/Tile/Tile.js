@@ -13,12 +13,17 @@ class Tile extends Component {
 	}
 
 	_onPressHandler () {
-		this.props.navigatePush({key: 'Recipe', title: 'Рецепт'})
+		this.props.navigatePush({
+			key: 'Recipe',
+			title: 'Рецепт'
+		})
 	}
 
 	render () {
 		return (
-			<TouchableHighlight onPress={this._onPressHandler.bind(this)}>
+			<TouchableHighlight
+				underlayColor='transparent'
+				onPress={this._onPressHandler.bind(this)}>
 				<View style={css.tile}>
 					<Text style={css.tile__title}>{this.props.title.toUpperCase()}</Text>
 					<ListView

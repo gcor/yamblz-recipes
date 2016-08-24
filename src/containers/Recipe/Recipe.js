@@ -1,8 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { ScrollView } from 'react-native'
-
 import Recipe from '../../components/Recipe'
-import Button from '../../components/Button'
+import ui from '../../constants/css'
 
 class RecipePage extends Component {
 	componentWillMount () {
@@ -11,8 +10,7 @@ class RecipePage extends Component {
 	render () {
 		const { recipe } = this.props
 		return (
-			<ScrollView>
-				<Button text='Процесс' route='home' />
+			<ScrollView style={ui.page}>
 				<Recipe data={recipe} />
 			</ScrollView>
 		)
