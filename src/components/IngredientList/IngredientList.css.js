@@ -2,48 +2,47 @@ import { StyleSheet } from 'react-native'
 import ui from '../../constants/css'
 
 export default StyleSheet.create({
-	ingredients__listContainer: {
-		borderTopWidth: 1,
+	ingredients: {
+		paddingTop: 20,
+		paddingBottom: 20
+	},
+	ingredients__item: {
 		borderBottomWidth: 1,
-		borderColor: ui.lightgray
-	},
-	ingredients__listItem: {
-		paddingBottom: 10,
-		paddingTop: 10,
-		paddingRight: 10,
-		borderLeftWidth: 0,
-		borderTopWidth: 0,
-		borderRightWidth: 0,
-		borderBottomWidth: 1,
-		borderColor: ui.lightgray,
-		marginLeft: 20,
-		flexDirection: 'row',
-		justifyContent: 'space-between'
-	},
-	ingredients__listItem_last: {
-		borderBottomWidth: 0
-	},
-	ingredient__title: {
-		fontSize: ui.fontXL
-	},
-	portion__title: {
-		fontSize: ui.fontXL
-	},
-	portion__number: {
-		fontSize: ui.fontXL
-	},
-	portion__increment: {
-		fontSize: ui.fontXL
-	},
-	portion__decrement: {
-		fontSize: ui.fontXL
-	},
-	portion__count: {
-		flexDirection: 'row'
-	},
-	portion: {
-		flexDirection: 'row',
+		borderBottomColor: ui.lightgray,
 		justifyContent: 'space-between',
-		paddingRight: 10
+		flexDirection: 'row',
+		alignItems: 'center',
+		height: 70,
+		marginLeft: 15
+	},
+	ingredients__left: {
+		flexDirection: 'row',
+		alignItems: 'center'
+	},
+	ingredients__title: {
+		fontSize: ui.fontL,
+		color: 'black'
+	},
+	ingredients__portions: {
+		marginLeft: 0,
+		paddingLeft: 15
+	},
+	ingredients__right: {
+		flexDirection: 'row',
+		alignItems: 'center',
+		textAlign: 'right',
+		marginRight: 15
+	},
+	ingredients__counter: {
+		fontSize: ui.fontXL,
+		fontWeight: 'bold',
+		color: 'black'
+	},
+	ingredients__measure: {
+		fontSize: ui.fontM,
+		color: 'black'
+	},
+	bold: {
+		fontWeight: 'bold'
 	}
 })

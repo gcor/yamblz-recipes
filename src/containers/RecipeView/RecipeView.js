@@ -1,8 +1,15 @@
 import React, { Component } from 'react'
 import { ScrollView } from 'react-native'
 import IngredientList from '../../components/IngredientList'
+import Button from '../../components/Button'
 
 export default class RecipeView extends Component {
+	_onPress () {
+		this.props.navigatePush({
+			key: 'RecipeView',
+			title: 'Подготовка'
+		})
+	}
 	render () {
 		const recipe = {
 			portions: 2,
@@ -20,10 +27,12 @@ export default class RecipeView extends Component {
 				measure: 'мл'
 			}]
 		}
-
 		return (
-			<ScrollView>
+			<ScrollView style={{paddingTop: 60, backgroundColor: 'white'}}>
 				<IngredientList recipe={recipe} />
+				<Button
+					onPress={this._onPress.bind(this)}
+					text='Приготовить' />
 			</ScrollView>
 		)
 	}

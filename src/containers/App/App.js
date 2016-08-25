@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 
 import Home from '../Home'
 import Recipe from '../Recipe'
+import RecipeView from '../RecipeView'
 import { navigatePop } from '../../actions/navigationActions'
 import css from './App.css'
 
@@ -55,6 +56,8 @@ class AppContainerWithCardStack extends React.Component {
 				return <Home />
 			case 'Recipe':
 				return <Recipe />
+			case 'RecipeView':
+				return <RecipeView />
 		}
 	}
 }
