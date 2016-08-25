@@ -1,2 +1,3 @@
 import Home from './Home'
-export default Home
+import { connect } from 'react-redux'
+export default connect()(Home)

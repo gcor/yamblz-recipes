@@ -1,8 +1,9 @@
-import React, { Component, PropTypes } from 'react'
-import { ScrollView, StyleSheet, View, Text } from 'react-native'
-import Button from '../../components/Button'
+import React, { Component } from 'react'
+import { ScrollView } from 'react-native'
 import Slider from '../../components/Slider'
-import Tile from '../../components/Tile/Tile'
+import Tile from '../../components/Tile'
+import Preview from '../../components/Preview'
+import ui from '../../constants/css'
 
 class Home extends Component {
 	render () {
@@ -50,9 +51,14 @@ class Home extends Component {
 			title: 'Рыба',
 			recipeAmount: '17 рецепта'
 		}]
+		const preview = {
+			title: 'Итальянская кухня',
+			days: 7,
+			dishes: 17
+		}
 		return (
-			<ScrollView>
-				<Button text='Каталог блюд' />
+			<ScrollView style={ui.page}>
+				<Preview preview={preview} />
 				<Slider title='Идеи для ланча' cards={cards} />
 				<Tile title='Лучшие рецепты' thumbnails={thumbnails} />
 			</ScrollView>

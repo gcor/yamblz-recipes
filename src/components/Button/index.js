@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux'
 import { actions } from 'react-native-navigation-redux-helpers'
 
 const stateToProps = state => ({
-	navigation: state.navigation
+	navigationState: state.navigationState
 })
 const dispatchToProps = dispatch => (
 	bindActionCreators(actions, dispatch)

@@ -35,9 +35,6 @@ export default StyleSheet.create({
 		height: 200
 	},
 	recipeItem__footer: {
-		marginTop: 20,
-		paddingTop: 20,
-		borderTopWidth: 1,
-		borderTopColor: '#eee'
+		marginTop: 20
 	}
 })

@@ -3,7 +3,7 @@ import { Text, View } from 'react-native';
 import css from './Thumbnail.css'
 
 export default class Thumbnail extends Component {
-	render() {
+	render () {
 		return (
 			<View style={[css.thumbnail, this.props.style]}>
 				<View style={css.thumbnail__description}>
