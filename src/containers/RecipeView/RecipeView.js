@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import { ScrollView } from 'react-native'
+import { ScrollView, View } from 'react-native'
 import IngredientList from '../../components/IngredientList'
 import Button from '../../components/Button'
+import RecipeTabs from '../../components/RecipeTabs'
 
 export default class RecipeView extends Component {
 	_onPress () {
@@ -28,12 +29,14 @@ export default class RecipeView extends Component {
 			}]
 		}
 		return (
-			<ScrollView style={{paddingTop: 60, backgroundColor: 'white'}}>
-				<IngredientList recipe={recipe} />
-				<Button
-					onPress={this._onPress.bind(this)}
-					text='Приготовить' />
-			</ScrollView>
+      <View style={{flex: 1}}>
+  			<ScrollView style={{paddingTop: 60, backgroundColor: 'white'}}>
+          <RecipeTabs recipe={recipe}/>
+  			</ScrollView>
+        <Button
+          onPress={this._onPress.bind(this)}
+          text='Приготовить' />
+      </View>
 		)
 	}
 }
