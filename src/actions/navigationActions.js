@@ -3,10 +3,9 @@ import {
 	NAV_JUMP_TO_KEY, NAV_JUMP_TO_INDEX, NAV_RESET
 } from '../constants/actionTypes'
 
-
 // *** Action Creators ***
 // The following action creators were derived from NavigationStackReducer
-export function navigatePush(state) {
+export function navigatePush (state) {
 	state = typeof state === 'string' ? { key: state, title: state } : state
 	return {
 		type: NAV_PUSH,
@@ -14,27 +13,27 @@ export function navigatePush(state) {
 	}
 }
 
-export function navigatePop() {
+export function navigatePop () {
 	return {
 		type: NAV_POP
 	}
 }
 
-export function navigateJumpToKey(key) {
+export function navigateJumpToKey (key) {
 	return {
 		type: NAV_JUMP_TO_KEY,
 		key
 	}
 }
 
-export function navigateJumpToIndex(index) {
+export function navigateJumpToIndex (index) {
 	return {
 		type: NAV_JUMP_TO_INDEX,
 		index
 	}
 }
 
-export function navigateReset(routes, index) {
+export function navigateReset (routes, index) {
 	return {
 		type: NAV_RESET,
 		index,
