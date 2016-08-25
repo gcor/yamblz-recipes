@@ -30,13 +30,13 @@ export default StyleSheet.create({
 	ingredients__right: {
 		flexDirection: 'row',
 		alignItems: 'center',
-		textAlign: 'right',
 		marginRight: 15
 	},
 	ingredients__counter: {
 		fontSize: ui.fontXL,
 		fontWeight: 'bold',
-		color: 'black'
+		color: 'black',
+		textAlign: 'right'
 	},
 	ingredients__measure: {
 		fontSize: ui.fontM,

@@ -3,7 +3,7 @@ import { FETCH_RECIPES } from '../constants/actionTypes'
 const initialState = {
 	title: '',
 	cookingTime: 0,
-	image: '',
+	image: 'src',
 	stages: [{
 		title: 'Почистите рыбу',
 		image: true,
