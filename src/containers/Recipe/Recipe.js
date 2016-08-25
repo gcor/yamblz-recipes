@@ -5,7 +5,7 @@ import ui from '../../constants/css'
 
 class RecipePage extends Component {
 	componentWillMount () {
-		this.props.fetchRecipes('1')
+		this.props.fetchRecipes('2')
 	}
 	render () {
 		const { recipe } = this.props

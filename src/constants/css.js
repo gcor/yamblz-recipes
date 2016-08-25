@@ -9,5 +9,5 @@ export default {
 	fontM: 18,
 	fontS: 16,
 	fontXS: 14,
-	page: {paddingTop: 60}
+	page: {paddingTop: 60, paddingBottom: 60}
 }

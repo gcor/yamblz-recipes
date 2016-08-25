@@ -1,3 +1,9 @@
 import Home from './Home'
 import { connect } from 'react-redux'
-export default connect()(Home)
+import { navigatePush } from '../../actions/navigationActions'
+import { bindActionCreators } from 'redux'
+
+export default connect(
+	state => ({}),
+	dispatch => (bindActionCreators({navigatePush}, dispatch))
+)(Home)

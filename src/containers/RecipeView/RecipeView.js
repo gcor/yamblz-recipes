@@ -7,7 +7,7 @@ import RecipeTabs from '../../components/RecipeTabs'
 export default class RecipeView extends Component {
 	_onPress () {
 		this.props.navigatePush({
-			key: 'RecipeView',
+			key: 'Recipe',
 			title: 'Подготовка'
 		})
 	}
