@@ -25,7 +25,7 @@ class AppContainerWithCardStack extends React.Component {
 				navigationState={navigationState}
 				onNavigateBack={backAction}
 				style={css.container}
-				direction={navigationState.routes[navigationState.index].key === 'Modal'
+				direction={navigationState.routes[navigationState.index].key === 'Recipe'
 					? 'vertical' : 'horizontal'
 				}
 				renderOverlay={props => (
@@ -54,10 +54,10 @@ class AppContainerWithCardStack extends React.Component {
 		switch (route.key) {
 			case 'Home':
 				return <Home />
-			case 'Recipe':
-				return <Recipe />
 			case 'RecipeView':
 				return <RecipeView />
+			case 'Recipe':
+				return <Recipe />
 		}
 	}
 }
