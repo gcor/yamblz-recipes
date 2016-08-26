@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react'
-import { Text, View, TouchableHighlight } from 'react-native'
+import { Text, View, TouchableHighlight, Image } from 'react-native'
 import css from './Card.css'
+
+// <View style={css.card__image}></View>
 
 export default class Card extends Component {
 	render () {
@@ -11,7 +13,7 @@ export default class Card extends Component {
 				>
 				<View style={[css.card, this.props.style]}>
 					<View style={css.card__preview}>
-						<View style={css.card__image}></View>
+            <Image source={{uri: this.props.data.image}} style={css.card__image}/>
 					</View>
 					<Text style={css.card__title}>{this.props.data.title}</Text>
 					<View style={css.card__description}>
