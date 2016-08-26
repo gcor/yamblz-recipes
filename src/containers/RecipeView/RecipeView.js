@@ -17,8 +17,8 @@ export default class RecipeView extends Component {
 			portions: 2,
 			ingredients: [{
 				title: 'Томаты',
-				quantity: 400,
-				measure: 'гр'
+				quantity: 2,
+				measure: 'шт'
 			}, {
 				title: 'Огурцы',
 				quantity: 200,

@@ -10,11 +10,11 @@ export default StyleSheet.create({
 		elevation: ui.elevation
 	},
 	card__preview: {
-		backgroundColor: 'lightblue',
-		height: 185
+		// backgroundColor: 'lightblue',
+		// height: 185
 	},
 	card__image: {
-
+    height: 185
 	},
 	card__stars: {
 		flexDirection: 'row',

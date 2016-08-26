@@ -4,10 +4,10 @@ import ui from '../../constants/css'
 export default StyleSheet.create({
 	slider: {},
 	slider__title: {
-		fontSize: ui.fontXS,
+		fontSize: ui.fontS,
 		color: ui.gray,
 		marginLeft: 10,
-		marginBottom: 10,
+		marginBottom: 15,
 		marginTop: 25
 	},
 	slider__item: {
