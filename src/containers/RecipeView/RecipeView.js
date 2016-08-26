@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { ScrollView, View } from 'react-native'
-import IngredientList from '../../components/IngredientList'
 import Button from '../../components/Button'
 import RecipeTabs from '../../components/RecipeTabs'
+import css from './RecipeView.css'
 
 export default class RecipeView extends Component {
 	_onPress () {
@@ -27,21 +27,24 @@ export default class RecipeView extends Component {
 				quantity: 100,
 				measure: 'мл'
 			}],
-            stages: [{
-                title: 'Сварите спагетти'
-            }, {
-                title: 'Нарежьте ингредиенты для соуса'
-            }]
+			stages: [{
+				title: 'Сварите спагетти'
+			}, {
+				title: 'Нарежьте ингредиенты для соуса'
+			}]
 		}
 		return (
-      <View style={{flex: 1}}>
-  			<ScrollView style={{paddingTop: 60, backgroundColor: 'white'}}>
-                <RecipeTabs recipe={recipe}/>
-  			</ScrollView>
-            <Button
-                onPress={this._onPress.bind(this)}
-                text='Приготовить' />
-      </View>
+			<View style={{flex: 1}}>
+				<ScrollView style={{paddingTop: 60, backgroundColor: 'white'}}>
+					<View style={css.recipe}>
+						<View style={css.recipe__image}></View>
+						<RecipeTabs recipe={recipe} />
+					</View>
+				</ScrollView>
+				<Button
+					onPress={this._onPress.bind(this)}
+					text='Приготовить' />
+			</View>
 		)
 	}
 }

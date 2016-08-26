@@ -22,10 +22,11 @@ export default class StageList extends Component {
 			</View>
 		)
 	}
-	_renderStage = (stage) => {
+	_renderStage = (stage, sectionId, rowId) => {
+		var stageNum = parseInt(rowId) + 1;
 		return (
 			<View style={css.stages__item}>
-				<Text style={css.stages__title}> {stage.title} </Text>
+				<Text style={css.stages__title}> {stageNum}. {stage.title} </Text>
 			</View>
 		)
 	}
