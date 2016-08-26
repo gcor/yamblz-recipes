@@ -26,16 +26,21 @@ export default class RecipeView extends Component {
 				title: 'Сметана',
 				quantity: 100,
 				measure: 'мл'
-			}]
+			}],
+            stages: [{
+                title: 'Сварите спагетти'
+            }, {
+                title: 'Нарежьте ингредиенты для соуса'
+            }]
 		}
 		return (
       <View style={{flex: 1}}>
   			<ScrollView style={{paddingTop: 60, backgroundColor: 'white'}}>
-          <RecipeTabs recipe={recipe}/>
+                <RecipeTabs recipe={recipe}/>
   			</ScrollView>
-        <Button
-          onPress={this._onPress.bind(this)}
-          text='Приготовить' />
+            <Button
+                onPress={this._onPress.bind(this)}
+                text='Приготовить' />
       </View>
 		)
 	}

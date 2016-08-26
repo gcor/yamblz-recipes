@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { View, Text } from 'react-native'
 import Tab from '../Tab'
 import IngredientList from '../IngredientList'
+import StageList from '../StageList'
 import css from './RecipeTabs.css'
 
 class RecipeTabs extends Component {
@@ -19,9 +20,9 @@ class RecipeTabs extends Component {
 	_renderTab () {
 		switch (this.state.activeTab) {
 			case 'stages':
-				return (<View><Text>Тут будут этапы, когда допилим</Text></View>)
+				return (<StageList recipe={this.props.recipe} />)
 			case 'products':
-				return (<IngredientList recipe={this.props.recipe}/>)
+				return (<IngredientList recipe={this.props.recipe} />)
 		}
 	}
 
