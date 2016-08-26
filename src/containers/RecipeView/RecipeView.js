@@ -16,8 +16,8 @@ export default class RecipeView extends Component {
 			portions: 2,
 			ingredients: [{
 				title: 'Томаты',
-				quantity: 400,
-				measure: 'гр'
+				quantity: 2,
+				measure: 'шт'
 			}, {
 				title: 'Огурцы',
 				quantity: 200,
@@ -29,14 +29,14 @@ export default class RecipeView extends Component {
 			}]
 		}
 		return (
-      <View style={{flex: 1}}>
-  			<ScrollView style={{paddingTop: 60, backgroundColor: 'white'}}>
-          <RecipeTabs recipe={recipe}/>
-  			</ScrollView>
-        <Button
-          onPress={this._onPress.bind(this)}
-          text='Приготовить' />
-      </View>
+			<View style={{flex: 1}}>
+				<ScrollView style={{paddingTop: 60, backgroundColor: 'white'}}>
+					<RecipeTabs recipe={recipe} />
+				</ScrollView>
+				<Button
+					onPress={this._onPress.bind(this)}
+					text='Приготовить' />
+			</View>
 		)
 	}
 }

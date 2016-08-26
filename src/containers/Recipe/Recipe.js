@@ -1,16 +1,20 @@
 import React, { Component, PropTypes } from 'react'
-import { ScrollView } from 'react-native'
+import { ScrollView, InteractionManager } from 'react-native'
+
 import Recipe from '../../components/Recipe'
-import ui from '../../constants/css'
+import Button from '../../components/Button'
 
 class RecipePage extends Component {
-	componentWillMount () {
-		this.props.fetchRecipes('2')
+	componentDidMount () {
+		InteractionManager.runAfterInteractions(() => {
+			this.props.fetchRecipes(2)
+		})
 	}
 	render () {
 		const { recipe } = this.props
 		return (
-			<ScrollView style={ui.page}>
+			<ScrollView>
+				<Button text='Процесс' route='home' />
 				<Recipe data={recipe} />
 			</ScrollView>
 		)
