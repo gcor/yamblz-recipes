@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { View, Text } from 'react-native'
 import Tab from '../Tab'
 import IngredientList from '../IngredientList'
+import StageList from '../StageList'
 import css from './RecipeTabs.css'
 import Swiper from 'react-native-swiper'
 
@@ -55,7 +56,7 @@ class RecipeTabs extends Component {
 				<Swiper loop={false}
 					ref={(r) => this.swiper = r}
 					onMomentumScrollEnd={(e, state) => this.handleSwipe(state.index)}>
-					<View tabLabel='Этапы'><Text>Тут будут этапы, когда допилим</Text></View>
+					<StageList tabLabel='Этапы' recipe={this.props.recipe} />
 					<IngredientList tabLabel='Продукты' recipe={this.props.recipe} />
 				</Swiper>
 			</View>
