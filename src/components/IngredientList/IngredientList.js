@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import { Text, View, ListView } from 'react-native'
 import css from './IngredientList.css'
 
@@ -33,7 +33,7 @@ export default class IngredientList extends Component {
 			</View>
 		)
 	}
-	_renderIngredient = (ingredient) => {
+	_renderIngredient = ingredient => {
 		const amount = this.props.recipe.portions * ingredient.amount
 		return (
 			<View style={css.ingredients__item}>
@@ -46,4 +46,9 @@ export default class IngredientList extends Component {
 			</View>
 		)
 	}
+}
+
+IngredientList.propTypes = {
+	onDecrement: PropTypes.func.isRequired,
+	onIncrement: PropTypes.func.isRequired
 }

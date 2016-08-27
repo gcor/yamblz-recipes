@@ -6,6 +6,8 @@ import css from './Card.css'
 
 export default class Card extends Component {
 	render () {
+		const { data } = this.props
+		const { title, complexity, time, energy, image } = data
 		return (
 			<TouchableHighlight
 				underlayColor='transparent'
@@ -13,21 +15,26 @@ export default class Card extends Component {
 				>
 				<View style={[css.card, this.props.style]}>
 					<View style={css.card__preview}>
-            <Image source={{uri: this.props.data.image}} style={css.card__image}/>
+						<Image source={{uri: image}} style={css.card__image} />
 					</View>
-					<Text style={css.card__title}>{this.props.data.title}</Text>
+					<Text style={css.card__title}>{title}</Text>
 					<View style={css.card__description}>
 						<View style={css.card__side}>
-							<Text style={css.card__text}>{this.props.data.time}</Text>
+							<Text style={css.card__text}>{time}</Text>
 							<Text style={css.card__divider}>.</Text>
-							<Text style={css.card__text}>{this.props.data.complexity}</Text>
+							<Text style={css.card__text}>{complexity}</Text>
 						</View>
 						<View style={css.card__side}>
-							<Text style={[css.card__text, css.card__text_right]}>{this.props.data.energy}</Text>
+							<Text style={[css.card__text, css.card__text_right]}>{energy}</Text>
 						</View>
 					</View>
 				</View>
 			</TouchableHighlight>
 		)
 	}
+}
+
+Card.propTypes = {
+	onPressHandler: PropTypes.func.isRequired,
+	styles: PropTypes.object
 }

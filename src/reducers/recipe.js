@@ -25,17 +25,15 @@ function recipe (state = initialState, action) {
 		case FETCH_RECIPES:
 			return {...state, ...action.recipes}
 		case INCREMENT_RECIPE_PORTION:
-			if (state.portions < maxPortions) {
-				return Object.assign({}, state, {
-					portions: state.portions + 1
-				})
-			} else return state
+			if (state.portions > maxPortions) return state
+			return Object.assign({}, state, {
+				portions: state.portions + 1
+			})
 		case DECREMENT_RECIPE_PORTION:
-			if (state.portions > minPortions) {
-				return Object.assign({}, state, {
-					portions: state.portions - 1
-				})
-			} else return state
+			if (state.portions < minPortions) return state
+			return Object.assign({}, state, {
+				portions: state.portions - 1
+			})
 		default: return state
 	}
 }
