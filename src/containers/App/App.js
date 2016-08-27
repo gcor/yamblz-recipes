@@ -1,11 +1,10 @@
 import React, { PropTypes } from 'react'
-import { View, NavigationExperimental } from 'react-native'
+import { NavigationExperimental } from 'react-native'
 import { connect } from 'react-redux'
-
 import Home from '../Home'
-import Recipe from '../Recipe'
 import RecipeView from '../RecipeView'
 import Category from '../Category'
+import Recipe from '../Recipe'
 import { navigatePop } from '../../actions/navigationActions'
 import css from './App.css'
 
