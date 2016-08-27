@@ -17,41 +17,19 @@ export default class RecipeView extends Component {
 	onDecrement () {
 		this.props.decrementRecipePortion('57bf5e6c23a24aae1483a36c')
 	}
-	componentDidMount () {
-		console.log(this.props.fetchRecipes('57bf5e6c23a24aae1483a36c'))
+	componentWillMount () {
+		setTimeout(() => {
+			console.log('андефайнд', this.props.fetchRecipes('57bf5e6c23a24aae1483a36c'))
+			// this.props.fetchRecipes('57bf5e6c23a24aae1483a36c')
+		}, 100)
 	}
 	render () {
-		const recipe = {
-			image: 'http://intense-earth-33481.herokuapp.com/assets/recipe2/brusketta_main.jpg',
-			portions: 2,
-			ingredients: [{
-				title: 'Томаты',
-				quantity: 2,
-				measure: 'шт'
-			}, {
-				title: 'Огурцы',
-				quantity: 200,
-				measure: 'гр'
-			}, {
-				title: 'Сметана',
-				quantity: 100,
-				measure: 'мл'
-			}],
-			stages: [{
-				title: 'Сварите спагетти'
-			}, {
-				title: 'Нарежьте ингредиенты для соуса'
-			}, {
-				title: 'Приготовьте соус'
-			}, {
-				title: 'Смешайте'
-			}]
-		}
+		const imageSrc = 'http://' + this.props.recipe.image
 		return (
 			<View style={{flex: 1}}>
 				<ScrollView style={{paddingTop: 55, backgroundColor: 'white'}}>
 					<View style={css.recipe}>
-						<Image source={{uri: recipe.image}} style={css.recipe__image} />
+						<Image source={{uri: imageSrc}} style={css.recipe__image} />
 						<RecipeTabs
 							recipe={this.props.recipe}
 							onDecrement={this.onDecrement.bind(this)}
@@ -68,5 +46,6 @@ export default class RecipeView extends Component {
 }
 
 RecipeView.propTypes = {
-	recipe: React.PropTypes.object
+	recipe: React.PropTypes.object,
+	fetchRecipes: React.PropTypes.func.isRequired
 }

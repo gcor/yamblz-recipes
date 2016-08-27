@@ -3,20 +3,17 @@ import { Text, View, ListView } from 'react-native'
 import css from './StageList.css'
 
 export default class StageList extends Component {
-	constructor (props) {
-		super(props)
+	render () {
 		const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 })
-		this.state = {
+		const list = {
 			rowCount: this.props.recipe.stages.length,
 			dataSource: ds.cloneWithRows(this.props.recipe.stages)
 		}
-	}
-	render () {
 		return (
 			<View style={css.stages}>
 				<ListView
 					contentContainerStyle={css.stages__list}
-					dataSource={this.state.dataSource}
+					dataSource={list.dataSource}
 					renderRow={this._renderStage}
 				/>
 			</View>

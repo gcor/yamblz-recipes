@@ -8,14 +8,15 @@ import {
 } from '../../actions/recipesActions'
 import { bindActionCreators } from 'redux'
 
-export default connect(
-	state => ({
-		recipe: state.recipe
-	}),
-	dispatch => (bindActionCreators({
-		navigatePush,
-		fetchRecipes,
-		incrementRecipePortion,
-		decrementRecipePortion
-	}, dispatch))
-)(RecipeView)
+const stateToProps = state => ({
+	recipe: state.recipe
+})
+
+const dipsatchToProps = dispatch => (bindActionCreators({
+	navigatePush,
+	fetchRecipes,
+	incrementRecipePortion,
+	decrementRecipePortion
+}, dispatch))
+
+export default connect(stateToProps, dipsatchToProps)(RecipeView)

@@ -4,16 +4,12 @@ import css from './RecipeItem.css'
 import listCSS from '../List/List.css.js'
 
 class RecipeItem extends Component {
-	constructor (props) {
-		super(props)
-		console.log(props)
-		const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 })
-		this.state = {
-			recipeItemActions: ds.cloneWithRows(this.props.stage.steps)
-		}
-	}
 	render () {
 		const { stage, numberOfStage } = this.props
+		const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 })
+		const list = {
+			recipeItemActions: ds.cloneWithRows(this.props.stage.steps)
+		}
 		return (
 			<View style={css.recipeItem}>
 				<View style={css.recipeItem__header}>
@@ -26,7 +22,7 @@ class RecipeItem extends Component {
 				<View style={css.recipeItem__footer}>
 					<ListView
 						style={listCSS.list}
-						dataSource={this.state.recipeItemActions}
+						dataSource={list.recipeItemActions}
 						renderRow={this._renderActionItem}
 					/>
 				</View>
