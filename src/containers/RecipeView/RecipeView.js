@@ -11,8 +11,14 @@ export default class RecipeView extends Component {
 			title: 'Процесс'
 		})
 	}
+	onIncrement () {
+		this.props.incrementRecipePortion('57bf5e6c23a24aae1483a36c')
+	}
+	onDecrement () {
+		this.props.decrementRecipePortion('57bf5e6c23a24aae1483a36c')
+	}
 	componentDidMount () {
-		console.log(this.props.fetchRecipes(2))
+		console.log(this.props.fetchRecipes('57bf5e6c23a24aae1483a36c'))
 	}
 	render () {
 		const recipe = {
@@ -46,7 +52,11 @@ export default class RecipeView extends Component {
 				<ScrollView style={{paddingTop: 55, backgroundColor: 'white'}}>
 					<View style={css.recipe}>
 						<Image source={{uri: recipe.image}} style={css.recipe__image} />
-						<RecipeTabs recipe={recipe} />
+						<RecipeTabs
+							recipe={recipe}
+							onDecrement={this.onDecrement.bind(this)}
+							onIncrement={this.onIncrement.bind(this)}
+						/>
 					</View>
 				</ScrollView>
 				<Button
