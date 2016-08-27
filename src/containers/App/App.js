@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import Home from '../Home'
 import Recipe from '../Recipe'
 import RecipeView from '../RecipeView'
+import Category from '../Category'
 import { navigatePop } from '../../actions/navigationActions'
 import css from './App.css'
 
@@ -56,6 +57,8 @@ class AppContainerWithCardStack extends React.Component {
 				return <Home />
 			case 'RecipeView':
 				return <RecipeView />
+			case 'Category':
+				return <Category />
 			case 'Recipe':
 				return <Recipe />
 		}
