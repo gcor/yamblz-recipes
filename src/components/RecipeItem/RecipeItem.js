@@ -6,6 +6,7 @@ import listCSS from '../List/List.css.js'
 class RecipeItem extends Component {
 	constructor (props) {
 		super(props)
+		console.log(props)
 		const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 })
 		this.state = {
 			recipeItemActions: ds.cloneWithRows(this.props.stage.steps)
@@ -34,7 +35,9 @@ class RecipeItem extends Component {
 	}
 	_renderImage () {
 		let { image } = this.props
-		if (!/http/.test()) image = 'http://' + image
+		// if (!/http/.test()) image = 'http://' + image
+		// todo
+		image = 'http://' + image
 		console.log(image)
 		if (image) {
 			return (
