@@ -25,6 +25,7 @@ export default class IngredientList extends Component {
 					</View>
 				</View>
 				<ListView
+					enableEmptySections
 					contentContainerStyle={css.ingredients__list}
 					dataSource={list.dataSource}
 					renderRow={this._renderIngredient.bind(this)}

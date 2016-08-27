@@ -5,7 +5,7 @@ import Recipe from '../../components/Recipe'
 import Button from '../../components/Button'
 
 class RecipePage extends Component {
-	componentDidMount () {
+	componentWillMount () {
 		InteractionManager.runAfterInteractions(() => {
 			this.props.fetchRecipes('57bf5e6c23a24aae1483a36c')
 		})

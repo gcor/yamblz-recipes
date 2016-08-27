@@ -20,7 +20,7 @@ class Button extends Component {
 
 Button.propTypes = {
 	text: PropTypes.string.isRequired,
-	onPress: PropTypes.func.isRequired
+	onPress: PropTypes.func
 }
 
 export default Button

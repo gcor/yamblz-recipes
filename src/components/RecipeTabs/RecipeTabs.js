@@ -71,7 +71,9 @@ class RecipeTabs extends Component {
 }
 
 RecipeTabs.propTypes = {
-	recipe: PropTypes.object.isRequired
+	recipe: PropTypes.object.isRequired,
+	onDecrement: PropTypes.func.isRequired,
+	onIncrement: PropTypes.func.isRequired
 }
 
 export default RecipeTabs

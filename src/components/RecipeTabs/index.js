@@ -1,2 +1,8 @@
 import RecipeTabs from './RecipeTabs'
-export default RecipeTabs
+import { connect } from 'react-redux'
+
+export default connect(
+	state => ({
+		recipe: state.recipe
+	})
+)(RecipeTabs)
