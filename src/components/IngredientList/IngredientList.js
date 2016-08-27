@@ -19,9 +19,9 @@ export default class IngredientList extends Component {
 						<Text style={[css.ingredients__title, css.bold]}> Порции </Text>
 					</View>
 					<View style={css.ingredients__right}>
-						<Text style={css.ingredients__counter}> - </Text>
+						<Text style={css.ingredients__counter} onPress={this.props.onDecrement}> - </Text>
 						<Text style={css.ingredients__counter}> {this.props.recipe.portions} </Text>
-						<Text style={css.ingredients__counter}> + </Text>
+						<Text style={css.ingredients__counter} onPress={this.props.onIncrement}> + </Text>
 					</View>
 				</View>
 				<ListView

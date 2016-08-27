@@ -2,6 +2,8 @@
 	Recipes constants
 */
 export const FETCH_RECIPES = 'FETCH_RECIPES'
+export const INCREMENT_RECIPE_PORTION = 'INCREMENT_RECIPE_PORTION'
+export const DECREMENT_RECIPE_PORTION = 'DECREMENT_RECIPE_PORTION'
 
 /*
 	Cards constants
@@ -10,7 +12,7 @@ export const FETCH_CARDS = 'FETCH_CARDS'
 export const FAV_CARD = 'FAV_CARD'
 
 /*
-	Navigation Constants
+	Navigation constants
 */
 export const NAVIGATE = 'NAVIGATE'
 export const NAV_PUSH = 'NAV_PUSH'

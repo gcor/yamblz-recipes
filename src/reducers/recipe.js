@@ -1,9 +1,14 @@
-import { FETCH_RECIPES } from '../constants/actionTypes'
+import {
+	FETCH_RECIPES,
+	INCREMENT_RECIPE_PORTION,
+	DECREMENT_RECIPE_PORTION
+} from '../constants/actionTypes'
 
 const initialState = {
 	title: '',
 	cookingTime: 0,
 	image: 'src',
+	portions: 1,
 	stages: [{
 		title: 'Почистите рыбу',
 		image: 'src',
@@ -13,7 +18,16 @@ const initialState = {
 
 function recipe (state = initialState, action) {
 	switch (action.type) {
-		case FETCH_RECIPES: return {state, ...action.recipes}
+		case FETCH_RECIPES:
+			return {...state, ...action.recipes}
+		case INCREMENT_RECIPE_PORTION:
+			return Object.assign({}, state, {
+				portions: state.portions + 1
+			})
+		case DECREMENT_RECIPE_PORTION:
+			return Object.assign({}, state, {
+				portions: state.portions - 1
+			})
 		default: return state
 	}
 }

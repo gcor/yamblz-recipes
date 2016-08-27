@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { View, Text } from 'react-native'
+import { View } from 'react-native'
 import Tab from '../Tab'
 import IngredientList from '../IngredientList'
 import StageList from '../StageList'
@@ -16,7 +16,6 @@ class RecipeTabs extends Component {
 
 	changeTo (index) {
 		if (this.state.activeTab === index) return false
-		console.log(index)
 		this.setState({
 			activeTab: index
 		})
@@ -27,7 +26,6 @@ class RecipeTabs extends Component {
 	}
 
 	handleSwipe (index) {
-		console.log(index)
 		this.setState({
 			activeTab: index
 		})
@@ -56,8 +54,16 @@ class RecipeTabs extends Component {
 				<Swiper loop={false}
 					ref={(r) => this.swiper = r}
 					onMomentumScrollEnd={(e, state) => this.handleSwipe(state.index)}>
-					<StageList tabLabel='Этапы' recipe={this.props.recipe} />
-					<IngredientList tabLabel='Продукты' recipe={this.props.recipe} />
+					<StageList
+						tabLabel='Этапы'
+						recipe={this.props.recipe}
+					/>
+					<IngredientList
+						tabLabel='Продукты'
+						onDecrement={this.props.onDecrement}
+						onIncrement={this.props.onIncrement}
+						recipe={this.props.recipe}
+					/>
 				</Swiper>
 			</View>
 		)
