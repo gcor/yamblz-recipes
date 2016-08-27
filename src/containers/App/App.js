@@ -1,10 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { NavigationExperimental, BackAndroid } from 'react-native'
 import { connect } from 'react-redux'
-import Home from '../Home'
-import RecipeView from '../RecipeView'
-import Category from '../Category'
-import Recipe from '../Recipe'
+import router from '../../router'
 import { navigatePop } from '../../actions/navigationActions'
 import css from './App.css'
 
@@ -55,24 +52,9 @@ class App extends Component {
 						}}
 					/>
 				)}
-				renderScene={this._renderScene}
+				renderScene={router}
 			/>
 		)
-	}
-
-	_renderScene ({scene}) {
-		const { route } = scene
-
-		switch (route.key) {
-			case 'Home':
-				return <Home />
-			case 'RecipeView':
-				return <RecipeView />
-			case 'Category':
-				return <Category />
-			case 'Recipe':
-				return <Recipe />
-		}
 	}
 }
 
