@@ -10,7 +10,7 @@ import { bindActionCreators } from 'redux'
 
 export default connect(
 	state => ({
-		title: state.recipe.title
+		recipe: state.recipe
 	}),
 	dispatch => (bindActionCreators({
 		navigatePush,

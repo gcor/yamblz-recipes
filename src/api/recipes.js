@@ -9,6 +9,6 @@ export default {
 		return fetchData(api.recipes)
 	},
 	getRecipeById (id) {
-		return fetchData(api.recipe + id)
+		return fetchData(api.recipes + id)
 	}
 }
