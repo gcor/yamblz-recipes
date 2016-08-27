@@ -1,5 +1,5 @@
-import React, { PropTypes } from 'react'
-import { NavigationExperimental } from 'react-native'
+import React, { Component, PropTypes } from 'react'
+import { NavigationExperimental, BackAndroid } from 'react-native'
 import { connect } from 'react-redux'
 import Home from '../Home'
 import RecipeView from '../RecipeView'
@@ -16,7 +16,19 @@ const {
 // Known bug in v0.30: https://github.com/facebook/react-native/issues/7422#issuecomment-236280199
 console.ignoredYellowBox = ['Warning: Failed prop type: Required prop `scene` was not specified in `NavigationHeader`']
 
-class AppContainerWithCardStack extends React.Component {
+class App extends Component {
+	componentWillMount () {
+		BackAndroid.addEventListener('hardwareBackPress', () => {
+			let { navigationState, backAction } = this.props
+			// Detect if is on main screen
+			if (navigationState.index === 0) {
+				return false
+			}
+
+			backAction()
+			return true
+		})
+	}
 	render () {
 		let { navigationState, backAction } = this.props
 
@@ -64,7 +76,7 @@ class AppContainerWithCardStack extends React.Component {
 	}
 }
 
-AppContainerWithCardStack.propTypes = {
+App.propTypes = {
 	navigationState: PropTypes.object,
 	backAction: PropTypes.func.isRequired
 }
@@ -78,4 +90,4 @@ export default connect(
 			dispatch(navigatePop())
 		}
 	})
-)(AppContainerWithCardStack)
+)(App)
