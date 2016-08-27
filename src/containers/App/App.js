@@ -1,10 +1,10 @@
 import React, { Component, PropTypes } from 'react'
 import { NavigationExperimental, BackAndroid } from 'react-native'
 import { connect } from 'react-redux'
-
 import Home from '../Home'
-import Recipe from '../Recipe'
 import RecipeView from '../RecipeView'
+import Category from '../Category'
+import Recipe from '../Recipe'
 import { navigatePop } from '../../actions/navigationActions'
 import css from './App.css'
 
@@ -68,6 +68,8 @@ class App extends Component {
 				return <Home />
 			case 'RecipeView':
 				return <RecipeView />
+			case 'Category':
+				return <Category />
 			case 'Recipe':
 				return <Recipe />
 		}
