@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import { ScrollView, View, Image } from 'react-native'
 import Button from '../../components/Button'
 import RecipeTabs from '../../components/RecipeTabs'
@@ -53,7 +53,7 @@ export default class RecipeView extends Component {
 					<View style={css.recipe}>
 						<Image source={{uri: recipe.image}} style={css.recipe__image} />
 						<RecipeTabs
-							recipe={recipe}
+							recipe={this.props.recipe}
 							onDecrement={this.onDecrement.bind(this)}
 							onIncrement={this.onIncrement.bind(this)}
 						/>
@@ -65,4 +65,8 @@ export default class RecipeView extends Component {
 			</View>
 		)
 	}
+}
+
+RecipeView.propTypes = {
+	recipe: React.PropTypes.object
 }

@@ -5,13 +5,13 @@ import css from './IngredientList.css'
 export default class IngredientList extends Component {
 	constructor (props) {
 		super(props)
+	}
+	render () {
 		const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 })
-		this.state = {
+		const list = {
 			rowCount: this.props.recipe.ingredients.length,
 			dataSource: ds.cloneWithRows(this.props.recipe.ingredients)
 		}
-	}
-	render () {
 		return (
 			<View style={css.ingredients}>
 				<View style={[css.ingredients__item, css.ingredients__portions]}>
@@ -26,20 +26,21 @@ export default class IngredientList extends Component {
 				</View>
 				<ListView
 					contentContainerStyle={css.ingredients__list}
-					dataSource={this.state.dataSource}
-					renderRow={this._renderIngredient}
+					dataSource={list.dataSource}
+					renderRow={this._renderIngredient.bind(this)}
 				/>
 			</View>
 		)
 	}
 	_renderIngredient = (ingredient) => {
+		const amount = this.props.recipe.portions * ingredient.amount
 		return (
 			<View style={css.ingredients__item}>
 				<View style={css.ingredients__left}>
-					<Text style={css.ingredients__title}> {ingredient.title} </Text>
+					<Text style={css.ingredients__title}> {ingredient.product.title} </Text>
 				</View>
 				<View style={css.ingredients__right}>
-					<Text style={css.ingredients__measure}> {ingredient.quantity} {ingredient.measure} </Text>
+					<Text style={css.ingredients__measure}> {amount} {ingredient.product.defaultMeasure} </Text>
 				</View>
 			</View>
 		)
