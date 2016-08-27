@@ -41,9 +41,9 @@ class Recipe extends Component {
 		return (
 			<View>
 				{this.renderSteps()}
-				<Text style={css.recipe__note}>Мы напомним когда нужно будет проверить или помешать</Text>
 			</View>
 		)
+		// <Text style={css.recipe__note}>Мы напомним когда нужно будет проверить или помешать</Text>
 	}
 }
 

@@ -8,8 +8,11 @@ export default class RecipeView extends Component {
 	_onPress () {
 		this.props.navigatePush({
 			key: 'Recipe',
-			title: 'Подготовка'
+			title: 'Процесс'
 		})
+	}
+	componentDidMount () {
+		console.log(this.props.fetchRecipes(2))
 	}
 	render () {
 		const recipe = {
