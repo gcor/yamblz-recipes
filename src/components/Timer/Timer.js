@@ -1,13 +1,14 @@
 import React, { Component, PropTypes } from 'react'
 import {
-	View, Text, Picker
+	View, Text
 } from 'react-native'
 import s from './Timer.css'
 import { formatTime } from './util'
+import Notification from '../Notification'
 
 class Timer extends Component {
 	componentWillMount () {
-		this.setState({value: 600000})
+		this.setState({value: this.props.value})
 		this.tick = setInterval(this.tickTack.bind(this), 1000)
 	}
 
@@ -32,15 +33,8 @@ class Timer extends Component {
 		let time = formatTime(this.state.value)
 		return (
 			<View>
-				<Picker
-					style={{width: 100}}
-					selectedValue={this.state.selected}
-					onValueChange={(value) => this.setState({selected: value})}>
-					<Picker.Item label='5' value={5} />
-					<Picker.Item label='10' value={10} />
-					<Picker.Item label='15' value={15} />
-				</Picker>
 				<Text style={s.timer}>{time}</Text>
+				<Notification />
 			</View>
 		)
 	}

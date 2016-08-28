@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { View } from 'react-native'
 import RecipeItem from '../RecipeItem'
-// import Timer from '../Timer'
+import Timer from '../Timer'
 // import css from './Recipe.css'
 
 class Recipe extends Component {
@@ -20,7 +20,12 @@ class Recipe extends Component {
 				)
 			})
 		}
-		return <View>{recipeItems}</View>
+		return (
+			<View>
+				{recipeItems}
+				<Timer value={300000} />
+			</View>
+		)
 		// <Text style={css.recipe__note}>Мы напомним когда нужно будет проверить или помешать</Text>
 	}
 }
