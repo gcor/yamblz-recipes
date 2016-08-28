@@ -7,11 +7,11 @@ import css from './Card.css'
 export default class Card extends Component {
 	render () {
 		const { data } = this.props
-		const { title, complexity, time, energy, image } = data
+		const { title, complexity, time, energy, image, _id: recipeID } = data
 		return (
 			<TouchableHighlight
 				underlayColor='transparent'
-				onPress={this.props.onPressHandler}
+				onPress={this.props.onPressHandler.bind(this, recipeID)}
 				>
 				<View style={[css.card, this.props.style]}>
 					<View style={css.card__preview}>
@@ -36,5 +36,6 @@ export default class Card extends Component {
 
 Card.propTypes = {
 	onPressHandler: PropTypes.func.isRequired,
-	styles: PropTypes.object
+	style: PropTypes.number,
+	data: PropTypes.object.isRequired
 }

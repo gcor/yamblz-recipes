@@ -11,6 +11,7 @@ export default class RecipeView extends Component {
 			this.setState({isReady: true})
 			this.props.fetchRecipes('57bf5e6c23a24aae1483a36c')
 		})
+		console.log('recipeVIEW', this.props.recipeID)
 	}
 	_onPress () {
 		this.props.navigatePush({

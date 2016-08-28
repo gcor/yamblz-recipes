@@ -8,7 +8,7 @@ class Slider extends Component {
 		super(props)
 		const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 })
 		this.state = {
-			dataSource: ds.cloneWithRows(this.props.cards)
+			dataSource: ds.cloneWithRows(this.props.recipes)
 		}
 	}
 	render () {
@@ -32,6 +32,12 @@ class Slider extends Component {
 			/>
 		)
 	}
+}
+
+Slider.propTypes = {
+	onPressHandler: PropTypes.func.isRequired,
+	title: PropTypes.string.isRequired,
+	recipes: PropTypes.array.isRequired
 }
 
 export default Slider

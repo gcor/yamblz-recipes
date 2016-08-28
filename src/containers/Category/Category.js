@@ -3,12 +3,17 @@ import { View, TouchableHighlight, ScrollView } from 'react-native'
 import Slider from '../../components/Slider'
 import ui from '../../constants/css'
 
-class Home extends Component {
-	_onPressHandler () {
+class Category extends Component {
+	componentWillMount () {
+		this.props.fetchCategories()
+	}
+	_onPressHandler (recipeID) {
 		this.props.navigatePush({
 			key: 'RecipeView',
-			title: 'Подготовка'
+			title: 'Подготовка',
+			recipeID: recipeID
 		})
+		console.log('handler', recipeID)
 	}
 	renderCategory (category) {
 		const { title, id, recipes } = category
@@ -17,7 +22,7 @@ class Home extends Component {
 				title={title}
 				key={id} id={id}
 				onPressHandler={this._onPressHandler.bind(this)}
-				cards={recipes} />
+				recipes={recipes} />
 		)
 	}
 	render () {
@@ -35,9 +40,10 @@ class Home extends Component {
 	}
 }
 
-Home.propTypes = {
+Category.propTypes = {
 	navigatePush: PropTypes.func.isRequired,
+	fetchCategories: PropTypes.func.isRequired,
 	categories: PropTypes.array.isRequired
 }
 
-export default Home
+export default Category
