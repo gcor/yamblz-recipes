@@ -8,12 +8,12 @@ class Category extends Component {
 		this.props.fetchCategories()
 	}
 	_onPressHandler (recipeID) {
-		this.props.navigatePush({
+		const { navigatePush, setCurrentRecipe } = this.props
+		setCurrentRecipe(recipeID)
+		navigatePush({
 			key: 'RecipeView',
-			title: 'Подготовка',
-			recipeID: recipeID
+			title: 'Подготовка'
 		})
-		console.log('handler', recipeID)
 	}
 	renderCategory (category) {
 		const { title, id, recipes } = category
@@ -43,7 +43,8 @@ class Category extends Component {
 Category.propTypes = {
 	navigatePush: PropTypes.func.isRequired,
 	fetchCategories: PropTypes.func.isRequired,
-	categories: PropTypes.array.isRequired
+	categories: PropTypes.array.isRequired,
+	setCurrentRecipe: PropTypes.func.isRequired
 }
 
 export default Category

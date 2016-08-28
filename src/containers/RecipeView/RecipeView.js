@@ -9,9 +9,9 @@ export default class RecipeView extends Component {
 		this.setState({isReady: false})
 		InteractionManager.runAfterInteractions(() => {
 			this.setState({isReady: true})
-			this.props.fetchRecipes('57bf5e6c23a24aae1483a36c')
+			const { fetchRecipes, currentRecipe } = this.props
+			fetchRecipes(currentRecipe)
 		})
-		console.log('recipeVIEW', this.props.recipeID)
 	}
 	_onPress () {
 		this.props.navigatePush({
@@ -62,5 +62,6 @@ RecipeView.propTypes = {
 	fetchRecipes: PropTypes.func.isRequired,
 	incrementRecipePortion: PropTypes.func.isRequired,
 	decrementRecipePortion: PropTypes.func.isRequired,
-	navigatePush: PropTypes.func.isRequired
+	navigatePush: PropTypes.func.isRequired,
+	currentRecipe: PropTypes.string.isRequired
 }
