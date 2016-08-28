@@ -14,20 +14,12 @@ export default class RecipeView extends Component {
 		})
 	}
 	_onPress () {
-		this.props.navigatePush({
-			key: 'Recipe',
-			title: 'Процесс'
-		})
-	}
-	onIncrement () {
-		this.props.incrementRecipePortion('57bf5e6c23a24aae1483a36c')
-	}
-	onDecrement () {
-		this.props.decrementRecipePortion('57bf5e6c23a24aae1483a36c')
+		this.props.navigatePush({key: 'Recipe', title: 'Процесс'})
 	}
 
 	renderTabs () {
 		const { isReady } = this.state
+		const { incrementRecipePortion, decrementRecipePortion } = this.props
 		const imageSrc = 'http://' + this.props.recipe.image
 		if (isReady) {
 			return (
@@ -35,8 +27,8 @@ export default class RecipeView extends Component {
 					<View style={css.recipe}>
 						<Image source={{uri: imageSrc}} style={css.recipe__image} />
 						<RecipeTabs
-							onDecrement={this.onDecrement.bind(this)}
-							onIncrement={this.onIncrement.bind(this)}
+							onIncrement={incrementRecipePortion}
+							onDecrement={decrementRecipePortion}
 						/>
 					</View>
 				</ScrollView>

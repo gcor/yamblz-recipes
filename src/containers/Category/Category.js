@@ -29,7 +29,6 @@ class Category extends Component {
 	}
 	render () {
 		const { categories } = this.props
-		console.log(categories)
 		return (
 			<ScrollView>
 				<TouchableHighlight>

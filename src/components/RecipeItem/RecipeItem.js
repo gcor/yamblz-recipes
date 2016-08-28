@@ -34,7 +34,6 @@ class RecipeItem extends Component {
 		// if (!/http/.test()) image = 'http://' + image
 		// todo
 		image = 'http://' + image
-		console.log(image)
 		if (image) {
 			return (
 				<View style={css.recipeItem__body}>

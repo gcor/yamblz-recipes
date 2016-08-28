@@ -23,7 +23,7 @@ const initialState = {
 function recipe (state = initialState, action) {
 	switch (action.type) {
 		case FETCH_RECIPES:
-			return {...state, ...action.recipes}
+			return {...state, ...action.payload}
 		case INCREMENT_RECIPE_PORTION:
 			if (state.portions >= maxPortions) return state
 			return {...state, ...{portions: state.portions + 1}}
