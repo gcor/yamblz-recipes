@@ -1,11 +1,13 @@
 import React, { Component, PropTypes } from 'react'
-import { View, TouchableHighlight, ScrollView } from 'react-native'
+import { View, TouchableHighlight, ScrollView, InteractionManager } from 'react-native'
 import Slider from '../../components/Slider'
 import ui from '../../constants/css'
 
 class Category extends Component {
 	componentWillMount () {
-		this.props.fetchCategories()
+		InteractionManager.runAfterInteractions(() => {
+			this.props.fetchCategories()
+		})
 	}
 	_onPressHandler (recipeID) {
 		const { navigatePush, setCurrentRecipe } = this.props

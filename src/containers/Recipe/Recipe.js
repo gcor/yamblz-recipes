@@ -7,7 +7,7 @@ import Button from '../../components/Button'
 class RecipePage extends Component {
 	componentWillMount () {
 		InteractionManager.runAfterInteractions(() => {
-			this.props.fetchRecipes('57bf5e6c23a24aae1483a36c')
+			// this.props.fetchRecipes('57bf5e6c23a24aae1483a36c')
 		})
 	}
 	render () {

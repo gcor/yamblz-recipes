@@ -31,3 +31,4 @@ export const NAV_RESET = 'NAV_RESET'
 	General constants
 */
 export const SET_CURRRENT_RECIPE = 'SET_CURRRENT_RECIPE'
+export const IS_FETCHED_CATEGORIES = 'IS_FETCHED_CATEGORIES'
