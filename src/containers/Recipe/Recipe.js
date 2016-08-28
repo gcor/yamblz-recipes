@@ -6,18 +6,23 @@ import Button from '../../components/Button'
 
 class RecipePage extends Component {
 	componentWillMount () {
+		this.setState({ready: false})
 		InteractionManager.runAfterInteractions(() => {
-			// this.props.fetchRecipes('57bf5e6c23a24aae1483a36c')
+				this.setState({ready: true})
 		})
 	}
-	render () {
-		const { recipe } = this.props
+	renderRecipe (recipe) {
 		return (
 			<ScrollView>
 				<Button text='Процесс' route='home' />
 				<Recipe data={recipe} />
 			</ScrollView>
 		)
+	}
+	render () {
+		const { recipe } = this.props
+		if (this.state.ready) return this.renderRecipe(recipe)
+		return null
 	}
 }
 

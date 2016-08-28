@@ -3,7 +3,7 @@ import { View } from 'react-native'
 import Button from '../../components/Button'
 import ui from '../../constants/css'
 
-export default class RecipeView extends Component {
+export default class Home extends Component {
 	_onPress () {
 		this.props.navigatePush({
 			key: 'Category',
