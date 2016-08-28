@@ -6,6 +6,12 @@ export const INCREMENT_RECIPE_PORTION = 'INCREMENT_RECIPE_PORTION'
 export const DECREMENT_RECIPE_PORTION = 'DECREMENT_RECIPE_PORTION'
 
 /*
+	Categories constants
+*/
+export const FETCH_CATEGORIES = 'FETCH_CATEGORIES'
+export const FETCH_CATEGORY_BY_ID = 'FETCH_CATEGORY_BY_ID'
+
+/*
 	Cards constants
 */
 export const FETCH_CARDS = 'FETCH_CARDS'

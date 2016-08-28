@@ -15,10 +15,10 @@ class Preview extends Component {
 }
 
 Preview.propTypes = {
-	preview: React.PropTypes.shape({
-		title: React.PropTypes.string.isRequired,
-		days: React.PropTypes.number.isRequired,
-		dishes: React.PropTypes.number.isRequired
+	preview: PropTypes.shape({
+		title: PropTypes.string.isRequired,
+		days: PropTypes.number.isRequired,
+		dishes: PropTypes.number.isRequired
 	})
 }
 

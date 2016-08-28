@@ -1,20 +1,15 @@
 import React, { Component, PropTypes } from 'react'
-import { View, Text, InteractionManager } from 'react-native'
+import { View } from 'react-native'
 import RecipeItem from '../RecipeItem'
-import Timer from '../Timer'
-import css from './Recipe.css'
+// import Timer from '../Timer'
+// import css from './Recipe.css'
 
 class Recipe extends Component {
-	constructor (props) {
-		super(props)
-		this.state = {
-			isReady: false
-		}
-	}
-	renderSteps () {
+	render () {
 		const { data } = this.props
+		let recipeItems = null
 		if (data.stages) {
-			return data.stages.map((stage, index) => {
+			recipeItems = data.stages.map((stage, index) => {
 				return (
 					<RecipeItem
 						key={index}
@@ -25,24 +20,7 @@ class Recipe extends Component {
 				)
 			})
 		}
-
-		return null
-	}
-
-	componentDidMount () {
-		InteractionManager.runAfterInteractions(() => {
-			this.setState({isReady: true})
-		})
-	}
-	render () {
-		if (!this.state.isReady) {
-			return null
-		}
-		return (
-			<View>
-				{this.renderSteps()}
-			</View>
-		)
+		return <View>{recipeItems}</View>
 		// <Text style={css.recipe__note}>Мы напомним когда нужно будет проверить или помешать</Text>
 	}
 }

@@ -3,9 +3,6 @@ import { Text, View, ListView } from 'react-native'
 import css from './IngredientList.css'
 
 export default class IngredientList extends Component {
-	constructor (props) {
-		super(props)
-	}
 	render () {
 		const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 })
 		const list = {
@@ -50,5 +47,6 @@ export default class IngredientList extends Component {
 
 IngredientList.propTypes = {
 	onDecrement: PropTypes.func.isRequired,
-	onIncrement: PropTypes.func.isRequired
+	onIncrement: PropTypes.func.isRequired,
+	recipe: PropTypes.object.isRequired
 }
