@@ -17,6 +17,7 @@ class Slider extends Component {
 				<Text style={css.slider__title}>{this.props.title.toUpperCase()}</Text>
 				<ListView
 					horizontal
+					showsHorizontalScrollIndicator={false}
 					dataSource={this.state.dataSource}
 					renderRow={this._renderCard.bind(this)}
 				/>
