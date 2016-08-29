@@ -2,7 +2,8 @@ import {
 	SLIDER_NEXT_SLIDE,
 	SLIDER_PREVIOUS_SLIDE,
 	SLIDER_SET_CURRENT_SLIDE,
-	SLIDER_SET_INITIAL_SLIDE
+	SLIDER_SET_INITIAL_SLIDE,
+	SLIDER_PUSH_CARD_HEIGHT
 } from '../constants/actionTypes'
 
 const initialState = {
@@ -21,6 +22,8 @@ function recipeSwiper (state = initialState, action) {
 			return {...state, currentSlide: action.payload}
 		case SLIDER_SET_INITIAL_SLIDE:
 			return {...state, initialSlide: action.payload}
+		case SLIDER_PUSH_CARD_HEIGHT:
+			return {...state, slides: [...state.slides, ...action.payload]}
 		default: return state
 	}
 }

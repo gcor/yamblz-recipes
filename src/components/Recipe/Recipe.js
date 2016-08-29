@@ -5,6 +5,23 @@ import Timer from '../Timer'
 // import css from './Recipe.css'
 
 class Recipe extends Component {
+	componentWillMount () {
+		this.setState({recipes: []})
+	}
+	calculateSlideHeight (slide) {
+		const { index, height } = slide
+		console.log(this.state)
+		// sl.push(slide)
+		// this.setState({slides: sl})
+		console.log(index, height)
+	}
+
+	componentDidMount () {
+		const self = this
+		setTimeout(() => {
+			console.log(self.state.slides)
+		}, 2000)
+	}
 	render () {
 		const { data } = this.props
 		let recipeItems = null
@@ -16,6 +33,7 @@ class Recipe extends Component {
 						stage={stage}
 						numberOfStage={index + 1}
 						image={stage.image}
+						calculateSlideHeight={this.calculateSlideHeight}
 					/>
 				)
 			})

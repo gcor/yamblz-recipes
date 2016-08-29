@@ -14,7 +14,7 @@ export const decrementRecipePortion = createAction(DECREMENT_RECIPE_PORTION)
 export const fetchRecipes = (id) => {
 	return dispatch => {
 		api.getRecipeById(id).then(recipes => {
-			console.log(recipes)
+			// console.log(recipes)
 			dispatch(_fetchRecipes(recipes))
 		})
 	}

@@ -1,2 +1,9 @@
 import RecipeItem from './RecipeItem'
-export default RecipeItem
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import pushCardHeight from '../../actions/recipeSwiperActions'
+
+export default connect(
+	state => ({}),
+	dispatch => (bindActionCreators({ pushCardHeight }, dispatch))
+)(RecipeItem)

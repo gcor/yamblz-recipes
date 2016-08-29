@@ -37,7 +37,6 @@ export default class RecipeView extends Component {
 		return null
 	}
 	render () {
-		console.log(this.props.recipe)
 		return (
 			<View style={{flex: 1}}>
 				{this.renderTabs()}

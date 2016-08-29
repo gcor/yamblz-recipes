@@ -4,6 +4,14 @@ import css from './RecipeItem.css'
 import listCSS from '../List/List.css.js'
 
 class RecipeItem extends Component {
+	_getHeight (e) {
+		const { height } = e.nativeEvent.layout
+		const { calculateSlideHeight, numberOfStage } = this.props
+		calculateSlideHeight({
+			index: numberOfStage,
+			height: height
+		})
+	}
 	render () {
 		const { stage, numberOfStage } = this.props
 		const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 })
@@ -11,7 +19,7 @@ class RecipeItem extends Component {
 			recipeItemActions: ds.cloneWithRows(this.props.stage.steps)
 		}
 		return (
-			<View style={css.recipeItem}>
+			<View style={css.recipeItem} onLayout={(e) => this._getHeight(e)}>
 				<View style={css.recipeItem__header}>
 					<View style={css.recipeItem__step}>
 						<Text style={css.recipeItem__stepValue}>{numberOfStage}</Text>
@@ -56,7 +64,9 @@ class RecipeItem extends Component {
 RecipeItem.propTypes = {
 	image: PropTypes.string,
 	stage: PropTypes.object.isRequired,
-	numberOfStage: PropTypes.number.isRequired
+	numberOfStage: PropTypes.number.isRequired,
+	pushCardHeight: PropTypes.func.isRequired,
+	calculateSlideHeight: PropTypes.func.isRequired
 }
 
 export default RecipeItem
