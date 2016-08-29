@@ -5,6 +5,11 @@ import css from './Card.css'
 // <View style={css.card__image}></View>
 
 export default class Card extends Component {
+  getCookingTime (time) {
+    if (time > 60) return ~~(time / 60) + ' час ' + (time % 60) + ' мин'
+    else return time + ' мин'
+  }
+
 	render () {
 		const { data } = this.props
 		const { title, complexity, time, energy, image, _id: recipeID } = data
@@ -20,12 +25,12 @@ export default class Card extends Component {
 					<Text style={css.card__title}>{title}</Text>
 					<View style={css.card__description}>
 						<View style={css.card__side}>
-							<Text style={css.card__text}>{time}</Text>
+							<Text style={css.card__text}>{this.getCookingTime(time)}</Text>
 							<Text style={css.card__divider}>.</Text>
 							<Text style={css.card__text}>{complexity}</Text>
 						</View>
 						<View style={css.card__side}>
-							<Text style={[css.card__text, css.card__text_right]}>{energy}</Text>
+							<Text style={[css.card__text, css.card__text_right]}>{energy} ккал</Text>
 						</View>
 					</View>
 				</View>
