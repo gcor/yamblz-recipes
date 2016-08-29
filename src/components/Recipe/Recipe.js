@@ -6,22 +6,20 @@ import Timer from '../Timer'
 
 class Recipe extends Component {
 	componentWillMount () {
-		this.setState({recipes: []})
+		this.setState({slides: []})
 	}
 	calculateSlideHeight (slide) {
-		const { index, height } = slide
-		console.log(this.state)
-		// sl.push(slide)
-		// this.setState({slides: sl})
-		console.log(index, height)
+		// { height, index } = slide
+		let tmpSlides = this.state.slides
+		slide.height = Math.floor(slide.height)
+		tmpSlides.push(slide)
+		this.setState({slides: tmpSlides})
+		// the last slide callback is here
+		if (this.props.data.stages.length >= slide.index) {
+			this.props.pushCardsHeights(this.state.slides)
+		}
 	}
 
-	componentDidMount () {
-		const self = this
-		setTimeout(() => {
-			console.log(self.state.slides)
-		}, 2000)
-	}
 	render () {
 		const { data } = this.props
 		let recipeItems = null
@@ -33,7 +31,7 @@ class Recipe extends Component {
 						stage={stage}
 						numberOfStage={index + 1}
 						image={stage.image}
-						calculateSlideHeight={this.calculateSlideHeight}
+						calculateSlideHeight={this.calculateSlideHeight.bind(this)}
 					/>
 				)
 			})
@@ -48,7 +46,8 @@ class Recipe extends Component {
 }
 
 Recipe.propTypes = {
-	data: PropTypes.object.isRequired
+	data: PropTypes.object.isRequired,
+	pushCardsHeights: PropTypes.func.isRequired
 }
 
 export default Recipe

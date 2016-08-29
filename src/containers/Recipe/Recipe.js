@@ -22,9 +22,9 @@ class RecipePage extends Component {
 		// SensorManager.startLightSensor(100)
 		const self = this
 		DeviceEventEmitter.addListener('Proximity', data => {
-			const { isNear, value } = data
-			console.log(isNear, value)
+			const { isNear } = data
 			if (isNear) {
+				this.props.nextSlide()
 				self.scrollTo()
 			}
 		})
@@ -45,6 +45,7 @@ class RecipePage extends Component {
 			y: this.state.scroll,
 			animated: true
 		})
+		console.log('adsdasads', this.props.currentHeight)
 	}
 
 	renderRecipe (recipe) {
@@ -68,7 +69,11 @@ class RecipePage extends Component {
 
 RecipePage.propTypes = {
 	fetchRecipes: PropTypes.func.isRequired,
-	recipe: PropTypes.object.isRequired
+	recipe: PropTypes.object.isRequired,
+	nextSlide: PropTypes.func.isRequired,
+	previousSlide: PropTypes.func.isRequired,
+	handleSwipe: PropTypes.func.isRequired,
+	currentHeight: PropTypes.number.isRequired
 }
 
 export default RecipePage

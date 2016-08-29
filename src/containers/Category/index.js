@@ -5,7 +5,6 @@ import { fetchCategories } from '../../actions/categoriesActions'
 import { setCurrentRecipe } from '../../actions/generalActions'
 import { bindActionCreators } from 'redux'
 
-console.log(fetchCategories)
 export default connect(
 	state => ({
 		categories: state.categories

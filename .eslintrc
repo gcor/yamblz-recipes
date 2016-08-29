@@ -33,6 +33,7 @@
     "react/jsx-indent": [2, 'tab'],
     "react/jsx-indent-props": [2, 'tab'],
     "no-mixed-spaces-and-tabs": 2,
-    "jsx-quotes": ['error', 'prefer-single']
+    "jsx-quotes": ['error', 'prefer-single'],
+    "no-console": 2
   }
 }

@@ -5,10 +5,12 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "i": "node node_modules/react-native/local-cli/cli.js run-ios",
-    "a": "node node_modules/react-native/local-cli/cli.js run-android"
+    "a": "node node_modules/react-native/local-cli/cli.js run-android",
+    "l": "node node_modules/react-native/local-cli/cli.js log-android"
   },
   "dependencies": {
     "immutable": "^3.8.1",
+    "lodash": "^4.15.0",
     "react": "15.2.1",
     "react-native": "0.31.0",
     "react-native-push-notification": "^2.0.2",
