@@ -1,28 +1,68 @@
 import React, { Component, PropTypes } from 'react'
-import { ScrollView, InteractionManager } from 'react-native'
+import { ScrollView,
+	InteractionManager,
+	DeviceEventEmitter,
+	View
+} from 'react-native'
 
 import Recipe from '../../components/Recipe'
 import Button from '../../components/Button'
+import { SensorManager } from 'NativeModules'
 
 class RecipePage extends Component {
 	componentWillMount () {
-		this.setState({ready: false})
+		this.setState({ready: false, scroll: 0})
 		InteractionManager.runAfterInteractions(() => {
-				this.setState({ready: true})
+			this.setState({ready: true})
 		})
 	}
+
+	componentDidMount () {
+		SensorManager.startProximity(100)
+		// SensorManager.startLightSensor(100)
+		const self = this
+		DeviceEventEmitter.addListener('Proximity', data => {
+			const { isNear, value } = data
+			console.log(isNear, value)
+			if (isNear) {
+				self.scrollTo()
+			}
+		})
+		// DeviceEventEmitter.addListener('LightSensor', data => {
+		// 	const { light } = data
+		// 	console.log(light)
+		// })
+	}
+
+	componentWillUnmount () {
+		SensorManager.stopProximity()
+		// SensorManager.stopLightSensor()
+	}
+
+	scrollTo () {
+		this.setState({scroll: this.state.scroll + 400})
+		this.recipe.scrollTo({
+			y: this.state.scroll,
+			animated: true
+		})
+	}
+
 	renderRecipe (recipe) {
+		if (!this.state.ready) return null
 		return (
-			<ScrollView>
+			<View>
 				<Button text='Процесс' route='home' />
 				<Recipe data={recipe} />
-			</ScrollView>
+			</View>
 		)
 	}
 	render () {
 		const { recipe } = this.props
-		if (this.state.ready) return this.renderRecipe(recipe)
-		return null
+		return (
+			<ScrollView ref={(r) => { this.recipe = r }}>
+				{this.renderRecipe(recipe)}
+			</ScrollView>
+		)
 	}
 }
 
