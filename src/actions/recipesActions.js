@@ -1,21 +1,18 @@
 import {
-	FETCH_RECIPES,
+	FETCH_RECIPE,
 	INCREMENT_RECIPE_PORTION,
-	DECREMENT_RECIPE_PORTION
+	DECREMENT_RECIPE_PORTION,
+	RESET_RECIPE
 } from '../constants/actionTypes'
-import api from '../api/recipes'
+import { getRecipeById } from '../api/recipes'
 import { createAction } from 'redux-actions'
 
-const _fetchRecipes = createAction(FETCH_RECIPES)
+export const fetchRecipes = createAction(FETCH_RECIPE, async (id) => {
+	const recipe = await getRecipeById(id)
+	if (!recipe) return Promise.reject()
+	return recipe
+})
 
 export const incrementRecipePortion = createAction(INCREMENT_RECIPE_PORTION)
 export const decrementRecipePortion = createAction(DECREMENT_RECIPE_PORTION)
-
-export const fetchRecipes = (id) => {
-	return dispatch => {
-		api.getRecipeById(id).then(recipes => {
-			// console.log(recipes)
-			dispatch(_fetchRecipes(recipes))
-		})
-	}
-}
+export const resetRecipe = createAction(RESET_RECIPE)

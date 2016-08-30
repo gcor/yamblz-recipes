@@ -4,7 +4,8 @@ import { navigatePush } from '../../actions/navigationActions'
 import {
 	fetchRecipes,
 	incrementRecipePortion,
-	decrementRecipePortion
+	decrementRecipePortion,
+	resetRecipe
 } from '../../actions/recipesActions'
 import { bindActionCreators } from 'redux'
 
@@ -17,7 +18,8 @@ const dipsatchToProps = dispatch => (bindActionCreators({
 	navigatePush,
 	fetchRecipes,
 	incrementRecipePortion,
-	decrementRecipePortion
+	decrementRecipePortion,
+	resetRecipe
 }, dispatch))
 
 export default connect(stateToProps, dipsatchToProps)(RecipeView)

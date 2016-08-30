@@ -19,12 +19,14 @@ function recipeSwiper (state = initialState, action) {
 	const { currentSlide, currentHeight, slides } = state
 	switch (action.type) {
 		case SLIDER_NEXT_SLIDE:
+			if (currentSlide >= slides.length) return state
 			return {
 				...state,
 				currentSlide: currentSlide + 1,
 				currentHeight: currentHeight + slides[currentSlide].height + marginConst
 			}
 		case SLIDER_PREVIOUS_SLIDE:
+			if (currentSlide < 0) return state
 			return {
 				...state,
 				currentSlide: currentSlide - 1,

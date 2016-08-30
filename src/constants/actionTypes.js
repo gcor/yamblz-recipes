@@ -1,10 +1,22 @@
 /*
 	Recipes constants
 */
-export const FETCH_RECIPES = 'FETCH_RECIPES'
+export const FETCH_RECIPE = 'FETCH_RECIPE'
 export const INCREMENT_RECIPE_PORTION = 'INCREMENT_RECIPE_PORTION'
 export const DECREMENT_RECIPE_PORTION = 'DECREMENT_RECIPE_PORTION'
 
+export const FETCH_RECIPE_LOADING = 'FETCH_RECIPE_LOADING'
+export const FETCH_RECIPE_SUCCESS = 'FETCH_RECIPE_SUCCESS'
+export const FETCH_RECIPE_ERROR = 'FETCH_RECIPE_ERROR'
+
+export const RESET_RECIPE = 'RESET_RECIPE'
+
+/*
+	Promise middleware actions
+*/
+export const LOADING = 'LOADING'
+export const SUCCESS = 'SUCCESS'
+export const ERROR = 'ERROR'
 /*
 	Categories constants
 */
