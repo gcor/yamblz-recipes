@@ -3,7 +3,8 @@ import {
 	SLIDER_PREVIOUS_SLIDE,
 	SLIDER_SET_CURRENT_SLIDE,
 	SLIDER_SET_INITIAL_SLIDE,
-	SLIDER_PUSH_CARDS_HEIGHTS
+	SLIDER_PUSH_CARDS_HEIGHTS,
+	SLIDER_RESET
 } from '../constants/actionTypes'
 
 const initialState = {
@@ -13,6 +14,7 @@ const initialState = {
 	slides: []
 }
 
+const marginConst = 20
 function recipeSwiper (state = initialState, action) {
 	const { currentSlide, currentHeight, slides } = state
 	switch (action.type) {
@@ -20,13 +22,13 @@ function recipeSwiper (state = initialState, action) {
 			return {
 				...state,
 				currentSlide: currentSlide + 1,
-				currentHeight: currentHeight + slides[currentSlide + 1].height
+				currentHeight: currentHeight + slides[currentSlide].height + marginConst
 			}
 		case SLIDER_PREVIOUS_SLIDE:
 			return {
 				...state,
 				currentSlide: currentSlide - 1,
-				currentHeight: currentHeight - slides[currentSlide - 1].height
+				currentHeight: currentHeight - slides[currentSlide].height + marginConst
 			}
 		case SLIDER_SET_CURRENT_SLIDE:
 			// TODO - do not know now how to recursive to this
@@ -35,6 +37,8 @@ function recipeSwiper (state = initialState, action) {
 			return {...state, initialSlide: action.payload}
 		case SLIDER_PUSH_CARDS_HEIGHTS:
 			return {...state, slides: [...state.slides, ...action.payload]}
+		case SLIDER_RESET:
+			return initialState
 		default: return state
 	}
 }

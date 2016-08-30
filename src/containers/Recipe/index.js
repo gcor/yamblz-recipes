@@ -4,7 +4,8 @@ import { fetchRecipes } from '../../actions/recipesActions'
 import {
 	nextSlide,
 	previousSlide,
-	handleSwipe
+	handleSwipe,
+	resetSlider
 } from '../../actions/recipeSwiperActions'
 import { bindActionCreators } from 'redux'
 
@@ -17,6 +18,7 @@ const dipsatchToProps = dispatch => (bindActionCreators({
 	fetchRecipes,
 	nextSlide,
 	previousSlide,
-	handleSwipe
+	handleSwipe,
+	resetSlider
 }, dispatch))
 export default connect(stateToProps, dipsatchToProps)(Recipe)
