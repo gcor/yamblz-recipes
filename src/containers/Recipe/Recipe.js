@@ -36,11 +36,12 @@ class RecipePage extends Component {
 
 	componentWillUnmount () {
 		SensorManager.stopProximity()
+		this.props.resetSlider()
 		// SensorManager.stopLightSensor()
 	}
 
 	scrollTo () {
-		this.setState({scroll: this.state.scroll + 400})
+		this.setState({scroll: this.props.currentHeight})
 		this.recipe.scrollTo({
 			y: this.state.scroll,
 			animated: true
@@ -73,6 +74,7 @@ RecipePage.propTypes = {
 	nextSlide: PropTypes.func.isRequired,
 	previousSlide: PropTypes.func.isRequired,
 	handleSwipe: PropTypes.func.isRequired,
+	resetSlider: PropTypes.func.isRequired,
 	currentHeight: PropTypes.number.isRequired
 }
 

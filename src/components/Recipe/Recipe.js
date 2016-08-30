@@ -15,7 +15,7 @@ class Recipe extends Component {
 		tmpSlides.push(slide)
 		this.setState({slides: tmpSlides})
 		// the last slide callback is here
-		if (this.props.data.stages.length >= slide.index) {
+		if (slide.index >= this.props.data.stages.length) {
 			this.props.pushCardsHeights(this.state.slides)
 		}
 	}
