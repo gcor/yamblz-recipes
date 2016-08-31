@@ -10,11 +10,13 @@ export default function router (app) {
 
 	switch (route.key) {
 		case 'Home':
-			return <Search />
+			return <Home />
 		case 'RecipeView':
 			return <RecipeView />
 		case 'Category':
 			return <Category />
+		case 'Search':
+			return <Search />
 		case 'Recipe':
 			return <Recipe />
 	}
