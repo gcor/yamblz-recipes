@@ -2,24 +2,17 @@ import { StyleSheet } from 'react-native'
 import ui from '../../constants/css'
 
 export default StyleSheet.create({
-	button: {
-		backgroundColor: ui.yellow,
-		height: 55,
-		flexDirection: 'row',
-		alignItems: 'center'
+	searchList: {
+		paddingBottom: 120
 	},
-	button_text_center: {
-		justifyContent: 'center'
+	searchlist__input: {
+		fontSize: ui.fontL,
+		paddingLeft: 20
 	},
-	button__icon: {
-		width: 18,
-		height: 18,
-		backgroundColor: 'slategray',
-		marginLeft: 15,
-		marginRight: 15
-	},
-	button__text: {
-		color: 'black',
-		fontSize: 16
+	searchList__header: {
+		fontSize: ui.fontL,
+		paddingTop: 30,
+		paddingLeft: 20,
+		paddingBottom: 15
 	}
 })
