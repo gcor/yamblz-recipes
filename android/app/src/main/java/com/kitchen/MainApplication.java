@@ -22,6 +22,7 @@ import java.util.List;
 import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
 import com.sensormanager.SensorManagerPackage;
 
+
 public class MainApplication extends Application implements ReactApplication {
 
   private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {

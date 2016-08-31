@@ -1,6 +1,8 @@
 package com.kitchen;
 
 import com.facebook.react.ReactActivity;
+import com.sensormanager.SensorManagerPackage;
+import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
 
 public class MainActivity extends ReactActivity {
 
