@@ -31,6 +31,7 @@ function search (state = initialState, action) {
 				...state,
 				...{status: ERROR}
 			}
+		default: return state
 	}
 }
 
