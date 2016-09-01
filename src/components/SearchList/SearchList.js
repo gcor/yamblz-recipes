@@ -3,7 +3,6 @@ import { Text, View, TextInput } from 'react-native'
 import SearchItem from '../SearchItem/'
 import SuggestList from '../SuggestList/'
 import css from './SearchList.css'
-import ui from '../../constants/css'
 
 class SearchList extends Component {
 	constructor (props) {
@@ -28,9 +27,12 @@ class SearchList extends Component {
 				title: 'Овощи'
 			}, {
 				title: 'Десерты'
-			}],
-			suggestData: [{title: 'Ирис'}, {title: 'Итальянская кухня'}, {title: 'Индийская кухня'}]
+			}]
 		}
+	}
+
+	onSuggestItemPress () {
+
 	}
 
 	handleInput (text) {
@@ -48,7 +50,10 @@ class SearchList extends Component {
 					onChangeText={this.handleInput.bind(this)}
 					placeholder={this.state.text}
 				/>
-				<SuggestList items={products} />
+				<SuggestList
+					onPress={this.onSuggestItemPress.bind(this)}
+					items={products}
+					/>
 				{this.state.selectionData.map((data, i) => {
 					return <SearchItem data={data} key={i} />
 				})}

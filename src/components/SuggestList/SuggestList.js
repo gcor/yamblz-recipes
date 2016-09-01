@@ -10,7 +10,6 @@ class SuggestList extends Component {
 			list: this.ds.cloneWithRows(this.props.items)
 		}
 	}
-
 	componentWillReceiveProps (props) {
 		this.setState({
 			list: this.ds.cloneWithRows(this.props.items)
@@ -24,15 +23,16 @@ class SuggestList extends Component {
 					enableEmptySections
 					showsHorizontalScrollIndicator={false}
 					dataSource={this.state.list}
-					renderRow={this.renderItem}
+					renderRow={this.renderItem.bind(this)}
 				/>
 			</View>
 		)
 	}
 	renderItem (item) {
-
 		return (
-			<View style={css.suggestlist__item}>
+			<View
+				onPress={this.props.opPress}
+				style={css.suggestlist__item}>
 				<Text
 					numberOfLines={1}
 					style={css.suggestlist__text}>

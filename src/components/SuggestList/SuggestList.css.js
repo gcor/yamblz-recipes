@@ -11,7 +11,7 @@ export default StyleSheet.create({
 		backgroundColor: '#E3E3E3',
 		borderRadius: 5,
 		padding: 10,
-		marginLeft: 15,
+		marginLeft: 10,
 		marginTop: 10
 	},
 	suggestlist__text: {
