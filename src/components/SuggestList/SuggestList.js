@@ -6,7 +6,11 @@ class SuggestList extends Component {
 	constructor (props) {
 		super(props)
 		this.ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 })
+		this.state = {
+			list: this.ds.cloneWithRows(this.props.items)
+		}
 	}
+
 	componentWillReceiveProps (props) {
 		this.setState({
 			list: this.ds.cloneWithRows(this.props.items)
