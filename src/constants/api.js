@@ -8,3 +8,7 @@ export const category = url + 'category/'
 
 export const products = url + 'products/'
 export const product = url + 'product/'
+
+export const history = url + 'history/'
+
+export const search = url + 'search/'

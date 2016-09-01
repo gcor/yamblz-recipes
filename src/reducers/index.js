@@ -5,6 +5,7 @@ import navigationState from './navigationState'
 import general from './general'
 import recipeSwiper from './recipeSwiper'
 import search from './search'
+import history from './history'
 
 const reducers = {
 	general,
@@ -12,7 +13,8 @@ const reducers = {
 	navigationState,
 	categories,
 	recipeSwiper,
-	search
+	search,
+	history
 }
 
 const createReducers = () => (combineReducers(reducers))

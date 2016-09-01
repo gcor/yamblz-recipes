@@ -1,11 +1,12 @@
-import React, { Component } from 'react'
-import { View, Text, TouchableHighlight, Image, ScrollView } from 'react-native'
-import LinearGradient from 'react-native-linear-gradient'
+import React, { Component, PropTypes } from 'react'
+import { Text, ScrollView } from 'react-native'
 import Slider from '../../components/Slider'
 import CardSmall from '../../components/CardSmall'
-import ui from '../../constants/css'
 
 export default class History extends Component {
+	componentWillMount () {
+		this.props.fetchHistory()
+	}
 	_onCardPress (recipeID) {
 		const { navigatePush, setCurrentRecipe } = this.props
 		setCurrentRecipe(recipeID)
@@ -23,29 +24,28 @@ export default class History extends Component {
 	}
 	render () {
 		const recipes = [{
-	    "_id": '57bfd586a53d1d73154d9339',
-	    "id": 3,
-	    "title": "Фриттата с брокколи и сладким перцем",
-	    "time": 20,
-	    "energy": 321,
-	    "complexity": "Средне",
-	    "category": 1,
-	    "image": "http://www.taste.com.au/images/recipes/agt/2005/06/vegetable-frittata-2205_l.jpeg",
-	    "stages": [],
-	    "__v": 0
+			'_id': '57bfd586a53d1d73154d9339',
+			'id': 3,
+			'title': 'Фриттата с брокколи и сладким перцем',
+			'time': 20,
+			'energy': 321,
+			'complexity': 'Средне',
+			'category': 1,
+			'image': 'http://www.taste.com.au/images/recipes/agt/2005/06/vegetable-frittata-2205_l.jpeg',
+			'stages': [],
+			'__v': 0
 		}, {
-	    "_id": "57bfe641a6bae0f91575a084",
-	    "id": 5,
-	    "title": "Курица меланезе со спагетти",
-	    "time": 70,
-	    "energy": 423,
-	    "complexity": "Средне",
-	    "category": 2,
-	    "image": "https://www.caffeconcerto.co.uk/images-menus/meat-chicken-milanese-with-spaghetti_tn-jpg_1466080216.jpg",
-	    "stages": [],
-	    "__v": 0
+			'_id': '57bfe641a6bae0f91575a084',
+			'id': 5,
+			'title': 'Курица меланезе со спагетти',
+			'time': 70,
+			'energy': 423,
+			'complexity': 'Средне',
+			'category': 2,
+			'image': 'https://www.caffeconcerto.co.uk/images-menus/meat-chicken-milanese-with-spaghetti_tn-jpg_1466080216.jpg',
+			'stages': [],
+			'__v': 0
 		}]
-
 		return (
 			<ScrollView style={{marginTop: 60, backgroundColor: '#FAF9F7'}}>
 				<Slider
@@ -62,5 +62,11 @@ export default class History extends Component {
 			</ScrollView>
 		)
 	}
+}
+
+History.propTypes = {
+	navigatePush: PropTypes.func.isRequired,
+	setCurrentRecipe: PropTypes.func.isRequired,
+	fetchHistory: PropTypes.func.isRequired
 }
 // onCategoryPress={this._onCategoryPress.bind(this)}
