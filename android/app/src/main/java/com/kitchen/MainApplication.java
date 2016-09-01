@@ -21,6 +21,7 @@ import java.util.List;
 
 import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
 import com.sensormanager.SensorManagerPackage;
+import com.BV.LinearGradient.LinearGradientPackage;
 
 
 public class MainApplication extends Application implements ReactApplication {
@@ -36,7 +37,8 @@ public class MainApplication extends Application implements ReactApplication {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
 					new ReactNativePushNotificationPackage(),
-					new SensorManagerPackage()
+					new SensorManagerPackage(),
+					new LinearGradientPackage()
       );
     }
   };

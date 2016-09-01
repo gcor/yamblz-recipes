@@ -6,3 +6,6 @@ project(':react-native-push-notification').projectDir = file('../node_modules/re
 
 include ':react-native-sensor-manager'
 project(':react-native-sensor-manager').projectDir = new File(settingsDir, '../node_modules/react-native-sensor-manager/android')
+
+include ':react-native-linear-gradient'
+project(':react-native-linear-gradient').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-linear-gradient/android')

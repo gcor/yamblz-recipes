@@ -4,6 +4,7 @@ import RecipeView from './containers/RecipeView'
 import Category from './containers/Category'
 import Recipe from './containers/Recipe'
 import Search from './containers/Search'
+import History from './containers/History'
 
 export default function router (app) {
 	const { route } = app.scene
@@ -15,9 +16,11 @@ export default function router (app) {
 			return <RecipeView />
 		case 'Category':
 			return <Category />
-		case 'Search':
-			return <Search />
 		case 'Recipe':
 			return <Recipe />
+		case 'Search':
+			return <Search />
+		case 'History':
+			return <History />
 	}
 }
