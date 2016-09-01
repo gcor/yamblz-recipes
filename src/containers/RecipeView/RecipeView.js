@@ -3,15 +3,11 @@ import {
 	ScrollView,
 	View,
 	Image,
-	InteractionManager,
-	Text,
-	ActivityIndicator
+	InteractionManager
 } from 'react-native'
 import Button from '../../components/Button'
 import RecipeTabs from '../../components/RecipeTabs'
 import css from './RecipeView.css'
-import { LOADING, SUCCESS, ERROR } from '../../constants/actionTypes'
-import { yellow } from '../../constants/css'
 
 export default class RecipeView extends Component {
 	componentWillMount () {
@@ -33,38 +29,21 @@ export default class RecipeView extends Component {
 	renderTabs () {
 		const { isReady } = this.state
 		const imageSrc = 'http://' + this.props.recipe.image
+		const { incrementRecipePortion, decrementRecipePortion } = this.props
 		if (isReady) {
 			return (
 				<ScrollView style={{paddingTop: 55, backgroundColor: 'white'}}>
 					<View style={css.recipe}>
 						<Image source={{uri: imageSrc}} style={css.recipe__image} />
-						{this.renderContent()}
+						<RecipeTabs
+							onIncrement={incrementRecipePortion}
+							onDecrement={decrementRecipePortion}
+						/>
 					</View>
 				</ScrollView>
 			)
 		}
 		return null
-	}
-
-	renderContent () {
-		const { incrementRecipePortion, decrementRecipePortion } = this.props
-		const { status } = this.props.recipe
-		switch (status) {
-			case LOADING: return (
-				<ActivityIndicator
-					animating
-					color={yellow}
-					size='large'
-				/>
-			)
-			case SUCCESS: return (
-				<RecipeTabs
-					onIncrement={incrementRecipePortion}
-					onDecrement={decrementRecipePortion}
-				/>
-			)
-			case ERROR: return 'Сломалось или нет Интернета'
-		}
 	}
 
 	render () {

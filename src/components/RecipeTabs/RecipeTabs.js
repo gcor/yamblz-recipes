@@ -5,6 +5,8 @@ import IngredientList from '../IngredientList'
 import StageList from '../StageList'
 import css from './RecipeTabs.css'
 import Swiper from 'react-native-swiper'
+import { LOADING, SUCCESS, ERROR } from '../../constants/actionTypes'
+import Preloader from '../Preloader'
 
 class RecipeTabs extends Component {
 	constructor (props) {
@@ -31,6 +33,30 @@ class RecipeTabs extends Component {
 		})
 	}
 
+	renderContent () {
+		const { status } = this.props.recipe
+		switch (status) {
+			case LOADING: return (
+				<Preloader margin={80} />
+			)
+			case SUCCESS: return (
+				<View>
+					<StageList
+						tabLabel='Этапы'
+						recipe={this.props.recipe}
+					/>
+					<IngredientList
+						tabLabel='Продукты'
+						onDecrement={this.props.onDecrement}
+						onIncrement={this.props.onIncrement}
+						recipe={this.props.recipe}
+					/>
+				</View>
+			)
+			case ERROR: return 'Сломалось или нет Интернета'
+		}
+	}
+
 	render () {
 		let { activeTab } = this.state
 		return (
@@ -54,16 +80,7 @@ class RecipeTabs extends Component {
 				<Swiper loop={false}
 					ref={(r) => this.swiper = r}
 					onMomentumScrollEnd={(e, state) => this.handleSwipe(state.index)}>
-					<StageList
-						tabLabel='Этапы'
-						recipe={this.props.recipe}
-					/>
-					<IngredientList
-						tabLabel='Продукты'
-						onDecrement={this.props.onDecrement}
-						onIncrement={this.props.onIncrement}
-						recipe={this.props.recipe}
-					/>
+					{this.renderContent()}
 				</Swiper>
 			</View>
 		)
