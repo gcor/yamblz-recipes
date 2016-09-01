@@ -44,7 +44,7 @@ class Category extends Component {
 Category.propTypes = {
 	navigatePush: PropTypes.func.isRequired,
 	fetchCategories: PropTypes.func.isRequired,
-	categories: PropTypes.array.isRequired,
+	categories: PropTypes.object.isRequired,
 	setCurrentRecipe: PropTypes.func.isRequired
 }
 

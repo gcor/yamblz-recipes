@@ -11,8 +11,9 @@ export default {
 	fontXS: 14,
 	page: {
 		flex: 1,
-		paddingTop: 60,
-		paddingBottom: 60,
+		paddingTop: 0,
+		paddingBottom: 0,
+		marginTop: 55,
 		backgroundColor: '#FAF9F7'
 	}
 }

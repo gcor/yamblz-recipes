@@ -40,7 +40,9 @@ class RecipeTabs extends Component {
 				<Preloader margin={80} />
 			)
 			case SUCCESS: return (
-				<View>
+				<Swiper loop={false}
+					ref={(r) => this.swiper = r}
+					onMomentumScrollEnd={(e, state) => this.handleSwipe(state.index)}>
 					<StageList
 						tabLabel='Этапы'
 						recipe={this.props.recipe}
@@ -51,7 +53,7 @@ class RecipeTabs extends Component {
 						onIncrement={this.props.onIncrement}
 						recipe={this.props.recipe}
 					/>
-				</View>
+				</Swiper>
 			)
 			case ERROR: return 'Сломалось или нет Интернета'
 		}
@@ -77,11 +79,7 @@ class RecipeTabs extends Component {
 						tabTitle={'ПРОДУКТЫ'}
 					/>
 				</View>
-				<Swiper loop={false}
-					ref={(r) => this.swiper = r}
-					onMomentumScrollEnd={(e, state) => this.handleSwipe(state.index)}>
-					{this.renderContent()}
-				</Swiper>
+				{this.renderContent()}
 			</View>
 		)
 	}
