@@ -5,7 +5,7 @@ import { createAction } from 'redux-actions'
 import { searchFor } from '../api/search'
 
 export const searchGo = createAction(SEARCH_GO, async (query) => {
-	const response = await searchFor()
+	const response = await searchFor(query)
 	console.log(response)
 	return response
 })

@@ -3,7 +3,8 @@ import { fetchData } from './common'
 
 export function searchFor (query) {
 	return new Promise((resolve, reject) => {
-		fetchData(search)
+		const q = `${search}?q=${query}`
+		fetchData(q)
 			.then(response => resolve(response))
 			.catch(e => reject(e))
 	})
