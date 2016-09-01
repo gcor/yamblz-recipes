@@ -11,7 +11,7 @@ export default function router (app) {
 
 	switch (route.key) {
 		case 'Home':
-			return <History />
+			return <Home />
 		case 'RecipeView':
 			return <RecipeView />
 		case 'Category':
@@ -20,5 +20,7 @@ export default function router (app) {
 			return <Recipe />
 		case 'Search':
 			return <Search />
+		case 'History':
+			return <History />
 	}
 }

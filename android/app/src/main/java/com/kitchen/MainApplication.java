@@ -23,6 +23,7 @@ import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
 import com.sensormanager.SensorManagerPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
 
+
 public class MainApplication extends Application implements ReactApplication {
 
   private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {

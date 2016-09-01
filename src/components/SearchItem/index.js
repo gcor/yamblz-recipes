@@ -1,4 +1,4 @@
-import SearchList from './SearchList'
+import SearchItem from './SearchItem'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { searchGo } from '../../actions/searchActions'
@@ -10,4 +10,4 @@ const dispatchToProps = dispatch => (
 	bindActionCreators({
 		searchGo
 	}, dispatch))
-export default connect(stateToProps, dispatchToProps)(SearchList)
+export default connect(stateToProps, dispatchToProps)(SearchItem)

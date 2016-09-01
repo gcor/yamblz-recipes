@@ -33,7 +33,7 @@ class Category extends Component {
 			<ScrollView>
 				<TouchableHighlight>
 					<View style={ui.page}>
-						{categories.map(category => this.renderCategory(category))}
+						{categories.categories.map(category => this.renderCategory(category))}
 					</View>
 				</TouchableHighlight>
 			</ScrollView>
