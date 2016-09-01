@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { Text, View, TouchableHighlight, Image } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 import css from './CardSmall.css'
+import { setRecipeLinguistic } from './index'
 
 export default class CardSmall extends Component {
 	render () {
@@ -15,7 +16,7 @@ export default class CardSmall extends Component {
 					<Image style={css.cardSmall__image} source={{uri: image}} />
 					<LinearGradient colors={['rgba(0,0,0,.36)', 'transparent']} style={css.cardSmall__backgroundShadow}>
 						<Text style={css.cardSmall__title}>{title}</Text>
-						<Text style={css.cardSmall__amount}>{amount} рецептов</Text>
+						<Text style={css.cardSmall__amount}>{amount} {setRecipeLinguistic(amount)}</Text>
 					</LinearGradient>
 				</View>
 			</TouchableHighlight>
