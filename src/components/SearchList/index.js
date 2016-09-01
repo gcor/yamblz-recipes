@@ -4,7 +4,11 @@ import { bindActionCreators } from 'redux'
 import { searchGo } from '../../actions/searchActions'
 
 const stateToProps = state => ({
-	navigationState: state.navigationState
+	navigationState: state.navigationState,
+	products: state.search.results.products,
+	recipes: state.search.results.recipes,
+	categories: state.search.results.categories,
+	status: state.search.results.status
 })
 const dispatchToProps = dispatch => (
 	bindActionCreators({

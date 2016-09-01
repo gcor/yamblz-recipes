@@ -40,9 +40,10 @@ class SearchList extends Component {
 	}
 
 	render () {
+		const { products } = this.props
 		return (
 			<View style={css.searchList}>
-				<SuggestList items={this.state.suggestData} />
+				<SuggestList items={products} />
 				<TextInput
 					style={css.searchlist__input}
 					onChangeText={this.handleInput.bind(this)}
@@ -61,7 +62,8 @@ class SearchList extends Component {
 }
 
 SearchList.propTypes = {
-	searchGo: PropTypes.func
+	searchGo: PropTypes.func.isRequired,
+	products: PropTypes.array
 }
 
 export default SearchList
