@@ -22,6 +22,7 @@ export default class Home extends Component {
 			title: 'Ваши рецепты'
 		})
 	}
+
 	render () {
 		return (
 			<View style={ui.page}>

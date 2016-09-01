@@ -1,9 +1,9 @@
 import React, { Component, PropTypes } from 'react'
 import { Text, View, TextInput } from 'react-native'
 import SearchItem from '../SearchItem/'
+import SuggestList from '../SuggestList/'
 import css from './SearchList.css'
 import ui from '../../constants/css'
-import { debounce } from 'lodash'
 
 class SearchList extends Component {
 	constructor (props) {
@@ -28,7 +28,8 @@ class SearchList extends Component {
 				title: 'Овощи'
 			}, {
 				title: 'Десерты'
-			}]
+			}],
+			suggestData: [{title: 'Ирис'}, {title: 'Итальянская кухня'}, {title: 'Индийская кухня'}]
 		}
 	}
 
@@ -41,6 +42,7 @@ class SearchList extends Component {
 	render () {
 		return (
 			<View style={css.searchList}>
+				<SuggestList items={this.state.suggestData} />
 				<TextInput
 					style={css.searchlist__input}
 					onChangeText={this.handleInput.bind(this)}
