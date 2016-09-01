@@ -29,7 +29,20 @@ class App extends Component {
 	render () {
 		let { navigationState, backAction } = this.props
 
-		return (
+		if (navigationState.index === 0) {
+		    return (
+			<NavigationCardStack
+				navigationState={navigationState}
+				onNavigateBack={backAction}
+				style={css.container}
+				direction={navigationState.routes[navigationState.index].key === 'Recipe'
+					? 'vertical' : 'horizontal'
+				}
+				renderScene={router}
+			/>
+			)
+		} else {
+			return (
 			<NavigationCardStack
 				navigationState={navigationState}
 				onNavigateBack={backAction}
@@ -54,7 +67,8 @@ class App extends Component {
 				)}
 				renderScene={router}
 			/>
-		)
+			)
+		}
 	}
 }
 
