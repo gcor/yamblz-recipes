@@ -7,14 +7,13 @@ export default StyleSheet.create({
 		borderStyle: 'solid',
 		borderColor: 'transparent',
 		backgroundColor: 'white',
-		elevation: ui.elevation
-	},
-	card__preview: {
-		// backgroundColor: 'lightblue',
-		// height: 185
+		borderRadius: 3,
+		elevation: 3
 	},
 	card__image: {
-    height: 185
+		height: 250,
+		borderTopLeftRadius: 3,
+		borderTopRightRadius: 3
 	},
 	card__stars: {
 		flexDirection: 'row',
@@ -33,19 +32,24 @@ export default StyleSheet.create({
 	},
 	card__title: {
 		fontSize: ui.fontL,
-		marginLeft: 15,
-		marginTop: 25
+		fontWeight: '500',
+		height: 50,
+		paddingLeft: 15,
+		paddingRight: 15,
+		marginTop: 24,
+		color: '#333'
 	},
 	card__description: {
 		marginLeft: 15,
 		marginRight: 15,
 		justifyContent: 'space-between',
 		flexDirection: 'row',
-		marginBottom: 25
+		marginBottom: 24
 	},
 	card__text: {
-		fontSize: ui.fontXS,
-		marginTop: 8
+		fontSize: ui.fontS,
+		marginTop: 4,
+		color: '#333'
 	},
 	card__text_right: {
 		textAlign: 'right'

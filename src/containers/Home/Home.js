@@ -16,6 +16,12 @@ export default class Home extends Component {
 			title: 'Поиск'
 		})
 	}
+	_onPushToHistory () {
+		this.props.navigatePush({
+			key: 'History',
+			title: 'Ваши рецепты'
+		})
+	}
 	render () {
 		return (
 			<View style={ui.page}>
@@ -25,6 +31,9 @@ export default class Home extends Component {
 				<Button
 					onPress={this._onPushToSearch.bind(this)}
 					text='Перейти в поиск' />
+				<Button
+					onPress={this._onPushToHistory.bind(this)}
+					text='Перейти в сохраненные' />
 			</View>
 		)
 	}
