@@ -10,7 +10,9 @@ import {
 const initialState = {
 	status: LOADING,
 	results: {
-
+		products: [],
+		categories: [],
+		recipes: []
 	}
 }
 function search (state = initialState, action) {

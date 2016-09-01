@@ -5,24 +5,28 @@ import css from './SuggestList.css'
 class SuggestList extends Component {
 	constructor (props) {
 		super(props)
-		const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 })
-		this.state = {
-			dataSource: ds.cloneWithRows(this.props.items)
-		}
+		this.ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 })
+	}
+	componentWillReceiveProps (props) {
+		this.setState({
+			list: this.ds.cloneWithRows(this.props.items)
+		})
 	}
 	render () {
 		return (
 			<View style={css.suggestlist}>
 				<ListView
 					horizontal
+					enableEmptySections
 					showsHorizontalScrollIndicator={false}
-					dataSource={this.state.dataSource}
+					dataSource={this.state.list}
 					renderRow={this.renderItem}
 				/>
 			</View>
 		)
 	}
 	renderItem (item) {
+
 		return (
 			<View style={css.suggestlist__item}>
 				<Text
