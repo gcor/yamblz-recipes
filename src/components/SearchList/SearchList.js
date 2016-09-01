@@ -42,12 +42,12 @@ class SearchList extends Component {
 	render () {
 		return (
 			<View style={css.searchList}>
-				<SuggestList items={this.state.suggestData} />
 				<TextInput
 					style={css.searchlist__input}
 					onChangeText={this.handleInput.bind(this)}
 					placeholder={this.state.text}
 				/>
+				<SuggestList items={this.state.suggestData} />
 				{this.state.selectionData.map((data, i) => {
 					return <SearchItem data={data} key={i} />
 				})}
