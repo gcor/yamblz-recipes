@@ -30,7 +30,7 @@ export default class HomeSwiper extends Component {
 							>
 							<View>
 								<Image source={{uri: item.image}} style={css.swiper__image} />
-								<LinearGradient colors={['rgba(0,0,0,.36)', 'transparent']} style={css.swiper__background}>
+								<LinearGradient colors={['rgba(0,0,0,.4)', 'transparent']} style={css.swiper__background}>
 									<Text style={css.swiper__title}>{item.title}</Text>
 									<View style={css.swiper__info}>
 										<Text style={css.swiper__time}>
