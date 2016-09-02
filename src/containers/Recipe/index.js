@@ -11,7 +11,9 @@ import { bindActionCreators } from 'redux'
 
 const stateToProps = state => ({
 	recipe: state.recipe,
-	currentHeight: state.recipeSwiper.currentHeight
+	currentHeight: state.recipeSwiper.currentHeight,
+	slides: state.recipeSwiper.slides,
+	currentSlide: state.recipeSwiper.currentSlide
 })
 
 const dipsatchToProps = dispatch => (bindActionCreators({

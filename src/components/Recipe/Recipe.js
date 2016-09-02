@@ -12,6 +12,7 @@ class Recipe extends Component {
 		// { height, index } = slide
 		let tmpSlides = this.state.slides
 		slide.height = Math.floor(slide.height)
+		slide.offsetY = Math.floor(slide.offsetY)
 		tmpSlides.push(slide)
 		this.setState({slides: tmpSlides})
 		// the last slide callback is here

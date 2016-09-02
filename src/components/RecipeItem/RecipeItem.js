@@ -5,11 +5,12 @@ import listCSS from '../List/List.css.js'
 
 class RecipeItem extends Component {
 	_getHeight (e) {
-		const { height } = e.nativeEvent.layout
+		const { height, y } = e.nativeEvent.layout
 		const { calculateSlideHeight, numberOfStage } = this.props
 		calculateSlideHeight({
 			index: numberOfStage,
-			height: height
+			height: height,
+			offsetY: y
 		})
 	}
 	render () {

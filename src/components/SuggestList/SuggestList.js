@@ -30,7 +30,6 @@ class SuggestList extends Component {
 		)
 	}
 	renderItem (item) {
-
 		return (
 			<View style={css.suggestlist__item}>
 				<Text

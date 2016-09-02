@@ -8,6 +8,7 @@ import { ScrollView,
 import Recipe from '../../components/Recipe'
 import Button from '../../components/Button'
 import { SensorManager } from 'NativeModules'
+import { throttle } from 'lodash'
 
 class RecipePage extends Component {
 	componentWillMount () {
@@ -25,6 +26,7 @@ class RecipePage extends Component {
 			const { isNear } = data
 			if (isNear) {
 				this.props.nextSlide()
+
 				self.scrollTo()
 			}
 		})
@@ -58,10 +60,33 @@ class RecipePage extends Component {
 			</View>
 		)
 	}
+
+	handleScroll = e => {
+		const { slides, currentSlide } = this.props
+		console.log(currentSlide, slides.length)
+		if (currentSlide >= slides.length - 1) {
+			return false
+		}
+		const currentY = Math.floor(e.nativeEvent.contentOffset.y)
+		const screenHeightDiv2 = e.nativeEvent.layoutMeasurement.height / 2
+		const currentScreenOffset = currentY + screenHeightDiv2
+		if (currentScreenOffset > slides[currentSlide + 1].offsetY) {
+			this.props.nextSlide()
+			console.log(currentSlide)
+		}
+
+		if (currentScreenOffset < slides[currentSlide].offsetY) {
+			this.props.previousSlide()
+			console.log(currentSlide)
+		}
+	}
 	render () {
 		const { recipe } = this.props
 		return (
-			<ScrollView ref={(r) => { this.recipe = r }}>
+			<ScrollView
+				onScroll={this.handleScroll}
+				scrollEventThrottle={200}
+				ref={(r) => { this.recipe = r }}>
 				{this.renderRecipe(recipe)}
 			</ScrollView>
 		)

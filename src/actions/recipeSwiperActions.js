@@ -5,7 +5,8 @@ import {
 	SLIDER_SET_INITIAL_SLIDE,
 	SLIDER_HANDLE_SWIPE,
 	SLIDER_PUSH_CARDS_HEIGHTS,
-	SLIDER_RESET
+	SLIDER_RESET,
+	SLIDER_WHERE_AM_I
 } from '../constants/actionTypes'
 import { createAction } from 'redux-actions'
 
@@ -16,3 +17,4 @@ export const setInitialSlide = createAction(SLIDER_SET_INITIAL_SLIDE)
 export const handleSwipe = createAction(SLIDER_HANDLE_SWIPE)
 export const pushCardsHeights = createAction(SLIDER_PUSH_CARDS_HEIGHTS)
 export const resetSlider = createAction(SLIDER_RESET)
+export const whereAmI = createAction(SLIDER_WHERE_AM_I)
