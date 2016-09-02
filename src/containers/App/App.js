@@ -26,11 +26,30 @@ class App extends Component {
 			return true
 		})
 	}
+
+	renderOverlay (props) {
+		let { navigationState, backAction } = this.props
+		if (navigationState.index === 0) return null
+		return (
+			<NavigationHeader {...props}
+				style={css.header}
+				onNavigateBack={backAction}
+				renderTitleComponent={props => {
+					const title = props.scene.route.title
+					return (
+						<NavigationHeader.Title
+							textStyle={css.text__header}>
+							{title.toUpperCase()}
+						</NavigationHeader.Title>
+					)
+				}}
+			/>
+		)
+	}
+
 	render () {
 		let { navigationState, backAction } = this.props
-
-		if (navigationState.index === 0) {
-		    return (
+		return (
 			<NavigationCardStack
 				navigationState={navigationState}
 				onNavigateBack={backAction}
@@ -38,37 +57,10 @@ class App extends Component {
 				direction={navigationState.routes[navigationState.index].key === 'Recipe'
 					? 'vertical' : 'horizontal'
 				}
+				renderOverlay={this.renderOverlay.bind(this)}
 				renderScene={router}
-			/>
-			)
-		} else {
-			return (
-			<NavigationCardStack
-				navigationState={navigationState}
-				onNavigateBack={backAction}
-				style={css.container}
-				direction={navigationState.routes[navigationState.index].key === 'Recipe'
-					? 'vertical' : 'horizontal'
-				}
-				renderOverlay={props => (
-					<NavigationHeader {...props}
-						style={css.header}
-						onNavigateBack={backAction}
-						renderTitleComponent={props => {
-							const title = props.scene.route.title
-							return (
-								<NavigationHeader.Title
-									textStyle={css.text__header}>
-									{title.toUpperCase()}
-								</NavigationHeader.Title>
-							)
-						}}
-					/>
-				)}
-				renderScene={router}
-			/>
-			)
-		}
+		/>
+		)
 	}
 }
 
