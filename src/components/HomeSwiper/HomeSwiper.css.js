@@ -34,8 +34,7 @@ export default StyleSheet.create({
 		bottom: 0,
 		right: 0,
 		paddingTop: 50,
-		paddingLeft: 20,
-		backgroundColor: 'rgba(0,0,0,.1)'
+		paddingLeft: 20
 	},
 	swiper__title: {
 		fontSize: ui.fontXL,
