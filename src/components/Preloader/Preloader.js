@@ -6,7 +6,7 @@ export default class Preloader extends Component {
 	render () {
 		const { margin } = this.props
 		let style = {}
-		style.margin = margin
+		style.marginTop = margin
 		return (
 			<View style={style}>
 				<ActivityIndicator

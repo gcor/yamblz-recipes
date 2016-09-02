@@ -7,7 +7,8 @@ import { bindActionCreators } from 'redux'
 
 export default connect(
 	state => ({
-		categories: state.categories
+		categories: state.categories,
+		status: state.categories.status
 	}),
 	dispatch => (bindActionCreators({
 		navigatePush,
