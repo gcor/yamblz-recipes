@@ -28,6 +28,13 @@ export default class Home extends Component {
 	}
 
 	_onCardPress (recipeID) {
+		console.log(recipeID)
+		const { navigatePush, setCurrentRecipe } = this.props
+		setCurrentRecipe(recipeID)
+		navigatePush({
+			key: 'RecipeView',
+			title: 'Подготовка'
+		})
 	}
 
 	render () {
@@ -44,32 +51,23 @@ export default class Home extends Component {
 			ingredients: [ ],
 			categories: [ ]
 		}, {
-			_id: '57bfffcd7ebf153a17b38338',
-			id: 9,
-			title: 'Свинина с грибами и сельдереем',
-			time: 234,
-			energy: 333,
-			complexity: 'Сложно',
-			category: 3,
-			image: 'https://intense-earth-33481.herokuapp.com/assets/recipe9/pork.jpg',
-			__v: 0,
-			stages: [ ],
-			ingredients: [ ],
-			categories: [ ]
+			_id: '57bfe641a6bae0f91575a084',
+			title: 'Курица меланезе со спагетти',
+			time: 45,
+			energy: 965,
+			image: 'http://www.caffeconcerto.co.uk/images-menus/meat-chicken-milanese-with-spaghetti_tn-jpg_1466080216.jpg'
 		}, {
-			_id: '57c0037feb6e8f5417e4622d',
-			id: 4,
-			title: 'Панини с жареным яйцом',
-			time: 10,
-			energy: 210,
-			complexity: 'Просто',
-			category: 1,
-			image: 'https://intense-earth-33481.herokuapp.com/assets/recipe4/panini.jpg',
-			__v: 0,
-			stages: [ ],
-			ingredients: [ ],
-			categories: [ ]
+			_id: '57c3f9e29a9071360856cedc',
+			title: 'Запеченая паста 4 сыра',
+			image: 'http://intense-earth-33481.herokuapp.com/assets/recipe11/4cheese.jpg',
+			time: 40,
+			energy: 824
 		}]
+
+		const titles = {
+			recommend: 'рекомендуем'.toUpperCase(),
+			soon: 'скоро в приложении'.toUpperCase()
+		}
 
 		return (
 			<ScrollView style={css.home}>
@@ -78,17 +76,17 @@ export default class Home extends Component {
 					<Image style={css.home__menu} />
 				</View>
 				<Slider style={css.home__recomended}
-					title={'РЕКОМЕНДУЕМ'}
+					title={titles.recommend}
 					id={'1'}
 					onPressHandler={this._onCardPress.bind(this)}
 					recipes={items} />
 				<View style={css.home__soon}>
-					<Text style={{fontSize: 20, color: 'rgba(0,0,0,.56)', marginLeft: 24, marginBottom: 16, marginTop: 24}}>
-						скоро в приложениии
+					<Text style={{fontSize: 16, color: 'rgba(0,0,0,.56)', marginLeft: 24, marginBottom: 16, marginTop: 24}}>
+						{titles.soon}
 					</Text>
-					<CardSmall title={'Овощи'} amount={20} image={'http://fitnesslair.ru/wp-content/uploads/2016/06/sovmestimost-produktov-pitaniya2.jpg'} />
-					<CardSmall title={'Мясо'} amount={20} image={'http://mirelhotel.com/tr/img/otel/alakart/a8.jpg'} />
-					<CardSmall title={'Десерты'} amount={20} image={'http://foolpix.net/assets/images/sets/2375/02.jpg'} />
+					<CardSmall onCategoryPress={this._onPushToCategory.bind(this)} title={'Овощи'} amount={20} image={'http://fitnesslair.ru/wp-content/uploads/2016/06/sovmestimost-produktov-pitaniya2.jpg'} />
+					<CardSmall onCategoryPress={this._onPushToCategory.bind(this)} title={'Мясо'} amount={20} image={'http://mirelhotel.com/tr/img/otel/alakart/a8.jpg'} />
+					<CardSmall onCategoryPress={this._onPushToCategory.bind(this)} title={'Десерты'} amount={20} image={'http://foolpix.net/assets/images/sets/2375/02.jpg'} />
 				</View>
 				<View>
 					<Button onPress={this._onPushToCategory.bind(this)} text='Перейти в категорию' />
@@ -101,5 +99,6 @@ export default class Home extends Component {
 }
 
 Home.propTypes = {
-	navigatePush: PropTypes.func.isRequired
+	navigatePush: PropTypes.func.isRequired,
+	setCurrentRecipe: PropTypes.func.isRequired
 }
