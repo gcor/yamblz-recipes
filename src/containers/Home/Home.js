@@ -71,7 +71,10 @@ export default class Home extends Component {
 
 		return (
 			<ScrollView style={css.home}>
-				<HomeSwiper items={items} />
+				<HomeSwiper
+					onPressHandler={this._onCardPress.bind(this)}
+					items={items}
+					/>
 				<View style={css.home__menu}>
 					<Image style={css.home__menu} />
 				</View>
