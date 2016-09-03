@@ -12,7 +12,8 @@ class RecipeTabs extends Component {
 	constructor (props) {
 		super(props)
 		this.state = {
-			activeTab: 0
+			activeTab: 0,
+			swiperHeight: 0
 		}
 	}
 
@@ -33,6 +34,14 @@ class RecipeTabs extends Component {
 		})
 	}
 
+	onLayout (e) {
+		var {x, y, width, height} = e.nativeEvent.layout;
+		console.log(height)
+		this.setState({
+			swiperHeight: height
+		})
+	}
+
 	renderContent () {
 		const { status } = this.props.recipe
 		switch (status) {
@@ -40,22 +49,27 @@ class RecipeTabs extends Component {
 				<Preloader margin={80} />
 			)
 			case SUCCESS: return (
-				<Swiper
-					loop={false}
-					showsPagination={false}
-					ref={(r) => this.swiper = r}
-					onMomentumScrollEnd={(e, state) => this.handleSwipe(state.index)}>
-					<StageList
-						tabLabel='Этапы'
-						recipe={this.props.recipe}
-					/>
-					<IngredientList
-						tabLabel='Продукты'
-						onDecrement={this.props.onDecrement}
-						onIncrement={this.props.onIncrement}
-						recipe={this.props.recipe}
-					/>
-				</Swiper>
+				<View>
+					<Swiper
+						loop={false}
+						showsPagination={false}
+						height={this.state.swiperHeight}
+						ref={(r) => this.swiper = r}
+						onMomentumScrollEnd={(e, state) => this.handleSwipe(state.index)}>
+						<StageList
+							tabLabel='Этапы'
+							recipe={this.props.recipe}
+						/>
+						<View onLayout={this.onLayout.bind(this)} >
+							<IngredientList
+								tabLabel='Продукты'
+								onDecrement={this.props.onDecrement}
+								onIncrement={this.props.onIncrement}
+								recipe={this.props.recipe}
+							/>
+						</View>
+					</Swiper>
+				</View>
 			)
 			case ERROR: return 'Сломалось или нет Интернета'
 		}
