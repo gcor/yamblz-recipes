@@ -24,19 +24,21 @@ export default class HomeSwiper extends Component {
 					return (
 						<TouchableHighlight
 							style={css.swiper__slide}
-							key={key}
-							>
+							key={key}>
 							<View>
 								<Image source={{uri: item.image}} style={css.swiper__image} />
-								<LinearGradient colors={['rgba(0,0,0,.4)', 'transparent']} style={css.swiper__background}>
-									<Text style={css.swiper__title}>{item.title}</Text>
-									<View style={css.swiper__info}>
-										<Text style={css.swiper__time}>
-											{this.getCookingTime(item.time)} ·
-										</Text>
-										<Text style={css.swiper__energy}>{item.energy} ккал</Text>
-									</View>
-								</LinearGradient>
+								<View style={css.swiper__background}>
+									<LinearGradient style={css.swiper__top} colors={['rgba(0,0,0,.6)', 'transparent']}>
+										<Text style={css.swiper__title}>{item.title}</Text>
+										<View style={css.swiper__info}>
+											<Text style={css.swiper__time}>
+												{this.getCookingTime(item.time)} ·
+											</Text>
+											<Text style={css.swiper__energy}>{item.energy} ккал</Text>
+										</View>
+									</LinearGradient>
+									<LinearGradient style={css.swiper__bottom} colors={['transparent', 'rgba(0,0,0,.4)']} />
+								</View>
 							</View>
 						</TouchableHighlight>
 					)
@@ -47,5 +49,6 @@ export default class HomeSwiper extends Component {
 }
 
 HomeSwiper.propTypes = {
-	onPressHandler: PropTypes.func
+	onPressHandler: PropTypes.func,
+	items: PropTypes.array
 }
