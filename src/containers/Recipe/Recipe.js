@@ -34,7 +34,6 @@ class RecipePage extends Component {
 		const { isNear } = data
 		if (isNear) {
 			this.props.nextSlide()
-			console.log('test')
 			this.scrollTo()
 		}
 	}
@@ -51,7 +50,6 @@ class RecipePage extends Component {
 			y: this.state.scroll,
 			animated: true
 		})
-		// console.log('adsdasads', this.props.currentHeight)
 	}
 
 	renderRecipe (recipe) {
@@ -68,17 +66,21 @@ class RecipePage extends Component {
 		const { slides, currentSlide } = this.props
 		// console.log(currentSlide, slides.length)
 		if (currentSlide >= slides.length - 1) {
+			this.props.previousSlide()
 			return false
 		}
 		const currentY = Math.floor(e.nativeEvent.contentOffset.y)
 		const screenHeightDiv2 = e.nativeEvent.layoutMeasurement.height / 2
 		const currentScreenOffset = currentY + screenHeightDiv2
 		if (currentScreenOffset > slides[currentSlide + 1].offsetY) {
-			// this.props.nextSlide()
+			if (currentSlide >= slides.length - 2) {
+				return false
+			}
+			this.props.nextSlide()
 		}
 
 		if (currentScreenOffset < slides[currentSlide].offsetY) {
-			// this.props.previousSlide()
+			this.props.previousSlide()
 		}
 	}
 	render () {
