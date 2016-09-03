@@ -16,9 +16,9 @@ export default StyleSheet.create({
 		backgroundColor: 'rgba(255,255,255,.6)',
 		width: 10,
 		height: 10,
-		borderRadius: 7,
-		marginLeft: 7,
-		marginRight: 7
+		borderRadius: 8,
+		marginLeft: 4,
+		marginRight: 4
 	},
 	swiper__dot_active: {
 		backgroundColor: '#FFF'
@@ -33,16 +33,24 @@ export default StyleSheet.create({
 		left: 0,
 		bottom: 0,
 		right: 0,
-		paddingTop: 50,
-		paddingLeft: 20
+		flexDirection: 'column',
+		justifyContent: 'space-between'
+	},
+	swiper__top: {
+		height: 330,
+		paddingTop: 112,
+		paddingLeft: 28
+	},
+	swiper__bottom: {
+		height: 65
 	},
 	swiper__title: {
-		fontSize: ui.fontXL,
-		fontWeight: 'bold',
+		fontSize: 26,
+		fontWeight: '100',
 		color: 'white'
 	},
 	swiper__info: {
-		marginTop: 20,
+		marginTop: 8,
 		flexDirection: 'row'
 	},
 	swiper__time: {
