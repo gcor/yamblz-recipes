@@ -40,7 +40,9 @@ class RecipeTabs extends Component {
 				<Preloader margin={80} />
 			)
 			case SUCCESS: return (
-				<Swiper loop={false}
+				<Swiper
+					loop={false}
+					showsPagination={false}
 					ref={(r) => this.swiper = r}
 					onMomentumScrollEnd={(e, state) => this.handleSwipe(state.index)}>
 					<StageList

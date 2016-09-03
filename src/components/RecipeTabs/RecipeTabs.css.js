@@ -6,7 +6,8 @@ export default StyleSheet.create({
 		flex: 1,
 		flexDirection: 'row',
 		marginLeft: 20,
-		marginRight: 20
+		marginRight: 20,
+		marginBottom: 20
 	},
 	tabs__item: {
 		flex: 1,
