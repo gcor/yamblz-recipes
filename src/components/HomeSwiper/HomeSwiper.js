@@ -21,10 +21,13 @@ export default class HomeSwiper extends Component {
 				activeDot={<View style={[css.swiper__dot, css.swiper__dot_active]} />}
 				paginationStyle={css.swiper__pagination}>
 				{items.map((item, key) => {
+					console.log(item)
 					return (
 						<TouchableHighlight
 							style={css.swiper__slide}
-							key={key}>
+							onPress={this.props.onPressHandler.bind(this, item._id)}
+							key={key}
+							>
 							<View>
 								<Image source={{uri: item.image}} style={css.swiper__image} />
 								<View style={css.swiper__background}>

@@ -66,7 +66,6 @@ RecipeItem.propTypes = {
 	image: PropTypes.string,
 	stage: PropTypes.object.isRequired,
 	numberOfStage: PropTypes.number.isRequired,
-	pushCardHeight: PropTypes.func.isRequired,
 	calculateSlideHeight: PropTypes.func.isRequired
 }
 
