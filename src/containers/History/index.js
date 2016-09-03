@@ -6,9 +6,12 @@ import { fetchHistory } from '../../actions/historyActions'
 import { bindActionCreators } from 'redux'
 
 export default connect(
-	state => ({}),
+	state => ({
+		recipes: state.history.recipes
+	}),
 	dispatch => (bindActionCreators({
-		navigatePush, setCurrentRecipe,
+		navigatePush,
+		setCurrentRecipe,
 		fetchHistory
 	}, dispatch))
 )(History)

@@ -28,7 +28,6 @@ export default class Home extends Component {
 	}
 
 	_onCardPress (recipeID) {
-		console.log(recipeID)
 		const { navigatePush, setCurrentRecipe } = this.props
 		setCurrentRecipe(recipeID)
 		navigatePush({

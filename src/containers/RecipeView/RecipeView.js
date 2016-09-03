@@ -29,13 +29,14 @@ export default class RecipeView extends Component {
 	renderTabs () {
 		const { isReady } = this.state
 		const imageSrc = 'http://' + this.props.recipe.image
-		const { incrementRecipePortion, decrementRecipePortion } = this.props
+		const { addToHistory, incrementRecipePortion, decrementRecipePortion } = this.props
 		if (isReady) {
 			return (
 				<ScrollView style={{backgroundColor: 'white'}}>
 					<View style={css.recipe}>
 						<Image source={{uri: imageSrc}} style={css.recipe__image} />
 						<RecipeTabs
+							onAddToHistory={addToHistory}
 							onIncrement={incrementRecipePortion}
 							onDecrement={decrementRecipePortion}
 						/>
@@ -63,6 +64,7 @@ RecipeView.propTypes = {
 	fetchRecipes: PropTypes.func.isRequired,
 	incrementRecipePortion: PropTypes.func.isRequired,
 	decrementRecipePortion: PropTypes.func.isRequired,
+	addToHistory: PropTypes.func.isRequired,
 	navigatePush: PropTypes.func.isRequired,
 	currentRecipe: PropTypes.string.isRequired,
 	resetRecipe: PropTypes.func.isRequired

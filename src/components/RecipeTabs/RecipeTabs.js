@@ -4,6 +4,7 @@ import Tab from '../Tab'
 import IngredientList from '../IngredientList'
 import StageList from '../StageList'
 import css from './RecipeTabs.css'
+import Button from '../Button'
 import Swiper from 'react-native-swiper'
 import { LOADING, SUCCESS, ERROR } from '../../constants/actionTypes'
 import Preloader from '../Preloader'
@@ -16,8 +17,7 @@ class RecipeTabs extends Component {
 			swiperHeight: 0
 		}
 	}
-
-	changeTo (index) {
+	_onOpenTab (index) {
 		if (this.state.activeTab === index) return false
 		this.setState({
 			activeTab: index
@@ -27,21 +27,16 @@ class RecipeTabs extends Component {
 			case 1: return this.swiper.scrollBy(1)
 		}
 	}
-
-	handleSwipe (index) {
+	_onHandleSwipe (index) {
 		this.setState({
 			activeTab: index
 		})
 	}
-
-	onLayout (e) {
-		var {x, y, width, height} = e.nativeEvent.layout;
-		console.log(height)
+	_onLayout (e) {
 		this.setState({
-			swiperHeight: height
+			swiperHeight: e.nativeEvent.layout.height
 		})
 	}
-
 	renderContent () {
 		const { status } = this.props.recipe
 		switch (status) {
@@ -55,12 +50,12 @@ class RecipeTabs extends Component {
 						showsPagination={false}
 						height={this.state.swiperHeight}
 						ref={(r) => this.swiper = r}
-						onMomentumScrollEnd={(e, state) => this.handleSwipe(state.index)}>
+						onMomentumScrollEnd={(e, state) => this._onHandleSwipe(state.index)}>
 						<StageList
 							tabLabel='Этапы'
 							recipe={this.props.recipe}
 						/>
-						<View onLayout={this.onLayout.bind(this)} >
+						<View onLayout={this._onLayout.bind(this)} >
 							<IngredientList
 								tabLabel='Продукты'
 								onDecrement={this.props.onDecrement}
@@ -74,23 +69,26 @@ class RecipeTabs extends Component {
 			case ERROR: return 'Сломалось или нет Интернета'
 		}
 	}
-
 	render () {
 		let { activeTab } = this.state
 		return (
 			<View>
+				<Button
+					onPress={this.props.onAddToHistory.bind(this, this.props.recipe._id)}
+					text='Добавить в избранное'
+					/>
 				<View style={css.tabs}>
 					<Tab style={[css.tabs__item, activeTab === 0
 							? css.tabs__item_active
 							: '']}
-						onPress={() => this.changeTo(0)}
+						onPress={() => this._onOpenTab(0)}
 						textStyle={css.tabs__itemText}
 						tabTitle={'ЭТАПЫ'}
 					/>
 					<Tab style={[css.tabs__item, activeTab === 1
 							? css.tabs__item_active
 							: '']}
-						onPress={() => this.changeTo(1)}
+						onPress={() => this._onOpenTab(1)}
 						textStyle={css.tabs__itemText}
 						tabTitle={'ПРОДУКТЫ'}
 					/>
@@ -104,7 +102,8 @@ class RecipeTabs extends Component {
 RecipeTabs.propTypes = {
 	recipe: PropTypes.object.isRequired,
 	onDecrement: PropTypes.func.isRequired,
-	onIncrement: PropTypes.func.isRequired
+	onIncrement: PropTypes.func.isRequired,
+	onAddToHistory: PropTypes.func.isRequired
 }
 
 export default RecipeTabs

@@ -7,6 +7,7 @@ import {
 	decrementRecipePortion,
 	resetRecipe
 } from '../../actions/recipesActions'
+import { addToHistory } from '../../actions/historyActions'
 import { bindActionCreators } from 'redux'
 
 const stateToProps = state => ({
@@ -17,6 +18,7 @@ const stateToProps = state => ({
 const dipsatchToProps = dispatch => (bindActionCreators({
 	navigatePush,
 	fetchRecipes,
+	addToHistory,
 	incrementRecipePortion,
 	decrementRecipePortion,
 	resetRecipe
