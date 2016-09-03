@@ -5,6 +5,7 @@ import Category from './containers/Category'
 import Recipe from './containers/Recipe'
 import Search from './containers/Search'
 import History from './containers/History'
+import Timers from './containers/Timers'
 
 export default function router (app) {
 	const { route } = app.scene
@@ -22,5 +23,7 @@ export default function router (app) {
 			return <Search />
 		case 'History':
 			return <History />
+		case 'Timers':
+			return <Timers />
 	}
 }

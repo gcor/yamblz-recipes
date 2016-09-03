@@ -12,6 +12,10 @@ class Timer extends Component {
 		this.tick = setInterval(this.tickTack.bind(this), 1000)
 	}
 
+	componentDidMount () {
+		this.setState({value: 500000})
+	}
+
 	tickTack () {
 		this.setState({value: this.state.value - 1000})
 	}
@@ -32,8 +36,8 @@ class Timer extends Component {
 	render () {
 		let time = formatTime(this.state.value)
 		return (
-			<View>
-				<Text style={s.timer}>{time}</Text>
+			<View style={s.timer}>
+				<Text style={s.text}>{time}</Text>
 				<Notification />
 			</View>
 		)
