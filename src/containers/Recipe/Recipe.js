@@ -11,35 +11,38 @@ import { SensorManager } from 'NativeModules'
 import { throttle } from 'lodash'
 
 class RecipePage extends Component {
+	constructor (props) {
+		super(props)
+		this.proximityHandler = this.proximityHandler.bind(this)
+	}
 	componentWillMount () {
+		DeviceEventEmitter.removeAllListeners('Proximity')
+
 		this.setState({ready: false, scroll: 0})
 		InteractionManager.runAfterInteractions(() => {
 			this.setState({ready: true})
 		})
+		SensorManager.startProximity(50)
 	}
 
 	componentDidMount () {
-		SensorManager.startProximity(100)
-		// SensorManager.startLightSensor(100)
-		const self = this
-		DeviceEventEmitter.addListener('Proximity', data => {
-			const { isNear } = data
-			if (isNear) {
-				this.props.nextSlide()
+		this.proximityListener = DeviceEventEmitter.addListener('Proximity',
+			throttle(this.proximityHandler, 800))
+	}
 
-				self.scrollTo()
-			}
-		})
-		// DeviceEventEmitter.addListener('LightSensor', data => {
-		// 	const { light } = data
-		// 	console.log(light)
-		// })
+	proximityHandler (data) {
+		const { isNear } = data
+		if (isNear) {
+			this.props.nextSlide()
+			console.log('test')
+			this.scrollTo()
+		}
 	}
 
 	componentWillUnmount () {
 		SensorManager.stopProximity()
+		this.proximityListener.remove()
 		this.props.resetSlider()
-		// SensorManager.stopLightSensor()
 	}
 
 	scrollTo () {
@@ -48,7 +51,7 @@ class RecipePage extends Component {
 			y: this.state.scroll,
 			animated: true
 		})
-		console.log('adsdasads', this.props.currentHeight)
+		// console.log('adsdasads', this.props.currentHeight)
 	}
 
 	renderRecipe (recipe) {
@@ -63,7 +66,7 @@ class RecipePage extends Component {
 
 	handleScroll = e => {
 		const { slides, currentSlide } = this.props
-		console.log(currentSlide, slides.length)
+		// console.log(currentSlide, slides.length)
 		if (currentSlide >= slides.length - 1) {
 			return false
 		}
@@ -71,13 +74,11 @@ class RecipePage extends Component {
 		const screenHeightDiv2 = e.nativeEvent.layoutMeasurement.height / 2
 		const currentScreenOffset = currentY + screenHeightDiv2
 		if (currentScreenOffset > slides[currentSlide + 1].offsetY) {
-			this.props.nextSlide()
-			console.log(currentSlide)
+			// this.props.nextSlide()
 		}
 
 		if (currentScreenOffset < slides[currentSlide].offsetY) {
-			this.props.previousSlide()
-			console.log(currentSlide)
+			// this.props.previousSlide()
 		}
 	}
 	render () {
@@ -100,7 +101,9 @@ RecipePage.propTypes = {
 	previousSlide: PropTypes.func.isRequired,
 	handleSwipe: PropTypes.func.isRequired,
 	resetSlider: PropTypes.func.isRequired,
-	currentHeight: PropTypes.number.isRequired
+	currentHeight: PropTypes.number.isRequired,
+	slides: PropTypes.array.isRequired,
+	currentSlide: PropTypes.number.isRequired
 }
 
 export default RecipePage
