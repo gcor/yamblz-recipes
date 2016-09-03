@@ -3,8 +3,6 @@ import ui from '../../constants/css'
 
 export default StyleSheet.create({
 	ingredients: {
-		paddingTop: 20,
-		paddingBottom: 20
 	},
 	ingredients__item: {
 		borderBottomWidth: 1,

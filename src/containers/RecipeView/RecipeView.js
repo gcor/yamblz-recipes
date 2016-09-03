@@ -32,7 +32,7 @@ export default class RecipeView extends Component {
 		const { incrementRecipePortion, decrementRecipePortion } = this.props
 		if (isReady) {
 			return (
-				<ScrollView style={{paddingTop: 55, backgroundColor: 'white'}}>
+				<ScrollView style={{backgroundColor: 'white'}}>
 					<View style={css.recipe}>
 						<Image source={{uri: imageSrc}} style={css.recipe__image} />
 						<RecipeTabs

@@ -3,12 +3,20 @@ import { Text, View, ListView } from 'react-native'
 import css from './IngredientList.css'
 
 export default class IngredientList extends Component {
-	render () {
-		const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 })
-		const list = {
-			rowCount: this.props.recipe.ingredients.length,
-			dataSource: ds.cloneWithRows(this.props.recipe.ingredients)
+	constructor (props) {
+		super(props)
+		this.ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 })
+		this.state = {
+			list: this.ds.cloneWithRows(this.props.recipe.ingredients)
 		}
+	}
+	componentWillReceiveProps (props) {
+		this.setState({
+			list: this.ds.cloneWithRows(this.props.recipe.ingredients)
+		})
+	}
+
+	render () {
 		return (
 			<View style={css.ingredients}>
 				<View style={[css.ingredients__item, css.ingredients__portions]}>
@@ -24,7 +32,7 @@ export default class IngredientList extends Component {
 				<ListView
 					enableEmptySections
 					contentContainerStyle={css.ingredients__list}
-					dataSource={list.dataSource}
+					dataSource={this.state.list}
 					renderRow={this._renderIngredient.bind(this)}
 				/>
 			</View>
