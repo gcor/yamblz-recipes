@@ -43,6 +43,10 @@ export default class TimerList extends Component {
 		this.interval = undefined
 	}
 
+	componentWillUnmount () {
+		this.stop()
+	}
+
 	renderTimeline () {
 		if (this.props.withTimeline) {
 			return (

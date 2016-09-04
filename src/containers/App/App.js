@@ -29,7 +29,7 @@ class App extends Component {
 
 	renderOverlay (props) {
 		let { navigationState, backAction } = this.props
-		if (navigationState.index === 1) return null
+		if (navigationState.index === 0) return null
 		return (
 			<NavigationHeader {...props}
 				style={css.header}
