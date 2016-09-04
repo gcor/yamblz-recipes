@@ -27,6 +27,13 @@ export default class Home extends Component {
 		})
 	}
 
+	_onPushToTimers () {
+		this.props.navigatePush({
+			key: 'Timers',
+			title: 'Таймеры'
+		})
+	}
+
 	_onCardPress (recipeID) {
 		const { navigatePush, setCurrentRecipe } = this.props
 		setCurrentRecipe(recipeID)
@@ -94,6 +101,7 @@ export default class Home extends Component {
 					<Button onPress={this._onPushToCategory.bind(this)} text='Перейти в категорию' />
 					<Button onPress={this._onPushToSearch.bind(this)} text='Перейти в поиск' />
 					<Button onPress={this._onPushToHistory.bind(this)} text='Перейти в сохраненные' />
+					<Button onPress={this._onPushToTimers.bind(this)} text='Перейти к таймерам' />
 				</View>
 			</ScrollView>
 		)

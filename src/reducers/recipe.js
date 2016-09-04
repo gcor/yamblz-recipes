@@ -20,12 +20,13 @@ const initialState = {
 	title: '',
 	cookingTime: 0,
 	image: 'src',
-	portions: 1,
+	defaultPortion: 0,
+	portion: 2,
 	ingredients: [],
 	stages: [{
-		title: 'Почистите рыбу',
+		title: '',
 		image: 'src',
-		steps: ['Мелко нарежьте чеснок', 'Смешайте нарезанный чеснок с размягченным сливочным маслом']
+		steps: ['', '']
 	}]
 }
 
@@ -36,6 +37,7 @@ function recipe (state = initialState, action) {
 		case FETCH_RECIPE_SUCCESS:
 			return {
 				...state,
+				...{portion: 4},
 				...{status: SUCCESS},
 				...action.payload
 			}
@@ -46,11 +48,11 @@ function recipe (state = initialState, action) {
 			}
 
 		case INCREMENT_RECIPE_PORTION:
-			if (state.portions >= maxPortions) return state
-			return {...state, ...{portions: state.portions + 1}}
+			if (state.portion >= maxPortions) return state
+			return {...state, ...{portion: state.portion + 1}}
 		case DECREMENT_RECIPE_PORTION:
-			if (state.portions <= minPortions) return state
-			return {...state, ...{portions: state.portions - 1}}
+			if (state.portion <= minPortions) return state
+			return {...state, ...{portion: state.portion - 1}}
 		case RESET_RECIPE: return initialState
 		default: return state
 	}

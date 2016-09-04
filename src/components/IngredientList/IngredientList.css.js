@@ -2,7 +2,14 @@ import { StyleSheet } from 'react-native'
 import ui from '../../constants/css'
 
 export default StyleSheet.create({
-	ingredients: {},
+	ingredients: {
+		marginTop: 16,
+		marginLeft: 8,
+		marginRight: 8,
+		marginBottom: 20,
+		elevation: 4,
+		backgroundColor: 'white'
+	},
 	ingredients__item: {
 		borderBottomWidth: 1,
 		borderBottomColor: ui.lightgray,

@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import { Text, View, ListView } from 'react-native'
 import css from './StageList.css'
 
@@ -20,11 +20,15 @@ export default class StageList extends Component {
 		)
 	}
 	_renderStage = (stage, sectionId, rowId) => {
-		var stageNum = parseInt(rowId) + 1;
+		var stageNum = parseInt(rowId) + 1
 		return (
 			<View style={css.stages__item}>
 				<Text style={css.stages__title}> {stageNum}. {stage.title} </Text>
 			</View>
 		)
 	}
+}
+
+StageList.propTypes = {
+	recipe: PropTypes.object.isRequired
 }
