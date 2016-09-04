@@ -8,6 +8,7 @@ const initialNavState = {
 	index: 0,
 	routes: [
 		{ key: 'Home', title: 'Меню' }
+		// {key: 'Timers', title: 'Таймеры'}
 		// { key: 'Recipe', title: 'Меню' }
 		// { key: 'RecipeView', title: 'Рецепт' }
 	]

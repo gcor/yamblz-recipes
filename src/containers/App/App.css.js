@@ -3,7 +3,7 @@ import ui from '../../constants/css'
 
 export default StyleSheet.create({
 	header: {
-		backgroundColor: ui.yellow,
+		backgroundColor: 'white',
 		flexDirection: 'row',
 		alignItems: 'center'
 	},

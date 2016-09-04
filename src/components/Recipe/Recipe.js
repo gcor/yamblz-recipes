@@ -40,6 +40,7 @@ class Recipe extends Component {
 		return (
 			<View>
 				{recipeItems}
+				<Timer value={5000} />
 			</View>
 		)
 		// <Text style={css.recipe__note}>Мы напомним когда нужно будет проверить или помешать</Text>
