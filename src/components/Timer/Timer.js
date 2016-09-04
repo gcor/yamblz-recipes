@@ -37,7 +37,7 @@ class Timer extends Component {
 		let time = formatTime(this.state.value)
 		return (
 			<View style={s.timer}>
-				<Text style={s.text}>{time}</Text>
+				<Text onPress={this.props.goToTimers} style={s.text}>{time}</Text>
 				<Notification />
 			</View>
 		)
@@ -45,7 +45,8 @@ class Timer extends Component {
 }
 
 Timer.propTypes = {
-	value: PropTypes.number.isRequired
+	value: PropTypes.number.isRequired,
+	goToTimers: PropTypes.func.isRequired
 }
 
 export default Timer
