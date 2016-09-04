@@ -33,7 +33,7 @@ export default class RecipeView extends Component {
 
 	renderIngredientList () {
 		const { status } = this.props.recipe
-		const { incrementRecipePortion, decrementRecipePortion } = this.props
+		const { addToHistory, incrementRecipePortion, decrementRecipePortion } = this.props
 		const imageSrc = 'http://' + this.props.recipe.image
 		const products = [
 			{
@@ -56,6 +56,10 @@ export default class RecipeView extends Component {
 			case SUCCESS: return (
 				<View style={css.recipe}>
 					<Image source={{uri: imageSrc}} style={css.recipe__image} />
+					<Button
+						onPress={addToHistory.bind(this, this.props.recipe._id)}
+						text='Добавить в избранное'
+						/>
 					<IngredientList
 						tabLabel='Продукты'
 						onDecrement={decrementRecipePortion}

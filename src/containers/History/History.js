@@ -1,11 +1,12 @@
 import React, { Component, PropTypes } from 'react'
-import { Text, ScrollView } from 'react-native'
+import { ScrollView, InteractionManager } from 'react-native'
 import Slider from '../../components/Slider'
-import CardSmall from '../../components/CardSmall'
 
 export default class History extends Component {
 	componentWillMount () {
-		this.props.fetchHistory()
+		InteractionManager.runAfterInteractions(() => {
+			this.props.fetchHistory()
+		})
 	}
 	_onCardPress (recipeID) {
 		const { navigatePush, setCurrentRecipe } = this.props
@@ -23,14 +24,13 @@ export default class History extends Component {
 		})
 	}
 	render () {
-		const recipes = this.props.recipes
 		return (
 			<ScrollView style={{marginTop: 60, backgroundColor: '#FAF9F7'}}>
 				<Slider
 					title={'Вы недавно смотрели'}
 					id={'1'}
 					onPressHandler={this._onCardPress.bind(this)}
-					recipes={recipes} />
+					recipes={this.props.recipes} />
 			</ScrollView>
 		)
 	}
@@ -44,6 +44,8 @@ export default class History extends Component {
 History.propTypes = {
 	navigatePush: PropTypes.func.isRequired,
 	setCurrentRecipe: PropTypes.func.isRequired,
-	fetchHistory: PropTypes.func.isRequired
+	fetchHistory: PropTypes.func.isRequired,
+	clearHistory: PropTypes.func.isRequired,
+	recipes: PropTypes.array.isRequired
 }
 // onCategoryPress={this._onCategoryPress.bind(this)}
