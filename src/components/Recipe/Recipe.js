@@ -8,18 +8,6 @@ class Recipe extends Component {
 	componentWillMount () {
 		this.setState({slides: []})
 	}
-	calculateSlideHeight (slide) {
-		// { height, index } = slide
-		let tmpSlides = this.state.slides
-		slide.height = Math.floor(slide.height)
-		slide.offsetY = Math.floor(slide.offsetY)
-		tmpSlides.push(slide)
-		this.setState({slides: tmpSlides})
-		// the last slide callback is here
-		if (slide.index >= this.props.data.stages.length) {
-			this.props.pushCardsHeights(this.state.slides)
-		}
-	}
 
 	render () {
 		const { data } = this.props
@@ -44,6 +32,18 @@ class Recipe extends Component {
 			</View>
 		)
 		// <Text style={css.recipe__note}>Мы напомним когда нужно будет проверить или помешать</Text>
+	}
+
+	calculateSlideHeight (slide) {
+		let tmpSlides = this.state.slides
+		slide.height = Math.floor(slide.height)
+		slide.offsetY = Math.floor(slide.offsetY)
+		tmpSlides.push(slide)
+		this.setState({slides: tmpSlides})
+		// the last slide callback is here
+		if (slide.index >= this.props.data.stages.length) {
+			this.props.pushCardsHeights(this.state.slides)
+		}
 	}
 }
 

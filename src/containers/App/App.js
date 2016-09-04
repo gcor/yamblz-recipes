@@ -10,9 +10,6 @@ const {
 	Header: NavigationHeader
 } = NavigationExperimental
 
-// Known bug in v0.30: https://github.com/facebook/react-native/issues/7422#issuecomment-236280199
-console.ignoredYellowBox = ['Warning: Failed prop type: Required prop `scene` was not specified in `NavigationHeader`']
-
 class App extends Component {
 	componentWillMount () {
 		BackAndroid.addEventListener('hardwareBackPress', () => {
