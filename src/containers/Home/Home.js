@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { Text, View, Image, ScrollView } from 'react-native'
-// import Button from '../../components/Button'
+import Button from '../../components/Button'
 import css from './Home.css'
 import HomeSwiper from '../../components/HomeSwiper'
 import Slider from '../../components/Slider'
@@ -97,17 +97,14 @@ export default class Home extends Component {
 					<CardSmall onCategoryPress={this._onPushToCategory.bind(this)} title={'Мясо'} amount={20} image={'http://mirelhotel.com/tr/img/otel/alakart/a8.jpg'} />
 					<CardSmall onCategoryPress={this._onPushToCategory.bind(this)} title={'Десерты'} amount={20} image={'http://foolpix.net/assets/images/sets/2375/02.jpg'} />
 				</View>
+				<Button onPress={this._onPushToCategory.bind(this)} text='Перейти в категорию' />
+				<Button onPress={this._onPushToSearch.bind(this)} text='Перейти в поиск' />
+				<Button onPress={this._onPushToHistory.bind(this)} text='Перейти в сохраненные' />
+				<Button onPress={this._onPushToTimers.bind(this)} text='Перейти к таймерам' />
 			</ScrollView>
 		)
 	}
 }
-
-// <View>
-// 	<Button onPress={this._onPushToCategory.bind(this)} text='Перейти в категорию' />
-// 	<Button onPress={this._onPushToSearch.bind(this)} text='Перейти в поиск' />
-// 	<Button onPress={this._onPushToHistory.bind(this)} text='Перейти в сохраненные' />
-// 	<Button onPress={this._onPushToTimers.bind(this)} text='Перейти к таймерам' />
-// </View>
 
 Home.propTypes = {
 	navigatePush: PropTypes.func.isRequired,
