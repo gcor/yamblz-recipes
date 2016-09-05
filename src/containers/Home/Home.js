@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { Text, View, Image, ScrollView } from 'react-native'
-import Button from '../../components/Button'
+// import Button from '../../components/Button'
 import css from './Home.css'
 import HomeSwiper from '../../components/HomeSwiper'
 import Slider from '../../components/Slider'
