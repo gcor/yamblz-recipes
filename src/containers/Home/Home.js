@@ -13,6 +13,7 @@ export default class Home extends Component {
 			title: 'Категория'
 		})
 	}
+
 	_onPushToSearch () {
 		this.props.navigatePush({
 			key: 'Search',
@@ -35,7 +36,6 @@ export default class Home extends Component {
 	}
 
 	_onCardPress (recipeID) {
-		console.log(recipeID)
 		const { navigatePush, setCurrentRecipe } = this.props
 		setCurrentRecipe(recipeID)
 		navigatePush({
@@ -80,8 +80,7 @@ export default class Home extends Component {
 			<ScrollView style={css.home}>
 				<HomeSwiper
 					onPressHandler={this._onCardPress.bind(this)}
-					items={items}
-					/>
+					items={items} />
 				<View style={css.home__menu}>
 					<Image style={css.home__menu} />
 				</View>
