@@ -8,6 +8,7 @@ import {
 } from '../constants/actionTypes'
 import { getRecipeById } from '../api/recipes'
 import { createAction } from 'redux-actions'
+import { execTimers } from './timersActions'
 
 export const fetchRecipes = createAction(FETCH_RECIPE, async (id) => {
 	const recipe = await getRecipeById(id)

@@ -6,6 +6,7 @@ import general from './general'
 import recipeSwiper from './recipeSwiper'
 import search from './search'
 import history from './history'
+import timers from './timers'
 
 const reducers = {
 	general,
@@ -14,7 +15,8 @@ const reducers = {
 	categories,
 	recipeSwiper,
 	search,
-	history
+	history,
+	timers
 }
 
 const createReducers = () => (combineReducers(reducers))

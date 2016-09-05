@@ -35,8 +35,12 @@ class Timer extends Component {
 
 	render () {
 		let time = formatTime(this.state.value)
+		const textValue = 'Включить таймер'.toUpperCase()
 		return (
 			<View style={s.timer}>
+				<View style={s.button}>
+					<Text style={s.buttonText}>{textValue}</Text>
+				</View>
 				<Text onPress={this.props.goToTimers} style={s.text}>{time}</Text>
 				<Notification />
 			</View>

@@ -11,5 +11,15 @@ export default StyleSheet.create({
 	text: {
 		textAlign: 'center',
 		color: 'red'
+	},
+	button: {
+		backgroundColor: s.yellow,
+		padding: 20,
+		margin: 10
+	},
+	buttonText: {
+		textAlign: 'center',
+		color: 'black',
+		fontWeight: 'bold'
 	}
 })

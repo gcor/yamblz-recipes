@@ -21,7 +21,6 @@ export default class HomeSwiper extends Component {
 				activeDot={<View style={[css.swiper__dot, css.swiper__dot_active]} />}
 				paginationStyle={css.swiper__pagination}>
 				{items.map((item, key) => {
-					console.log(item)
 					return (
 						<TouchableHighlight
 							style={css.swiper__slide}
