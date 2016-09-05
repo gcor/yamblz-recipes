@@ -96,12 +96,9 @@ RecipeView.propTypes = {
 	fetchRecipes: PropTypes.func.isRequired,
 	incrementRecipePortion: PropTypes.func.isRequired,
 	decrementRecipePortion: PropTypes.func.isRequired,
-<<<<<<< HEAD
 	addToHistory: PropTypes.func.isRequired,
-=======
 	setProductAsMain: PropTypes.func.isRequired,
 	setProductAsExtra: PropTypes.func.isRequired,
->>>>>>> 5c068a69a0a65fe53aedb4740d51b990cfa2d8f3
 	navigatePush: PropTypes.func.isRequired,
 	currentRecipe: PropTypes.string.isRequired,
 	resetRecipe: PropTypes.func.isRequired
