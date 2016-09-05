@@ -34,6 +34,7 @@ export default class RecipeView extends Component {
 		const { incrementRecipePortion,
 						decrementRecipePortion,
 						setProductAsMain,
+						addToHistory,
 						setProductAsExtra } = this.props
 		const imageSrc = 'http://' + this.props.recipe.image
 
@@ -44,6 +45,10 @@ export default class RecipeView extends Component {
 			case SUCCESS: return (
 				<View style={css.recipe}>
 					<Image source={{uri: imageSrc}} style={css.recipe__image} />
+					<Button
+						onPress={addToHistory.bind(this, this.props.recipe._id)}
+						text='Добавить в избранное'
+						/>
 					<IngredientList
 						tabLabel='Продукты'
 						onDecrement={decrementRecipePortion}
@@ -91,8 +96,12 @@ RecipeView.propTypes = {
 	fetchRecipes: PropTypes.func.isRequired,
 	incrementRecipePortion: PropTypes.func.isRequired,
 	decrementRecipePortion: PropTypes.func.isRequired,
+<<<<<<< HEAD
+	addToHistory: PropTypes.func.isRequired,
+=======
 	setProductAsMain: PropTypes.func.isRequired,
 	setProductAsExtra: PropTypes.func.isRequired,
+>>>>>>> 5c068a69a0a65fe53aedb4740d51b990cfa2d8f3
 	navigatePush: PropTypes.func.isRequired,
 	currentRecipe: PropTypes.string.isRequired,
 	resetRecipe: PropTypes.func.isRequired
