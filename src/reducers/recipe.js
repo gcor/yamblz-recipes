@@ -2,6 +2,9 @@ import {
 	INCREMENT_RECIPE_PORTION,
 	DECREMENT_RECIPE_PORTION,
 
+	SET_PRODUCT_AS_MAIN,
+	SET_PRODUCT_AS_EXTRA,
+
 	FETCH_RECIPE_LOADING,
 	FETCH_RECIPE_SUCCESS,
 	FETCH_RECIPE_ERROR,
@@ -53,6 +56,25 @@ function recipe (state = initialState, action) {
 		case DECREMENT_RECIPE_PORTION:
 			if (state.portion <= minPortions) return state
 			return {...state, ...{portion: state.portion - 1}}
+
+		case SET_PRODUCT_AS_MAIN:
+			let ingredients = state.ingredients
+			ingredients.forEach((item, i) => {
+				if (item.product._id === action.id) {
+					ingredients[i].isMain = true
+				}
+			})
+			return {...state, ...{ingredients: ingredients}}
+
+		case SET_PRODUCT_AS_EXTRA:
+			ingredients = state.ingredients
+			ingredients.forEach((item, i) => {
+				if (item.product._id === action.id) {
+					ingredients[i].isMain = false
+				}
+			})
+			return {...state, ...{ingredients: ingredients}}
+
 		case RESET_RECIPE: return initialState
 		default: return state
 	}

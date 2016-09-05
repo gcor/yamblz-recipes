@@ -3,8 +3,6 @@ import {
 	ScrollView,
 	View,
 	Image,
-	Text,
-	ListView,
 	InteractionManager
 } from 'react-native'
 import Button from '../../components/Button'
@@ -33,22 +31,13 @@ export default class RecipeView extends Component {
 
 	renderIngredientList () {
 		const { status } = this.props.recipe
-		const { addToHistory, incrementRecipePortion, decrementRecipePortion } = this.props
+		const { incrementRecipePortion,
+						decrementRecipePortion,
+						setProductAsMain,
+						addToHistory,
+						setProductAsExtra } = this.props
 		const imageSrc = 'http://' + this.props.recipe.image
-		const products = [
-			{
-				title: 'Перец черный молотый',
-				image: 'http://img3.board.com.ua/a/2004653239/wm/1-perets-chernyij-dushistyij-belyij-chili.jpg'
-			},
-			{
-				title: 'Тимьян',
-				image: 'http://r-azbuka.ru/img_catalog/preview/1437149732.jpg'
-			},
-			{
-				title: 'Лавровый лист',
-				image: 'http://expertpokozhe.ru/wp-content/uploads/2016/02/Lavrovyj-list-dlja-lechenija-pryshhej.jpg'
-			}
-		]
+
 		switch (status) {
 			case LOADING: return (
 				<Preloader margin={80} />
@@ -64,12 +53,14 @@ export default class RecipeView extends Component {
 						tabLabel='Продукты'
 						onDecrement={decrementRecipePortion}
 						onIncrement={incrementRecipePortion}
+						setExtra={setProductAsExtra}
 						recipe={this.props.recipe}
 					/>
 					<ExtraProducts
 						title={'можно добавить'}
 						id={'1'}
-						products={products} />
+						setMain={setProductAsMain}
+						recipe={this.props.recipe} />
 				</View>
 			)
 			case ERROR: return 'Сломалось или нет Интернета'
@@ -105,7 +96,12 @@ RecipeView.propTypes = {
 	fetchRecipes: PropTypes.func.isRequired,
 	incrementRecipePortion: PropTypes.func.isRequired,
 	decrementRecipePortion: PropTypes.func.isRequired,
+<<<<<<< HEAD
 	addToHistory: PropTypes.func.isRequired,
+=======
+	setProductAsMain: PropTypes.func.isRequired,
+	setProductAsExtra: PropTypes.func.isRequired,
+>>>>>>> 5c068a69a0a65fe53aedb4740d51b990cfa2d8f3
 	navigatePush: PropTypes.func.isRequired,
 	currentRecipe: PropTypes.string.isRequired,
 	resetRecipe: PropTypes.func.isRequired

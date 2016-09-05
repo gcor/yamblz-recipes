@@ -6,10 +6,17 @@ import css from './ExtraProducts.css'
 class ExtraProducts extends Component {
 	constructor (props) {
 		super(props)
-		const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 })
+		this.ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 })
+		const unrequiredProducts = this.props.recipe.ingredients.filter(item => item.isMain === false)
 		this.state = {
-			dataSource: ds.cloneWithRows(this.props.products)
+			list: this.ds.cloneWithRows(unrequiredProducts)
 		}
+	}
+	componentWillReceiveProps (props) {
+		const unrequiredProducts = this.props.recipe.ingredients.filter(item => item.isMain === false)
+		this.setState({
+			list: this.ds.cloneWithRows(unrequiredProducts)
+		})
 	}
 	render () {
 		return (
@@ -17,8 +24,9 @@ class ExtraProducts extends Component {
 				<Text style={css.extraProducts__title}>{this.props.title.toUpperCase()}</Text>
 				<ListView
 					horizontal
+					enableEmptySections
 					showsHorizontalScrollIndicator={false}
-					dataSource={this.state.dataSource}
+					dataSource={this.state.list}
 					renderRow={this._renderProductCard.bind(this)}
 				/>
 			</View>
@@ -27,8 +35,8 @@ class ExtraProducts extends Component {
 	_renderProductCard (cardData) {
 		return (
 			<ProductCard
-				data={cardData}
-				// onPressHandler={this.props.onPressHandler}
+				ingredient={cardData}
+				onProductClick={this.props.setMain}
 				style={css.extraProducts__item}
 			/>
 		)
@@ -36,9 +44,9 @@ class ExtraProducts extends Component {
 }
 
 ExtraProducts.propTypes = {
-	// onPressHandler: PropTypes.func.isRequired,
+	setMain: PropTypes.func.isRequired,
 	title: PropTypes.string.isRequired,
-	products: PropTypes.array.isRequired
+	recipe: PropTypes.object.isRequired
 }
 
 export default ExtraProducts

@@ -5,6 +5,8 @@ import {
 	fetchRecipes,
 	incrementRecipePortion,
 	decrementRecipePortion,
+	setProductAsMain,
+	setProductAsExtra,
 	resetRecipe
 } from '../../actions/recipesActions'
 import { addToHistory } from '../../actions/historyActions'
@@ -21,6 +23,8 @@ const dipsatchToProps = dispatch => (bindActionCreators({
 	addToHistory,
 	incrementRecipePortion,
 	decrementRecipePortion,
+	setProductAsMain,
+	setProductAsExtra,
 	resetRecipe
 }, dispatch))
 
