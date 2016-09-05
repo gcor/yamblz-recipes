@@ -4,6 +4,8 @@
 
 `cd prf-c-kitchen && npm install`
 
+#https://intense-earth-33481.herokuapp.com BACKAND
+
 ### Start development with android
 `npm run a`
 
