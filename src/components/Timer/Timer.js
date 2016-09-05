@@ -1,12 +1,17 @@
 import React, { Component, PropTypes } from 'react'
 import {
-	View, Text
+	View, Text,
+	TouchableOpacity
 } from 'react-native'
 import s from './Timer.css'
 import { formatTime } from './util'
-import Notification from '../Notification'
+import Notifications from '../Notification'
 
 class Timer extends Component {
+	constructor () {
+		super()
+		this.handlePress = this.handlePress.bind(this)
+	}
 	componentWillMount () {
 		this.setState({value: this.props.value})
 		this.tick = setInterval(this.tickTack.bind(this), 1000)
@@ -33,20 +38,25 @@ class Timer extends Component {
 		this.stop()
 	}
 
+	handlePress () {
+		Notifications.pushNotification()
+		this.props.goToTimers()
+	}
+
 	render () {
 		let time = formatTime(this.state.value)
 		const textValue = 'Включить таймер'.toUpperCase()
 		return (
 			<View style={s.timer}>
-				<View style={s.button}>
+				<TouchableOpacity style={s.button} onPress={this.handlePress}>
 					<Text style={s.buttonText}>{textValue}</Text>
-				</View>
-				<Text onPress={this.props.goToTimers} style={s.text}>{time}</Text>
-				<Notification />
+				</TouchableOpacity>
 			</View>
 		)
 	}
 }
+
+// <Text onPress={this.props.goToTimers} style={s.text}>{time}</Text>
 
 Timer.propTypes = {
 	value: PropTypes.number.isRequired,
