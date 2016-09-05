@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { NavigationExperimental, BackAndroid } from 'react-native'
+import { NavigationExperimental, BackAndroid, StatusBar } from 'react-native'
 import { connect } from 'react-redux'
 import router from '../../router'
 import { navigatePop } from '../../actions/navigationActions'
@@ -14,6 +14,7 @@ const {
 console.ignoredYellowBox = ['Warning: Failed prop type: Required prop `scene` was not specified in `NavigationHeader`']
 
 class App extends Component {
+
 	componentWillMount () {
 		BackAndroid.addEventListener('hardwareBackPress', () => {
 			let { navigationState, backAction } = this.props
@@ -42,13 +43,21 @@ class App extends Component {
 							{title.toUpperCase()}
 						</NavigationHeader.Title>
 					)
-				}}
-			/>
+				}} />
 		)
 	}
 
 	render () {
 		let { navigationState, backAction } = this.props
+
+		if (navigationState.index === 0) {
+			StatusBar.setTranslucent(true)
+			StatusBar.setBackgroundColor('rgba(0, 0, 0, 0)', true)
+		} else {
+			StatusBar.setTranslucent(false)
+			StatusBar.setBackgroundColor('rgba(0, 0, 0, 1)', true)
+		}
+
 		return (
 			<NavigationCardStack
 				navigationState={navigationState}
@@ -58,8 +67,7 @@ class App extends Component {
 					? 'vertical' : 'horizontal'
 				}
 				renderOverlay={this.renderOverlay.bind(this)}
-				renderScene={router}
-		/>
+				renderScene={router} />
 		)
 	}
 }
