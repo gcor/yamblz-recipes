@@ -7,13 +7,15 @@ export default class IngredientList extends Component {
 	constructor (props) {
 		super(props)
 		this.ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 })
+		const requiredProducts = this.props.recipe.ingredients.filter(item => item.isMain === true)
 		this.state = {
-			list: this.ds.cloneWithRows(this.props.recipe.ingredients)
+			list: this.ds.cloneWithRows(requiredProducts)
 		}
 	}
 	componentWillReceiveProps (props) {
+		const requiredProducts = this.props.recipe.ingredients.filter(item => item.isMain === true)
 		this.setState({
-			list: this.ds.cloneWithRows(this.props.recipe.ingredients)
+			list: this.ds.cloneWithRows(requiredProducts)
 		})
 	}
 	getAmount (amount, measure, baseMeasure) {
@@ -65,9 +67,9 @@ export default class IngredientList extends Component {
 						<Text style={[css.ingredients__title, css.bold]}> Порции </Text>
 					</View>
 					<View style={css.ingredients__right}>
-						<Text style={[css.ingredients__counter, {fontSize: 30}]} onPress={this.props.onDecrement}> — </Text>
+						<Text style={[css.ingredients__counter, {fontSize: 30}]} onPress={this.props.onDecrement}> - </Text>
 						<Text style={[css.ingredients__counter, {width: 40, textAlign: 'center'}]}> {this.props.recipe.portion} </Text>
-						<Text style={[css.ingredients__counter, {fontSize: 34}]} onPress={this.props.onIncrement}> + </Text>
+						<Text style={[css.ingredients__counter, {fontSize: 30}]} onPress={this.props.onIncrement}> + </Text>
 					</View>
 				</View>
 				<ListView
@@ -79,12 +81,20 @@ export default class IngredientList extends Component {
 			</View>
 		)
 	}
+	_renderCloseButton (isVisible, id) {
+		if (isVisible) {
+			return (
+				<Text onPress={this.props.setExtra.bind(this, id)}> X </Text>
+			)
+		} else return false
+	}
 	_renderIngredient = ingredient => {
 		const amountPerPortion = ingredient.amount / this.props.recipe.defaultPortion
 		const amount = this.props.recipe.portion * amountPerPortion
 		return (
 			<View style={css.ingredients__item}>
 				<View style={css.ingredients__left}>
+					{this._renderCloseButton(ingredient.extra, ingredient.product._id)}
 					<Text style={css.ingredients__title}> {ingredient.product.title} </Text>
 				</View>
 				<View style={css.ingredients__right}>
@@ -100,5 +110,6 @@ export default class IngredientList extends Component {
 IngredientList.propTypes = {
 	onDecrement: PropTypes.func.isRequired,
 	onIncrement: PropTypes.func.isRequired,
+	setExtra: PropTypes.func.isRequired,
 	recipe: PropTypes.object.isRequired
 }

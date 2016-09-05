@@ -5,6 +5,8 @@ import {
 	fetchRecipes,
 	incrementRecipePortion,
 	decrementRecipePortion,
+	setProductAsMain,
+	setProductAsExtra,
 	resetRecipe
 } from '../../actions/recipesActions'
 import { bindActionCreators } from 'redux'
@@ -19,6 +21,8 @@ const dipsatchToProps = dispatch => (bindActionCreators({
 	fetchRecipes,
 	incrementRecipePortion,
 	decrementRecipePortion,
+	setProductAsMain,
+	setProductAsExtra,
 	resetRecipe
 }, dispatch))
 
