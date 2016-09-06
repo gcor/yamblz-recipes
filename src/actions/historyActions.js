@@ -3,11 +3,10 @@ import {
 	ADD_TO_HISTORY,
 	REMOVE_FROM_HISTORY
 } from '../constants/actionTypes'
-import { HISTORY_STORAGE_KEY } from '../constants/keys'
-
 import { createAction } from 'redux-actions'
-import { getRecipeById } from '../api/recipes'
 import { AsyncStorage } from 'react-native'
+import { HISTORY_STORAGE_KEY } from '../constants/keys'
+import { getRecipeById } from '../api/recipes'
 
 export const fetchHistory = createAction(FETCH_HISTORY, async () => {
 	const idsFromStorage = await AsyncStorage.getItem(HISTORY_STORAGE_KEY)

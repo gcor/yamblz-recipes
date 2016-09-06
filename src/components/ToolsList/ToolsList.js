@@ -43,7 +43,7 @@ class ToolsList extends Component {
 
 ToolsList.propTypes = {
 	title: PropTypes.string.isRequired,
-	tools: PropTypes.object.isRequired
+	tools: PropTypes.array.isRequired
 }
 
 export default ToolsList

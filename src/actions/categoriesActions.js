@@ -1,7 +1,7 @@
 import {
 	FETCH_CATEGORIES
 } from '../constants/actionTypes'
-import { getCategories, getCategoryById } from '../api/categories'
+import { getCategories } from '../api/categories'
 import { isFetchedCategories } from './generalActions'
 import { createAction } from 'redux-actions'
 import { formatImageSrc } from '../utils'
