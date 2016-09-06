@@ -61,9 +61,8 @@ class App extends Component {
 
 	render () {
 		let { navigationState, backAction } = this.props
-		console.log(navigationState, 'blablabla')
 		this.setStatusBar(navigationState.routes[navigationState.routes.length - 1].key)
-		
+
 		return (
 			<NavigationCardStack
 				navigationState={navigationState}
