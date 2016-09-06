@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { Text, View, Image, ScrollView } from 'react-native'
+import { Text, View, Image, ScrollView, StatusBar } from 'react-native'
 import Button from '../../components/Button'
 import css from './Home.css'
 import HomeSwiper from '../../components/HomeSwiper'
@@ -44,6 +44,16 @@ export default class Home extends Component {
 		})
 	}
 
+	_getHeight (e) {
+		this.swiperHeight = e.nativeEvent.layout.height
+	}
+
+	_handleScroll (e) {
+		const currentY = Math.floor(e.nativeEvent.contentOffset.y)
+		var color = currentY > this.swiperHeight ? 'black' : 'transparent'
+		StatusBar.setBackgroundColor(color, true)
+	}
+
 	render () {
 		var items = [{
 			_id: '57bf5e6c23a24aae1483a36c',
@@ -77,12 +87,12 @@ export default class Home extends Component {
 		}
 
 		return (
-			<ScrollView style={css.home}>
-				<HomeSwiper
-					onPressHandler={this._onCardPress.bind(this)}
-					items={items} />
-				<View style={css.home__menu}>
-					<Image style={css.home__menu} />
+			<ScrollView style={css.home}
+				onScroll={this._handleScroll.bind(this)}>
+				<View onLayout={this._getHeight.bind(this)}>
+					<HomeSwiper
+						onPressHandler={this._onCardPress.bind(this)}
+						items={items} />
 				</View>
 				<Slider style={css.home__recomended}
 					title={titles.recommend}

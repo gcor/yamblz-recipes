@@ -44,17 +44,25 @@ class App extends Component {
 		)
 	}
 
+	setStatusBarProps (isTranslucent, color) {
+		StatusBar.setTranslucent(isTranslucent)
+		StatusBar.setBackgroundColor(color, false)
+	}
+
+	setStatusBar (index) {
+		switch (index) {
+			case 0: this.setStatusBarProps(true, 'transparent')
+				break
+			case 1: this.setStatusBarProps(true, 'transparent')
+				break
+			default: this.setStatusBarProps(false, 'black')
+		}
+	}
+
 	render () {
 		let { navigationState, backAction } = this.props
-
-		if (navigationState.index === 0) {
-			StatusBar.setTranslucent(true)
-			StatusBar.setBackgroundColor('rgba(0, 0, 0, 0)', true)
-		} else {
-			StatusBar.setTranslucent(false)
-			StatusBar.setBackgroundColor('rgba(0, 0, 0, 1)', true)
-		}
-
+		this.setStatusBar(navigationState.index)
+		
 		return (
 			<NavigationCardStack
 				navigationState={navigationState}
