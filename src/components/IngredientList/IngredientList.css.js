@@ -7,7 +7,7 @@ export default StyleSheet.create({
 		marginLeft: 8,
 		marginRight: 8,
 		marginBottom: 20,
-		elevation: 4,
+		elevation: ui.elevation,
 		backgroundColor: 'white'
 	},
 	ingredients__item: {
