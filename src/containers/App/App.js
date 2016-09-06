@@ -49,11 +49,11 @@ class App extends Component {
 		StatusBar.setBackgroundColor(color, false)
 	}
 
-	setStatusBar (index) {
-		switch (index) {
-			case 0: this.setStatusBarProps(true, 'transparent')
+	setStatusBar (key) {
+		switch (key) {
+			case 'Home': this.setStatusBarProps(true, 'transparent')
 				break
-			case 1: this.setStatusBarProps(true, 'transparent')
+			case 'RecipeView': this.setStatusBarProps(true, 'transparent')
 				break
 			default: this.setStatusBarProps(false, 'black')
 		}
@@ -61,7 +61,8 @@ class App extends Component {
 
 	render () {
 		let { navigationState, backAction } = this.props
-		this.setStatusBar(navigationState.index)
+		console.log(navigationState, 'blablabla')
+		this.setStatusBar(navigationState.routes[navigationState.routes.length - 1].key)
 		
 		return (
 			<NavigationCardStack
