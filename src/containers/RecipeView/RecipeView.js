@@ -3,6 +3,7 @@ import {
 	ScrollView,
 	View,
 	Image,
+	StatusBar,
 	InteractionManager
 } from 'react-native'
 import Button from '../../components/Button'
