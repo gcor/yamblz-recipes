@@ -8,6 +8,7 @@ import {
 import Button from '../../components/Button'
 import IngredientList from '../../components/IngredientList'
 import ExtraProducts from '../../components/ExtraProducts'
+import ToolsList from '../../components/ToolsList'
 import css from './RecipeView.css'
 import { LOADING, SUCCESS, ERROR } from '../../constants/actionTypes'
 import Preloader from '../../components/Preloader'
@@ -61,6 +62,10 @@ export default class RecipeView extends Component {
 						id={'1'}
 						setMain={setProductAsMain}
 						recipe={this.props.recipe} />
+					<ToolsList
+						title={'Вам может понадобиться'}
+						tools={['Ёмкость для запекания', 'Нож', 'Разделочная доска']}
+						/>
 				</View>
 			)
 			case ERROR: return 'Сломалось или нет Интернета'
