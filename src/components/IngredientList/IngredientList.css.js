@@ -2,51 +2,88 @@ import { StyleSheet } from 'react-native'
 import ui from '../../constants/css'
 
 export default StyleSheet.create({
+	portions: {
+		height: 56,
+		alignItems: 'center',
+		paddingLeft: 15,
+		paddingRight: 15,
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+		borderBottomWidth: 1,
+		borderBottomColor: '#eee'
+	},
+	portions__controls: {
+		flexDirection: 'row'
+	},
+	portions__text: {
+		fontSize: 22,
+		fontWeight: 'bold',
+		color: '#444'
+	},
+	controls__button: {
+		fontSize: 22
+	},
+	controls__value: {
+		textAlign: 'center',
+		width: 40
+	},
+
 	ingredients: {
-		marginTop: 16,
-		marginLeft: 8,
-		marginRight: 8,
-		marginBottom: 20,
-		elevation: ui.elevation,
+		marginBottom: 5,
+		elevation: 2,
 		backgroundColor: 'white'
 	},
 	ingredients__item: {
 		borderBottomWidth: 1,
-		borderBottomColor: ui.lightgray,
-		justifyContent: 'space-between',
+		flex: 1,
 		flexDirection: 'row',
-		alignItems: 'center',
-		height: 70,
-		marginLeft: 15
+		height: 84,
+		borderBottomColor: '#eee'
 	},
-	ingredients__left: {
-		flexDirection: 'row',
-		alignItems: 'center'
+	ingredients__imageBox: {
+		flex: 1,
+		justifyContent: 'center',
+		alignItems: 'center',
+		marginLeft: 8
+	},
+	ingredients__image: {
+		height: 82,
+		width: 82,
+		resizeMode: 'contain'
+	},
+	ingredients__content: {
+		flex: 3,
+		marginLeft: 25,
+		marginRight: 25
 	},
 	ingredients__title: {
-		fontSize: ui.fontL,
-		color: 'black'
-	},
-	ingredients__portions: {
-		marginLeft: 0,
-		paddingLeft: 15
-	},
-	ingredients__right: {
-		flexDirection: 'row',
-		alignItems: 'center',
-		marginRight: 15
-	},
-	ingredients__counter: {
-		fontSize: ui.fontXL,
-		fontWeight: 'bold',
+		fontSize: 20,
 		color: 'black',
-		textAlign: 'right'
+		marginTop: 16
 	},
-	ingredients__measure: {
-		fontSize: ui.fontM,
-		color: 'black'
+	ingredients__amount: {
+		fontSize: 16,
+		color: 'rgba(0,0,0,.6)',
+		marginTop: 6
 	},
-	bold: {
-		fontWeight: 'bold'
+
+	extraIngredients: {
+		marginTop: 5
+	},
+	extraIngredients__item: {
+		flex: 1,
+		flexDirection: 'row',
+		height: 84,
+		marginBottom: 5,
+		marginLeft: 10,
+		marginRight: 10,
+		backgroundColor: 'white',
+		elevation: 2
+	},
+
+	closeButton: {
+		position: 'absolute',
+		top: 15,
+		right: 15
 	}
 })

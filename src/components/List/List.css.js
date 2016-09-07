@@ -23,5 +23,16 @@ export default StyleSheet.create({
 		color: 'black',
 		width: Dimensions.get('window').width - 80,
 		marginLeft: 50
+	},
+	item__action: {
+		fontSize: ui.fontL,
+		lineHeight: 30,
+		color: 'black',
+		width: Dimensions.get('window').width - 80,
+		marginLeft: 50,
+		backgroundColor: '#eee',
+		padding: 10,
+		borderRadius: 4,
+		width: 100
 	}
 })

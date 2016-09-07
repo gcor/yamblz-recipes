@@ -13,32 +13,10 @@ export const useBrain = (title, ingredients) => {
 			console.log(productTitle, title)
 			const matcher = new RegExp(productTitle, 'ig')
 			if (fuzzysearch(productTitle, title)) {
-				return title.replace(matcher, `${title} — (${amount} ${measure})`)
+				// return title.replace(matcher, `${productTitle} ${amount} ${measure}`)
+				return `${productTitle} ${amount} ${measure}`
 			}
 		}
 	}
-	return title
+	return false
 }
-		// const { stages } = r
-		// let titles = []
-		// stages.forEach(stage => {
-		// 	const { steps } = stage
-		// 	steps.forEach(step => {
-		// 		titles.push(step)
-		// 	})
-		// })
-		// let count = 0
-		// for (name of titles) {
-		// 	for (product of products) {
-		// 		var { title, amount, measure } = product
-		// 		title = title.toLowerCase()
-		// 		name = name.toLowerCase()
-		// 		const matcher = new RegExp(title, 'ig')
-		//
-		// 		if (fuzzysearch(title, name)) {
-		// 			count++
-		// 			console.log(name.replace(matcher, `${title} — (${amount} ${measure})`))
-		// 			break
-		// 		}
-		// 	}
-		// }

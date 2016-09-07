@@ -19,18 +19,22 @@ class ExtraProducts extends Component {
 		})
 	}
 	render () {
-		return (
-			<View style={css.extraProducts}>
-				<Text style={css.extraProducts__title}>{this.props.title.toUpperCase()}</Text>
-				<ListView
-					horizontal
-					enableEmptySections
-					showsHorizontalScrollIndicator={false}
-					dataSource={this.state.list}
-					renderRow={this._renderProductCard.bind(this)}
-				/>
-			</View>
-		)
+		if (this.state.list._cachedRowCount) {
+			return (
+				<View style={css.extraProducts}>
+					<Text style={css.extraProducts__title}>{this.props.title.toUpperCase()}</Text>
+					<ListView
+						horizontal
+						enableEmptySections
+						showsHorizontalScrollIndicator={false}
+						dataSource={this.state.list}
+						renderRow={this._renderProductCard.bind(this)}
+					/>
+				</View>
+			)
+		} else {
+			return false
+		}
 	}
 	_renderProductCard (cardData) {
 		return (

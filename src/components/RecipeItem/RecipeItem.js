@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component, PropTypes, TouchableHighlight } from 'react'
 import { Text, View, ListView, Image } from 'react-native'
 import css from './RecipeItem.css'
 import listCSS from '../List/List.css.js'
@@ -60,7 +60,12 @@ class RecipeItem extends Component {
 		return (
 			<View style={listCSS.item}>
 				<View style={listCSS.item__point}></View>
-				<Text style={listCSS.item__value}>{cstring}</Text>
+				<Text style={listCSS.item__value}>{rowData}</Text>
+				{cstring && (
+					<View style={listCSS.item__action}>
+						<Text>{cstring}</Text>
+					</View>
+				)}
 			</View>
 		)
 	}
