@@ -22,42 +22,46 @@ import java.util.List;
 import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
 import com.sensormanager.SensorManagerPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
-
+import com.yandex.metrica.YandexMetrica;
 
 public class MainApplication extends Application implements ReactApplication {
 
-  private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
-    @Override
-    protected boolean getUseDeveloperSupport() {
-      return BuildConfig.DEBUG;
-    }
+	private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
+		@Override
+		protected boolean getUseDeveloperSupport() {
+			return BuildConfig.DEBUG;
+		}
 
-    @Override
-    protected List<ReactPackage> getPackages() {
-      return Arrays.<ReactPackage>asList(
-          new MainReactPackage(),
+		@Override
+		protected List<ReactPackage> getPackages() {
+			return Arrays.<ReactPackage>asList(
+					new MainReactPackage(),
 					new ReactNativePushNotificationPackage(),
 					new SensorManagerPackage(),
 					new LinearGradientPackage()
-      );
-    }
-  };
+			);
+		}
+	};
 
-  @Override
-  public ReactNativeHost getReactNativeHost() {
-      return mReactNativeHost;
-  }
+	@Override
+	public ReactNativeHost getReactNativeHost() {
+			return mReactNativeHost;
+	}
 
-  public void onCreate() {
-      super.onCreate();
-      Stetho.initializeWithDefaults(this);
-      OkHttpClient client = new OkHttpClient.Builder()
-      .connectTimeout(0, TimeUnit.MILLISECONDS)
-      .readTimeout(0, TimeUnit.MILLISECONDS)
-      .writeTimeout(0, TimeUnit.MILLISECONDS)
-      .cookieJar(new ReactCookieJarContainer())
-      .addNetworkInterceptor(new StethoInterceptor())
-      .build();
-      OkHttpClientProvider.replaceOkHttpClient(client);
-  }
+	public void onCreate() {
+			super.onCreate();
+			Stetho.initializeWithDefaults(this);
+			// init AppMetrica SDK
+			YandexMetrica.activate(getApplicationContext(), "903405b2-b52d-4e09-ab99-0bf451b43675");
+			// Tracking user activity
+			YandexMetrica.enableActivityAutoTracking(this);
+			OkHttpClient client = new OkHttpClient.Builder()
+			.connectTimeout(0, TimeUnit.MILLISECONDS)
+			.readTimeout(0, TimeUnit.MILLISECONDS)
+			.writeTimeout(0, TimeUnit.MILLISECONDS)
+			.cookieJar(new ReactCookieJarContainer())
+			.addNetworkInterceptor(new StethoInterceptor())
+			.build();
+			OkHttpClientProvider.replaceOkHttpClient(client);
+	}
 }
