@@ -88,7 +88,7 @@ export default class RecipeView extends Component {
 		const { isReady } = this.state
 		if (isReady) {
 			return (
-				<ScrollView style={{backgroundColor: 'white'}}
+				<ScrollView style={{backgroundColor: '#FAF9F7'}}
 					onScroll={this._handleScroll.bind(this)}>
 					{this.renderIngredientList()}
 				</ScrollView>
@@ -103,7 +103,7 @@ export default class RecipeView extends Component {
 				{this.renderContent()}
 				<Button
 					onPress={this._onPress.bind(this)}
-					text='Приготовить' />
+					text='Начать готовить' />
 			</View>
 		)
 	}
