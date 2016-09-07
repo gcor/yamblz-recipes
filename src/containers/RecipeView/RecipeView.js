@@ -3,11 +3,13 @@ import {
 	ScrollView,
 	View,
 	Image,
+	StatusBar,
 	InteractionManager
 } from 'react-native'
 import Button from '../../components/Button'
 import IngredientList from '../../components/IngredientList'
 import ExtraProducts from '../../components/ExtraProducts'
+import ToolsList from '../../components/ToolsList'
 import css from './RecipeView.css'
 import { LOADING, SUCCESS, ERROR } from '../../constants/actionTypes'
 import Preloader from '../../components/Preloader'
@@ -21,12 +23,23 @@ export default class RecipeView extends Component {
 			fetchRecipes(currentRecipe)
 		})
 	}
+
+	componentWillUnmount () {
+		this.props.resetRecipe()
+	}
+
 	_onPress () {
 		this.props.navigatePush({key: 'Recipe', title: 'Процесс'})
 	}
 
-	componentWillUnmount () {
-		this.props.resetRecipe()
+	_getHeight (e) {
+		this.swiperHeight = e.nativeEvent.layout.height
+	}
+
+	_handleScroll (e) {
+		const currentY = Math.floor(e.nativeEvent.contentOffset.y)
+		var color = currentY > this.swiperHeight ? 'black' : 'transparent'
+		StatusBar.setBackgroundColor(color, true)
 	}
 
 	renderIngredientList () {
@@ -44,23 +57,27 @@ export default class RecipeView extends Component {
 			)
 			case SUCCESS: return (
 				<View style={css.recipe}>
-					<Image source={{uri: imageSrc}} style={css.recipe__image} />
+					<View onLayout={this._getHeight.bind(this)}>
+						<Image source={{uri: imageSrc}} style={css.recipe__image} />
+					</View>
 					<Button
 						onPress={addToHistory.bind(this, this.props.recipe._id)}
-						text='Добавить в избранное'
-						/>
+						text='Добавить в избранное' />
 					<IngredientList
 						tabLabel='Продукты'
 						onDecrement={decrementRecipePortion}
 						onIncrement={incrementRecipePortion}
 						setExtra={setProductAsExtra}
-						recipe={this.props.recipe}
-					/>
+						recipe={this.props.recipe} />
 					<ExtraProducts
 						title={'можно добавить'}
 						id={'1'}
 						setMain={setProductAsMain}
 						recipe={this.props.recipe} />
+					<ToolsList
+						title={'Вам может понадобиться'}
+						tools={['Ёмкость для запекания', 'Нож', 'Разделочная доска']}
+						/>
 				</View>
 			)
 			case ERROR: return 'Сломалось или нет Интернета'
@@ -71,7 +88,8 @@ export default class RecipeView extends Component {
 		const { isReady } = this.state
 		if (isReady) {
 			return (
-				<ScrollView style={{backgroundColor: 'white'}}>
+				<ScrollView style={{backgroundColor: 'white'}}
+					onScroll={this._handleScroll.bind(this)}>
 					{this.renderIngredientList()}
 				</ScrollView>
 			)
