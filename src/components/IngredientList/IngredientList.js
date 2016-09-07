@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { Text, View, ListView } from 'react-native'
+import { Text, View, ListView, Image } from 'react-native'
 import { pronunciation } from '../../utils'
 import css from './IngredientList.css'
 
@@ -7,15 +7,19 @@ export default class IngredientList extends Component {
 	constructor (props) {
 		super(props)
 		this.ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 })
-		const requiredProducts = this.props.recipe.ingredients.filter(item => item.isMain === true)
+		const requiredProducts = this.props.recipe.ingredients.filter(item => item.extra === false)
+		const extraProducts = this.props.recipe.ingredients.filter(item => item.extra === true && item.isMain === true)
 		this.state = {
-			list: this.ds.cloneWithRows(requiredProducts)
+			list: this.ds.cloneWithRows(requiredProducts),
+			extra: this.ds.cloneWithRows(extraProducts)
 		}
 	}
 	componentWillReceiveProps (props) {
-		const requiredProducts = this.props.recipe.ingredients.filter(item => item.isMain === true)
+		const requiredProducts = this.props.recipe.ingredients.filter(item => item.extra === false)
+		const extraProducts = this.props.recipe.ingredients.filter(item => item.extra === true && item.isMain === true)
 		this.setState({
-			list: this.ds.cloneWithRows(requiredProducts)
+			list: this.ds.cloneWithRows(requiredProducts),
+			extra: this.ds.cloneWithRows(extraProducts)
 		})
 	}
 	getAmount (amount, measure, baseMeasure) {
@@ -61,47 +65,57 @@ export default class IngredientList extends Component {
 
 	render () {
 		return (
-			<View style={css.ingredients}>
-				<View style={[css.ingredients__item, css.ingredients__portions]}>
-					<View style={css.ingredients__left}>
-						<Text style={[css.ingredients__title, css.bold]}> Порции </Text>
+			<View>
+				<View style={css.ingredients}>
+					<View style={css.portions}>
+						<View style={{}}>
+							<Text style={css.portions__text}> Порции </Text>
+						</View>
+						<View style={css.portions__controls}>
+							<Text style={[css.controls__button, css.portions__text]} onPress={this.props.onDecrement}> - </Text>
+							<Text style={[css.controls__value, css.portions__text]}> {this.props.recipe.portion} </Text>
+							<Text style={[css.controls__button, css.portions__text]} onPress={this.props.onIncrement}> + </Text>
+						</View>
 					</View>
-					<View style={css.ingredients__right}>
-						<Text style={[css.ingredients__counter, {fontSize: 30}]} onPress={this.props.onDecrement}> - </Text>
-						<Text style={[css.ingredients__counter, {width: 40, textAlign: 'center'}]}> {this.props.recipe.portion} </Text>
-						<Text style={[css.ingredients__counter, {fontSize: 30}]} onPress={this.props.onIncrement}> + </Text>
-					</View>
+					<ListView
+						enableEmptySections
+						dataSource={this.state.list}
+						renderRow={this._renderIngredient.bind(this)}
+					/>
 				</View>
-				<ListView
-					enableEmptySections
-					contentContainerStyle={css.ingredients__list}
-					dataSource={this.state.list}
-					renderRow={this._renderIngredient.bind(this)}
-				/>
+				<View style={css.extraIngredients}>
+					<ListView
+						enableEmptySections
+						dataSource={this.state.extra}
+						renderRow={this._renderIngredient.bind(this)}
+					/>
+				</View>
 			</View>
 		)
 	}
 	_renderCloseButton (isVisible, id) {
 		if (isVisible) {
 			return (
-				<Text onPress={this.props.setExtra.bind(this, id)}> X </Text>
+				<Text style={css.closeButton} onPress={this.props.setExtra.bind(this, id)}> X </Text>
 			)
 		} else return false
 	}
 	_renderIngredient = ingredient => {
 		const amountPerPortion = ingredient.amount / this.props.recipe.defaultPortion
 		const amount = this.props.recipe.portion * amountPerPortion
+		const ingredientStyle = (ingredient.extra === false) ? css.ingredients__item : css.extraIngredients__item
 		return (
-			<View style={css.ingredients__item}>
-				<View style={css.ingredients__left}>
-					{this._renderCloseButton(ingredient.extra, ingredient.product._id)}
-					<Text style={css.ingredients__title}> {ingredient.product.title} </Text>
+			<View style={ingredientStyle}>
+				<View style={css.ingredients__imageBox}>
+					<Image style={css.ingredients__image} source={{uri: ingredient.product.image}} />
 				</View>
-				<View style={css.ingredients__right}>
-					<Text style={css.ingredients__measure}>
+				<View style={css.ingredients__content}>
+					<Text style={css.ingredients__title}>{ingredient.product.title}</Text>
+					<Text style={css.ingredients__amount}>
 						{this.getAmount(amount, ingredient.measure, ingredient.product.baseMeasure)}
 					</Text>
 				</View>
+				{this._renderCloseButton(ingredient.extra, ingredient.product._id)}
 			</View>
 		)
 	}
