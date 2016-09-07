@@ -7,10 +7,11 @@
     "i": "node node_modules/react-native/local-cli/cli.js run-ios",
     "a": "node node_modules/react-native/local-cli/cli.js run-android",
     "l": "node node_modules/react-native/local-cli/cli.js log-android",
-		"b": "cd android && ./gradlew assembleRelease",
-		"t": "react-native run-android --variant=release"
+    "b": "cd android && ./gradlew assembleRelease",
+    "t": "react-native run-android --variant=release"
   },
   "dependencies": {
+    "fuzzysearch": "^1.0.3",
     "immutable": "^3.8.1",
     "lodash": "^4.15.0",
     "react": "15.2.1",

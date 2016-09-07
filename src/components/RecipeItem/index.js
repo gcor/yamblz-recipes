@@ -4,6 +4,8 @@ import { bindActionCreators } from 'redux'
 import pushCardHeight from '../../actions/recipeSwiperActions'
 
 export default connect(
-	state => ({}),
+	state => ({
+		ingredients: state.recipe.ingredients
+	}),
 	dispatch => (bindActionCreators({ pushCardHeight }, dispatch))
 )(RecipeItem)

@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { Text, View, ListView, Image } from 'react-native'
 import css from './RecipeItem.css'
 import listCSS from '../List/List.css.js'
+import { useBrain } from './util'
 
 class RecipeItem extends Component {
 	_getHeight (e) {
@@ -32,7 +33,7 @@ class RecipeItem extends Component {
 					<ListView
 						style={listCSS.list}
 						dataSource={list.recipeItemActions}
-						renderRow={this._renderActionItem}
+						renderRow={this._renderActionItem.bind(this)}
 					/>
 				</View>
 			</View>
@@ -53,10 +54,13 @@ class RecipeItem extends Component {
 		return null
 	}
 	_renderActionItem (rowData) {
+		// console.log(rowData)
+		// console.log(this.props.ingredients)
+		const cstring = useBrain(rowData, this.props.ingredients)
 		return (
 			<View style={listCSS.item}>
 				<View style={listCSS.item__point}></View>
-				<Text style={listCSS.item__value}>{rowData}</Text>
+				<Text style={listCSS.item__value}>{cstring}</Text>
 			</View>
 		)
 	}
@@ -66,7 +70,8 @@ RecipeItem.propTypes = {
 	image: PropTypes.string,
 	stage: PropTypes.object.isRequired,
 	numberOfStage: PropTypes.number.isRequired,
-	calculateSlideHeight: PropTypes.func.isRequired
+	calculateSlideHeight: PropTypes.func.isRequired,
+	ingredients: PropTypes.array.isRequired
 }
 
 export default RecipeItem
