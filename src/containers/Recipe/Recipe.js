@@ -2,13 +2,15 @@ import React, { Component, PropTypes } from 'react'
 import { ScrollView,
 	InteractionManager,
 	DeviceEventEmitter,
-	View
+	View,
+	NativeModules
 } from 'react-native'
 
 import Recipe from '../../components/Recipe'
 import Button from '../../components/Button'
 import { SensorManager } from 'NativeModules'
 import { throttle } from 'lodash'
+const Speech = NativeModules.SpeechApi;
 
 class RecipePage extends Component {
 	constructor (props) {
@@ -52,11 +54,19 @@ class RecipePage extends Component {
 		})
 	}
 
+	_onPress () {
+		Speech.vocalize('Привет! Я голосовой движок Яндекса', '', () => {
+		})	
+	}
+
 	renderRecipe (recipe) {
 		if (!this.state.ready) return null
 		return (
 			<View>
 				<Button text='Процесс' route='home' />
+				<Button
+					onPress={this._onPress.bind(this)}
+					text='Приготовить' />
 				<Recipe data={recipe} />
 			</View>
 		)
