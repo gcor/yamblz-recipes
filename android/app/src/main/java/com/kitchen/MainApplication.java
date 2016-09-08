@@ -22,6 +22,7 @@ import java.util.List;
 import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
 import com.sensormanager.SensorManagerPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
+import com.kitchen.appmetrika.AppMetrikaPackage;
 import com.yandex.metrica.YandexMetrica;
 
 public class MainApplication extends Application implements ReactApplication {
@@ -38,7 +39,8 @@ public class MainApplication extends Application implements ReactApplication {
 					new MainReactPackage(),
 					new ReactNativePushNotificationPackage(),
 					new SensorManagerPackage(),
-					new LinearGradientPackage()
+					new LinearGradientPackage(),
+					new AppMetrikaPackage()
 			);
 		}
 	};
