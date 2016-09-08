@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { Text, View, Image, ScrollView, StatusBar } from 'react-native'
+import { Text, View, NativeModules, ScrollView, StatusBar } from 'react-native'
 import Button from '../../components/Button'
 import css from './Home.css'
 import HomeSwiper from '../../components/HomeSwiper'
@@ -33,6 +33,13 @@ export default class Home extends Component {
 			key: 'Timers',
 			title: 'Таймеры'
 		})
+	}
+
+	_onCustomJavaEvent () {
+		const AppMetrica = NativeModules.AppMetrika
+		// отправляем событие "Hello!!!" в метрику
+		// настройки в android/app/src/main/java/com/kitchen/AppMetrikaPackage.java
+		AppMetrica.hello()
 	}
 
 	_onCardPress (recipeID) {
@@ -111,6 +118,7 @@ export default class Home extends Component {
 				<Button onPress={this._onPushToSearch.bind(this)} text='Перейти в поиск' />
 				<Button onPress={this._onPushToHistory.bind(this)} text='Перейти в сохраненные' />
 				<Button onPress={this._onPushToTimers.bind(this)} text='Перейти к таймерам' />
+				<Button onPress={this._onCustomJavaEvent.bind(this)} text='Отправить событие в метрику' />
 			</ScrollView>
 		)
 	}
