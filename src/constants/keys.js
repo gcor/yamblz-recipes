@@ -1,3 +1,6 @@
 export const HISTORY_STORAGE_KEY = '@AsyncStorageHistory:key'
+export const HISTORY_STORAGE_VERSION = '@AsyncStorageHistoryVersion:key'
 export const RECIPES_STORAGE_KEY = '@AsyncStorageRecipes:key'
+export const RECIPES_STORAGE_VERSION = '@AsyncStorageRecipesVersion:key'
 export const CATEGORY_STORAGE_KEY = '@AsyncStorageCategory:key'
+export const CATEGORY_STORAGE_VERSION = '@AsyncStorageCategoryVersion:key'
