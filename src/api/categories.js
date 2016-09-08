@@ -13,7 +13,7 @@ export function getCategories () {
 		const categoriesVersionsFromStorage = await AsyncStorage.getItem(CATEGORY_STORAGE_VERSION)
 		const categoriesFromStorage = await AsyncStorage.getItem(CATEGORY_STORAGE_KEY) || '[]'
 		const cachedCategories = JSON.parse(categoriesFromStorage)
-		const cachedVersion = JSON.parse(categoriesVersionsFromStorage)
+		const cachedVersion = JSON.parse(categoriesVersionsFromStorage) || []
 		const cachedCategoriesVersion = _getVersionsFromCollection(cachedCategories)
 		if (cachedVersion.length && _.isEqual(cachedVersion, cachedCategoriesVersion)) {
 			console.log('из кэша', cachedCategories)
