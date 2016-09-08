@@ -54,9 +54,17 @@ class RecipePage extends Component {
 		})
 	}
 
-	_onPress () {
-		Speech.vocalize('Привет! Я голосовой движок Яндекса', '', () => {
+	vocalizeStage (stage) {
+		Speech.vocalize(stage.title, '', () => {
+			alert('Успешно')
+		}, (error) => {
+			alert(error)
 		})	
+	} 
+
+	_onPress () {
+		const { recipe, currentSlide } = this.props
+		this.vocalizeStage (recipe.stages[currentSlide])
 	}
 
 	renderRecipe (recipe) {
@@ -66,7 +74,7 @@ class RecipePage extends Component {
 				<Button text='Процесс' route='home' />
 				<Button
 					onPress={this._onPress.bind(this)}
-					text='Приготовить' />
+					text='Диктовка' />
 				<Recipe data={recipe} />
 			</View>
 		)
