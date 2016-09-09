@@ -53,8 +53,6 @@ class App extends Component {
 		switch (key) {
 			case 'Home': this.setStatusBarProps(true, 'transparent')
 				break
-			case 'RecipeView': this.setStatusBarProps(true, 'transparent')
-				break
 			default: this.setStatusBarProps(false, 'black')
 		}
 	}
