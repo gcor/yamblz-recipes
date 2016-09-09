@@ -73,6 +73,65 @@ export default class Home extends Component {
 		StatusBar.setBackgroundColor(color, true)
 	}
 
+	renderAppBar () {
+		return (
+			<View style={{backgroundColor: 'transparent', justifyContent: 'center', alignItems: 'center', marginLeft: 16, marginRight: 16, marginTop: 32, position: 'absolute', top: 0, left: 0, bottom: 0, right: 0, height: 60, flexDirection: 'row', justifyContent: 'space-between'}}>
+				<TouchableHighlight onPress={this._onPushToHistory.bind(this)}>
+					<View style={{height: 24, width: 24, backgroundColor: 'black'}}></View>
+				</TouchableHighlight>
+				<View style={{paddingLeft: 16, paddingRight: 16, height: 36, alignItems: 'center', justifyContent: 'center', borderWidth: 2, borderStyle: 'solid', borderColor: 'white', borderRadius: 18 }}>
+					<Text style={{color: 'white', fontSize: 16 }}>Завтрак</Text>
+				</View> 
+				<TouchableHighlight style={{marginLeft: 32}} onPress={this._onPushToSearch.bind(this)}>
+					<View style={{height: 24, width: 24, backgroundColor: 'black'}}></View>
+				</TouchableHighlight>	
+			</View>
+		)
+	}
+
+	renderModal () {
+		return (
+			<Modal animationType={'slide'} transparent={true} visible={this.state.modalVisible}
+				onRequestClose={() => {this.setModalVisible(false)}}>
+				<View style={{backgroundColor: 'rgba(0,0,0,0.5)', flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
+					<View style={{width: 280, height: 212, borderWidth: 0, borderStyle: 'solid', borderColor: 'transparent', backgroundColor: 'white', borderRadius: 3}}>
+						<Text style={{fontSize: 20, margin: 24, color: 'black', textAlign: 'center'}}>Хотите узнавать о новых рецептах?</Text>
+						<Text style={{fontSize: 16, marginLeft: 24, marginRight: 24, marginBottom: 24, color: 'black', textAlign: 'center'}}>Разрешите отпралять вам уведомления.</Text>
+						<View style={{flexDirection: 'row', justifyContent: 'center'}}>
+							<TouchableHighlight onPress={() => { this.setModalVisible(!this.state.modalVisible) }}>
+								<Text style={{fontSize: 16, color: 'rgba(0,0,0,0.5)'}}>НЕТ</Text>
+							</TouchableHighlight>
+							<TouchableHighlight style={{marginLeft: 32}} onPress={() => { this.setPushNotification() }}>
+								<Text style={{fontSize: 16, color: 'black'}}>ДА, СПАСИБО</Text>
+							</TouchableHighlight>
+						</View>
+					</View>
+				</View>
+			</Modal>
+		)
+	}
+
+	renderSoonInApp () {
+		<View style={{marginBottom: 16}}>
+			<Text style={{fontSize: 16, color: 'rgba(0,0,0,.56)', marginLeft: 24, marginBottom: 16, marginTop: 24}}>
+				СКОРО В ПРИЛОЖЕНИИ
+			</Text>
+			<View style={css.home__notificationCard}>
+				<CardSmall onCategoryPress={this._onPushToCategory.bind(this)} title={'Овощи'} amount={20} image={'http://fitnesslair.ru/wp-content/uploads/2016/06/sovmestimost-produktov-pitaniya2.jpg'} />
+				<Text style={{fontSize: 16, color: 'black', marginLeft: 16, marginBottom: 4, marginTop: 24, marginRight: 16, textAlign: 'center'}}>
+					Категория появится через 7 дней.
+				</Text>
+				<Text style={{fontSize: 16, color: 'black', marginLeft: 16, marginBottom: 24, marginTop: 4, marginRight: 16, textAlign: 'center'}}>
+					Отправить оповещение?
+				</Text>
+				<View style={{marginLeft: 16, marginRight: 16, marginBottom: 16}} >
+					<Button text='НАПОМНИТЬ'
+						onPress={this.setModalVisible.bind(this, true)} />
+				</View>
+			</View>
+		</View>
+	}
+
 	render () {
 		var items = [{
 			_id: '57bf5e6c23a24aae1483a36c',
@@ -106,60 +165,31 @@ export default class Home extends Component {
 		}
 
 		return (
-			<ScrollView style={css.home}
-				onScroll={this._handleScroll.bind(this)}>
-				<View onLayout={this._getHeight.bind(this)}>
-					<HomeSwiper
+			<View style={{flex: 1}}>
+				<ScrollView style={css.home}
+					onScroll={this._handleScroll.bind(this)}>
+					<View onLayout={this._getHeight.bind(this)}>
+						<HomeSwiper
+							onPressHandler={this._onCardPress.bind(this)}
+							items={items} />
+						{this.renderAppBar()}
+					</View>
+					<Slider style={css.home__recomended}
+						title={titles.recommend}
+						id={'1'}
 						onPressHandler={this._onCardPress.bind(this)}
-						items={items} />
-				</View>
-				<Slider style={css.home__recomended}
-					title={titles.recommend}
-					id={'1'}
-					onPressHandler={this._onCardPress.bind(this)}
-					recipes={items} />
-				<View style={{marginBottom: 16}}>
-					<Text style={{fontSize: 16, color: 'rgba(0,0,0,.56)', marginLeft: 24, marginBottom: 16, marginTop: 24}}>
-						{titles.soon}
-					</Text>
-					<View style={css.home__notificationCard}>
-						<CardSmall onCategoryPress={this._onPushToCategory.bind(this)} title={'Овощи'} amount={20} image={'http://fitnesslair.ru/wp-content/uploads/2016/06/sovmestimost-produktov-pitaniya2.jpg'} />
-						<Text style={{fontSize: 16, color: 'black', marginLeft: 16, marginBottom: 4, marginTop: 24, marginRight: 16, textAlign: 'center'}}>
-							Категория появится через 7 дней.
-						</Text>
-						<Text style={{fontSize: 16, color: 'black', marginLeft: 16, marginBottom: 24, marginTop: 4, marginRight: 16, textAlign: 'center'}}>
-							Отправить оповещение?
-						</Text>
-						<View style={{marginLeft: 16, marginRight: 16, marginBottom: 16}} >
-							<Button text='НАПОМНИТЬ'
-								onPress={this.setModalVisible.bind(this, true)} />
-						</View>
-					</View>
-				</View>
-				<Button onPress={this._onPushToCategory.bind(this)} text='Перейти в категорию' />
-				<Button onPress={this._onPushToSearch.bind(this)} text='Перейти в поиск' />
-				<Button onPress={this._onPushToHistory.bind(this)} text='Перейти в сохраненные' />
-				<Button onPress={this._onPushToTimers.bind(this)} text='Перейти к таймерам' />
-				<Button onPress={this._onCustomJavaEvent.bind(this)} text='Отправить событие в метрику' />
+						recipes={items} />
+					
+					{this.renderSoonInApp()}
+					{this.renderModal()}
 
-				<Modal animationType={'slide'} transparent={true} visible={this.state.modalVisible}
-					onRequestClose={() => {this.setModalVisible(false)}}>
-					<View style={{backgroundColor: 'rgba(0,0,0,0.5)', flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
-						<View style={{width: 280, height: 212, borderWidth: 0, borderStyle: 'solid', borderColor: 'transparent', backgroundColor: 'white', borderRadius: 3}}>
-							<Text style={{fontSize: 20, margin: 24, color: 'black', textAlign: 'center'}}>Хотите узнавать о новых рецептах?</Text>
-							<Text style={{fontSize: 16, marginLeft: 24, marginRight: 24, marginBottom: 24, color: 'black', textAlign: 'center'}}>Разрешите отпралять вам уведомления.</Text>
-							<View style={{flexDirection: 'row', justifyContent: 'center'}}>
-								<TouchableHighlight onPress={() => { this.setModalVisible(!this.state.modalVisible) }}>
-									<Text style={{fontSize: 16, color: 'rgba(0,0,0,0.5)'}}>НЕТ</Text>
-								</TouchableHighlight>
-								<TouchableHighlight style={{marginLeft: 32}} onPress={() => { this.setPushNotification() }}>
-									<Text style={{fontSize: 16, color: 'black'}}>ДА, СПАСИБО</Text>
-								</TouchableHighlight>
-							</View>
-						</View>
-					</View>
-				</Modal>
-			</ScrollView>
+					<Button onPress={this._onPushToCategory.bind(this)} text='Перейти в категорию' />
+					<Button onPress={this._onPushToSearch.bind(this)} text='Перейти в поиск' />
+					<Button onPress={this._onPushToHistory.bind(this)} text='Перейти в сохраненные' />
+					<Button onPress={this._onPushToTimers.bind(this)} text='Перейти к таймерам' />
+					<Button onPress={this._onCustomJavaEvent.bind(this)} text='Отправить событие в метрику' />
+				</ScrollView>
+			</View>
 		)
 	}
 }
