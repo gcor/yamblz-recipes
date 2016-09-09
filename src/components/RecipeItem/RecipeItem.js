@@ -56,7 +56,8 @@ class RecipeItem extends Component {
 	_renderActionItem (rowData) {
 		// console.log(rowData)
 		// console.log(this.props.ingredients)
-		const cstring = useBrain(rowData, this.props.ingredients)
+    const { title } = rowData
+		const cstring = useBrain(title, this.props.ingredients)
 		console.log(cstring)
 		const renderProducts = cstring ?
 			<View style={listCSS.item__action}>
@@ -66,7 +67,7 @@ class RecipeItem extends Component {
 		return (
 			<View style={listCSS.item}>
 				<View style={listCSS.item__point}></View>
-				<Text style={listCSS.item__value}>{rowData}</Text>
+				<Text style={listCSS.item__value}>{title}</Text>
 				{renderProducts}
 			</View>
 		)
