@@ -49,7 +49,7 @@ export default class RecipeView extends Component {
 						setProductAsMain,
 						addToHistory,
 						setProductAsExtra } = this.props
-		const imageSrc = 'http://' + this.props.recipe.image
+		const imageSrc = this.props.recipe.image
 
 		switch (status) {
 			case LOADING: return (
