@@ -54,8 +54,9 @@ class RecipePage extends Component {
 		})
 	}
 
-	vocalizeStage (stage) {
-		Speech.vocalize(stage.title, '', () => {
+	vocalizeStage (stage, readyCallback) {
+		var textToVocalize = stage.title + stage.steps.join('. ')
+		Speech.vocalize(textToVocalize, '', () => {
 			alert('Успешно')
 		}, (error) => {
 			alert(error)

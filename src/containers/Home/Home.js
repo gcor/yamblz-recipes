@@ -5,6 +5,7 @@ import css from './Home.css'
 import HomeSwiper from '../../components/HomeSwiper'
 import Slider from '../../components/Slider'
 import CardSmall from '../../components/CardSmall'
+import AppBar from '../../components/AppBar'
 
 export default class Home extends Component {
 	constructor (props) {
@@ -17,27 +18,6 @@ export default class Home extends Component {
 	}
 
 	setPushNotification () {
-	}
-
-	_onPushToCategory () {
-		this.props.navigatePush({
-			key: 'Category',
-			title: 'Категория'
-		})
-	}
-
-	_onPushToSearch () {
-		this.props.navigatePush({
-			key: 'Search',
-			title: 'Поиск'
-		})
-	}
-
-	_onPushToHistory () {
-		this.props.navigatePush({
-			key: 'History',
-			title: 'Ваши рецепты'
-		})
 	}
 
 	_onPushToTimers () {
@@ -75,17 +55,7 @@ export default class Home extends Component {
 
 	renderAppBar () {
 		return (
-			<View style={{backgroundColor: 'transparent', justifyContent: 'center', alignItems: 'center', marginLeft: 16, marginRight: 16, marginTop: 32, position: 'absolute', top: 0, left: 0, bottom: 0, right: 0, height: 60, flexDirection: 'row', justifyContent: 'space-between'}}>
-				<TouchableHighlight onPress={this._onPushToHistory.bind(this)}>
-					<View style={{height: 24, width: 24, backgroundColor: 'black'}}></View>
-				</TouchableHighlight>
-				<View style={{paddingLeft: 16, paddingRight: 16, height: 36, alignItems: 'center', justifyContent: 'center', borderWidth: 2, borderStyle: 'solid', borderColor: 'white', borderRadius: 18 }}>
-					<Text style={{color: 'white', fontSize: 16 }}>Завтрак</Text>
-				</View> 
-				<TouchableHighlight style={{marginLeft: 32}} onPress={this._onPushToSearch.bind(this)}>
-					<View style={{height: 24, width: 24, backgroundColor: 'black'}}></View>
-				</TouchableHighlight>	
-			</View>
+			<AppBar />
 		)
 	}
 
@@ -118,7 +88,7 @@ export default class Home extends Component {
 					СКОРО В ПРИЛОЖЕНИИ
 				</Text>
 				<View style={css.home__notificationCard}>
-					<CardSmall onCategoryPress={this._onPushToCategory.bind(this)} title={'Овощи'} amount={20} image={'http://fitnesslair.ru/wp-content/uploads/2016/06/sovmestimost-produktov-pitaniya2.jpg'} />
+					<CardSmall title={'Овощи'} amount={20} image={'http://fitnesslair.ru/wp-content/uploads/2016/06/sovmestimost-produktov-pitaniya2.jpg'} />
 					<Text style={{fontSize: 16, color: 'black', marginLeft: 16, marginBottom: 4, marginTop: 24, marginRight: 16, textAlign: 'center'}}>
 						Категория появится через 7 дней.
 					</Text>
@@ -185,9 +155,6 @@ export default class Home extends Component {
 					{this.renderSoonInApp()}
 					{this.renderModal()}
 
-					<Button onPress={this._onPushToCategory.bind(this)} text='Перейти в категорию' />
-					<Button onPress={this._onPushToSearch.bind(this)} text='Перейти в поиск' />
-					<Button onPress={this._onPushToHistory.bind(this)} text='Перейти в сохраненные' />
 					<Button onPress={this._onPushToTimers.bind(this)} text='Перейти к таймерам' />
 					<Button onPress={this._onCustomJavaEvent.bind(this)} text='Отправить событие в метрику' />
 				</ScrollView>
