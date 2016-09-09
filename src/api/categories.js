@@ -31,5 +31,23 @@ export function getCategories () {
 	})
 }
 
+export function getJumbotron () {
+	return new Promise(async (resolve, reject) => {
+		console.log(api.time.breakfast)
+		fetch(api.time.breakfast)
+			.then(res => res.json())
+			.then(jumbotron => resolve(jumbotron))
+			.catch(e => reject(e))
+		// const now = (new Date()).getHours()
+		// switch (now) {
+		// 	case (now > 0 && now <= 12): break
+		// 	case (now > 12 && now <= 18): break
+		// 	case (now > 18): break
+		// 	default:
+		// 		break
+		// }
+	})
+}
+
 const categories = {getCategories}
 export default categories

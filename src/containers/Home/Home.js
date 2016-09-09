@@ -11,6 +11,7 @@ export default class Home extends Component {
 	constructor (props) {
 		super(props)
 		this.state = {modalVisible: false}
+		this.props.fetchJumbotron()
 	}
 
 	setModalVisible (visible) {
@@ -151,7 +152,7 @@ export default class Home extends Component {
 						id={'1'}
 						onPressHandler={this._onCardPress.bind(this)}
 						recipes={items} />
-					
+
 					{this.renderSoonInApp()}
 					{this.renderModal()}
 
@@ -165,5 +166,6 @@ export default class Home extends Component {
 
 Home.propTypes = {
 	navigatePush: PropTypes.func.isRequired,
-	setCurrentRecipe: PropTypes.func.isRequired
+	setCurrentRecipe: PropTypes.func.isRequired,
+	fetchJumbotron: PropTypes.func.isRequired
 }

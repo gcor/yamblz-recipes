@@ -1,7 +1,8 @@
 import {
-	FETCH_CATEGORIES
+	FETCH_CATEGORIES,
+	FETCH_JUMBOTRON
 } from '../constants/actionTypes'
-import { getCategories } from '../api/categories'
+import { getCategories, getJumbotron } from '../api/categories'
 import { isFetchedCategories } from './generalActions'
 import { createAction } from 'redux-actions'
 import { formatImageSrc } from '../utils'
@@ -15,6 +16,12 @@ export const fetchCategories = createAction(FETCH_CATEGORIES, async () => {
 		})
 	})
 	return categories
+})
+
+export const fetchJumbotron = createAction(FETCH_JUMBOTRON, async () => {
+	const jumbotron = await getJumbotron()
+	if (!jumbotron) Promise.reject('No jumbotron')
+	return jumbotron
 })
 // export const fetchCategories = () => (dispatch, getState) => {
 // 	if (getState().general.fetched.categories) {

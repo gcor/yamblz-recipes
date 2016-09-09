@@ -1,5 +1,7 @@
 import {
-	FETCH_CATEGORY_BY_ID,
+	FETCH_JUMBOTRON_LOADING,
+	FETCH_JUMBOTRON_SUCCESS,
+	FETCH_JUMBOTRON_ERROR,
 
 	FETCH_CATEGORIES_LOADING,
 	FETCH_CATEGORIES_SUCCESS,
@@ -11,7 +13,8 @@ import {
 } from '../constants/actionTypes'
 const initialState = {
 	status: '',
-	categories: []
+	categories: [],
+	jumbotron: []
 }
 
 function categories (state = initialState, action) {
@@ -34,6 +37,23 @@ function categories (state = initialState, action) {
 			return {
 				...state,
 				...{status: ERROR}
+			}
+
+		case FETCH_JUMBOTRON_LOADING:
+			return {
+				...state,
+				...{status: LOADING}
+			}
+		case FETCH_JUMBOTRON_SUCCESS:
+			return {
+				...state,
+				...{status: SUCCESS},
+				...{jumbotron: action.payload}
+			}
+		case FETCH_JUMBOTRON_ERROR:
+			return {
+				...state,
+				...{state: ERROR}
 			}
 
 		default: return state
