@@ -112,24 +112,26 @@ export default class Home extends Component {
 	}
 
 	renderSoonInApp () {
-		<View style={{marginBottom: 16}}>
-			<Text style={{fontSize: 16, color: 'rgba(0,0,0,.56)', marginLeft: 24, marginBottom: 16, marginTop: 24}}>
-				СКОРО В ПРИЛОЖЕНИИ
-			</Text>
-			<View style={css.home__notificationCard}>
-				<CardSmall onCategoryPress={this._onPushToCategory.bind(this)} title={'Овощи'} amount={20} image={'http://fitnesslair.ru/wp-content/uploads/2016/06/sovmestimost-produktov-pitaniya2.jpg'} />
-				<Text style={{fontSize: 16, color: 'black', marginLeft: 16, marginBottom: 4, marginTop: 24, marginRight: 16, textAlign: 'center'}}>
-					Категория появится через 7 дней.
+		return (
+			<View style={{marginBottom: 16}}>
+				<Text style={{fontSize: 16, color: 'rgba(0,0,0,.56)', marginLeft: 24, marginBottom: 16, marginTop: 24}}>
+					СКОРО В ПРИЛОЖЕНИИ
 				</Text>
-				<Text style={{fontSize: 16, color: 'black', marginLeft: 16, marginBottom: 24, marginTop: 4, marginRight: 16, textAlign: 'center'}}>
-					Отправить оповещение?
-				</Text>
-				<View style={{marginLeft: 16, marginRight: 16, marginBottom: 16}} >
-					<Button text='НАПОМНИТЬ'
-						onPress={this.setModalVisible.bind(this, true)} />
+				<View style={css.home__notificationCard}>
+					<CardSmall onCategoryPress={this._onPushToCategory.bind(this)} title={'Овощи'} amount={20} image={'http://fitnesslair.ru/wp-content/uploads/2016/06/sovmestimost-produktov-pitaniya2.jpg'} />
+					<Text style={{fontSize: 16, color: 'black', marginLeft: 16, marginBottom: 4, marginTop: 24, marginRight: 16, textAlign: 'center'}}>
+						Категория появится через 7 дней.
+					</Text>
+					<Text style={{fontSize: 16, color: 'black', marginLeft: 16, marginBottom: 24, marginTop: 4, marginRight: 16, textAlign: 'center'}}>
+						Отправить оповещение?
+					</Text>
+					<View style={{marginLeft: 16, marginRight: 16, marginBottom: 16}} >
+						<Button text='НАПОМНИТЬ'
+							onPress={this.setModalVisible.bind(this, true)} />
+					</View>
 				</View>
 			</View>
-		</View>
+		)
 	}
 
 	render () {
