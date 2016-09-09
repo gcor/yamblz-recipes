@@ -106,13 +106,22 @@ export default class Home extends Component {
 					id={'1'}
 					onPressHandler={this._onCardPress.bind(this)}
 					recipes={items} />
-				<View style={css.home__soon}>
+				<View style={{marginBottom: 16}}>
 					<Text style={{fontSize: 16, color: 'rgba(0,0,0,.56)', marginLeft: 24, marginBottom: 16, marginTop: 24}}>
 						{titles.soon}
 					</Text>
-					<CardSmall onCategoryPress={this._onPushToCategory.bind(this)} title={'Овощи'} amount={20} image={'http://fitnesslair.ru/wp-content/uploads/2016/06/sovmestimost-produktov-pitaniya2.jpg'} />
-					<CardSmall onCategoryPress={this._onPushToCategory.bind(this)} title={'Мясо'} amount={20} image={'http://mirelhotel.com/tr/img/otel/alakart/a8.jpg'} />
-					<CardSmall onCategoryPress={this._onPushToCategory.bind(this)} title={'Десерты'} amount={20} image={'http://foolpix.net/assets/images/sets/2375/02.jpg'} />
+					<View style={css.home__notificationCard}>
+						<CardSmall onCategoryPress={this._onPushToCategory.bind(this)} title={'Овощи'} amount={20} image={'http://fitnesslair.ru/wp-content/uploads/2016/06/sovmestimost-produktov-pitaniya2.jpg'} />
+						<Text style={{fontSize: 16, color: 'black', marginLeft: 16, marginBottom: 4, marginTop: 24, marginRight: 16, textAlign: 'center'}}>
+							Категория появится через 7 дней.
+						</Text>
+						<Text style={{fontSize: 16, color: 'black', marginLeft: 16, marginBottom: 24, marginTop: 4, marginRight: 16, textAlign: 'center'}}>
+							Отправить оповещение?
+						</Text>
+						<View style={{marginLeft: 16, marginRight: 16, marginBottom: 16}} >
+							<Button onPress={this._onPushToCategory.bind(this)} text='НАПОМНИТЬ' />
+						</View>
+					</View>
 				</View>
 				<Button onPress={this._onPushToCategory.bind(this)} text='Перейти в категорию' />
 				<Button onPress={this._onPushToSearch.bind(this)} text='Перейти в поиск' />

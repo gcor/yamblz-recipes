@@ -1,5 +1,4 @@
 import { StyleSheet } from 'react-native'
-import ui from '../../constants/css'
 
 export default StyleSheet.create({
 	cardSmall: {
@@ -7,9 +6,7 @@ export default StyleSheet.create({
 	},
 	cardSmall__container: {
 		flex: 1,
-		borderRadius: 2,
-		marginLeft: 8,
-		marginRight: 8
+		borderRadius: 2
 	},
 	cardSmall__title: {
 		color: 'white',
