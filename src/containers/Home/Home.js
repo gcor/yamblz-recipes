@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { Text, View, NativeModules, ScrollView, StatusBar } from 'react-native'
+import { Text, View, NativeModules, ScrollView, StatusBar, Modal, TouchableHighlight } from 'react-native'
 import Button from '../../components/Button'
 import css from './Home.css'
 import HomeSwiper from '../../components/HomeSwiper'
@@ -7,6 +7,18 @@ import Slider from '../../components/Slider'
 import CardSmall from '../../components/CardSmall'
 
 export default class Home extends Component {
+	constructor (props) {
+		super(props)
+		this.state = {modalVisible: false}
+	}
+
+	setModalVisible (visible) {
+		this.setState({modalVisible: visible})
+	}
+
+	setPushNotification () {
+	}
+
 	_onPushToCategory () {
 		this.props.navigatePush({
 			key: 'Category',
@@ -106,19 +118,47 @@ export default class Home extends Component {
 					id={'1'}
 					onPressHandler={this._onCardPress.bind(this)}
 					recipes={items} />
-				<View style={css.home__soon}>
+				<View style={{marginBottom: 16}}>
 					<Text style={{fontSize: 16, color: 'rgba(0,0,0,.56)', marginLeft: 24, marginBottom: 16, marginTop: 24}}>
 						{titles.soon}
 					</Text>
-					<CardSmall onCategoryPress={this._onPushToCategory.bind(this)} title={'Овощи'} amount={20} image={'http://fitnesslair.ru/wp-content/uploads/2016/06/sovmestimost-produktov-pitaniya2.jpg'} />
-					<CardSmall onCategoryPress={this._onPushToCategory.bind(this)} title={'Мясо'} amount={20} image={'http://mirelhotel.com/tr/img/otel/alakart/a8.jpg'} />
-					<CardSmall onCategoryPress={this._onPushToCategory.bind(this)} title={'Десерты'} amount={20} image={'http://foolpix.net/assets/images/sets/2375/02.jpg'} />
+					<View style={css.home__notificationCard}>
+						<CardSmall onCategoryPress={this._onPushToCategory.bind(this)} title={'Овощи'} amount={20} image={'http://fitnesslair.ru/wp-content/uploads/2016/06/sovmestimost-produktov-pitaniya2.jpg'} />
+						<Text style={{fontSize: 16, color: 'black', marginLeft: 16, marginBottom: 4, marginTop: 24, marginRight: 16, textAlign: 'center'}}>
+							Категория появится через 7 дней.
+						</Text>
+						<Text style={{fontSize: 16, color: 'black', marginLeft: 16, marginBottom: 24, marginTop: 4, marginRight: 16, textAlign: 'center'}}>
+							Отправить оповещение?
+						</Text>
+						<View style={{marginLeft: 16, marginRight: 16, marginBottom: 16}} >
+							<Button text='НАПОМНИТЬ'
+								onPress={this.setModalVisible.bind(this, true)} />
+						</View>
+					</View>
 				</View>
 				<Button onPress={this._onPushToCategory.bind(this)} text='Перейти в категорию' />
 				<Button onPress={this._onPushToSearch.bind(this)} text='Перейти в поиск' />
 				<Button onPress={this._onPushToHistory.bind(this)} text='Перейти в сохраненные' />
 				<Button onPress={this._onPushToTimers.bind(this)} text='Перейти к таймерам' />
 				<Button onPress={this._onCustomJavaEvent.bind(this)} text='Отправить событие в метрику' />
+
+				<Modal animationType={'slide'} transparent={true} visible={this.state.modalVisible}
+					onRequestClose={() => {this.setModalVisible(false)}}>
+					<View style={{backgroundColor: 'rgba(0,0,0,0.5)', flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
+						<View style={{width: 280, height: 212, borderWidth: 0, borderStyle: 'solid', borderColor: 'transparent', backgroundColor: 'white', borderRadius: 3}}>
+							<Text style={{fontSize: 20, margin: 24, color: 'black', textAlign: 'center'}}>Хотите узнавать о новых рецептах?</Text>
+							<Text style={{fontSize: 16, marginLeft: 24, marginRight: 24, marginBottom: 24, color: 'black', textAlign: 'center'}}>Разрешите отпралять вам уведомления.</Text>
+							<View style={{flexDirection: 'row', justifyContent: 'center'}}>
+								<TouchableHighlight onPress={() => { this.setModalVisible(!this.state.modalVisible) }}>
+									<Text style={{fontSize: 16, color: 'rgba(0,0,0,0.5)'}}>НЕТ</Text>
+								</TouchableHighlight>
+								<TouchableHighlight style={{marginLeft: 32}} onPress={() => { this.setPushNotification() }}>
+									<Text style={{fontSize: 16, color: 'black'}}>ДА, СПАСИБО</Text>
+								</TouchableHighlight>
+							</View>
+						</View>
+					</View>
+				</Modal>
 			</ScrollView>
 		)
 	}

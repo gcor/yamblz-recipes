@@ -24,6 +24,7 @@ import com.sensormanager.SensorManagerPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
 import com.kitchen.appmetrika.AppMetrikaPackage;
 import com.yandex.metrica.YandexMetrica;
+import com.kitchen.speechapi.SpeechApiPackage;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -40,6 +41,7 @@ public class MainApplication extends Application implements ReactApplication {
 					new ReactNativePushNotificationPackage(),
 					new SensorManagerPackage(),
 					new LinearGradientPackage(),
+					new SpeechApiPackage(),
 					new AppMetrikaPackage()
 			);
 		}
