@@ -1,6 +1,7 @@
 import Recipe from './Recipe'
 import { connect } from 'react-redux'
 import { fetchRecipes } from '../../actions/recipesActions'
+import { execTimers } from '../../actions/timersActions'
 import {
 	nextSlide,
 	previousSlide,
@@ -21,6 +22,7 @@ const dipsatchToProps = dispatch => (bindActionCreators({
 	nextSlide,
 	previousSlide,
 	handleSwipe,
-	resetSlider
+	resetSlider,
+	execTimers
 }, dispatch))
 export default connect(stateToProps, dipsatchToProps)(Recipe)

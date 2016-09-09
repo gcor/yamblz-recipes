@@ -6,9 +6,10 @@ import {
 import { createAction } from 'redux-actions'
 
 export const execTimers = timers => (dispatch, getState) => {
-	timers.forEach(timer => {
-		console.log(timer)
-	})
+	console.log(getState())
+	// timers.forEach(timer => {
+	// 	console.log(timer)
+	// })
 }
 export const setTimer = createAction(SET_TIMER)
 export const removeTimer = createAction(REMOVE_TIMER)

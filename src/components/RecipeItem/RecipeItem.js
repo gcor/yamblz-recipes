@@ -57,15 +57,17 @@ class RecipeItem extends Component {
 		// console.log(rowData)
 		// console.log(this.props.ingredients)
 		const cstring = useBrain(rowData, this.props.ingredients)
+		console.log(cstring)
+		const renderProducts = cstring ?
+			<View style={listCSS.item__action}>
+				<Text>{cstring}</Text>
+			</View>
+			: null
 		return (
 			<View style={listCSS.item}>
 				<View style={listCSS.item__point}></View>
 				<Text style={listCSS.item__value}>{rowData}</Text>
-				{cstring && (
-					<View style={listCSS.item__action}>
-						<Text>{cstring}</Text>
-					</View>
-				)}
+				{renderProducts}
 			</View>
 		)
 	}

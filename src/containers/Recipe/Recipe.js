@@ -19,7 +19,7 @@ class RecipePage extends Component {
 	}
 	componentWillMount () {
 		DeviceEventEmitter.removeAllListeners('Proximity')
-
+		// this.props.execTimers()
 		this.setState({ready: false, scroll: 0})
 		InteractionManager.runAfterInteractions(() => {
 			this.setState({ready: true})
@@ -123,7 +123,8 @@ RecipePage.propTypes = {
 	resetSlider: PropTypes.func.isRequired,
 	currentHeight: PropTypes.number.isRequired,
 	slides: PropTypes.array.isRequired,
-	currentSlide: PropTypes.number.isRequired
+	currentSlide: PropTypes.number.isRequired,
+	execTimers: PropTypes.func.isRequired
 }
 
 export default RecipePage
