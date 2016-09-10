@@ -58,17 +58,20 @@ function recipe (state = initialState, action) {
 		case INCREMENT_RECIPE_PORTION:
 			if (state.portion >= maxPortions) return state
 			ingredients = state.ingredients
+			let portion = state.portion + 1
 			ingredients.forEach(item => {
-				item.amount = state.portion * item.amountPerPortion
+				item.amount = portion * item.amountPerPortion
 			})
-			return {...state, ...{portion: state.portion + 1}, ...{ingredients: ingredients}}
+			return {...state, ...{portion: portion}, ...{ingredients: ingredients}}
 		case DECREMENT_RECIPE_PORTION:
 			if (state.portion <= minPortions) return state
 			ingredients = state.ingredients
+			portion = state.portion - 1
+
 			ingredients.forEach(item => {
-				item.amount = state.portion * item.amountPerPortion
+				item.amount = portion * item.amountPerPortion
 			})
-			return {...state, ...{portion: state.portion - 1}, ...{ingredients: ingredients}}
+			return {...state, ...{portion: portion}, ...{ingredients: ingredients}}
 
 		case SET_PRODUCT_AS_MAIN:
 			ingredients = state.ingredients
