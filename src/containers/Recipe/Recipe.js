@@ -72,7 +72,6 @@ class RecipePage extends Component {
 		if (!this.state.ready) return null
 		return (
 			<View>
-				<Button text='Процесс' route='home' />
 				<Recipe data={recipe} />
 			</View>
 		)

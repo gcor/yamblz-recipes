@@ -38,7 +38,7 @@ export default class RecipeView extends Component {
 
 	_handleScroll (e) {
 		const currentY = Math.floor(e.nativeEvent.contentOffset.y)
-		var color = currentY > this.swiperHeight ? 'black' : 'transparent'
+		var color = currentY + 24 > this.swiperHeight ? 'black' : 'transparent'
 		StatusBar.setBackgroundColor(color, true)
 	}
 
@@ -99,9 +99,11 @@ export default class RecipeView extends Component {
 
 	render () {
 		return (
-			<View style={{flex: 1}}>
-				{this.renderContent()}
-				<Button
+			<View style={{flex:1, justifyContent: 'space-between'}}>
+				<View style={{flex: 1}}>
+					{this.renderContent()}
+				</View>
+				<Button  
 					onPress={this._onPress.bind(this)}
 					text='Начать готовить' />
 			</View>

@@ -27,7 +27,13 @@ class App extends Component {
 
 	renderOverlay (props) {
 		let { navigationState, backAction } = this.props
-		if (navigationState.index === 0) return null
+
+		switch (navigationState.routes[navigationState.routes.length - 1].key) {
+			case 'Home': return null
+				return 0
+			case 'RecipeView': return null
+		}
+
 		return (
 			<NavigationHeader {...props}
 				style={css.header}
@@ -44,28 +50,26 @@ class App extends Component {
 		)
 	}
 
-	setStatusBarProps (isTranslucent, color) {
-		StatusBar.setTranslucent(isTranslucent)
-		StatusBar.setBackgroundColor(color, false)
-	}
-
 	setStatusBar (key) {
 		switch (key) {
-			case 'Home': this.setStatusBarProps(true, 'transparent')
-				break
-			default: this.setStatusBarProps(false, 'black')
+			case 'Home': StatusBar.setBackgroundColor('transparent', false)
+				return 0
+			case 'RecipeView': StatusBar.setBackgroundColor('transparent', false)
+				return 0
+			default: StatusBar.setBackgroundColor('black', false)
+				return 24
 		}
 	}
 
 	render () {
 		let { navigationState, backAction } = this.props
-		this.setStatusBar(navigationState.routes[navigationState.routes.length - 1].key)
+		StatusBar.setTranslucent(true)
 
 		return (
 			<NavigationCardStack
 				navigationState={navigationState}
 				onNavigateBack={backAction}
-				style={css.container}
+				style={{flex: 1, paddingTop: this.setStatusBar(navigationState.routes[navigationState.routes.length - 1].key)}}
 				direction={navigationState.routes[navigationState.index].key === 'Recipe'
 					? 'vertical' : 'horizontal'
 				}
