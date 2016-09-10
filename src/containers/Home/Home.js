@@ -107,8 +107,6 @@ export default class Home extends Component {
 	}
 
 	render () {
-		AsyncStorage.clear()
-
 		const titles = {
 			recommend: 'рекомендуем'.toUpperCase(),
 			soon: 'скоро в приложении'.toUpperCase()
