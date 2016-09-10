@@ -3,8 +3,24 @@ import { Text, View, ListView, Image } from 'react-native'
 import css from './RecipeItem.css'
 import listCSS from '../List/List.css.js'
 import { useBrain } from './util'
+import { formatImageSrc } from '../../utils'
+import Timer from '../Timer'
 
 class RecipeItem extends Component {
+	constructor (props) {
+		super(props)
+		this.state = {
+			timers: []
+		}
+	}
+	componentWillMount () {
+		const { stage } = this.props
+		const { timers } = stage
+		this.setState({
+			timers: timers || [],
+			withTimers: timers ? true : false
+		})
+	}
 	_getHeight (e) {
 		const { height, y } = e.nativeEvent.layout
 		const { calculateSlideHeight, numberOfStage } = this.props
@@ -14,12 +30,14 @@ class RecipeItem extends Component {
 			offsetY: y
 		})
 	}
+
 	render () {
 		const { stage, numberOfStage } = this.props
 		const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 })
 		const list = {
-			recipeItemActions: ds.cloneWithRows(this.props.stage.steps)
+			recipeItemActions: ds.cloneWithRows(stage.steps)
 		}
+		const { timers, withTimers } = this.state
 		return (
 			<View style={css.recipeItem} onLayout={(e) => this._getHeight(e)}>
 				<View style={css.recipeItem__header}>
@@ -36,14 +54,24 @@ class RecipeItem extends Component {
 						renderRow={this._renderActionItem.bind(this)}
 					/>
 				</View>
+				{this._renderTimer()}
 			</View>
 		)
 	}
+
+	_renderTimer () {
+		const { withTimers, timers } = this.state
+		if (!withTimers) return null
+		return (
+			<Timer />
+		)
+	}
+
 	_renderImage () {
+		const { withTimers } = this.state
 		let { image } = this.props
-		// if (!/http/.test()) image = 'http://' + image
-		// todo
-		image = 'http://' + image
+		image = formatImageSrc(image)
+		if (withTimers) return null
 		if (image) {
 			return (
 				<View style={css.recipeItem__body}>
@@ -58,7 +86,6 @@ class RecipeItem extends Component {
 		// console.log(this.props.ingredients)
     const { title } = rowData
 		const cstring = useBrain(title, this.props.ingredients)
-		console.log(cstring)
 		const renderProducts = cstring ?
 			<View style={listCSS.item__action}>
 				<Text>{cstring}</Text>

@@ -33,7 +33,6 @@ export function getCategories () {
 
 export function getJumbotron () {
 	return new Promise(async (resolve, reject) => {
-		console.log(api.time.breakfast)
 		fetch(api.time.breakfast)
 			.then(res => res.json())
 			.then(jumbotron => resolve(jumbotron))
