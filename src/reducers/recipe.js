@@ -39,14 +39,22 @@ function recipe (state = initialState, action) {
 			return {...state, ...{status: LOADING}}
 		case FETCH_RECIPE_SUCCESS:
 			let ingredients = action.payload.ingredients
+			let stages = action.payload.stages
 			ingredients.forEach(item => {
 				item.amountPerPortion = item.amount / action.payload.defaultPortion
 			})
+			for (const stage of stages) {
+				for (const step of stage.steps) {
+					if (step.requiredProduct) step.visible = false
+					else step.visible = true
+				}
+			}
 			return {
 				...state,
 				...{portion: action.payload.defaultPortion},
 				...{status: SUCCESS},
 				...{ingredients: ingredients},
+				...{stages: stages},
 				...action.payload
 			}
 		case FETCH_RECIPE_ERROR:
@@ -80,7 +88,15 @@ function recipe (state = initialState, action) {
 					ingredients[i].isMain = true
 				}
 			})
-			return {...state, ...{ingredients: ingredients}}
+			stages = state.stages
+			for (const stage of stages) {
+				for (const step of stage.steps) {
+					if (step.requiredProduct) {
+						if (step.requiredProduct === action.id) step.visible = true
+					}
+				}
+			}
+			return {...state, ...{ingredients: ingredients}, ...(stages: stages)}
 
 		case SET_PRODUCT_AS_EXTRA:
 			ingredients = state.ingredients
@@ -89,7 +105,15 @@ function recipe (state = initialState, action) {
 					ingredients[i].isMain = false
 				}
 			})
-			return {...state, ...{ingredients: ingredients}}
+			stages = state.stages
+			for (const stage of stages) {
+				for (const step of stage.steps) {
+					if (step.requiredProduct) {
+						if (step.requiredProduct === action.id) step.visible = false
+					}
+				}
+			}
+			return {...state, ...{ingredients: ingredients}, ...(stages: stages)}
 
 		case RESET_RECIPE: return initialState
 		default: return state
