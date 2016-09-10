@@ -10,7 +10,7 @@ import Recipe from '../../components/Recipe'
 import Button from '../../components/Button'
 import { SensorManager } from 'NativeModules'
 import { throttle } from 'lodash'
-const Speech = NativeModules.SpeechApi;
+const Speech = NativeModules.SpeechApi
 
 class RecipePage extends Component {
 	constructor (props) {
@@ -19,7 +19,7 @@ class RecipePage extends Component {
 	}
 	componentWillMount () {
 		DeviceEventEmitter.removeAllListeners('Proximity')
-		// this.props.execTimers()
+		this.props.execTimers()
 		this.setState({ready: false, scroll: 0})
 		InteractionManager.runAfterInteractions(() => {
 			this.setState({ready: true})
@@ -60,8 +60,8 @@ class RecipePage extends Component {
 			alert('Успешно')
 		}, (error) => {
 			alert(error)
-		})	
-	} 
+		})
+	}
 
 	_onPress () {
 		const { recipe, currentSlide } = this.props
@@ -73,13 +73,14 @@ class RecipePage extends Component {
 		return (
 			<View>
 				<Button text='Процесс' route='home' />
-				<Button
-					onPress={this._onPress.bind(this)}
-					text='Диктовка' />
 				<Recipe data={recipe} />
 			</View>
 		)
 	}
+
+	// <Button
+	// 	onPress={this._onPress.bind(this)}
+	// 	text='Диктовка' />
 
 	handleScroll = e => {
 		const { slides, currentSlide } = this.props
