@@ -46,6 +46,14 @@ export function getJumbotron () {
 		// }
 	})
 }
+export function getRecommend () {
+	return new Promise(async (resolve, reject) => {
+		fetch(api.recommend)
+			.then(res => res.json())
+			.then(recommend => resolve(recommend))
+			.catch(e => reject(e))
+	})
+}
 
 const categories = {getCategories}
 export default categories

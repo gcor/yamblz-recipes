@@ -12,6 +12,7 @@ export default class Home extends Component {
 		super(props)
 		this.state = {modalVisible: false}
 		this.props.fetchJumbotron()
+		this.props.fetchRecommend()
 	}
 
 	setModalVisible (visible) {
@@ -52,7 +53,7 @@ export default class Home extends Component {
 		const currentY = Math.floor(e.nativeEvent.contentOffset.y)
 		var color = currentY + 24 > this.swiperHeight ? 'black' : 'transparent'
 		StatusBar.setBackgroundColor(color, false)
-	} 
+	}
 
 	renderAppBar () {
 		return (
@@ -107,37 +108,12 @@ export default class Home extends Component {
 
 	render () {
 		AsyncStorage.clear()
-		var items = [{
-			_id: '57bf5e6c23a24aae1483a36c',
-			title: 'Брускетта с томатами и моцареллой',
-			time: 20,
-			energy: 254,
-			complexity: 'Просто',
-			category: 1,
-			image: 'https://intense-earth-33481.herokuapp.com/assets/recipe2/brusketta_main.jpg',
-			__v: 0,
-			stages: [ ],
-			ingredients: [ ],
-			categories: [ ]
-		}, {
-			_id: '57bfe641a6bae0f91575a084',
-			title: 'Курица меланезе со спагетти',
-			time: 45,
-			energy: 965,
-			image: 'http://www.caffeconcerto.co.uk/images-menus/meat-chicken-milanese-with-spaghetti_tn-jpg_1466080216.jpg'
-		}, {
-			_id: '57c3f9e29a9071360856cedc',
-			title: 'Запеченая паста 4 сыра',
-			image: 'http://intense-earth-33481.herokuapp.com/assets/recipe11/4cheese.jpg',
-			time: 40,
-			energy: 824
-		}]
 
 		const titles = {
 			recommend: 'рекомендуем'.toUpperCase(),
 			soon: 'скоро в приложении'.toUpperCase()
 		}
-
+		const { jumbotron, recommend } = this.props
 		return (
 			<View style={{flex: 1}}>
 				<ScrollView style={css.home}
@@ -146,14 +122,14 @@ export default class Home extends Component {
 					<View onLayout={this._getHeight.bind(this)}>
 						<HomeSwiper
 							onPressHandler={this._onCardPress.bind(this)}
-							items={items} />
+							items={jumbotron} />
 						{this.renderAppBar()}
 					</View>
 					<Slider style={css.home__recomended}
 						title={titles.recommend}
 						id={'1'}
 						onPressHandler={this._onCardPress.bind(this)}
-						recipes={items} />
+						recipes={recommend} />
 
 					{this.renderSoonInApp()}
 					{this.renderModal()}
@@ -168,5 +144,8 @@ export default class Home extends Component {
 Home.propTypes = {
 	navigatePush: PropTypes.func.isRequired,
 	setCurrentRecipe: PropTypes.func.isRequired,
-	fetchJumbotron: PropTypes.func.isRequired
+	jumbotron: PropTypes.array.isRequired,
+	recommend: PropTypes.array.isRequired,
+	fetchJumbotron: PropTypes.func.isRequired,
+	fetchRecommend: PropTypes.func.isRequired
 }
