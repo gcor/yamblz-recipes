@@ -156,14 +156,13 @@ export default class Home extends Component {
 
 					{this.renderSoonInApp()}
 					{this.renderModal()}
+					<Button onPress={this._onPushToTimers.bind(this)} text='Перейти к таймерам' />
+					<Button onPress={this._onCustomJavaEvent.bind(this)} text='Отправить событие в метрику' />
 				</ScrollView>
 			</View>
 		)
 	}
 }
-
-// <Button onPress={this._onPushToTimers.bind(this)} text='Перейти к таймерам' />
-// <Button onPress={this._onCustomJavaEvent.bind(this)} text='Отправить событие в метрику' />
 
 Home.propTypes = {
 	navigatePush: PropTypes.func.isRequired,

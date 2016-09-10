@@ -11,7 +11,6 @@ export function getRecipeById (id) {
 		const cachedRecipeVersion = cachedRecipe.__v
 		const cachedVersion = parseInt(recipeVersionFromStorage, 10)
 		if (!isNaN(cachedVersion) && (cachedVersion === cachedRecipeVersion)) {
-			// console.log('из кэша')
 			resolve(cachedRecipe)
 		} else {
 			fetchData(api.recipes + id)

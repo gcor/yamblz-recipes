@@ -1,15 +1,22 @@
 import {
 	FETCH_HISTORY,
 	ADD_TO_HISTORY,
-	REMOVE_FROM_HISTORY
+	REMOVE_FROM_HISTORY,
+	FETCH_LAST_VIEWED
 } from '../constants/actionTypes'
 import { createAction } from 'redux-actions'
 import { AsyncStorage } from 'react-native'
-import { HISTORY_STORAGE_KEY } from '../constants/keys'
+import { HISTORY_STORAGE_KEY, LAST_VIEWED_KEY } from '../constants/keys'
 import { getRecipeById } from '../api/recipes'
 
 export const fetchHistory = createAction(FETCH_HISTORY, async () => {
 	const idsFromStorage = await AsyncStorage.getItem(HISTORY_STORAGE_KEY)
+	const ids = JSON.parse(idsFromStorage) || []
+	return await Promise.all(ids.map(getRecipeById))
+})
+
+export const fetchLastViewed = createAction(FETCH_LAST_VIEWED, async () => {
+	const idsFromStorage = await AsyncStorage.getItem(LAST_VIEWED_KEY)
 	const ids = JSON.parse(idsFromStorage) || []
 	return await Promise.all(ids.map(getRecipeById))
 })

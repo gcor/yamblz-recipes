@@ -16,7 +16,6 @@ export function getCategories () {
 		const cachedVersion = JSON.parse(categoriesVersionsFromStorage) || []
 		const cachedCategoriesVersion = _getVersionsFromCollection(cachedCategories)
 		if (cachedVersion.length && _.isEqual(cachedVersion, cachedCategoriesVersion)) {
-			console.log('из кэша', cachedCategories)
 			resolve(cachedCategories)
 		} else {
 			fetchData(api.categories)

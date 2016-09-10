@@ -9,7 +9,7 @@ import {
 
 const initialState = {
 	status: '',
-	recipes: []
+	historyRecipes: []
 }
 
 function history (state = initialState, action) {
@@ -18,9 +18,12 @@ function history (state = initialState, action) {
 			return {...state, ...{state: LOADING}}
 		case FETCH_HISTORY_SUCCESS:
 			return {
-				...state,
-				...{state: SUCCESS},
-				...{recipes: [...state.recipes, ...action.payload]}
+				// Мы отправляем каждый раз новое
+				// ...state,
+				// ...{state: SUCCESS},
+				// ...{historyRecipes: [...state.historyRecipes, ...action.payload]}
+				state: SUCCESS,
+				historyRecipes: action.payload
 			}
 		case FETCH_HISTORY_ERROR:
 			return {...state, ...{state: ERROR}}

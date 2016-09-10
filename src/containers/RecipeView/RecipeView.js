@@ -19,7 +19,8 @@ export default class RecipeView extends Component {
 		this.setState({isReady: false})
 		InteractionManager.runAfterInteractions(() => {
 			this.setState({isReady: true})
-			const { fetchRecipes, currentRecipe } = this.props
+			const { fetchRecipes, saveInLastViewed, currentRecipe } = this.props
+			saveInLastViewed(currentRecipe)
 			fetchRecipes(currentRecipe)
 		})
 	}
@@ -112,6 +113,7 @@ export default class RecipeView extends Component {
 RecipeView.propTypes = {
 	recipe: PropTypes.object.isRequired,
 	fetchRecipes: PropTypes.func.isRequired,
+	saveInLastViewed: PropTypes.func.isRequired,
 	incrementRecipePortion: PropTypes.func.isRequired,
 	decrementRecipePortion: PropTypes.func.isRequired,
 	addToHistory: PropTypes.func.isRequired,
