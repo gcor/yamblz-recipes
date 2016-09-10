@@ -16,7 +16,10 @@ import Preloader from '../../components/Preloader'
 
 export default class RecipeView extends Component {
 	componentWillMount () {
-		this.setState({isReady: false})
+		this.setState({
+			isReady: false,
+			addToHistoryButtonText: this.props.addToHistoryButtonText
+		})
 		InteractionManager.runAfterInteractions(() => {
 			this.setState({isReady: true})
 			const { fetchRecipes, saveInLastViewed, currentRecipe } = this.props
@@ -27,6 +30,19 @@ export default class RecipeView extends Component {
 
 	componentWillUnmount () {
 		this.props.resetRecipe()
+	}
+
+	_onAddToHistory () {
+		const {addToHistory, removeFromHistory, recipe} = this.props
+		if (recipe.isFavourite) {
+			removeFromHistory.call(this, recipe._id)
+			recipe.isFavourite = false
+			this.setState({addToHistoryButtonText: 'Добавить в избранное'})
+		} else {
+			addToHistory.call(this, recipe._id)
+			recipe.isFavourite = true
+			this.setState({addToHistoryButtonText: 'Удалить из избранного'})
+		}
 	}
 
 	_onPress () {
@@ -48,7 +64,6 @@ export default class RecipeView extends Component {
 		const { incrementRecipePortion,
 						decrementRecipePortion,
 						setProductAsMain,
-						addToHistory,
 						setProductAsExtra } = this.props
 		const imageSrc = this.props.recipe.image
 
@@ -62,8 +77,8 @@ export default class RecipeView extends Component {
 						<Image source={{uri: imageSrc}} style={css.recipe__image} />
 					</View>
 					<Button
-						onPress={addToHistory.bind(this, this.props.recipe._id)}
-						text='Добавить в избранное' />
+						onPress={this._onAddToHistory.bind(this)}
+						text={this.state.addToHistoryButtonText || ''} />
 					<IngredientList
 						tabLabel='Продукты'
 						onDecrement={decrementRecipePortion}
@@ -104,7 +119,7 @@ export default class RecipeView extends Component {
 				<View style={{flex: 1}}>
 					{this.renderContent()}
 				</View>
-				<Button  
+				<Button
 					onPress={this._onPress.bind(this)}
 					text='Начать готовить' />
 			</View>
@@ -119,9 +134,11 @@ RecipeView.propTypes = {
 	incrementRecipePortion: PropTypes.func.isRequired,
 	decrementRecipePortion: PropTypes.func.isRequired,
 	addToHistory: PropTypes.func.isRequired,
+	removeFromHistory: PropTypes.func.isRequired,
 	setProductAsMain: PropTypes.func.isRequired,
 	setProductAsExtra: PropTypes.func.isRequired,
 	navigatePush: PropTypes.func.isRequired,
 	currentRecipe: PropTypes.string.isRequired,
-	resetRecipe: PropTypes.func.isRequired
+	resetRecipe: PropTypes.func.isRequired,
+	addToHistoryButtonText: PropTypes.string
 }

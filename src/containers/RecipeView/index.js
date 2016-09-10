@@ -10,18 +10,20 @@ import {
 	resetRecipe
 } from '../../actions/recipesActions'
 import { saveInLastViewed } from '../../actions/generalActions.js'
-import { addToHistory } from '../../actions/historyActions'
+import { addToHistory, removeFromHistory } from '../../actions/historyActions'
 import { bindActionCreators } from 'redux'
 
 const stateToProps = state => ({
 	recipe: state.recipe,
-	currentRecipe: state.general.currentRecipe
+	currentRecipe: state.general.currentRecipe,
+	addToHistoryButtonText: state.recipe.isFavourite ? 'Добавить в избранное' : 'Удалить из избранного'
 })
 
 const dipsatchToProps = dispatch => (bindActionCreators({
 	navigatePush,
 	fetchRecipes,
 	addToHistory,
+	removeFromHistory,
 	saveInLastViewed,
 	incrementRecipePortion,
 	decrementRecipePortion,

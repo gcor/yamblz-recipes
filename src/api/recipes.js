@@ -1,23 +1,25 @@
 import * as api from '../constants/api'
 import { fetchData } from './common'
 import { AsyncStorage } from 'react-native'
-import { RECIPES_STORAGE_KEY, RECIPES_STORAGE_VERSION } from '../constants/keys'
+import {
+	RECIPES_STORAGE_KEY,
+	HISTORY_STORAGE_KEY
+} from '../constants/keys'
 
 export function getRecipeById (id) {
 	return new Promise(async (resolve, reject) => {
-		const recipeVersionFromStorage = await AsyncStorage.getItem(RECIPES_STORAGE_VERSION + id)
+		const historyRecipesFromStorage = await AsyncStorage.getItem(HISTORY_STORAGE_KEY)
+		const historyRecipes = JSON.parse(historyRecipesFromStorage) || []
 		const recipeFromStorage = await AsyncStorage.getItem(RECIPES_STORAGE_KEY + id) || '{}'
 		const cachedRecipe = JSON.parse(recipeFromStorage)
-		const cachedRecipeVersion = cachedRecipe.__v
-		const cachedVersion = parseInt(recipeVersionFromStorage, 10)
-		if (!isNaN(cachedVersion) && (cachedVersion === cachedRecipeVersion)) {
+		if (cachedRecipe._id === id) {
+			cachedRecipe.isFavourite = (historyRecipes.indexOf(id) >= 0)
 			resolve(cachedRecipe)
 		} else {
 			fetchData(api.recipes + id)
 				.then((recipe) => {
 					resolve(recipe)
 					AsyncStorage.setItem(RECIPES_STORAGE_KEY + id, JSON.stringify(recipe))
-					AsyncStorage.setItem(RECIPES_STORAGE_VERSION + id, `${recipe.__v}`)
 				})
 				.catch(err => reject(err))
 		}
