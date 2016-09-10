@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { Text, View, TextInput } from 'react-native'
-import SearchItem from '../SearchItem/'
-import SuggestList from '../SuggestList/'
+import Slider from '../Slider/'
 import css from './SearchList.css'
 
 class SearchList extends Component {
@@ -31,8 +30,13 @@ class SearchList extends Component {
 		}
 	}
 
-	onSuggestItemPress () {
-
+	_onCardPress (recipeID) {
+		const { navigatePush, setCurrentRecipe } = this.props
+		setCurrentRecipe(recipeID)
+		navigatePush({
+			key: 'RecipeView',
+			title: 'Подготовка'
+		})
 	}
 
 	handleInput (text) {
@@ -41,8 +45,23 @@ class SearchList extends Component {
 		searchGo(text)
 	}
 
+	renderFound () {
+		const { recipes } = this.props
+		if (recipes.length > 0) {
+			return (
+				<Slider
+					title={'Найдено'}
+					id={'1'}
+					onPressHandler={this._onCardPress.bind(this)}
+					recipes={recipes || []} />
+			)
+		} else {
+			return null
+		}
+	}
+
 	render () {
-		const { products } = this.props
+		console.log(this.props)
 		return (
 			<View style={css.searchList}>
 				<TextInput
@@ -50,25 +69,31 @@ class SearchList extends Component {
 					onChangeText={this.handleInput.bind(this)}
 					placeholder={this.state.text}
 				/>
-				<SuggestList
-					onPress={this.onSuggestItemPress.bind(this)}
-					items={products}
-					/>
-				{this.state.selectionData.map((data, i) => {
-					return <SearchItem data={data} key={i} />
-				})}
-				<Text style={css.searchList__header}>{this.state.soon.toUpperCase()}</Text>
-				{this.state.protectedData.map((data, i) => {
-					return <SearchItem data={data} key={i} />
-				})}
+			{this.renderFound()}
 			</View>
 		)
 	}
 }
 
+// import SearchItem from '../SearchItem/'
+// import SuggestList from '../SuggestList/'
+// const { products } = this.props
+// <SuggestList
+// 	onPress={this.onSuggestItemPress.bind(this)}
+// 	items={products}
+// 	/>
+// {this.state.selectionData.map((data, i) => {
+// 	return <SearchItem data={data} key={i} />
+// })}
+// <Text style={css.searchList__header}>{this.state.soon.toUpperCase()}</Text>
+// {this.state.protectedData.map((data, i) => {
+// 	return <SearchItem data={data} key={i} />
+// })}
+
 SearchList.propTypes = {
 	searchGo: PropTypes.func.isRequired,
-	products: PropTypes.array
+	products: PropTypes.array,
+	recipes: PropTypes.array
 }
 
 export default SearchList
