@@ -101,8 +101,6 @@ export default class IngredientList extends Component {
 		} else return false
 	}
 	_renderIngredient = ingredient => {
-		const amountPerPortion = ingredient.amount / this.props.recipe.defaultPortion
-		const amount = this.props.recipe.portion * amountPerPortion
 		const ingredientStyle = (ingredient.extra === false) ? css.ingredients__item : css.extraIngredients__item
 		return (
 			<View style={ingredientStyle}>
@@ -112,7 +110,7 @@ export default class IngredientList extends Component {
 				<View style={css.ingredients__content}>
 					<Text style={css.ingredients__title}>{ingredient.product.title}</Text>
 					<Text style={css.ingredients__amount}>
-						{this.getAmount(amount, ingredient.measure, ingredient.product.baseMeasure)}
+						{this.getAmount(ingredient.amount, ingredient.measure, ingredient.product.baseMeasure)}
 					</Text>
 				</View>
 				{this._renderCloseButton(ingredient.extra, ingredient.product._id)}

@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { Text, View, NativeModules, ScrollView, StatusBar, Modal, TouchableHighlight } from 'react-native'
+import { Text, View, NativeModules, ScrollView, StatusBar, Modal, TouchableHighlight, AsyncStorage } from 'react-native'
 import Button from '../../components/Button'
 import css from './Home.css'
 import HomeSwiper from '../../components/HomeSwiper'
@@ -106,6 +106,7 @@ export default class Home extends Component {
 	}
 
 	render () {
+		AsyncStorage.clear()
 		var items = [{
 			_id: '57bf5e6c23a24aae1483a36c',
 			title: 'Брускетта с томатами и моцареллой',

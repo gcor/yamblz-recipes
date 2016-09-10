@@ -23,7 +23,7 @@ const initialState = {
 	title: '',
 	cookingTime: 0,
 	image: 'src',
-	defaultPortion: 0,
+	defaultPortion: 1,
 	portion: 2,
 	ingredients: [],
 	stages: [{
@@ -38,10 +38,15 @@ function recipe (state = initialState, action) {
 		case FETCH_RECIPE_LOADING:
 			return {...state, ...{status: LOADING}}
 		case FETCH_RECIPE_SUCCESS:
+			let ingredients = action.payload.ingredients
+			ingredients.forEach(item => {
+				item.amountPerPortion = item.amount / action.payload.defaultPortion
+			})
 			return {
 				...state,
-				...{portion: 4},
+				...{portion: action.payload.defaultPortion},
 				...{status: SUCCESS},
+				...{ingredients: ingredients},
 				...action.payload
 			}
 		case FETCH_RECIPE_ERROR:
@@ -52,13 +57,21 @@ function recipe (state = initialState, action) {
 
 		case INCREMENT_RECIPE_PORTION:
 			if (state.portion >= maxPortions) return state
-			return {...state, ...{portion: state.portion + 1}}
+			ingredients = state.ingredients
+			ingredients.forEach(item => {
+				item.amount = state.portion * item.amountPerPortion
+			})
+			return {...state, ...{portion: state.portion + 1}, ...{ingredients: ingredients}}
 		case DECREMENT_RECIPE_PORTION:
 			if (state.portion <= minPortions) return state
-			return {...state, ...{portion: state.portion - 1}}
+			ingredients = state.ingredients
+			ingredients.forEach(item => {
+				item.amount = state.portion * item.amountPerPortion
+			})
+			return {...state, ...{portion: state.portion - 1}, ...{ingredients: ingredients}}
 
 		case SET_PRODUCT_AS_MAIN:
-			let ingredients = state.ingredients
+			ingredients = state.ingredients
 			ingredients.forEach((item, i) => {
 				if (item.product._id === action.id) {
 					ingredients[i].isMain = true
