@@ -1,4 +1,5 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Dimensions } from 'react-native'
+const { width } = Dimensions.get('window')
 export default StyleSheet.create({
 	container: {
 		backgroundColor: 'white',
@@ -6,10 +7,18 @@ export default StyleSheet.create({
 		borderBottomWidth: 1,
 		flexDirection: 'row',
 		padding: 20,
-		justifyContent: 'space-between'
+		justifyContent: 'space-between',
+		alignItems: 'center',
+		elevation: 50
 	},
 	timeout: {
-		color: 'black'
+		color: 'black',
+		fontSize: 16
+	},
+	actionLabel: {
+		color: 'black',
+		width: width * 0.6,
+		fontSize: 16
 	},
 	icon: {
 		height: 30,

@@ -4,6 +4,7 @@ import {
 	TouchableOpacity
 } from 'react-native'
 import s from './Timer.css'
+import listCSS from '../List/List.css'
 import { formatTime } from './util'
 import Notifications from '../Notification'
 
@@ -13,16 +14,16 @@ class Timer extends Component {
 		this.handlePress = this.handlePress.bind(this)
 	}
 	componentWillMount () {
-		this.setState({value: this.props.value})
+		this.setState({timeout: this.props.timeout})
 		this.tick = setInterval(this.tickTack.bind(this), 1000)
 	}
 
 	componentDidMount () {
-		this.setState({value: 500000})
+		this.setState({timeout: 500000})
 	}
 
 	tickTack () {
-		this.setState({value: this.state.value - 1000})
+		this.setState({timeout: this.state.timeout - 1000})
 	}
 
 	stop () {
@@ -44,10 +45,16 @@ class Timer extends Component {
 	}
 
 	render () {
-		let time = formatTime(this.state.value)
+		const { timeout, actionLabel, timerLabel } = this.props
+		console.log(actionLabel, timerLabel)
+		let time = formatTime(this.state.timeout)
 		const textValue = 'Включить таймер'.toUpperCase()
 		return (
 			<View style={s.timer}>
+				<View style={[listCSS.item, s.item]}>
+					<View style={[listCSS.item__point, s.yellowPoint]}></View>
+					<Text style={listCSS.item__value}>{timerLabel}</Text>
+				</View>
 				<TouchableOpacity style={s.button} onPress={this.handlePress}>
 					<Text style={s.buttonText}>{textValue}</Text>
 				</TouchableOpacity>
@@ -59,7 +66,9 @@ class Timer extends Component {
 // <Text onPress={this.props.goToTimers} style={s.text}>{time}</Text>
 
 Timer.propTypes = {
-	value: PropTypes.number.isRequired,
+	timeout: PropTypes.number.isRequired,
+	actionLabel: PropTypes.string.isRequired,
+	timerLabel: PropTypes.string.isRequired,
 	goToTimers: PropTypes.func.isRequired
 }
 

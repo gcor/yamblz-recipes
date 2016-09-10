@@ -71,7 +71,7 @@ export default class TimerList extends Component {
 				{this.renderTimeline()}
 				<View style={s.container}>
 					<View style={s.icon}></View>
-					<Text style={s.timeout} onPress={this.stop}>{actionLabel}</Text>
+					<Text style={s.actionLabel} onPress={this.stop}>{actionLabel}</Text>
 					<Text style={s.timeout}>{convertTimeToMinutesAndSeconds(this.state.timeout)}</Text>
 				</View>
 			</View>

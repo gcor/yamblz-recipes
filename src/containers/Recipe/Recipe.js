@@ -8,6 +8,7 @@ import { ScrollView,
 
 import Recipe from '../../components/Recipe'
 import Button from '../../components/Button'
+import TimerLabel from '../../components/TimerLabel'
 import { SensorManager } from 'NativeModules'
 import { throttle } from 'lodash'
 const Speech = NativeModules.SpeechApi
@@ -106,12 +107,19 @@ class RecipePage extends Component {
 	render () {
 		const { recipe } = this.props
 		return (
-			<ScrollView
-				onScroll={this.handleScroll}
-				scrollEventThrottle={200}
-				ref={(r) => { this.recipe = r }}>
-				{this.renderRecipe(recipe)}
-			</ScrollView>
+			<View style={{flex: 1}}>
+				<ScrollView
+					onScroll={this.handleScroll}
+					scrollEventThrottle={200}
+					ref={(r) => { this.recipe = r }}>
+					{this.renderRecipe(recipe)}
+				</ScrollView>
+				<TimerLabel
+					actionLabel='dsaaaodisjadsoijdasoijasdds'
+					timeout={91233}
+					withTimeline
+				/>
+			</View>
 		)
 	}
 }

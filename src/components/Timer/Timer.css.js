@@ -1,11 +1,14 @@
 import { StyleSheet } from 'react-native'
 import s from '../../constants/css'
+import ui from '../../constants/css'
 
 export default StyleSheet.create({
 	timer: {
 		backgroundColor: 'white',
 		padding: 5,
-		margin: 10
+		paddingBottom: 0,
+		borderTopWidth: 1,
+		borderColor: '#F4F3F1'
 	},
 	text: {
 		textAlign: 'center',
@@ -14,11 +17,19 @@ export default StyleSheet.create({
 	button: {
 		backgroundColor: s.yellow,
 		padding: 15,
-		margin: 10
+		margin: 10,
+		marginBottom: 0
 	},
 	buttonText: {
 		textAlign: 'center',
 		color: 'black',
 		fontWeight: 'bold'
+	},
+	yellowPoint: {
+		backgroundColor: ui.yellow
+	},
+	item: {
+		marginTop: 24,
+		marginBottom: 24
 	}
 })
