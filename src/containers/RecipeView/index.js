@@ -9,6 +9,7 @@ import {
 	setProductAsExtra,
 	resetRecipe
 } from '../../actions/recipesActions'
+import { saveInLastViewed } from '../../actions/generalActions.js'
 import { addToHistory } from '../../actions/historyActions'
 import { bindActionCreators } from 'redux'
 
@@ -21,6 +22,7 @@ const dipsatchToProps = dispatch => (bindActionCreators({
 	navigatePush,
 	fetchRecipes,
 	addToHistory,
+	saveInLastViewed,
 	incrementRecipePortion,
 	decrementRecipePortion,
 	setProductAsMain,

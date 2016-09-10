@@ -6,6 +6,7 @@ import general from './general'
 import recipeSwiper from './recipeSwiper'
 import search from './search'
 import history from './history'
+import lastViewed from './lastViewed'
 import timers from './timers'
 
 const reducers = {
@@ -16,6 +17,7 @@ const reducers = {
 	recipeSwiper,
 	search,
 	history,
+	lastViewed,
 	timers
 }
 

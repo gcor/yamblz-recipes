@@ -16,7 +16,6 @@ export function getCategories () {
 		const cachedVersion = JSON.parse(categoriesVersionsFromStorage) || []
 		const cachedCategoriesVersion = _getVersionsFromCollection(cachedCategories)
 		if (cachedVersion.length && _.isEqual(cachedVersion, cachedCategoriesVersion)) {
-			console.log('из кэша', cachedCategories)
 			resolve(cachedCategories)
 		} else {
 			fetchData(api.categories)
@@ -33,7 +32,6 @@ export function getCategories () {
 
 export function getJumbotron () {
 	return new Promise(async (resolve, reject) => {
-		console.log(api.time.breakfast)
 		fetch(api.time.breakfast)
 			.then(res => res.json())
 			.then(jumbotron => resolve(jumbotron))
