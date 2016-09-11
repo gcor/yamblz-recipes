@@ -19,20 +19,16 @@ export default StyleSheet.create({
 	item__point_active: {},
 	item__value: {
 		fontSize: ui.fontL,
-		lineHeight: 30,
+		// lineHeight: 30,
 		color: 'black',
 		width: Dimensions.get('window').width - 80,
 		marginLeft: 50
 	},
 	item__action: {
-		fontSize: ui.fontL,
-		lineHeight: 30,
-		color: 'black',
-		width: Dimensions.get('window').width - 80,
-		marginLeft: 50,
-		backgroundColor: '#eee',
 		padding: 10,
-		borderRadius: 4,
-		width: 100
+		marginLeft: 40,
+		fontSize: ui.fontXS,
+		lineHeight: 30,
+		color: '#767676'
 	}
 })

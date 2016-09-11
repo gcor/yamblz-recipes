@@ -81,13 +81,9 @@ class RecipeItem extends Component {
 		const { title, visible } = rowData
 		const cstring = useBrain(title, this.props.ingredients)
 		const renderProducts = cstring ?
-			<View style={listCSS.item__action}>
-				<Text>{cstring}</Text>
-			</View>
+			<Text style={listCSS.item__action}>{cstring}</Text>
 			: null
-		if (visible === false) {
-			return null
-		} else
+		if (visible === false) return null
 		return (
 			<View style={listCSS.item}>
 				<View style={listCSS.item__point}></View>

@@ -27,3 +27,7 @@ export function pronunciation (number, endings) {
 	}
 	return sEnding
 }
+
+export function CapitalizeFirstLetter (sentence) {
+	return sentence = sentence[0].toUpperCase() + sentence.slice(1)
+}

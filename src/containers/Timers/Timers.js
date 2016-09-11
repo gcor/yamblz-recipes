@@ -29,14 +29,6 @@ export default class Timers extends Component {
 			<View style={ui.page}>
 				<View style={{marginTop: 20}}>
 					{this.renderTimers()}
-					<TimerLabel
-						actionLabel='Варится бульон'
-						timeout={166000}
-					/>
-					<TimerLabel
-						actionLabel='Варится бульон'
-						timeout={6000}
-					/>
 				</View>
 			</View>
 		)

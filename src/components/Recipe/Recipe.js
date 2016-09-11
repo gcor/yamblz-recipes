@@ -6,14 +6,16 @@ import Button from '../Button'
 
 class Recipe extends Component {
 	componentWillMount () {
-		this.setState({slides: []})
+		this.setState({slides: [], stages: []})
 	}
 
 	render () {
 		const { data } = this.props
+		let { stages } = data
+
 		let recipeItems = null
 		if (data.stages) {
-			recipeItems = data.stages.map((stage, index) => {
+			recipeItems = stages.map((stage, index) => {
 				return (
 					<RecipeItem
 						key={index}
@@ -30,7 +32,6 @@ class Recipe extends Component {
 					{recipeItems}
 			</View>
 		)
-		// <Text style={css.recipe__note}>Мы напомним когда нужно будет проверить или помешать</Text>
 	}
 
 	calculateSlideHeight (slide) {
