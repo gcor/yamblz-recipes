@@ -15,38 +15,23 @@ class Timer extends Component {
 	}
 	componentWillMount () {
 		this.setState({timeout: this.props.timeout})
-		this.tick = setInterval(this.tickTack.bind(this), 1000)
-	}
-
-	componentDidMount () {
-		this.setState({timeout: 500000})
-	}
-
-	tickTack () {
-		this.setState({timeout: this.state.timeout - 1000})
-	}
-
-	stop () {
-		this.pause()
-		this.tick = undefined
-	}
-
-	pause () {
-		clearInterval(this.tick)
-	}
-
-	componentWillUnmount () {
-		this.stop()
 	}
 
 	handlePress () {
+		const { timeout, actionLabel, timerLabel, setTimer } = this.props
+		if (!timeout || !actionLabel || !timerLabel) return false
 		Notifications.pushNotification()
+		setTimer({
+			actionLabel: actionLabel,
+			timerLabel: timerLabel,
+			timeout: timeout
+		})
 	}
 
 	render () {
-		const { timeout, actionLabel, timerLabel } = this.props
+		const { timerLabel } = this.props
 		// console.log(actionLabel, timerLabel)
-		let time = formatTime(this.state.timeout)
+		// let time = formatTime(timeout)
 		const textValue = 'Включить таймер'.toUpperCase()
 		return (
 			<View style={s.timer}>
@@ -68,6 +53,7 @@ Timer.propTypes = {
 	timeout: PropTypes.number.isRequired,
 	actionLabel: PropTypes.string.isRequired,
 	timerLabel: PropTypes.string.isRequired,
+	setTimer: PropTypes.func.isRequired
 }
 
 export default Timer
