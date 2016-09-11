@@ -4,7 +4,7 @@ export const convertTimeToMinutesAndSeconds = time => {
 
 	let secs, mins
 	secs = _secs - _mins * 60
-	if (_secs < 10) secs = '0' + _secs
+	if (secs < 10) secs = '0' + secs
 	mins = _mins
 	let symbol = _secs % 2 === 0 ? ':' : ' '
 

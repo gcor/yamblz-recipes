@@ -46,7 +46,7 @@ class Timer extends Component {
 
 	render () {
 		const { timeout, actionLabel, timerLabel } = this.props
-		console.log(actionLabel, timerLabel)
+		// console.log(actionLabel, timerLabel)
 		let time = formatTime(this.state.timeout)
 		const textValue = 'Включить таймер'.toUpperCase()
 		return (

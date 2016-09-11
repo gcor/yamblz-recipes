@@ -49,6 +49,7 @@ class RecipeItem extends Component {
 		const { timer } = stage
 		if (!timer) return null
 		const { actionLabel, timerLabel, timeout } = timer
+		console.log(actionLabel, timerLabel)
 		return (
 			<Timer
 				actionLabel={actionLabel}
