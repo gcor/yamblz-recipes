@@ -7,7 +7,7 @@ import {
 import { convertTimeToMinutesAndSeconds } from './util'
 import s from './TimerLabel.css'
 
-export default class TimerList extends Component {
+export default class TimerLabel extends Component {
 	constructor (props) {
 		super(props)
 		this.stop = this.stop.bind(this)
@@ -71,7 +71,7 @@ export default class TimerList extends Component {
 				{this.renderTimeline()}
 				<View style={s.container}>
 					<View style={s.icon}></View>
-					<Text style={s.actionLabel} onPress={this.stop}>{actionLabel}</Text>
+					<Text style={s.actionLabel}>{actionLabel}</Text>
 					<Text style={s.timeout}>{convertTimeToMinutesAndSeconds(this.state.timeout)}</Text>
 				</View>
 			</View>
@@ -79,7 +79,7 @@ export default class TimerList extends Component {
 	}
 }
 
-TimerList.propTypes = {
+TimerLabel.propTypes = {
 	actionLabel: PropTypes.string.isRequired,
 	timeout: PropTypes.number.isRequired,
 	withTimeline: PropTypes.bool

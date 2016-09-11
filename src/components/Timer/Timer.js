@@ -41,7 +41,6 @@ class Timer extends Component {
 
 	handlePress () {
 		Notifications.pushNotification()
-		this.props.goToTimers()
 	}
 
 	render () {
@@ -69,7 +68,6 @@ Timer.propTypes = {
 	timeout: PropTypes.number.isRequired,
 	actionLabel: PropTypes.string.isRequired,
 	timerLabel: PropTypes.string.isRequired,
-	goToTimers: PropTypes.func.isRequired
 }
 
 export default Timer

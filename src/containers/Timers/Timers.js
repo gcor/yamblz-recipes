@@ -11,6 +11,7 @@ export default class Timers extends Component {
 		const { timers } = this.props
 		return (
 			timers.map(timer => {
+				if (!timer) return null
 				const { actionLabel, timeout } = timer
 				return (
 					<TimerLabel
