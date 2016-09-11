@@ -2,12 +2,15 @@
 // import { View } from 'react-native'
 import Push from 'react-native-push-notification'
 
-export const pushNotification = () => {
+export const pushNotification = (delay, message) => {
+	if (!delay) delay = 0
+	if (!message) message = 'Мы забыли написать текст к уведомлению'
 	Push.localNotificationSchedule({
-		message: 'Большой Брат следит за тобой!',
-		date: new Date(Date.now() + 5000)
+		message: message,
+		date: new Date(Date.now() + delay)
 	})
 }
+
 export default {
 	pushNotification
 }

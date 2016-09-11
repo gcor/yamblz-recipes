@@ -12,6 +12,7 @@ export default class AbsoluteTimer extends Component {
 	}
 	render () {
 		const { timers } = this.props
+		if (timers.length === 0) return null
 		const timer = timers[0]
 		const { actionLabel, timeout } = timer
 

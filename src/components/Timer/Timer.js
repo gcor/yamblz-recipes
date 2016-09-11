@@ -14,17 +14,25 @@ class Timer extends Component {
 		this.handlePress = this.handlePress.bind(this)
 	}
 	componentWillMount () {
-		this.setState({timeout: this.props.timeout})
+		this.setState({
+			timeout: this.props.timeout,
+			textValue: 'Включить таймер'.toUpperCase(),
+			activated: false
+		})
 	}
 
 	handlePress () {
 		const { timeout, actionLabel, timerLabel, setTimer } = this.props
 		if (!timeout || !actionLabel || !timerLabel) return false
-		Notifications.pushNotification()
+		// Notifications.pushNotification()
 		setTimer({
 			actionLabel: actionLabel,
 			timerLabel: timerLabel,
 			timeout: timeout
+		})
+		this.setState({
+			textValue: 'Таймер установлен'.toUpperCase(),
+			activated: true
 		})
 	}
 
@@ -32,15 +40,19 @@ class Timer extends Component {
 		const { timerLabel } = this.props
 		// console.log(actionLabel, timerLabel)
 		// let time = formatTime(timeout)
-		const textValue = 'Включить таймер'.toUpperCase()
+		const { textValue, activated } = this.state
 		return (
 			<View style={s.timer}>
 				<View style={[listCSS.item, s.item]}>
 					<View style={[listCSS.item__point, s.yellowPoint]}></View>
 					<Text style={listCSS.item__value}>{timerLabel}</Text>
 				</View>
-				<TouchableOpacity style={s.button} onPress={this.handlePress}>
-					<Text style={s.buttonText}>{textValue}</Text>
+				<TouchableOpacity style={
+					[s.button, activated ? s.buttonInactive : {}]
+					} onPress={this.handlePress}>
+					<Text style={
+						[s.buttonText, activated ? s.textInactive : {}]
+					}>{textValue}</Text>
 				</TouchableOpacity>
 			</View>
 		)
