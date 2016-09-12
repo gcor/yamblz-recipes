@@ -16,7 +16,7 @@ import { bindActionCreators } from 'redux'
 const stateToProps = state => ({
 	recipe: state.recipe,
 	currentRecipe: state.general.currentRecipe,
-	addToHistoryButtonText: state.recipe.isFavourite ? 'Добавить в избранное' : 'Удалить из избранного'
+	addToHistoryButtonText: ''
 })
 
 const dipsatchToProps = dispatch => (bindActionCreators({

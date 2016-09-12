@@ -16,9 +16,7 @@ class App extends Component {
 		this.backHandler = this.backHandler.bind(this)
 	}
 	backHandler () {
-		console.log('pressed')
 		let { navigationState, backAction } = this.props
-		// Detect if is on main screen
 		if (navigationState.index === 0) {
 			return false
 		}

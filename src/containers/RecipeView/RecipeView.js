@@ -17,14 +17,19 @@ import Preloader from '../../components/Preloader'
 export default class RecipeView extends Component {
 	componentWillMount () {
 		this.setState({
-			isReady: false,
-			addToHistoryButtonText: this.props.addToHistoryButtonText
+			isReady: false
 		})
 		InteractionManager.runAfterInteractions(() => {
 			this.setState({isReady: true})
 			const { fetchRecipes, saveInLastViewed, currentRecipe } = this.props
 			saveInLastViewed(currentRecipe)
 			fetchRecipes(currentRecipe)
+		})
+	}
+
+	componentWillReceiveProps (props) {
+		this.setState({
+			addToHistoryButtonText: props.recipe.isFavourite ? 'Удалить из избранного' : 'Добавить в избранное'
 		})
 	}
 
@@ -66,7 +71,6 @@ export default class RecipeView extends Component {
 						setProductAsMain,
 						setProductAsExtra } = this.props
 		const imageSrc = this.props.recipe.image
-
 		switch (status) {
 			case LOADING: return (
 				<Preloader margin={80} />
