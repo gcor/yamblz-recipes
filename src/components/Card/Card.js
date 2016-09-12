@@ -18,7 +18,7 @@ export default class Card extends Component {
 				>
 				<View style={[css.card, this.props.style]}>
 					<View>
-						<Image source={{uri: image}} style={css.card__image} />
+						<Image source={{uri: image}} style={[css.card__image, this.props.style_image]} />
 					</View>
 					<Text numberOfLines={1} style={css.card__title}>{title}</Text>
 					<View style={css.card__description}>
@@ -38,5 +38,6 @@ export default class Card extends Component {
 Card.propTypes = {
 	onPressHandler: PropTypes.func.isRequired,
 	style: PropTypes.number,
+	style_image: PropTypes.number,
 	data: PropTypes.object.isRequired
 }
