@@ -17,22 +17,35 @@ class Brain {
 			const { product } = ingredient
 			const amount = ingredient.amount
 			const measure = ingredient.measure.toLowerCase()
-			if (product && product.title && amount && measure) {
+			if (product && product.title) {
 				let productTitle = product.title.toLowerCase()
 				if (!this.checkIsItNeedForSearch(productTitle)) {
 					return false
 				}
+				if (!this.checkForConditions(title)) {
+					return 'по вкусу'
+				}
 				// console.log(fuzzysearch(productTitle, title))
 				// console.log(productTitle, title)
 				// const matcher = new RegExp(productTitle, 'ig')
-				if (fuzzysearch(productTitle, title)) {
-					productTitle = CapitalizeFirstLetter(productTitle)
-					// return title.replace(matcher, `${productTitle} ${amount} ${measure}`)
-					let outputString = `${productTitle}: ${amount} ${measure}`
-					console.log(outputString)
-					this.removeIngredientFromIndex(i)
-					return outputString
+				// console.log(productTitle.split(' ').length > 1)
+				if (productTitle.split(' ').length > 0) {
+					let arr = productTitle.split(' ')
+					for (const elem of arr) {
+						const matcher = new RegExp(productTitle, 'ig')
+						if (fuzzysearch(elem, title.toLowerCase())) {
+							console.log(elem, title)
+							productTitle = CapitalizeFirstLetter(productTitle)
+							// return title.replace(matcher, `${productTitle} ${amount} ${measure}`)
+							let outputString = `${productTitle}: ${amount} ${measure}`
+							this.removeIngredientFromIndex(i)
+							return outputString
+						}
+					}
+					// console.log('двухсоставное слово', productTitle.split(' ')[0])
 				}
+			} else {
+				console.log('something went wrong')
 			}
 		}
 		return false
@@ -40,7 +53,6 @@ class Brain {
 
 	checkIsItNeedForSearch (title) {
 		for (const usedTitle of this.used) {
-			console.log(usedTitle, title)
 			if (usedTitle === title) {
 				return false
 			}
@@ -57,6 +69,16 @@ class Brain {
 		if (this.checkIsItNeedForSearch(title)) {
 			this.used.push(title)
 		}
+	}
+
+	checkForConditions (title) {
+		const list = [
+			'по вкусу'
+		]
+		for (const item of list) {
+			if (fuzzysearch(item, title.toLowerCase())) return false
+		}
+		return true
 	}
 }
 let brain = new Brain()
