@@ -31,19 +31,20 @@ export function getCategories () {
 }
 
 export function getJumbotron () {
+	const now = (new Date()).getHours()
+	let dayTime = 'breakfast'
+
+	if (now > 3 && now <= 11) {
+		dayTime = 'breakfast'
+	} else if (now > 11 && now <= 17) {
+		dayTime = 'lunch'
+	} else dayTime = 'supper'
+
 	return new Promise(async (resolve, reject) => {
-		fetch(api.time.breakfast)
+		fetch(api.time[dayTime])
 			.then(res => res.json())
 			.then(jumbotron => resolve(jumbotron))
 			.catch(e => reject(e))
-		// const now = (new Date()).getHours()
-		// switch (now) {
-		// 	case (now > 0 && now <= 12): break
-		// 	case (now > 12 && now <= 18): break
-		// 	case (now > 18): break
-		// 	default:
-		// 		break
-		// }
 	})
 }
 export function getRecommend () {
