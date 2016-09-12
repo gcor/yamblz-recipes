@@ -41,6 +41,7 @@ class Category extends Component {
 				id={recipe._id}
 				onPressHandler={this._onCardPress.bind(this)}
 				style={css.card}
+				style_image={css.card__image}
 			/>
 		)
 	}

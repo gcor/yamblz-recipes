@@ -59,7 +59,7 @@ class Timer extends Component {
 
 		var textColor = this._animatedTextColor.interpolate({
 			inputRange: [0, 100],
-			outputRange: ['black', '#A3A2A0']
+			outputRange: ['#000', '#A3A2A0']
 		})
 
 		return (
