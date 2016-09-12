@@ -1,7 +1,10 @@
 import React, { Component, PropTypes } from 'react'
-import { Text, View, TextInput } from 'react-native'
+import { View, NativeModules, TextInput } from 'react-native'
 import Slider from '../Slider/'
 import css from './SearchList.css'
+import * as _ from 'lodash'
+
+const AppMetrica = NativeModules.AppMetrika
 
 class SearchList extends Component {
 	constructor (props) {
@@ -31,7 +34,15 @@ class SearchList extends Component {
 	}
 
 	_onCardPress (recipeID) {
-		const { navigatePush, setCurrentRecipe } = this.props
+		const { navigatePush, setCurrentRecipe, recipes } = this.props
+		const addFromSearch = _.find(recipes, {'_id': recipeID})
+		if (addFromSearch) {
+			AppMetrica.openRecipe(JSON.stringify({
+				from: 'search',
+				title: addFromSearch.title,
+				id: recipeID
+			}))
+		}
 		setCurrentRecipe(recipeID)
 		navigatePush({
 			key: 'RecipeView',
@@ -92,6 +103,8 @@ class SearchList extends Component {
 
 SearchList.propTypes = {
 	searchGo: PropTypes.func.isRequired,
+	navigatePush: PropTypes.func.isRequired,
+	setCurrentRecipe: PropTypes.func.isRequired,
 	products: PropTypes.array,
 	recipes: PropTypes.array
 }

@@ -4,7 +4,8 @@ import {
 	View,
 	Image,
 	StatusBar,
-	InteractionManager
+	InteractionManager,
+	NativeModules
 } from 'react-native'
 import Button from '../../components/Button'
 import IngredientList from '../../components/IngredientList'
@@ -13,12 +14,11 @@ import ToolsList from '../../components/ToolsList'
 import css from './RecipeView.css'
 import { LOADING, SUCCESS, ERROR } from '../../constants/actionTypes'
 import Preloader from '../../components/Preloader'
+const AppMetrica = NativeModules.AppMetrica
 
 export default class RecipeView extends Component {
 	componentWillMount () {
-		this.setState({
-			isReady: false
-		})
+		this.setState({isReady: false})
 		InteractionManager.runAfterInteractions(() => {
 			this.setState({isReady: true})
 			const { fetchRecipes, saveInLastViewed, currentRecipe } = this.props
@@ -51,6 +51,7 @@ export default class RecipeView extends Component {
 	}
 
 	_onPress () {
+		AppMetrica.startCook()
 		this.props.navigatePush({key: 'Recipe', title: 'Процесс'})
 	}
 
@@ -91,7 +92,6 @@ export default class RecipeView extends Component {
 						recipe={this.props.recipe} />
 					<ExtraProducts
 						title={'можно добавить'}
-						id={'1'}
 						setMain={setProductAsMain}
 						recipe={this.props.recipe} />
 					<ToolsList

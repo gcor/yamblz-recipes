@@ -1,11 +1,14 @@
 import React, { Component, PropTypes } from 'react'
-import { Text, View, NativeModules, ScrollView, StatusBar, Modal, TouchableHighlight, AsyncStorage } from 'react-native'
+import { Text, View, NativeModules, ScrollView, StatusBar, Modal, TouchableHighlight } from 'react-native'
 import Button from '../../components/Button'
 import css from './Home.css'
+import * as _ from 'lodash'
 import HomeSwiper from '../../components/HomeSwiper'
 import Slider from '../../components/Slider'
 import CardSmall from '../../components/CardSmall'
 import AppBar from '../../components/AppBar'
+
+const AppMetrica = NativeModules.AppMetrika
 
 export default class Home extends Component {
 	constructor (props) {
@@ -29,16 +32,25 @@ export default class Home extends Component {
 		})
 	}
 
-	_onCustomJavaEvent () {
-		const AppMetrica = NativeModules.AppMetrika
-		// отправляем событие "Hello!!!" в метрику
-		// настройки в android/app/src/main/java/com/kitchen/AppMetrikaPackage.java
-		AppMetrica.hello()
-	}
-
 	_onCardPress (recipeID) {
-		const { navigatePush, setCurrentRecipe } = this.props
+		const { navigatePush, setCurrentRecipe, jumbotron, recommend } = this.props
 		setCurrentRecipe(recipeID)
+		const addFromSwiperRecipe = _.find(recommend, {'_id': recipeID})
+		const addFromRecommendRecipe = _.find(jumbotron, {'_id': recipeID})
+		if (addFromSwiperRecipe) {
+			AppMetrica.openRecipe(JSON.stringify({
+				from: 'HomeSwiper',
+				title: addFromSwiperRecipe.title,
+				id: recipeID
+			}))
+		}
+		if (addFromRecommendRecipe) {
+			AppMetrica.openRecipe(JSON.stringify({
+				from: 'HomeRecommend',
+				title: addFromRecommendRecipe.title,
+				id: recipeID
+			}))
+		}
 		navigatePush({
 			key: 'RecipeView',
 			title: 'Подготовка'
@@ -125,14 +137,11 @@ export default class Home extends Component {
 					</View>
 					<Slider style={css.home__recomended}
 						title={titles.recommend}
-						id={'1'}
 						onPressHandler={this._onCardPress.bind(this)}
 						recipes={recommend} />
-
 					{this.renderSoonInApp()}
 					{this.renderModal()}
 					<Button onPress={this._onPushToTimers.bind(this)} text='Перейти к таймерам' />
-					<Button onPress={this._onCustomJavaEvent.bind(this)} text='Отправить событие в метрику' />
 				</ScrollView>
 			</View>
 		)

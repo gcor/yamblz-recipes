@@ -21,9 +21,24 @@ public class AppMetrikaModule extends ReactContextBaseJavaModule {
 	}
 
 	@ReactMethod
-	public void hello() {
+	public void openRecipe(String json) {
 		try{
-			YandexMetrica.reportEvent("Hello!!!");
+			YandexMetrica.reportEvent("openRecipe", json);
 		} catch(Exception e){}
 	}
+
+	@ReactMethod
+	public void changeFavourite(String json) {
+		try{
+			YandexMetrica.reportEvent("changeFavourite", json);
+		} catch(Exception e){}
+	}
+
+	@ReactMethod
+	public void startCook(String json) {
+		try{
+			YandexMetrica.reportEvent("startCook", json);
+		} catch(Exception e){}
+	}
+
 }
