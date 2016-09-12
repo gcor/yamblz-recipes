@@ -54,12 +54,6 @@ export default class Home extends Component {
 		StatusBar.setBackgroundColor(color, false)
 	} 
 
-	renderAppBar () {
-		return (
-			<AppBar />
-		)
-	}
-
 	renderModal () {
 		return (
 			<Modal animationType={'slide'} transparent={true} visible={this.state.modalVisible}
@@ -147,7 +141,7 @@ export default class Home extends Component {
 						<HomeSwiper
 							onPressHandler={this._onCardPress.bind(this)}
 							items={items} />
-						{this.renderAppBar()}
+						<AppBar />
 					</View>
 					<Slider style={css.home__recomended}
 						title={titles.recommend}

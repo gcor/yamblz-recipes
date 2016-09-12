@@ -6,32 +6,88 @@ import BookmarkIcon from './assets/bookmark.png'
 
 
 export default class AppBar extends Component {
-    render () {
+    
+    renderHomeBar() {
         const { pushToHistory, pushToSearch, pushToCategory } =  this.props
         return (
-            <View style={{backgroundColor: 'transparent', justifyContent: 'center', alignItems: 'center', marginLeft: 16, marginRight: 16, marginTop: 32, position: 'absolute', top: 0, left: 0, bottom: 0, right: 0, height: 60, flexDirection: 'row', justifyContent: 'space-between'}}>
-                <TouchableHighlight style={{margin: 4}}  onPress={pushToHistory.bind(this)}>
-                    <Image style={{height: 24, width: 24, resizeMode: 'contain'}} source={BookmarkIcon} />
+            <View style={[css.bar, css.bar_centered]}>
+                <TouchableHighlight style={css.bar__hilight} 
+                    underlayColor='rgba(255,255,255,0.2)'
+                    onPress={pushToHistory.bind(this)}>
+                    <Image style={css.bar__icon} source={BookmarkIcon} />
                 </TouchableHighlight>
-                <TouchableHighlight onPress={pushToCategory.bind(this)}>
-                    <View style={{paddingLeft: 16, paddingRight: 16, height: 36, 
-                        alignItems: 'center', justifyContent: 'center', 
-                        borderWidth: 2, borderStyle: 'solid', borderColor: 'white', 
-                        borderRadius: 18,
-                        backgroundColor: 'rgba(0,0,0,0.2)' }}>
+                <TouchableHighlight style={css.bar__hilight} onPress={pushToCategory.bind(this)}>
+                    <View style={css.bar__category}
+                        underlayColor='rgba(255,255,255,0.2)'>
                         <Text style={{color: 'white', fontSize: 16 }}>Завтрак</Text>
-                    </View> 
+                    </View>
                 </TouchableHighlight>
-                <TouchableHighlight style={{margin: 4}} onPress={pushToSearch.bind(this)}>
-                    <Image style={{height: 24, width: 24, resizeMode: 'contain'}} source={SearchIcon} />
+                <TouchableHighlight style={css.bar__hilight}
+                    onPress={pushToSearch.bind(this)}
+                    underlayColor='rgba(255,255,255,0.2)'>
+                    <Image style={css.bar__icon} source={SearchIcon} />
                 </TouchableHighlight>   
             </View>
         )
+    }
+
+    renderRecipeViewBar() {
+        const { recipe, navigateBack, addToHistory } =  this.props
+        return (
+            <View style={css.bar}>
+                <TouchableHighlight style={css.bar__hilight} 
+                    underlayColor='rgba(255,255,255,0.2)'
+                    onPress={navigateBack.bind(this)}>
+                    <Image style={css.bar__icon} source={BookmarkIcon} />
+                </TouchableHighlight>
+
+                <View style={css.bar__content}>                             
+                    <Text style={css.bar__title}>{recipe.title}</Text>
+                    <View style={css.bar__info}>
+                        <Text style={css.bar__time}>
+                            {this.getCookingTime(recipe.time)} ·
+                        </Text>
+                        <Text style={css.bar__energy}>{recipe.energy} ккал</Text>
+                    </View>
+                </View>
+
+                <TouchableHighlight style={css.bar__hilight}
+                    onPress={addToHistory.bind(this, this.props.recipe._id)}
+                    underlayColor='rgba(255,255,255,0.2)'>
+                    <Image style={css.bar__icon} source={BookmarkIcon} />
+                </TouchableHighlight>   
+            </View>
+        )
+    }
+
+    renderRecipe() {
+        const { navigateBack } =  this.props
+        return (
+            <View>
+            </View>
+        )
+    }
+
+    render () {
+        const { navigationState } =  this.props
+        switch (navigationState.routes[navigationState.routes.length - 1].key) {
+            case 'Home': return this.renderHomeBar()
+            case 'RecipeView': return this.renderRecipeViewBar()
+            case 'Recipe': return this.renderRecipe()
+            default: return null
+        }
+    }
+
+    getCookingTime (time) {
+        if (time > 60) return ~~(time / 60) + ' час ' + (time % 60) + ' мин'
+        else return time + ' мин'
     }
 }
 
 AppBar.propTypes = {
     pushToHistory: PropTypes.func.isRequired,
     pushToSearch: PropTypes.func.isRequired,
-    pushToCategory: PropTypes.func.isRequired
+    pushToCategory: PropTypes.func.isRequired,
+    navigateBack: PropTypes.func.isRequired,
+    addToHistory: PropTypes.func.isRequired
 }

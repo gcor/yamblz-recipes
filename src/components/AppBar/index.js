@@ -1,9 +1,13 @@
 import AppBar from './AppBar'
 import { connect } from 'react-redux'
-import { navigatePush, nivigatePop } from '../../actions/navigationActions'
+import { navigatePush, navigatePop } from '../../actions/navigationActions'
+import { addToHistory } from '../../actions/historyActions'
 
 export default connect(
-    state => ({}),
+    state => ({
+        navigationState: state.navigationState,
+        recipe: state.recipe,
+    }),
     dispatch => ({
         pushToHistory: () => dispatch(navigatePush({
             key: 'History',
@@ -17,6 +21,7 @@ export default connect(
             key: 'Search',
             title: 'Поиск'
         })),
-        navigateBack: () => dispatch(nivigatePop())
+        navigateBack: () => dispatch(navigatePop()),
+        addToHistory
     })
 )(AppBar)
