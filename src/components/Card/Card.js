@@ -20,7 +20,7 @@ export default class Card extends Component {
 					<View>
 						<Image source={{uri: image}} style={css.card__image} />
 					</View>
-					<Text style={css.card__title}>{title}</Text>
+					<Text numberOfLines={1} style={css.card__title}>{title}</Text>
 					<View style={css.card__description}>
 						<View style={css.card__side}>
 							<Text style={css.card__text}>{this.getCookingTime(time)}  ·  </Text>
