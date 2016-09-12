@@ -20,7 +20,6 @@ class RecipePage extends Component {
 	}
 	componentWillMount () {
 		DeviceEventEmitter.removeAllListeners('Proximity')
-		this.props.execTimers()
 		this.setState({ready: false, scroll: 0})
 		InteractionManager.runAfterInteractions(() => {
 			this.setState({ready: true})

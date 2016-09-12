@@ -30,13 +30,15 @@ export default class History extends Component {
 	render () {
 		const { isReady } = this.state
 		if (isReady) {
+			const { lastViewedRecipes } = this.props
+			const reversedLastRecipes = lastViewedRecipes
 			return (
 				<ScrollView style={{marginTop: 60, backgroundColor: '#FAF9F7'}}>
 					<Slider
 						title={'Вы недавно смотрели'}
 						id={'1'}
 						onPressHandler={this._onCardPress.bind(this)}
-						recipes={this.props.lastViewedRecipes || []} />
+						recipes={reversedLastRecipes} />
 					<Slider
 						title={'Сохраненные'}
 						id={'1'}
