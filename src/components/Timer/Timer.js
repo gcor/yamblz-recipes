@@ -2,16 +2,17 @@ import React, { Component, PropTypes } from 'react'
 import {
 	View, Text,
 	TouchableOpacity,
-	Animated,
+	Animated
 } from 'react-native'
 import s from './Timer.css'
 import listCSS from '../List/List.css'
-// import Notifications from '../Notification'
 
 class Timer extends Component {
 	constructor () {
 		super()
 		this.handlePress = this.handlePress.bind(this)
+		this._animatedButtonColor = new Animated.Value(0)
+		this._animatedTextColor = new Animated.Value(0)
 	}
 	componentWillMount () {
 		this.setState({
@@ -19,8 +20,6 @@ class Timer extends Component {
 			textValue: 'Включить таймер'.toUpperCase(),
 			activated: false
 		})
-		this._animatedButtonColor = new Animated.Value(0)
-		this._animatedTextColor = new Animated.Value(0)
 	}
 
 	handlePress () {
@@ -37,10 +36,9 @@ class Timer extends Component {
 			activated: true
 		})
 		const config = {toValue: 100, duration: 500}
-		Animated.parallel([
-			Animated.timing(this._animatedButtonColor, config),
-			Animated.timing(this._animatedTextColor, config)
-		]).start()
+
+		Animated.spring(this._animatedButtonColor, config).start()
+		Animated.spring(this._animatedTextColor, config).start()
 	}
 
 	render () {

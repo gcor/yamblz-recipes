@@ -1,4 +1,5 @@
 export const convertTimeToMinutesAndSeconds = time => {
+	if (time < 0) return '0:00'
 	let _secs = Math.floor(time / 1000)
 	let _mins = Math.floor(_secs / 60)
 

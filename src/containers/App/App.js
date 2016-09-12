@@ -11,18 +11,28 @@ const {
 } = NavigationExperimental
 
 class App extends Component {
+	constructor () {
+		super()
+		this.backHandler = this.backHandler.bind(this)
+	}
+	backHandler () {
+		console.log('pressed')
+		let { navigationState, backAction } = this.props
+		// Detect if is on main screen
+		if (navigationState.index === 0) {
+			return false
+		}
+
+		backAction()
+		return true
+	}
 
 	componentWillMount () {
-		BackAndroid.addEventListener('hardwareBackPress', () => {
-			let { navigationState, backAction } = this.props
-			// Detect if is on main screen
-			if (navigationState.index === 0) {
-				return false
-			}
+		BackAndroid.addEventListener('hardwareBackPress', this.backHandler)
+	}
 
-			backAction()
-			return true
-		})
+	componentWillUnmount () {
+		BackAndroid.removeEventListener('hardwareBackPress', this.backHandler)
 	}
 
 	renderOverlay (props) {
@@ -30,7 +40,6 @@ class App extends Component {
 
 		switch (navigationState.routes[navigationState.routes.length - 1].key) {
 			case 'Home': return null
-				return 0
 			case 'RecipeView': return null
 		}
 
