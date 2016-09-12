@@ -31,14 +31,19 @@ class Timer extends Component {
 			timerLabel: timerLabel,
 			timeout: timeout
 		})
-		this.setState({
-			textValue: 'Таймер установлен'.toUpperCase(),
-			activated: true
-		})
-		const config = {toValue: 100, duration: 500}
 
-		Animated.spring(this._animatedButtonColor, config).start()
-		Animated.spring(this._animatedTextColor, config).start()
+		const duration = 400
+		const config = {toValue: 100, duration: duration}
+		let self = this
+		setTimeout(() => {
+			self.setState({
+				textValue: 'Таймер установлен'.toUpperCase(),
+				activated: true
+			})
+		}, duration)
+
+		Animated.timing(this._animatedButtonColor, config).start()
+		Animated.timing(this._animatedTextColor, config).start()
 	}
 
 	render () {
