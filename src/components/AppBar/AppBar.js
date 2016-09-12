@@ -13,18 +13,18 @@ export default class AppBar extends Component {
                 <TouchableHighlight style={{margin: 4}}  onPress={pushToHistory.bind(this)}>
                     <Image style={{height: 24, width: 24, resizeMode: 'contain'}} source={BookmarkIcon} />
                 </TouchableHighlight>
-                <TouchableHighlight onPress={pushToCategory.bind(this)}>
-                    <View style={{paddingLeft: 16, paddingRight: 16, height: 36, 
-                        alignItems: 'center', justifyContent: 'center', 
-                        borderWidth: 2, borderStyle: 'solid', borderColor: 'white', 
+                <TouchableHighlight onPress={pushToCategory.bind(this, 'Ужин')}>
+                    <View style={{paddingLeft: 16, paddingRight: 16, height: 36,
+                        alignItems: 'center', justifyContent: 'center',
+                        borderWidth: 2, borderStyle: 'solid', borderColor: 'white',
                         borderRadius: 18,
                         backgroundColor: 'rgba(0,0,0,0.2)' }}>
                         <Text style={{color: 'white', fontSize: 16 }}>Завтрак</Text>
-                    </View> 
+                    </View>
                 </TouchableHighlight>
                 <TouchableHighlight style={{margin: 4}} onPress={pushToSearch.bind(this)}>
                     <Image style={{height: 24, width: 24, resizeMode: 'contain'}} source={SearchIcon} />
-                </TouchableHighlight>   
+                </TouchableHighlight>
             </View>
         )
     }

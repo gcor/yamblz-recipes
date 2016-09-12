@@ -30,6 +30,15 @@ export function getCategories () {
 	})
 }
 
+export function getCategory (id) {
+	return new Promise((resolve, reject) => {
+		console.log(api.categories + id)
+		fetchData(api.categories + id)
+			.then(category => resolve(category))
+			.catch(err => reject(err))
+	})
+}
+
 export function getJumbotron () {
 	const now = (new Date()).getHours()
 	let dayTime = 'breakfast'

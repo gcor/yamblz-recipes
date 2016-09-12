@@ -11,6 +11,10 @@ import {
 	FETCH_CATEGORIES_SUCCESS,
 	FETCH_CATEGORIES_ERROR,
 
+	FETCH_CATEGORY_LOADING,
+	FETCH_CATEGORY_SUCCESS,
+	FETCH_CATEGORY_ERROR,
+
 	LOADING,
 	SUCCESS,
 	ERROR
@@ -19,7 +23,8 @@ const initialState = {
 	status: '',
 	categories: [],
 	jumbotron: [],
-	recommend: []
+	recommend: [],
+	category: []
 }
 
 function categories (state = initialState, action) {
@@ -37,8 +42,23 @@ function categories (state = initialState, action) {
 				...{categories: action.payload},
 				...{status: SUCCESS}
 			}
-
 		case FETCH_CATEGORIES_ERROR:
+			return {
+				...state,
+				...{status: ERROR}
+			}
+
+		case FETCH_CATEGORY_LOADING:
+			return {
+				...state,
+				...{status: LOADING}}
+		case FETCH_CATEGORY_SUCCESS:
+			return {
+				...state,
+				...{category: action.payload},
+				...{status: SUCCESS}
+			}
+		case FETCH_CATEGORY_ERROR:
 			return {
 				...state,
 				...{status: ERROR}

@@ -9,9 +9,9 @@ export default connect(
             key: 'History',
             title: 'Ваши рецепты'
         })),
-        pushToCategory: () => dispatch(navigatePush({
+        pushToCategory: (title) => dispatch(navigatePush({
             key: 'Category',
-            title: 'Категория'
+            title: title
         })),
         pushToSearch: () => dispatch(navigatePush({
             key: 'Search',
