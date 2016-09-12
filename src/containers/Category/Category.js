@@ -1,9 +1,11 @@
 import React, { Component, PropTypes } from 'react'
-import { View, ScrollView, InteractionManager } from 'react-native'
+import { View, NativeModules, ScrollView, InteractionManager } from 'react-native'
 import Slider from '../../components/Slider'
 import ui from '../../constants/css'
 import { LOADING, SUCCESS, ERROR } from '../../constants/actionTypes'
 import Preloader from '../../components/Preloader'
+import * as _ from 'lodash'
+const AppMetrica = NativeModules.AppMetrika
 import Card from '../../components/Card/Card'
 import css from './Category.css'
 
@@ -17,6 +19,14 @@ class Category extends Component {
 	}
 	_onPressHandler (recipeID) {
 		const { navigatePush, setCurrentRecipe } = this.props
+		// const addFromLast = _.find(lastViewedRecipes, {'_id': recipeID})
+		// if (addFromLast) {
+		// 	AppMetrica.send(JSON.stringify({
+		// 		from: 'lastViewed',
+		// 		title: addFromLast.title,
+		// 		id: recipeID
+		// 	}))
+		// }
 		setCurrentRecipe(recipeID)
 		navigatePush({
 			key: 'RecipeView',
