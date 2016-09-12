@@ -40,7 +40,6 @@ export const removeFromHistory = createAction(REMOVE_FROM_HISTORY, async (id) =>
 		const ids = JSON.parse(idsFromStorage) || []
 		const index = ids.indexOf(id)
 		if (index > -1) ids.splice(index, 1)
-		console.log(ids)
 		await AsyncStorage.setItem(HISTORY_STORAGE_KEY, JSON.stringify(ids))
 	} catch (error) {
 		console.log(error)
