@@ -14,6 +14,8 @@ import ToolsList from '../../components/ToolsList'
 import css from './RecipeView.css'
 import { LOADING, SUCCESS, ERROR } from '../../constants/actionTypes'
 import Preloader from '../../components/Preloader'
+import AppBar from '../../components/AppBar'
+import LinearGradient from 'react-native-linear-gradient'
 const AppMetrika = NativeModules.AppMetrika
 
 export default class RecipeView extends Component {
@@ -65,7 +67,7 @@ export default class RecipeView extends Component {
 	_handleScroll (e) {
 		const currentY = Math.floor(e.nativeEvent.contentOffset.y)
 		var color = currentY + 24 > this.swiperHeight ? 'black' : 'transparent'
-		StatusBar.setBackgroundColor(color, true)
+		StatusBar.setBackgroundColor(color, false)
 	}
 
 	renderIngredientList () {
@@ -83,6 +85,10 @@ export default class RecipeView extends Component {
 				<View style={css.recipe}>
 					<View onLayout={this._getHeight.bind(this)}>
 						<Image source={{uri: imageSrc}} style={css.recipe__image} />
+						<View style={css.recipe__background}></View>
+						<LinearGradient style={css.recipe__gradient1} colors={['black', 'transparent']} />
+						<LinearGradient style={css.recipe__gradient2} colors={['rgba(0,0,0,.5)', 'transparent']} />
+						<AppBar />
 					</View>
 					<Button
 						onPress={this._onAddToHistory.bind(this)}
