@@ -5,9 +5,11 @@ import {
 	FETCH_LAST_VIEWED
 } from '../constants/actionTypes'
 import { createAction } from 'redux-actions'
-import { AsyncStorage } from 'react-native'
+import { AsyncStorage, NativeModules } from 'react-native'
 import { HISTORY_STORAGE_KEY, LAST_VIEWED_KEY } from '../constants/keys'
 import { getRecipeById } from '../api/recipes'
+
+const AppMetrica = NativeModules.AppMetrika
 
 export const fetchHistory = createAction(FETCH_HISTORY, async () => {
 	const idsFromStorage = await AsyncStorage.getItem(HISTORY_STORAGE_KEY)
@@ -23,6 +25,8 @@ export const fetchLastViewed = createAction(FETCH_LAST_VIEWED, async () => {
 
 export const addToHistory = createAction(ADD_TO_HISTORY, async (id) => {
 	try {
+		console.log('a')
+		AppMetrica.addFavourite(JSON.stringify({id: id}))
 		const idsFromStorage = await AsyncStorage.getItem(HISTORY_STORAGE_KEY)
 		const ids = JSON.parse(idsFromStorage) || []
 		if (ids.indexOf(id) < 0) ids.push(id)
@@ -34,6 +38,8 @@ export const addToHistory = createAction(ADD_TO_HISTORY, async (id) => {
 
 export const removeFromHistory = createAction(REMOVE_FROM_HISTORY, async (id) => {
 	try {
+		console.log('r')
+		AppMetrica.removeFavourite(JSON.stringify({id: id}))
 		const idsFromStorage = await AsyncStorage.getItem(HISTORY_STORAGE_KEY)
 		const ids = JSON.parse(idsFromStorage) || []
 		const index = ids.indexOf(id)

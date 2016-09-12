@@ -18,3 +18,5 @@ export const product = url + 'product/'
 export const history = url + 'history/'
 
 export const search = url + 'search/'
+
+export const recommend = url + 'recommend/'

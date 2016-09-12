@@ -1,17 +1,21 @@
 import React, { Component, PropTypes } from 'react'
-import { Text, View, NativeModules, ScrollView, StatusBar, Modal, TouchableHighlight, AsyncStorage } from 'react-native'
+import { Text, View, NativeModules, ScrollView, StatusBar, Modal, TouchableHighlight } from 'react-native'
 import Button from '../../components/Button'
 import css from './Home.css'
+import * as _ from 'lodash'
 import HomeSwiper from '../../components/HomeSwiper'
 import Slider from '../../components/Slider'
 import CardSmall from '../../components/CardSmall'
 import AppBar from '../../components/AppBar'
+
+const AppMetrica = NativeModules.AppMetrika
 
 export default class Home extends Component {
 	constructor (props) {
 		super(props)
 		this.state = {modalVisible: false}
 		this.props.fetchJumbotron()
+		this.props.fetchRecommend()
 	}
 
 	setModalVisible (visible) {
@@ -28,16 +32,23 @@ export default class Home extends Component {
 		})
 	}
 
-	_onCustomJavaEvent () {
-		const AppMetrica = NativeModules.AppMetrika
-		// отправляем событие "Hello!!!" в метрику
-		// настройки в android/app/src/main/java/com/kitchen/AppMetrikaPackage.java
-		AppMetrica.hello()
-	}
-
 	_onCardPress (recipeID) {
-		const { navigatePush, setCurrentRecipe } = this.props
+		const { navigatePush, setCurrentRecipe, jumbotron, recommend } = this.props
 		setCurrentRecipe(recipeID)
+		const addFromSwiperRecipe = _.find(recommend, {'_id': recipeID})
+		const addFromRecommendRecipe = _.find(jumbotron, {'_id': recipeID})
+		if (addFromSwiperRecipe) {
+			AppMetrica.openRecipeFromHomeSwiper(JSON.stringify({
+				title: addFromSwiperRecipe.title,
+				id: recipeID
+			}))
+		}
+		if (addFromRecommendRecipe) {
+			AppMetrica.openRecipeFromRecommend(JSON.stringify({
+				title: addFromRecommendRecipe.title,
+				id: recipeID
+			}))
+		}
 		navigatePush({
 			key: 'RecipeView',
 			title: 'Подготовка'
@@ -52,7 +63,7 @@ export default class Home extends Component {
 		const currentY = Math.floor(e.nativeEvent.contentOffset.y)
 		var color = currentY + 24 > this.swiperHeight ? 'black' : 'transparent'
 		StatusBar.setBackgroundColor(color, false)
-	} 
+	}
 
 	renderModal () {
 		return (
@@ -100,38 +111,11 @@ export default class Home extends Component {
 	}
 
 	render () {
-		AsyncStorage.clear()
-		var items = [{
-			_id: '57bf5e6c23a24aae1483a36c',
-			title: 'Брускетта с томатами и моцареллой',
-			time: 20,
-			energy: 254,
-			complexity: 'Просто',
-			category: 1,
-			image: 'https://intense-earth-33481.herokuapp.com/assets/recipe2/brusketta_main.jpg',
-			__v: 0,
-			stages: [ ],
-			ingredients: [ ],
-			categories: [ ]
-		}, {
-			_id: '57bfe641a6bae0f91575a084',
-			title: 'Курица меланезе со спагетти',
-			time: 45,
-			energy: 965,
-			image: 'http://www.caffeconcerto.co.uk/images-menus/meat-chicken-milanese-with-spaghetti_tn-jpg_1466080216.jpg'
-		}, {
-			_id: '57c3f9e29a9071360856cedc',
-			title: 'Запеченая паста 4 сыра',
-			image: 'http://intense-earth-33481.herokuapp.com/assets/recipe11/4cheese.jpg',
-			time: 40,
-			energy: 824
-		}]
-
 		const titles = {
 			recommend: 'рекомендуем'.toUpperCase(),
 			soon: 'скоро в приложении'.toUpperCase()
 		}
-
+		const { jumbotron, recommend } = this.props
 		return (
 			<View style={{flex: 1}}>
 				<ScrollView style={css.home}
@@ -140,27 +124,28 @@ export default class Home extends Component {
 					<View onLayout={this._getHeight.bind(this)}>
 						<HomeSwiper
 							onPressHandler={this._onCardPress.bind(this)}
-							items={items} />
+							items={jumbotron} />
 						<AppBar />
 					</View>
 					<Slider style={css.home__recomended}
 						title={titles.recommend}
-						id={'1'}
 						onPressHandler={this._onCardPress.bind(this)}
-						recipes={items} />
-
+						recipes={recommend} />
 					{this.renderSoonInApp()}
 					{this.renderModal()}
-					<Button onPress={this._onPushToTimers.bind(this)} text='Перейти к таймерам' />
-					<Button onPress={this._onCustomJavaEvent.bind(this)} text='Отправить событие в метрику' />
 				</ScrollView>
 			</View>
 		)
 	}
 }
+// <Button onPress={this._onPushToTimers.bind(this)} text='Перейти к таймерам' />
+// <Button onPress={this._onCustomJavaEvent.bind(this)} text='Отправить событие в метрику' />
 
 Home.propTypes = {
 	navigatePush: PropTypes.func.isRequired,
 	setCurrentRecipe: PropTypes.func.isRequired,
-	fetchJumbotron: PropTypes.func.isRequired
+	jumbotron: PropTypes.array.isRequired,
+	recommend: PropTypes.array.isRequired,
+	fetchJumbotron: PropTypes.func.isRequired,
+	fetchRecommend: PropTypes.func.isRequired
 }

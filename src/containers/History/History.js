@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react'
-import { ScrollView, InteractionManager } from 'react-native'
+import { ScrollView, NativeModules, InteractionManager } from 'react-native'
 import Slider from '../../components/Slider'
+import * as _ from 'lodash'
+const AppMetrica = NativeModules.AppMetrika
 
 export default class History extends Component {
 	componentWillMount () {
@@ -13,7 +15,26 @@ export default class History extends Component {
 		console.log(this.props) // приходит [] и undefined. why?
 	}
 	_onCardPress (recipeID) {
-		const { navigatePush, setCurrentRecipe } = this.props
+		const {
+			navigatePush,
+			setCurrentRecipe,
+			lastViewedRecipes,
+			historyRecipes
+		} = this.props
+		const addFromLast = _.find(lastViewedRecipes, {'_id': recipeID})
+		const addFromFavourite = _.find(historyRecipes, {'_id': recipeID})
+		if (addFromLast) {
+			AppMetrica.openRecipeFromLast(JSON.stringify({
+				title: addFromLast.title,
+				id: recipeID
+			}))
+		}
+		if (addFromFavourite) {
+			AppMetrica.openRecipeFromFavourite(JSON.stringify({
+				title: addFromFavourite.title,
+				id: recipeID
+			}))
+		}
 		setCurrentRecipe(recipeID)
 		navigatePush({
 			key: 'RecipeView',
@@ -30,18 +51,19 @@ export default class History extends Component {
 	render () {
 		const { isReady } = this.state
 		if (isReady) {
+			const { lastViewedRecipes, historyRecipes } = this.props
 			return (
 				<ScrollView style={{marginTop: 60, backgroundColor: '#FAF9F7'}}>
 					<Slider
 						title={'Вы недавно смотрели'}
 						id={'1'}
 						onPressHandler={this._onCardPress.bind(this)}
-						recipes={this.props.lastViewedRecipes || []} />
+						recipes={lastViewedRecipes} />
 					<Slider
 						title={'Сохраненные'}
 						id={'1'}
 						onPressHandler={this._onCardPress.bind(this)}
-						recipes={this.props.historyRecipes || []} />
+						recipes={historyRecipes || []} />
 				</ScrollView>
 			)
 		}

@@ -1,19 +1,27 @@
 import React, { Component, PropTypes } from 'react'
 import { View } from 'react-native'
 import RecipeItem from '../RecipeItem'
-import Button from '../Button'
+// import Button from '../Button'
+import Brain from '../Brain'
 // import css from './Recipe.css'
 
 class Recipe extends Component {
 	componentWillMount () {
-		this.setState({slides: []})
+		this.setState({slides: [], stages: []})
+	}
+
+	componentWillUnmount () {
+		Brain.resetIngredients()
 	}
 
 	render () {
 		const { data } = this.props
+		let { stages, ingredients } = data
+		Brain.setIngredients(ingredients)
+
 		let recipeItems = null
 		if (data.stages) {
-			recipeItems = data.stages.map((stage, index) => {
+			recipeItems = stages.map((stage, index) => {
 				return (
 					<RecipeItem
 						key={index}
@@ -30,7 +38,6 @@ class Recipe extends Component {
 					{recipeItems}
 			</View>
 		)
-		// <Text style={css.recipe__note}>Мы напомним когда нужно будет проверить или помешать</Text>
 	}
 
 	calculateSlideHeight (slide) {

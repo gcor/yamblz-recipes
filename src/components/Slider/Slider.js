@@ -6,10 +6,15 @@ import css from './Slider.css'
 class Slider extends Component {
 	constructor (props) {
 		super(props)
-		const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 })
+		this.ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 })
 		this.state = {
-			dataSource: ds.cloneWithRows(this.props.recipes)
+			dataSource: this.ds.cloneWithRows(props.recipes)
 		}
+	}
+	componentWillReceiveProps (props) {
+		this.setState({
+			dataSource: this.ds.cloneWithRows(props.recipes)
+		})
 	}
 	render () {
 		return (

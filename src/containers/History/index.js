@@ -7,7 +7,7 @@ import { bindActionCreators } from 'redux'
 
 export default connect(
 	state => ({
-		lastViewedRecipes: state.history.lastViewedRecipes,
+		lastViewedRecipes: state.lastViewed.lastViewedRecipes,
 		historyRecipes: state.history.historyRecipes
 	}),
 	dispatch => (bindActionCreators({

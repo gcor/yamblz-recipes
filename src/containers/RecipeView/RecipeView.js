@@ -4,7 +4,8 @@ import {
 	View,
 	Image,
 	StatusBar,
-	InteractionManager
+	InteractionManager,
+	NativeModules
 } from 'react-native'
 import Button from '../../components/Button'
 import IngredientList from '../../components/IngredientList'
@@ -15,6 +16,7 @@ import { LOADING, SUCCESS, ERROR } from '../../constants/actionTypes'
 import Preloader from '../../components/Preloader'
 import AppBar from '../../components/AppBar'
 import LinearGradient from 'react-native-linear-gradient'
+const AppMetrika = NativeModules.AppMetrika
 
 export default class RecipeView extends Component {
 	componentWillMount () {
@@ -27,11 +29,34 @@ export default class RecipeView extends Component {
 		})
 	}
 
+	componentWillReceiveProps (props) {
+		this.setState({
+			addToHistoryButtonText: props.recipe.isFavourite ? 'Удалить из избранного' : 'Добавить в избранное'
+		})
+	}
+
 	componentWillUnmount () {
 		this.props.resetRecipe()
 	}
 
+	_onAddToHistory () {
+		const {addToHistory, removeFromHistory, recipe} = this.props
+		if (recipe.isFavourite) {
+			removeFromHistory.call(this, recipe._id)
+			recipe.isFavourite = false
+			this.setState({addToHistoryButtonText: 'Добавить в избранное'})
+		} else {
+			addToHistory.call(this, recipe._id)
+			recipe.isFavourite = true
+			this.setState({addToHistoryButtonText: 'Удалить из избранного'})
+		}
+	}
+
 	_onPress () {
+		const { recipe } = this.props
+		AppMetrika.startCook(JSON.stringify({
+			title: recipe.title
+		}))
 		this.props.navigatePush({key: 'Recipe', title: 'Процесс'})
 	}
 
@@ -50,10 +75,8 @@ export default class RecipeView extends Component {
 		const { incrementRecipePortion,
 						decrementRecipePortion,
 						setProductAsMain,
-						addToHistory,
 						setProductAsExtra } = this.props
 		const imageSrc = this.props.recipe.image
-
 		switch (status) {
 			case LOADING: return (
 				<Preloader margin={80} />
@@ -68,8 +91,8 @@ export default class RecipeView extends Component {
 						<AppBar />
 					</View>
 					<Button
-						onPress={addToHistory.bind(this, this.props.recipe._id)}
-						text='Добавить в избранное' />
+						onPress={this._onAddToHistory.bind(this)}
+						text={this.state.addToHistoryButtonText || ''} />
 					<IngredientList
 						tabLabel='Продукты'
 						onDecrement={decrementRecipePortion}
@@ -78,7 +101,6 @@ export default class RecipeView extends Component {
 						recipe={this.props.recipe} />
 					<ExtraProducts
 						title={'можно добавить'}
-						id={'1'}
 						setMain={setProductAsMain}
 						recipe={this.props.recipe} />
 					<ToolsList
@@ -110,7 +132,7 @@ export default class RecipeView extends Component {
 				<View style={{flex: 1}}>
 					{this.renderContent()}
 				</View>
-				<Button  
+				<Button
 					onPress={this._onPress.bind(this)}
 					text='Начать готовить' />
 			</View>
@@ -125,9 +147,11 @@ RecipeView.propTypes = {
 	incrementRecipePortion: PropTypes.func.isRequired,
 	decrementRecipePortion: PropTypes.func.isRequired,
 	addToHistory: PropTypes.func.isRequired,
+	removeFromHistory: PropTypes.func.isRequired,
 	setProductAsMain: PropTypes.func.isRequired,
 	setProductAsExtra: PropTypes.func.isRequired,
 	navigatePush: PropTypes.func.isRequired,
 	currentRecipe: PropTypes.string.isRequired,
-	resetRecipe: PropTypes.func.isRequired
+	resetRecipe: PropTypes.func.isRequired,
+	addToHistoryButtonText: PropTypes.string
 }

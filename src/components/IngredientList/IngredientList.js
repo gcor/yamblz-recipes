@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { Text, View, ListView, Image } from 'react-native'
-import { pronunciation } from '../../utils'
 import css from './IngredientList.css'
+import { getAmount } from './util'
 
 export default class IngredientList extends Component {
 	constructor (props) {
@@ -21,46 +21,6 @@ export default class IngredientList extends Component {
 			list: this.ds.cloneWithRows(requiredProducts),
 			extra: this.ds.cloneWithRows(extraProducts)
 		})
-	}
-	getAmount (amount, measure, baseMeasure) {
-		const unaltered = amount + ' ' + measure
-		if (!amount) return 'по вкусу'
-		switch (measure) {
-			case 'пучок':
-				return amount + ' ' + pronunciation(Math.ceil(amount), ['пучок', 'пучка', 'пучков'])
-			case 'зубчик':
-				return amount + ' ' + pronunciation(Math.ceil(amount), ['зубчик', 'зубчика', 'зубчиков'])
-			case 'стебель':
-				return amount + ' ' + pronunciation(Math.ceil(amount), ['стебель', 'стебля', 'стеблей'])
-			case 'гр':
-				if (amount >= 1000) {
-					return (amount / 1000).toFixed(1) + ' ' + 'кг'
-				} else {
-					return unaltered
-				}
-			case 'мл':
-				if (amount >= 1000) {
-					return (amount / 1000).toFixed(1) + ' ' + 'л'
-				} else {
-					return unaltered
-				}
-			case 'ст.л.':
-				if (amount >= 14) {
-					return (amount / 14).toFixed(1) + ' ' + 'стак.'
-				} else {
-					return unaltered
-				}
-			case 'стак.':
-				if (baseMeasure === 'гр') {
-					return (amount >= 5) ? (amount / 5).toFixed(1) + ' ' + 'кг' : unaltered
-				}
-				if (baseMeasure === 'мл') {
-					return (amount >= 5) ? (amount / 5).toFixed(1) + ' ' + 'л' : unaltered
-				}
-				break
-			default:
-				return unaltered
-		}
 	}
 
 	render () {
@@ -110,7 +70,7 @@ export default class IngredientList extends Component {
 				<View style={css.ingredients__content}>
 					<Text style={css.ingredients__title}>{ingredient.product.title}</Text>
 					<Text style={css.ingredients__amount}>
-						{this.getAmount(ingredient.amount, ingredient.measure, ingredient.product.baseMeasure)}
+						{getAmount(ingredient.amount, ingredient.measure, ingredient.product.baseMeasure)}
 					</Text>
 				</View>
 				{this._renderCloseButton(ingredient.extra, ingredient.product._id)}

@@ -47,8 +47,8 @@ export default StyleSheet.create({
 		marginLeft: 8
 	},
 	ingredients__image: {
-		height: 82,
-		width: 82,
+		height: 64,
+		width: 64,
 		resizeMode: 'contain'
 	},
 	ingredients__content: {

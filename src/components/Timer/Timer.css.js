@@ -31,5 +31,11 @@ export default StyleSheet.create({
 	item: {
 		marginTop: 24,
 		marginBottom: 24
+	},
+	buttonInactive: {
+		backgroundColor: '#F1EFEC'
+	},
+	textInactive: {
+		color: '#A3A2A0'
 	}
 })

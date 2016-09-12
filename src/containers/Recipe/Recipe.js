@@ -8,7 +8,7 @@ import { ScrollView,
 
 import Recipe from '../../components/Recipe'
 import Button from '../../components/Button'
-import TimerLabel from '../../components/TimerLabel'
+import AbsoluteTimer from '../../components/AbsoluteTimer'
 import { SensorManager } from 'NativeModules'
 import { throttle } from 'lodash'
 const Speech = NativeModules.SpeechApi
@@ -20,7 +20,6 @@ class RecipePage extends Component {
 	}
 	componentWillMount () {
 		DeviceEventEmitter.removeAllListeners('Proximity')
-		this.props.execTimers()
 		this.setState({ready: false, scroll: 0})
 		InteractionManager.runAfterInteractions(() => {
 			this.setState({ready: true})
@@ -113,11 +112,7 @@ class RecipePage extends Component {
 					ref={(r) => { this.recipe = r }}>
 					{this.renderRecipe(recipe)}
 				</ScrollView>
-				<TimerLabel
-					actionLabel='dsaaaodisjadsoijdasoijasdds'
-					timeout={91233}
-					withTimeline
-				/>
+				<AbsoluteTimer />
 			</View>
 		)
 	}
