@@ -1,9 +1,10 @@
 import {
 	FETCH_CATEGORIES,
 	FETCH_JUMBOTRON,
-	FETCH_RECOMMEND
+	FETCH_RECOMMEND,
+	FETCH_CATEGORY
 } from '../constants/actionTypes'
-import { getCategories, getJumbotron, getRecommend } from '../api/categories'
+import { getCategories, getJumbotron, getRecommend, getCategory } from '../api/categories'
 import { isFetchedCategories } from './generalActions'
 import { createAction } from 'redux-actions'
 import { formatImageSrc } from '../utils'
@@ -17,6 +18,17 @@ export const fetchCategories = createAction(FETCH_CATEGORIES, async () => {
 		})
 	})
 	return categories
+})
+
+export const fetchCategory = createAction(FETCH_CATEGORY, async (id) => {
+	const now = (new Date()).getHours()
+	console.log(now)
+	let category
+	if (now <= 23) {
+		category = await getCategory(id)
+	}
+	if (!category) Promise.reject('No category found')
+	return category
 })
 
 export const fetchJumbotron = createAction(FETCH_JUMBOTRON, async () => {

@@ -1,18 +1,20 @@
 import Category from './Category'
 import { connect } from 'react-redux'
 import { navigatePush } from '../../actions/navigationActions'
-import { fetchCategories } from '../../actions/categoriesActions'
+import { fetchCategories, fetchCategory } from '../../actions/categoriesActions'
 import { setCurrentRecipe } from '../../actions/generalActions'
 import { bindActionCreators } from 'redux'
 
 export default connect(
 	state => ({
 		categories: state.categories,
+		category: state.categories.category,
 		status: state.categories.status
 	}),
 	dispatch => (bindActionCreators({
 		navigatePush,
-		fetchCategories,
+		// fetchCategories,
+		fetchCategory,
 		setCurrentRecipe
 	}, dispatch))
 )(Category)
