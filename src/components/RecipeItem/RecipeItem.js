@@ -44,12 +44,16 @@ class RecipeItem extends Component {
 		)
 	}
 
+	shouldComponentUpdate () {
+		return false
+	}
+
 	_renderTimer () {
 		const { stage } = this.props
 		const { timer } = stage
 		if (!timer) return null
 		const { actionLabel, timerLabel, timeout } = timer
-		console.log(actionLabel, timerLabel)
+		// console.log(actionLabel, timerLabel)
 		return (
 			<Timer
 				actionLabel={actionLabel}

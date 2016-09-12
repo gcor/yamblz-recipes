@@ -14,7 +14,7 @@ export default class TimerLabel extends Component {
 		super(props)
 		this.stop = this.stop.bind(this)
 		this.tick = this.tick.bind(this)
-		console.log(DeviceEventEmitter)
+		// console.log(DeviceEventEmitter)
 		this.state = {
 			timeout: this.props.timeout,
 			previousTick: new Date(Date.now()),
@@ -37,7 +37,7 @@ export default class TimerLabel extends Component {
 		// if latency is more than 5 seconds
 		if (latency > 5000) {
 			if (timeout - latency > 0) {
-				console.log(latency)
+				// console.log(latency)
 				this.setState({
 					timeout: timeout - latency
 				})
@@ -54,7 +54,7 @@ export default class TimerLabel extends Component {
 	tick () {
 		const { timeout, initialTime, previousTick } = this.state
 		const currentTick = new Date(Date.now())
-		console.log(timeout)
+		// console.log(timeout)
 		this.sync(previousTick, currentTick)
 		if (timeout > 1000) {
 

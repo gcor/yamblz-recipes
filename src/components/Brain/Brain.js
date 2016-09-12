@@ -4,6 +4,7 @@ import { CapitalizeFirstLetter } from '../../utils'
 class Brain {
 	constructor () {
 		this.ingredients = []
+		this.used = []
 	}
 	setIngredients (ingredients) {
 		this.ingredients = ingredients
@@ -18,22 +19,44 @@ class Brain {
 			const measure = ingredient.measure.toLowerCase()
 			if (product && product.title && amount && measure) {
 				let productTitle = product.title.toLowerCase()
+				if (!this.checkIsItNeedForSearch(productTitle)) {
+					return false
+				}
 				// console.log(fuzzysearch(productTitle, title))
 				// console.log(productTitle, title)
 				// const matcher = new RegExp(productTitle, 'ig')
 				if (fuzzysearch(productTitle, title)) {
 					productTitle = CapitalizeFirstLetter(productTitle)
-					// this.removeIngredientFromIndex(i)
 					// return title.replace(matcher, `${productTitle} ${amount} ${measure}`)
-					return `${productTitle}: ${amount} ${measure}`
+					let outputString = `${productTitle}: ${amount} ${measure}`
+					console.log(outputString)
+					this.removeIngredientFromIndex(i)
+					return outputString
 				}
 			}
 		}
 		return false
 	}
 
+	checkIsItNeedForSearch (title) {
+		for (const usedTitle of this.used) {
+			console.log(usedTitle, title)
+			if (usedTitle === title) {
+				return false
+			}
+		}
+		return true
+	}
+
+	resetIngredients () {
+		this.used = []
+	}
+
 	removeIngredientFromIndex (index) {
-		delete this.ingredients[index]
+		const title = this.ingredients[index].product.title.toLowerCase()
+		if (this.checkIsItNeedForSearch(title)) {
+			this.used.push(title)
+		}
 	}
 }
 let brain = new Brain()
