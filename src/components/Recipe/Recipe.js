@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { View } from 'react-native'
 import RecipeItem from '../RecipeItem'
 import Button from '../Button'
+import Brain from '../Brain'
 // import css from './Recipe.css'
 
 class Recipe extends Component {
@@ -11,7 +12,8 @@ class Recipe extends Component {
 
 	render () {
 		const { data } = this.props
-		let { stages } = data
+		let { stages, ingredients } = data
+		Brain.setIngredients(ingredients)
 
 		let recipeItems = null
 		if (data.stages) {
