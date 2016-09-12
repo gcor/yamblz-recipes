@@ -21,16 +21,51 @@ public class AppMetrikaModule extends ReactContextBaseJavaModule {
 	}
 
 	@ReactMethod
-	public void openRecipe(String json) {
+	public void openRecipeFromHomeSwiper(String json) {
 		try{
-			YandexMetrica.reportEvent("openRecipe", json);
+			YandexMetrica.reportEvent("fromHomeSwiper", json);
 		} catch(Exception e){}
 	}
 
 	@ReactMethod
-	public void changeFavourite(String json) {
+	public void openRecipeFromSearch(String json) {
 		try{
-			YandexMetrica.reportEvent("changeFavourite", json);
+			YandexMetrica.reportEvent("fromSearch", json);
+		} catch(Exception e){}
+	}
+
+	@ReactMethod
+	public void openRecipeFromRecommend(String json) {
+		try{
+			YandexMetrica.reportEvent("fromRecommend", json);
+		} catch(Exception e){}
+	}
+
+	@ReactMethod
+	public void openRecipeFromFavourite(String json) {
+		try{
+			YandexMetrica.reportEvent("fromFavourite", json);
+		} catch(Exception e){}
+	}
+
+	@ReactMethod
+	public void openRecipeFromLast(String json) {
+		try{
+			YandexMetrica.reportEvent("fromLast", json);
+		} catch(Exception e){}
+	}
+
+	@ReactMethod
+	public void addFavourite(String json) {
+		try{
+			YandexMetrica.reportEvent("addFavourite", json);
+		} catch(Exception e){}
+	}
+
+	@ReactMethod
+	public void removeFavourite(String json) {
+		try{
+			YandexMetrica.reportEvent("removeFavourite", json);
 		} catch(Exception e){}
 	}
 

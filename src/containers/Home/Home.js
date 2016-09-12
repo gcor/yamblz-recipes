@@ -38,15 +38,13 @@ export default class Home extends Component {
 		const addFromSwiperRecipe = _.find(recommend, {'_id': recipeID})
 		const addFromRecommendRecipe = _.find(jumbotron, {'_id': recipeID})
 		if (addFromSwiperRecipe) {
-			AppMetrica.openRecipe(JSON.stringify({
-				from: 'HomeSwiper',
+			AppMetrica.openRecipeFromHomeSwiper(JSON.stringify({
 				title: addFromSwiperRecipe.title,
 				id: recipeID
 			}))
 		}
 		if (addFromRecommendRecipe) {
-			AppMetrica.openRecipe(JSON.stringify({
-				from: 'HomeRecommend',
+			AppMetrica.openRecipeFromRecommend(JSON.stringify({
 				title: addFromRecommendRecipe.title,
 				id: recipeID
 			}))

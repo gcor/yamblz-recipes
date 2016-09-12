@@ -37,8 +37,7 @@ class SearchList extends Component {
 		const { navigatePush, setCurrentRecipe, recipes } = this.props
 		const addFromSearch = _.find(recipes, {'_id': recipeID})
 		if (addFromSearch) {
-			AppMetrica.openRecipe(JSON.stringify({
-				from: 'search',
+			AppMetrica.openRecipeFromSearch(JSON.stringify({
 				title: addFromSearch.title,
 				id: recipeID
 			}))

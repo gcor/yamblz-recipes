@@ -14,7 +14,7 @@ import ToolsList from '../../components/ToolsList'
 import css from './RecipeView.css'
 import { LOADING, SUCCESS, ERROR } from '../../constants/actionTypes'
 import Preloader from '../../components/Preloader'
-const AppMetrica = NativeModules.AppMetrica
+const AppMetrika = NativeModules.AppMetrika
 
 export default class RecipeView extends Component {
 	componentWillMount () {
@@ -51,7 +51,10 @@ export default class RecipeView extends Component {
 	}
 
 	_onPress () {
-		AppMetrica.startCook()
+		const { recipe } = this.props
+		AppMetrika.startCook(JSON.stringify({
+			title: recipe.title
+		}))
 		this.props.navigatePush({key: 'Recipe', title: 'Процесс'})
 	}
 

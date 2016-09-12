@@ -24,15 +24,13 @@ export default class History extends Component {
 		const addFromLast = _.find(lastViewedRecipes, {'_id': recipeID})
 		const addFromFavourite = _.find(historyRecipes, {'_id': recipeID})
 		if (addFromLast) {
-			AppMetrica.openRecipe(JSON.stringify({
-				from: 'lastViewed',
+			AppMetrica.openRecipeFromLast(JSON.stringify({
 				title: addFromLast.title,
 				id: recipeID
 			}))
 		}
 		if (addFromFavourite) {
-			AppMetrica.openRecipe(JSON.stringify({
-				from: 'favourite',
+			AppMetrica.openRecipeFromFavourite(JSON.stringify({
 				title: addFromFavourite.title,
 				id: recipeID
 			}))
