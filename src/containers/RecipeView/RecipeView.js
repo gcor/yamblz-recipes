@@ -29,12 +29,6 @@ export default class RecipeView extends Component {
 		})
 	}
 
-	componentWillReceiveProps (props) {
-		this.setState({
-			addToHistoryButtonText: props.recipe.isFavourite ? 'Удалить из избранного' : 'Добавить в избранное'
-		})
-	}
-
 	componentWillUnmount () {
 		this.props.resetRecipe()
 	}
@@ -77,8 +71,6 @@ export default class RecipeView extends Component {
 						<LinearGradient style={css.recipe__gradient2} colors={['rgba(0,0,0,.5)', 'transparent']} />
 						<AppBar />
 					</View>
-					<Button
-						text={this.state.addToHistoryButtonText || ''} />
 					<IngredientList
 						tabLabel='Продукты'
 						onDecrement={decrementRecipePortion}
