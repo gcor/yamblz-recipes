@@ -20,8 +20,8 @@ export default StyleSheet.create({
 		fontSize: 16
 	},
 	icon: {
-		height: 30,
-		width: 30,
+		height: 20,
+		width: 20,
 		resizeMode: 'contain'
 	},
 	timeline: {

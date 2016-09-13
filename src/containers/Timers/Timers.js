@@ -7,6 +7,10 @@ import ui from '../../constants/css'
 import TimerLabel from '../../components/TimerLabel'
 
 export default class Timers extends Component {
+	componentWillReceiveProps (props) {
+		this.forceUpdate()
+		console.log('test')
+	}
 	renderTimers () {
 		const { timers } = this.props
 		return (

@@ -10,9 +10,10 @@ import listCSS from '../List/List.css'
 class Timer extends Component {
 	constructor () {
 		super()
-		this.handlePress = this.handlePress.bind(this)
+
 		this._animatedButtonColor = new Animated.Value(0)
 		this._animatedTextColor = new Animated.Value(0)
+		this.handlePress = this.handlePress.bind(this)
 	}
 	componentWillMount () {
 		this.setState({
@@ -42,8 +43,10 @@ class Timer extends Component {
 			})
 		}, duration)
 
-		Animated.timing(this._animatedButtonColor, config).start()
-		Animated.timing(this._animatedTextColor, config).start()
+		Animated.parallel([
+			Animated.timing(this._animatedButtonColor, config)
+			// Animated.timing(this._animatedTextColor, config)
+		]).start()
 	}
 
 	render () {
@@ -54,12 +57,12 @@ class Timer extends Component {
 
 		var buttonColor = this._animatedButtonColor.interpolate({
 			inputRange: [0, 100],
-			outputRange: ['#FFEC3B', '#F1EFEC']
+			outputRange: ['rgba(255, 236, 59, 1)', 'rgba(241, 239, 236, 1)']
 		})
 
 		var textColor = this._animatedTextColor.interpolate({
 			inputRange: [0, 100],
-			outputRange: ['#000', '#A3A2A0']
+			outputRange: ['rgba(0, 0, 0, 1)', 'rgba(163, 162, 160, 1)']
 		})
 
 		return (
@@ -79,8 +82,6 @@ class Timer extends Component {
 		)
 	}
 }
-
-// <Text onPress={this.props.goToTimers} style={s.text}>{time}</Text>
 
 Timer.propTypes = {
 	timeout: PropTypes.number.isRequired,

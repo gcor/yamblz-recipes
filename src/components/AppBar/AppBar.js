@@ -108,5 +108,5 @@ AppBar.propTypes = {
 	pushToCategory: PropTypes.func.isRequired,
 	navigateBack: PropTypes.func.isRequired,
 	recipe: PropTypes.object.isRequired,
-	navigationState: PropTypes.func.isRequired
+	navigationState: PropTypes.object.isRequired
 }

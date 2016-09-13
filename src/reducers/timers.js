@@ -44,7 +44,7 @@ function timers (state = initialState, action) {
 			timers.push(action.payload)
 			timers = sortTimersByHands(timers)
 
-			return timers
+			return [...state, ...timers]
 		case REMOVE_TIMER: return state
 		case SORT_TIMERS: return state
 		default: return state
