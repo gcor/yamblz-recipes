@@ -77,7 +77,7 @@ export default class Home extends Component {
 							<TouchableHighlight onPress={() => { this.setModalVisible(!this.state.modalVisible) }}>
 								<Text style={{fontSize: 16, color: 'rgba(0,0,0,0.5)'}}>НЕТ</Text>
 							</TouchableHighlight>
-							<TouchableHighlight style={{marginLeft: 32}} onPress={() => { this.setPushNotification() }}>
+							<TouchableHighlight style={{marginLeft: 32}} onPress={() => { this.setModalVisible(!this.state.modalVisible) }}>
 								<Text style={{fontSize: 16, color: 'black'}}>ДА, СПАСИБО</Text>
 							</TouchableHighlight>
 						</View>

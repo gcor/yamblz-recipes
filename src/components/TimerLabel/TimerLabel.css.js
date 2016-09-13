@@ -22,7 +22,7 @@ export default StyleSheet.create({
 	icon: {
 		height: 30,
 		width: 30,
-		backgroundColor: 'blue'
+		resizeMode: 'contain'
 	},
 	timeline: {
 		borderTopWidth: 4,

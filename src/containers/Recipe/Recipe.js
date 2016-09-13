@@ -105,7 +105,7 @@ class RecipePage extends Component {
 	render () {
 		const { recipe } = this.props
 		return (
-			<View style={{flex: 1}}>
+			<View style={{flex: 1, marginTop: 60}}>
 				<ScrollView
 					onScroll={this.handleScroll}
 					scrollEventThrottle={200}

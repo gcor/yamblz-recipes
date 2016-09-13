@@ -3,11 +3,13 @@ import {
 	View,
 	Text,
 	Dimensions,
-	DeviceEventEmitter
+	DeviceEventEmitter,
+	Image
 } from 'react-native'
 import { convertTimeToMinutesAndSeconds } from './util'
 import s from './TimerLabel.css'
 import Notifications from '../Notification'
+import TimerIcon from './assets/timer.png'
 
 export default class TimerLabel extends Component {
 	constructor (props) {
@@ -105,7 +107,7 @@ export default class TimerLabel extends Component {
 			<View>
 				{this.renderTimeline()}
 				<View style={s.container}>
-					<View style={s.icon}></View>
+					<Image style={s.icon} source={TimerIcon} />
 					<Text style={s.actionLabel}>{actionLabel}</Text>
 					<Text style={s.timeout}>{convertTimeToMinutesAndSeconds(this.state.timeout)}</Text>
 				</View>

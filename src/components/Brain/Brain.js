@@ -19,11 +19,10 @@ class Brain {
 			const measure = ingredient.measure.toLowerCase()
 			if (product && product.title) {
 				let productTitle = product.title.toLowerCase()
-				if (!this.checkIsItNeedForSearch(productTitle)) {
-					return false
-				}
 				if (!this.checkForConditions(title)) {
-					return 'по вкусу'
+					let arr = ['ваш вкус не подведёт', 'у вас отличный вкус',
+					'не перестарайтесь..']
+					return arr[Math.floor(Math.random() * arr.length)]
 				}
 				// console.log(fuzzysearch(productTitle, title))
 				// console.log(productTitle, title)
@@ -31,18 +30,24 @@ class Brain {
 				// console.log(productTitle.split(' ').length > 1)
 				if (productTitle.split(' ').length > 0) {
 					let arr = productTitle.split(' ')
-					for (const elem of arr) {
-						const matcher = new RegExp(productTitle, 'ig')
+					let outputArr = []
+					for (const ele of arr) {
+						let elem = ele.toLowerCase()
+						// if (!this.checkIsItNeedForSearch(elem)) {
+						// 	return false
+						// }
+						// const matcher = new RegExp(productTitle, 'ig')
 						if (fuzzysearch(elem, title.toLowerCase())) {
-							console.log(elem, title)
+							// console.log(elem, title)
 							productTitle = CapitalizeFirstLetter(productTitle)
 							// return title.replace(matcher, `${productTitle} ${amount} ${measure}`)
 							let outputString = `${productTitle}: ${amount} ${measure}`
-							this.removeIngredientFromIndex(i)
+							// outputArr.push(outputString)
+							this.removeIngredientFromIndex(elem)
 							return outputString
 						}
 					}
-					// console.log('двухсоставное слово', productTitle.split(' ')[0])
+					return outputArr.join(', ')
 				}
 			} else {
 				console.log('something went wrong')
@@ -53,7 +58,8 @@ class Brain {
 
 	checkIsItNeedForSearch (title) {
 		for (const usedTitle of this.used) {
-			if (usedTitle === title) {
+			if (usedTitle.toLowerCase() === title.toLowerCase()) {
+				console.log('уже было ', title)
 				return false
 			}
 		}
@@ -64,8 +70,8 @@ class Brain {
 		this.used = []
 	}
 
-	removeIngredientFromIndex (index) {
-		const title = this.ingredients[index].product.title.toLowerCase()
+	removeIngredientFromIndex (title) {
+		console.log(title)
 		if (this.checkIsItNeedForSearch(title)) {
 			this.used.push(title)
 		}
@@ -73,7 +79,7 @@ class Brain {
 
 	checkForConditions (title) {
 		const list = [
-			'по вкусу'
+			'по вкусу',
 		]
 		for (const item of list) {
 			if (fuzzysearch(item, title.toLowerCase())) return false
