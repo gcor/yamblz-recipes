@@ -13,7 +13,7 @@ class Category extends Component {
 	componentWillMount () {
 		this.setState({isReady: false})
 		InteractionManager.runAfterInteractions(() => {
-			this.props.fetchCategory('57c000266c25f8411701256e')
+			this.props.fetchCategory()
 			this.setState({isReady: true})
 		})
 	}

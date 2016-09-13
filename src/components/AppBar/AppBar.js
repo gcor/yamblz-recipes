@@ -6,6 +6,17 @@ import BookmarkIcon from './assets/bookmark.png'
 import BackButton from './assets/back.png'
 
 export default class AppBar extends Component {
+	dayTime () {
+		let dayTime
+		const now = (new Date()).getHours()
+		if (now > 3 && now <= 11) {
+			dayTime = 'Завтрак'
+		} else if (now > 11 && now <= 17) {
+			dayTime = 'Обед'
+		} else dayTime = 'Ужин'
+		return dayTime
+	}
+
 	renderHomeBar () {
 		const { pushToHistory, pushToSearch, pushToCategory } = this.props
 		return (
@@ -15,10 +26,10 @@ export default class AppBar extends Component {
 					onPress={pushToHistory.bind(this)}>
 					<Image style={css.bar__icon} source={BookmarkIcon} />
 				</TouchableHighlight>
-				<TouchableHighlight style={css.bar__hilight} onPress={pushToCategory.bind(this)}>
+				<TouchableHighlight style={css.bar__hilight} onPress={pushToCategory.bind(this, this.dayTime())}>
 					<View style={css.bar__category}
 						underlayColor='rgba(255,255,255,0.2)'>
-						<Text style={{color: 'white', fontSize: 16 }}>Завтрак</Text>
+						<Text style={{color: 'white', fontSize: 16 }}>{this.dayTime()}</Text>
 					</View>
 				</TouchableHighlight>
 				<TouchableHighlight style={css.bar__hilight}
@@ -88,6 +99,6 @@ AppBar.propTypes = {
 	pushToCategory: PropTypes.func.isRequired,
 	navigateBack: PropTypes.func.isRequired,
 	addToHistory: PropTypes.func.isRequired,
-	recipe: PropTypes.object.isRequired,
-	navigationState: PropTypes.func.isRequired
+	recipe: PropTypes.object.isRequired
+	// navigationState: PropTypes.func.isRequired
 }
