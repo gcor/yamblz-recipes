@@ -39,19 +39,6 @@ export default class RecipeView extends Component {
 		this.props.resetRecipe()
 	}
 
-	_onAddToHistory () {
-		const {addToHistory, removeFromHistory, recipe} = this.props
-		if (recipe.isFavourite) {
-			removeFromHistory.call(this, recipe._id)
-			recipe.isFavourite = false
-			this.setState({addToHistoryButtonText: 'Добавить в избранное'})
-		} else {
-			addToHistory.call(this, recipe._id)
-			recipe.isFavourite = true
-			this.setState({addToHistoryButtonText: 'Удалить из избранного'})
-		}
-	}
-
 	_onPress () {
 		const { recipe } = this.props
 		AppMetrika.startCook(JSON.stringify({
@@ -91,7 +78,6 @@ export default class RecipeView extends Component {
 						<AppBar />
 					</View>
 					<Button
-						onPress={this._onAddToHistory.bind(this)}
 						text={this.state.addToHistoryButtonText || ''} />
 					<IngredientList
 						tabLabel='Продукты'

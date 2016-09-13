@@ -26,6 +26,8 @@ const initialState = {
 	defaultPortion: 1,
 	portion: 2,
 	ingredients: [],
+	isFavourite: false,
+	_id: '',
 	stages: [{
 		title: '',
 		image: 'src',
