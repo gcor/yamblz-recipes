@@ -4,29 +4,39 @@ import css from './AppBar.css'
 import SearchIcon from './assets/search.png'
 import BookmarkIcon from './assets/bookmark.png'
 
-
 export default class AppBar extends Component {
-    
+
+	dayTime () {
+		let dayTime
+		const now = (new Date()).getHours()
+		if (now > 3 && now <= 11) {
+			dayTime = 'Завтрак'
+		} else if (now > 11 && now <= 17) {
+			dayTime = 'Обед'
+		} else dayTime = 'Ужин'
+		return dayTime
+	}
+
     renderHomeBar() {
         const { pushToHistory, pushToSearch, pushToCategory } =  this.props
         return (
             <View style={[css.bar, css.bar_centered]}>
-                <TouchableHighlight style={css.bar__hilight} 
+                <TouchableHighlight style={css.bar__hilight}
                     underlayColor='rgba(255,255,255,0.2)'
                     onPress={pushToHistory.bind(this)}>
                     <Image style={css.bar__icon} source={BookmarkIcon} />
                 </TouchableHighlight>
-                <TouchableHighlight style={css.bar__hilight} onPress={pushToCategory.bind(this)}>
+                <TouchableHighlight style={css.bar__hilight} onPress={pushToCategory.bind(this, this.dayTime())}>
                     <View style={css.bar__category}
                         underlayColor='rgba(255,255,255,0.2)'>
-                        <Text style={{color: 'white', fontSize: 16 }}>Завтрак</Text>
+                        <Text style={{color: 'white', fontSize: 16 }}>{this.dayTime()}</Text>
                     </View>
                 </TouchableHighlight>
                 <TouchableHighlight style={css.bar__hilight}
                     onPress={pushToSearch.bind(this)}
                     underlayColor='rgba(255,255,255,0.2)'>
                     <Image style={css.bar__icon} source={SearchIcon} />
-                </TouchableHighlight>   
+                </TouchableHighlight>
             </View>
         )
     }
@@ -35,13 +45,13 @@ export default class AppBar extends Component {
         const { recipe, navigateBack, addToHistory } =  this.props
         return (
             <View style={css.bar}>
-                <TouchableHighlight style={css.bar__hilight} 
+                <TouchableHighlight style={css.bar__hilight}
                     underlayColor='rgba(255,255,255,0.2)'
                     onPress={navigateBack.bind(this)}>
                     <Image style={css.bar__icon} source={BookmarkIcon} />
                 </TouchableHighlight>
 
-                <View style={css.bar__content}>                             
+                <View style={css.bar__content}>
                     <Text style={css.bar__title}>{recipe.title}</Text>
                     <View style={css.bar__info}>
                         <Text style={css.bar__time}>
@@ -55,7 +65,7 @@ export default class AppBar extends Component {
                     onPress={addToHistory.bind(this, this.props.recipe._id)}
                     underlayColor='rgba(255,255,255,0.2)'>
                     <Image style={css.bar__icon} source={BookmarkIcon} />
-                </TouchableHighlight>   
+                </TouchableHighlight>
             </View>
         )
     }

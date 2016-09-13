@@ -20,13 +20,8 @@ export const fetchCategories = createAction(FETCH_CATEGORIES, async () => {
 	return categories
 })
 
-export const fetchCategory = createAction(FETCH_CATEGORY, async (id) => {
-	const now = (new Date()).getHours()
-	console.log(now)
-	let category
-	if (now <= 23) {
-		category = await getCategory(id)
-	}
+export const fetchCategory = createAction(FETCH_CATEGORY, async () => {
+	const category = await getCategory()
 	if (!category) Promise.reject('No category found')
 	return category
 })

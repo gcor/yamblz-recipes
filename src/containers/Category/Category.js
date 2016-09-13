@@ -13,7 +13,7 @@ class Category extends Component {
 	componentWillMount () {
 		this.setState({isReady: false})
 		InteractionManager.runAfterInteractions(() => {
-			this.props.fetchCategory('57bfe68c624944001682a016')
+			this.props.fetchCategory('57c000266c25f8411701256e')
 			this.setState({isReady: true})
 		})
 	}
@@ -84,7 +84,7 @@ class Category extends Component {
 	render () {
 		if (this.state.isReady) {
 			return (
-				<ScrollView style={{paddingTop: 16, paddingBottom: 16, backgroundColor: '#FAF9F7'}}>
+				<ScrollView style={{marginTop: 16, backgroundColor: '#FAF9F7'}}>
 					{this.renderContent()}
 				</ScrollView>
 			)
