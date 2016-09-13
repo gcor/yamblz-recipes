@@ -5,8 +5,8 @@ import css from './Home.css'
 import * as _ from 'lodash'
 import HomeSwiper from '../../components/HomeSwiper'
 import Slider from '../../components/Slider'
-import CardSmall from '../../components/CardSmall'
 import AppBar from '../../components/AppBar'
+import SoonInApp from '../../components/SoonInApp'
 
 const AppMetrica = NativeModules.AppMetrika
 
@@ -65,51 +65,6 @@ export default class Home extends Component {
 		StatusBar.setBackgroundColor(color, false)
 	}
 
-	renderModal () {
-		return (
-			<Modal animationType={'slide'} transparent={true} visible={this.state.modalVisible}
-				onRequestClose={() => {this.setModalVisible(false)}}>
-				<View style={{backgroundColor: 'rgba(0,0,0,0.5)', flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
-					<View style={{width: 280, height: 212, borderWidth: 0, borderStyle: 'solid', borderColor: 'transparent', backgroundColor: 'white', borderRadius: 3}}>
-						<Text style={{fontSize: 20, margin: 24, color: 'black', textAlign: 'center'}}>Хотите узнавать о новых рецептах?</Text>
-						<Text style={{fontSize: 16, marginLeft: 24, marginRight: 24, marginBottom: 24, color: 'black', textAlign: 'center'}}>Разрешите отпралять вам уведомления.</Text>
-						<View style={{flexDirection: 'row', justifyContent: 'center'}}>
-							<TouchableHighlight onPress={() => { this.setModalVisible(!this.state.modalVisible) }}>
-								<Text style={{fontSize: 16, color: 'rgba(0,0,0,0.5)'}}>НЕТ</Text>
-							</TouchableHighlight>
-							<TouchableHighlight style={{marginLeft: 32}} onPress={() => { this.setModalVisible(!this.state.modalVisible) }}>
-								<Text style={{fontSize: 16, color: 'black'}}>ДА, СПАСИБО</Text>
-							</TouchableHighlight>
-						</View>
-					</View>
-				</View>
-			</Modal>
-		)
-	}
-
-	renderSoonInApp () {
-		return (
-			<View style={{marginBottom: 16}}>
-				<Text style={{fontSize: 16, color: 'rgba(0,0,0,.56)', marginLeft: 24, marginBottom: 16, marginTop: 24}}>
-					СКОРО В ПРИЛОЖЕНИИ
-				</Text>
-				<View style={css.home__notificationCard}>
-					<CardSmall title={'Овощи'} amount={20} image={'http://fitnesslair.ru/wp-content/uploads/2016/06/sovmestimost-produktov-pitaniya2.jpg'} />
-					<Text style={{fontSize: 16, color: 'black', marginLeft: 16, marginBottom: 4, marginTop: 24, marginRight: 16, textAlign: 'center'}}>
-						Категория появится через 7 дней.
-					</Text>
-					<Text style={{fontSize: 16, color: 'black', marginLeft: 16, marginBottom: 24, marginTop: 4, marginRight: 16, textAlign: 'center'}}>
-						Отправить оповещение?
-					</Text>
-					<View style={{marginLeft: 16, marginRight: 16, marginBottom: 16}} >
-						<Button text='НАПОМНИТЬ'
-							onPress={this.setModalVisible.bind(this, true)} />
-					</View>
-				</View>
-			</View>
-		)
-	}
-
 	render () {
 		const titles = {
 			recommend: 'рекомендуем'.toUpperCase(),
@@ -131,8 +86,7 @@ export default class Home extends Component {
 						title={titles.recommend}
 						onPressHandler={this._onCardPress.bind(this)}
 						recipes={recommend} />
-					{this.renderSoonInApp()}
-					{this.renderModal()}
+					<SoonInApp />
 				</ScrollView>
 			</View>
 		)
