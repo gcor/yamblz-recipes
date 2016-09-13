@@ -8,7 +8,7 @@ export default StyleSheet.create({
 		borderColor: 'transparent',
 		backgroundColor: 'white',
 		borderRadius: 3,
-		elevation: 3
+		elevation: 4
 	},
 	card__image: {
 		height: 250,
@@ -33,7 +33,7 @@ export default StyleSheet.create({
 	card__title: {
 		fontSize: ui.fontL,
 		fontWeight: '500',
-		height: 50,
+		// height: 50,
 		paddingLeft: 15,
 		paddingRight: 15,
 		marginTop: 24,

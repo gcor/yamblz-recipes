@@ -59,14 +59,13 @@ export default class AppBar extends Component {
 			)
 	}
 
-		renderRecipe() {
-				const { navigateBack } =  this.props
-				return (
-						<View>
-						</View>
-				)
-		}
-
+	renderRecipe () {
+		const { navigateBack } =  this.props
+		return (
+				<View>
+				</View>
+		)
+	}
 	render () {
 		const { navigationState } =  this.props
 		switch (navigationState.routes[navigationState.routes.length - 1].key) {

@@ -30,9 +30,16 @@ export function getCategories () {
 	})
 }
 
-export function getCategory (id) {
+export function getCategory () {
 	return new Promise((resolve, reject) => {
-		console.log(api.categories + id)
+		// console.log(api.categories + id)
+		let id
+		const now = (new Date()).getHours()
+		if (now > 3 && now <= 11) {
+			id = '57bfd586a53d1d73154d933a'
+		} else if (now > 11 && now <= 17) {
+			id = '57bfe68c624944001682a016'
+		} else id = '57c000266c25f8411701256e'
 		fetchData(api.categories + id)
 			.then(category => resolve(category))
 			.catch(err => reject(err))
