@@ -1,8 +1,10 @@
 import React, { Component, PropTypes } from 'react'
-import { View, NativeModules, TextInput } from 'react-native'
+import { Text, View, Image, NativeModules, TouchableHighlight, TextInput } from 'react-native'
 import Slider from '../Slider/'
+import SearchItem from '../SearchItem/'
 import css from './SearchList.css'
 import * as _ from 'lodash'
+import icons from '../../icons'
 
 const AppMetrica = NativeModules.AppMetrika
 
@@ -13,22 +15,18 @@ class SearchList extends Component {
 			text: 'Что приготовим?',
 			soon: 'Скоро в приложении',
 			selectionData: [{
-				title: 'События'
+				title: 'Завтрак',
+				icon: icons.cup
 			}, {
-				title: 'Кухни народов мира'
+				title: 'Обед',
+				icon: icons.dinner
 			}, {
-				title: 'Специальные подборки'
+				title: 'Ужин',
+				icon: icons.lunch
 			}],
 			protectedData: [{
-				title: 'Бульоны и супы'
-			}, {
-				title: 'Основные блюда'
-			}, {
-				title: 'Салаты'
-			}, {
-				title: 'Овощи'
-			}, {
-				title: 'Десерты'
+				title: 'Овощи',
+				icon: icons.lock
 			}]
 		}
 	}
@@ -49,10 +47,34 @@ class SearchList extends Component {
 		})
 	}
 
+	_onCategoryPress (title) {
+		this.props.navigatePush({
+			key: 'Category',
+			title: title
+		})
+	}
+
 	handleInput (text) {
 		this.setState({text})
 		const { searchGo } = this.props
 		searchGo(text)
+	}
+
+	renderCategories () {
+		return (
+			<View>
+				{this.state.selectionData.map((data, i) => {
+					return <SearchItem
+						onItemPress={this._onCategoryPress.bind(this, data.title)}
+						data={data}
+						key={i} />
+				})}
+				<Text style={css.searchList__header}>{this.state.soon.toUpperCase()}</Text>
+				{this.state.protectedData.map((data, i) => {
+					return <SearchItem data={data} key={i} />
+				})}
+			</View>
+		)
 	}
 
 	renderFound () {
@@ -66,43 +88,35 @@ class SearchList extends Component {
 					recipes={recipes || []} />
 			)
 		} else {
-			return null
+			return this.renderCategories()
 		}
 	}
 
 	render () {
-		console.log(this.props)
 		return (
 			<View style={css.searchList}>
-				<TextInput
-					style={css.searchlist__input}
-					onChangeText={this.handleInput.bind(this)}
-					placeholder={this.state.text}
-				/>
+				<View style={css.searchList__bar}>
+					<TouchableHighlight
+						underlayColor={'rgba(255,255,255,0.2)'}
+						onPress={this.props.navigatePop.bind(this)}>
+						<Image style={css.searchList__back} source={icons.back} />
+					</TouchableHighlight>
+					<TextInput
+						style={css.searchlist__input}
+						onChangeText={this.handleInput.bind(this)}
+						placeholder={this.state.text}
+					/>
+				</View>
 			{this.renderFound()}
 			</View>
 		)
 	}
 }
 
-// import SearchItem from '../SearchItem/'
-// import SuggestList from '../SuggestList/'
-// const { products } = this.props
-// <SuggestList
-// 	onPress={this.onSuggestItemPress.bind(this)}
-// 	items={products}
-// 	/>
-// {this.state.selectionData.map((data, i) => {
-// 	return <SearchItem data={data} key={i} />
-// })}
-// <Text style={css.searchList__header}>{this.state.soon.toUpperCase()}</Text>
-// {this.state.protectedData.map((data, i) => {
-// 	return <SearchItem data={data} key={i} />
-// })}
-
 SearchList.propTypes = {
 	searchGo: PropTypes.func.isRequired,
 	navigatePush: PropTypes.func.isRequired,
+	navigatePop: PropTypes.func.isRequired,
 	setCurrentRecipe: PropTypes.func.isRequired,
 	products: PropTypes.array,
 	recipes: PropTypes.array

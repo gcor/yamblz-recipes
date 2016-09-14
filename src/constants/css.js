@@ -15,5 +15,9 @@ export default {
 		paddingBottom: 0,
 		marginTop: 55,
 		backgroundColor: '#FAF9F7'
+	},
+	simplePage: {
+		flex: 1,
+		backgroundColor: '#FAF9F7'
 	}
 }

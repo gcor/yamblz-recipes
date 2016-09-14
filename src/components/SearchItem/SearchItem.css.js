@@ -8,16 +8,18 @@ export default StyleSheet.create({
 		borderBottomWidth: 1,
 		borderStyle: 'solid',
 		borderColor: ui.lightgray,
-		flexDirection: 'row'
+		flexDirection: 'row',
+		alignItems: 'center'
 	},
 	searchItem__icon: {
 		width: 25,
-		height: 25,
-		backgroundColor: '#eee'
+		height: 20,
+		resizeMode: 'contain'
 	},
 	searchItem__title: {
 		color: 'black',
 		fontSize: ui.fontL,
-		paddingLeft: 20
+		paddingLeft: 20,
+		flex: 1
 	}
 })
