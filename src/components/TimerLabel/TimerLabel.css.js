@@ -8,7 +8,8 @@ export default StyleSheet.create({
 		flexDirection: 'row',
 		padding: 20,
 		justifyContent: 'space-between',
-		alignItems: 'center'
+		alignItems: 'center',
+		height: 60
 	},
 	timeout: {
 		color: 'black',

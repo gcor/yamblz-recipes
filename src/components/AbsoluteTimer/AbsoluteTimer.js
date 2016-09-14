@@ -1,29 +1,56 @@
 import React, { Component, PropTypes } from 'react'
-import { TouchableOpacity } from 'react-native'
+import { TouchableOpacity, View, Text } from 'react-native'
 import TimerLabel from '../TimerLabel'
+import s from './AbsoluteTimer.css'
 
 export default class AbsoluteTimer extends Component {
-	constructor () {
-		super()
-		this.handleClick = this.handleClick.bind(this)
+	constructor (props) {
+		super(props)
+		this.state = {
+			timersCount: props.timers.length
+		}
+		this.handleToggle = this.handleToggle.bind(this)
 	}
-	handleClick () {
-		this.props.goToTimers()
+
+	renderTimers () {
+		const { timers } = this.props
+		return (
+			timers.map((timer, index) => {
+				if (!timer) return null
+				const { actionLabel, timeout } = timer
+				return (
+					<TimerLabel
+						key={index}
+						withTimeline={index === 0}
+						actionLabel={actionLabel}
+						timeout={timeout}
+					/>
+				)
+			})
+		)
 	}
+
+	renderDrawer () {
+		return (
+			<TouchableOpacity style={s.drawer} onPress={this.handleToggle}>
+				<View style={s.button}></View>
+			</TouchableOpacity>
+		)
+	}
+
+	handleToggle () {
+		alert('boo!')
+	}
+
 	render () {
 		const { timers } = this.props
 		if (timers.length === 0) return null
-		const timer = timers[0]
-		const { actionLabel, timeout } = timer
 
 		return (
-			<TouchableOpacity onPress={this.handleClick}>
-				<TimerLabel
-					actionLabel={actionLabel}
-					timeout={timeout}
-					withTimeline
-				/>
-			</TouchableOpacity>
+			<View style={[s.container]}>
+				{this.renderDrawer()}
+				{this.renderTimers()}
+			</View>
 		)
 	}
 }

@@ -4,7 +4,24 @@ import {
 	SORT_TIMERS
 } from '../constants/actionTypes'
 
-const initialState = []
+const initialState = [
+	{
+		timeout: 500000,
+		actionLabel: 'hello world'
+	},
+	{
+		timeout: 500000,
+		actionLabel: 'hello world'
+	},
+	{
+		timeout: 500000,
+		actionLabel: 'hello world'
+	},
+	{
+		timeout: 500000,
+		actionLabel: 'hello world'
+	}
+]
 
 const sortTimersByHands = timers => {
 	for (var i = 0; i < timers.length; i++) {
