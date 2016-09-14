@@ -37,8 +37,9 @@ class App extends Component {
 		let { navigationState, backAction } = this.props
 
 		switch (navigationState.routes[navigationState.routes.length - 1].key) {
-			case 'Home': return null
-			case 'RecipeView': return null
+			case 'Home':
+			case 'RecipeView':
+			case 'Search': return null
 		}
 
 		return (

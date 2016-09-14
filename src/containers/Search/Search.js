@@ -6,7 +6,7 @@ import ui from '../../constants/css'
 export default class Search extends Component {
 	render () {
 		return (
-			<ScrollView style={ui.page}>
+			<ScrollView style={ui.simplePage}>
 				<SearchList />
 			</ScrollView>
 		)

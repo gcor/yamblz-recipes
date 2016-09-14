@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { Text, View, NativeModules, ScrollView, StatusBar, Modal, TouchableHighlight } from 'react-native'
-import Button from '../../components/Button'
+import { View, NativeModules, ScrollView, StatusBar } from 'react-native'
 import css from './Home.css'
 import * as _ from 'lodash'
 import HomeSwiper from '../../components/HomeSwiper'
@@ -20,9 +19,6 @@ export default class Home extends Component {
 
 	setModalVisible (visible) {
 		this.setState({modalVisible: visible})
-	}
-
-	setPushNotification () {
 	}
 
 	_onPushToTimers () {
@@ -93,7 +89,6 @@ export default class Home extends Component {
 	}
 }
 // <Button onPress={this._onPushToTimers.bind(this)} text='Перейти к таймерам' />
-// <Button onPress={this._onCustomJavaEvent.bind(this)} text='Отправить событие в метрику' />
 
 Home.propTypes = {
 	navigatePush: PropTypes.func.isRequired,
