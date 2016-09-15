@@ -148,6 +148,7 @@ dependencies {
 		compile project(':react-native-linear-gradient')
 		compile 'com.yandex.android:speechkit:2.5.0'
 		compile 'com.yandex.android:mobmetricalib:2.42'
+		compile project(':react-native-keep-awake')
 }
 
 configurations {
