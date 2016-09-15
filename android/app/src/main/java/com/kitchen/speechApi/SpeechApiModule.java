@@ -11,6 +11,7 @@ import com.facebook.react.modules.core.DeviceEventManagerModule;
 import javax.annotation.Nullable;
 
 import ru.yandex.speechkit.*;
+import ru.yandex.speechkit.Error;
 import android.support.v4.content.ContextCompat;
 
 import static android.Manifest.permission.RECORD_AUDIO;
@@ -72,7 +73,7 @@ public class SpeechApiModule extends ReactContextBaseJavaModule implements Vocal
 		} else {
 			Error startResult = PhraseSpotter.start();
 			if (startResult.getCode() != Error.ERROR_OK) {
-				onStartSpotterError.invoke("Error occurred during model starting: " + startResult.getString())
+				onStartSpotterError.invoke("Error occurred during model starting: " + startResult.getString());
 			}
 		}
 	}
