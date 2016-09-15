@@ -16,13 +16,16 @@ class SearchList extends Component {
 			soon: 'Скоро в приложении',
 			selectionData: [{
 				title: 'Завтрак',
-				icon: icons.cup
+				icon: icons.cup,
+				id: '57bfd586a53d1d73154d933a'
 			}, {
 				title: 'Обед',
-				icon: icons.dinner
+				icon: icons.dinner,
+				id: '57bfe68c624944001682a016'
 			}, {
 				title: 'Ужин',
-				icon: icons.lunch
+				icon: icons.lunch,
+				id: '57c000266c25f8411701256e'
 			}],
 			protectedData: [{
 				title: 'Овощи',
@@ -47,7 +50,8 @@ class SearchList extends Component {
 		})
 	}
 
-	_onCategoryPress (title) {
+	_onCategoryPress (title, categoryId) {
+		this.props.setCurrentCategory(categoryId)
 		this.props.navigatePush({
 			key: 'Category',
 			title: title
@@ -65,7 +69,7 @@ class SearchList extends Component {
 			<View>
 				{this.state.selectionData.map((data, i) => {
 					return <SearchItem
-						onItemPress={this._onCategoryPress.bind(this, data.title)}
+						onItemPress={this._onCategoryPress.bind(this, data.title, data.id)}
 						data={data}
 						key={i} />
 				})}
@@ -118,6 +122,7 @@ SearchList.propTypes = {
 	navigatePush: PropTypes.func.isRequired,
 	navigatePop: PropTypes.func.isRequired,
 	setCurrentRecipe: PropTypes.func.isRequired,
+	setCurrentCategory: PropTypes.func.isRequired,
 	products: PropTypes.array,
 	recipes: PropTypes.array
 }
