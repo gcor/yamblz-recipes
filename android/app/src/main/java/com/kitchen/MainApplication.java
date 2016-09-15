@@ -3,6 +3,8 @@ package com.kitchen;
 import android.app.Application;
 import android.util.Log;
 
+import com.corbt.keepawake.KCKeepAwakePackage;
+
 import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
@@ -42,7 +44,8 @@ public class MainApplication extends Application implements ReactApplication {
 					new SensorManagerPackage(),
 					new LinearGradientPackage(),
 					new SpeechApiPackage(),
-					new AppMetrikaPackage()
+					new AppMetrikaPackage(),
+					new KCKeepAwakePackage()
 			);
 		}
 	};

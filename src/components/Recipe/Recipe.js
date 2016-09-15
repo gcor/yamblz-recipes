@@ -1,9 +1,8 @@
 import React, { Component, PropTypes } from 'react'
+import KeepAwake from 'react-native-keep-awake'
 import { View } from 'react-native'
 import RecipeItem from '../RecipeItem'
-// import Button from '../Button'
 import Brain from '../Brain'
-// import css from './Recipe.css'
 
 class Recipe extends Component {
 	componentWillMount () {
@@ -35,7 +34,8 @@ class Recipe extends Component {
 		}
 		return (
 			<View>
-					{recipeItems}
+				<KeepAwake />
+				{recipeItems}
 			</View>
 		)
 	}
