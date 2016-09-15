@@ -6,21 +6,7 @@ import {
 	PAUSE_TIMER
 } from '../constants/actionTypes'
 
-const initialState = [
-	{
-		timeout: 500000,
-		actionLabel: 'asdasasdeeed',
-		paused: true
-	},
-	{
-		timeout: 500000,
-		actionLabel: 'asdasasdeeed'
-	},
-	{
-		timeout: 500000,
-		actionLabel: 'asdasasdeeed'
-	}
-]
+const initialState = []
 
 const sortTimersByHands = timers => {
 	for (var i = 0; i < timers.length; i++) {
