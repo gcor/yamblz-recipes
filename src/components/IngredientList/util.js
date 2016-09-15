@@ -1,5 +1,3 @@
-// import { pronunciation } from '../../utils'
-
 const convertToFraction = (number) => {
 	const integer = Math.floor(number)
 	const reminder = number % 1
@@ -57,13 +55,12 @@ export const getAmount = (amount, measure, baseMeasure) => {
 			if (amount >= 1000) {
 				return (amount / 1000).toFixed(1) + ' ' + 'л'
 			} else {
-				return unaltered
+				return getResult(Math.round(amount), ['мл', 'мл', 'мл'])
 			}
 		case 'шт':
-			return getResult(amount, ['штука', 'штуки', 'штук'])
+			return getResult(roundQuarter(amount), ['штука', 'штуки', 'штук'])
 		case 'чайн.л.':
 			if (amount >= 3) {
-				// const spoon = Math.round(amount / 3)
 				const spoon = roundQuarter(amount / 3)
 				return getResult(spoon, ['ст.ложка', 'ст.ложки', 'ст.ложек'])
 			} else {
