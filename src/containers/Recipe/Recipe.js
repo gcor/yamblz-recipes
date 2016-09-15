@@ -55,32 +55,65 @@ class RecipePage extends Component {
 		})
 	}
 
-	vocalizeStage (stage, readyCallback) {
-		var textToVocalize = stage.title + stage.steps.join('. ')
-		Speech.vocalize(textToVocalize, '', () => {
-			alert('Успешно')
+	vocalizeTimeout (phrasesToVocalize, readyCallback, errorCallback) {
+		var phrase = phrasesToVocalize.shift()
+		Speech.vocalize(phrase, '', () => {
+			if (phrasesToVocalize.length > 0) {
+				setTimeout(this.vocalizeTimeout.bind(this), 1000, phrasesToVocalize, readyCallback, errorCallback)
+			} else {
+				readyCallback()
+			}
 		}, (error) => {
-			alert(error)
+			errorCallback(error)
 		})
+	}
+
+	vocalizeStage (index, stage, readyCallback, errorCallback) {
+		var phrasesToVocalize = []
+		phrasesToVocalize.push('Шаг' + (index + 1) + '. ' + stage.title)
+		stage.steps.forEach(function (element, index) {
+			phrasesToVocalize.push(element.title)
+		})
+
+		this.vocalizeTimeout(phrasesToVocalize, readyCallback, errorCallback)
+	}
+
+	readyCallback () {
+		this.props.nextSlide()
+		this.scrollTo()
+		const { recipe, currentSlide } = this.props
+		if (this.vocalizedStage !== currentSlide) {
+			this.vocalizeStage(currentSlide, recipe.stages[currentSlide], this.readyCallback.bind(this), this.errorCallback.bind(this))
+			this.vocalizedStage = currentSlide
+		} else {
+			Speech.vocalize('Блюдо готово.', '', () => {
+			}, () => {
+				alert('Ошибка во время преобразования теста в речь')
+			})
+		}
+	}
+
+	errorCallback () {
+		alert('Ошибка во время преобразования теста в речь')
 	}
 
 	_onPress () {
 		const { recipe, currentSlide } = this.props
-		this.vocalizeStage (recipe.stages[currentSlide])
+		this.vocalizedStage = currentSlide
+		this.vocalizeStage(currentSlide, recipe.stages[currentSlide], this.readyCallback.bind(this), this.errorCallback.bind(this))
 	}
 
 	renderRecipe (recipe) {
 		if (!this.state.ready) return null
 		return (
 			<View>
+				<Button
+					onPress={this._onPress.bind(this)}
+					text='Диктовка' />
 				<Recipe data={recipe} />
 			</View>
 		)
 	}
-
-	// <Button
-	// 	onPress={this._onPress.bind(this)}
-	// 	text='Диктовка' />
 
 	handleScroll = e => {
 		const { slides, currentSlide } = this.props
