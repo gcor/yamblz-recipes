@@ -25,11 +25,27 @@ class RecipePage extends Component {
 			this.setState({ready: true})
 		})
 		SensorManager.startProximity(50)
+
+		DeviceEventEmitter.addListener('phraseSpotted', function (e) {
+			alert(e.command)
+		})
+		DeviceEventEmitter.addListener('spotterError', function (e) {
+			alert('Error: ' + e.error)
+		})
 	}
 
 	componentDidMount () {
 		this.proximityListener = DeviceEventEmitter.addListener('Proximity',
 			throttle(this.proximityHandler, 800))
+
+		Speech.loadSpotter(() => {
+			alert('Spotter loaded')
+			Speech.startSpotter((error) => {
+				alert('Spotter error ' + error)
+			})
+		}, (error) => {
+			alert(error)
+		})
 	}
 
 	proximityHandler (data) {
@@ -88,13 +104,13 @@ class RecipePage extends Component {
 		} else {
 			Speech.vocalize('Блюдо готово.', '', () => {
 			}, () => {
-				alert('Ошибка во время преобразования теста в речь')
+				alert('Ошибка во время преобразования текста в речь')
 			})
 		}
 	}
 
 	errorCallback () {
-		alert('Ошибка во время преобразования теста в речь')
+		alert('Ошибка во время преобразования текста в речь')
 	}
 
 	_onPress () {
@@ -117,7 +133,7 @@ class RecipePage extends Component {
 
 	handleScroll = e => {
 		const { slides, currentSlide } = this.props
-		// console.log(currentSlide, slides.length)
+		// console.log(currentSlide, slides.lengtsh)
 		if (currentSlide >= slides.length - 1) {
 			this.props.previousSlide()
 			return false

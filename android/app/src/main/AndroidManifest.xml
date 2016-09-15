@@ -12,6 +12,7 @@
     android:protectionLevel="signature" />
     <uses-permission android:name="com.kitchen.permission.C2D_MESSAGE" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <uses-sdk
         android:minSdkVersion="16"

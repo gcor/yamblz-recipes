@@ -4,65 +4,138 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.Callback;
+import com.facebook.react.bridge.WritableMap;
+import com.facebook.react.bridge.Arguments;
 import java.util.Map;
+import com.facebook.react.modules.core.DeviceEventManagerModule;
+import javax.annotation.Nullable;
+
 import ru.yandex.speechkit.*;
+import android.support.v4.content.ContextCompat;
 
-public class SpeechApiModule extends ReactContextBaseJavaModule implements VocalizerListener {
+import static android.Manifest.permission.RECORD_AUDIO;
+import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 
-    private static final String SPEECH_API_KEY = "c71816d0-b4fb-402f-b208-7ac3ef6dff48";
-    private Vocalizer vocalizer;
-    Callback VocalizeEndedCallback = null;    
-    Callback VocalizeErrorCallback = null;      
+public class SpeechApiModule extends ReactContextBaseJavaModule implements VocalizerListener, PhraseSpotterListener {
 
-    public SpeechApiModule(ReactApplicationContext reactContext) {
-        super(reactContext);
-        SpeechKit.getInstance().configure(reactContext, SPEECH_API_KEY);
-    }
+	private static final String SPEECH_API_KEY = "c71816d0-b4fb-402f-b208-7ac3ef6dff48";
+	private ReactApplicationContext reactAppContext = null;
+	private Vocalizer vocalizer;
+	private Callback VocalizeEndedCallback = null;    
+	private Callback VocalizeErrorCallback = null;  
 
-    @Override
-    public String getName() {
-        return "SpeechApi";
-    }
+	public SpeechApiModule(ReactApplicationContext reactContext) {
+		super(reactContext);
+		SpeechKit.getInstance().configure(reactContext, SPEECH_API_KEY);
+		reactAppContext = reactContext;
+	}
 
-    @ReactMethod
-    public void vocalize(String text, String language, Callback onVocalizeEnded, Callback onVocalizeError) {
-        VocalizeEndedCallback = onVocalizeEnded;
-        VocalizeErrorCallback = onVocalizeError;
-        resetVocalizer();
-        vocalizer = Vocalizer.createVocalizer(Vocalizer.Language.RUSSIAN, text, true, Vocalizer.Voice.JANE);
-        vocalizer.setListener(SpeechApiModule.this);
-        vocalizer.start();
-    }
+	@Override
+	public String getName() {
+		return "SpeechApi";
+	}
 
-    private void resetVocalizer() {
-        if (vocalizer != null) {
-            vocalizer.cancel();
-            vocalizer = null;
-        }
-    }
+	@ReactMethod
+	public void vocalize(String text, String language, Callback onVocalizeEnded, Callback onVocalizeError) {
+		VocalizeEndedCallback = onVocalizeEnded;
+		VocalizeErrorCallback = onVocalizeError;
+		resetVocalizer();
+		vocalizer = Vocalizer.createVocalizer(Vocalizer.Language.RUSSIAN, text, true, Vocalizer.Voice.JANE);
+		vocalizer.setListener(SpeechApiModule.this);
+		vocalizer.start();
+	}
 
-    @Override
-    public void onSynthesisBegin(Vocalizer vocalizer) {
-    }
+	private void resetVocalizer() {
+		if (vocalizer != null) {
+			vocalizer.cancel();
+			vocalizer = null;
+		}
+	}
 
-    @Override
-    public void onSynthesisDone(Vocalizer vocalizer, Synthesis synthesis) {
-    }
+	@ReactMethod
+	public void loadSpotter(Callback onLoaded, Callback onError) {
+		PhraseSpotterModel model = new PhraseSpotterModel("phrase-spotter/commands");
+		Error loadResult = model.load();
+		if (loadResult.getCode() != Error.ERROR_OK) {
+			onError.invoke("Error occurred during model loading: " + loadResult.getString());
+		} else {
+			PhraseSpotter.setListener(this);
+			Error setModelResult = PhraseSpotter.setModel(model);
+			onLoaded.invoke();
+		}
+	}
 
-    @Override
-    public void onPlayingBegin(Vocalizer vocalizer) {
-    }
+	@ReactMethod
+	public void startSpotter(Callback onStartSpotterError) {
+		if (ContextCompat.checkSelfPermission(reactAppContext, RECORD_AUDIO) != PERMISSION_GRANTED) {
+			onStartSpotterError.invoke("Microphone permissions not granted");
+		} else {
+			Error startResult = PhraseSpotter.start();
+			if (startResult.getCode() != Error.ERROR_OK) {
+				onStartSpotterError.invoke("Error occurred during model starting: " + startResult.getString())
+			}
+		}
+	}
 
-    @Override
-    public void onPlayingDone(Vocalizer vocalizer) {
-        if (VocalizeEndedCallback != null)
-            VocalizeEndedCallback.invoke();
-    }
+	@ReactMethod
+	public void stopSpotter() {
+		Error stopResult = PhraseSpotter.stop();
+	}
 
-    @Override
-    public void onVocalizerError(Vocalizer vocalizer, ru.yandex.speechkit.Error error) {
-        resetVocalizer();
-        if (VocalizeErrorCallback != null)
-            VocalizeErrorCallback.invoke(error.getString());
-    }
+	private void sendEvent(String eventName, @Nullable WritableMap params) {
+		reactAppContext
+			.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+			.emit(eventName, params);
+	}
+
+	// Implementation of VocalizerListener
+	@Override
+	public void onSynthesisBegin(Vocalizer vocalizer) {
+	}
+
+	@Override
+	public void onSynthesisDone(Vocalizer vocalizer, Synthesis synthesis) {
+	}
+
+	@Override
+	public void onPlayingBegin(Vocalizer vocalizer) {
+	}
+
+	@Override
+	public void onPlayingDone(Vocalizer vocalizer) {
+		if (this.VocalizeEndedCallback != null)
+			this.VocalizeEndedCallback.invoke();
+	}
+
+	@Override
+	public void onVocalizerError(Vocalizer vocalizer, ru.yandex.speechkit.Error error) {
+		resetVocalizer();
+		if (this.VocalizeErrorCallback != null)
+			this.VocalizeErrorCallback.invoke(error.getString());
+	}
+
+	//Implementation of PhraseSpotterListener
+	@Override
+	public void onPhraseSpotted(String phrase, int i) {
+		WritableMap params = Arguments.createMap();
+		params.putString("command", phrase);
+		sendEvent("phraseSpotted", params);
+	}
+
+	@Override
+	public void onPhraseSpotterStarted() {
+		//updateCurrentStatus("PhraseSpotter started");
+	}
+
+	@Override
+	public void onPhraseSpotterStopped() {
+		//updateCurrentStatus("PhraseSpotter stopped");
+	}
+
+	@Override
+	public void onPhraseSpotterError(Error error) {
+		WritableMap params = Arguments.createMap();
+		params.putString("error", error.toString());
+		sendEvent("spotterError", params);
+	}
 }
