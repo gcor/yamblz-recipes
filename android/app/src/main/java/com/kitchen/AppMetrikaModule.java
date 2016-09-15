@@ -76,4 +76,11 @@ public class AppMetrikaModule extends ReactContextBaseJavaModule {
 		} catch(Exception e){}
 	}
 
+	@ReactMethod
+	public void categorySubscribe(String json) {
+		try{
+			YandexMetrica.reportEvent("categorySubscribe", json);
+		} catch(Exception e){}
+	}
+
 }
