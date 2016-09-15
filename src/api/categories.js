@@ -30,7 +30,15 @@ export function getCategories () {
 	})
 }
 
-export function getCategory () {
+export function getCategory (id) {
+	return new Promise((resolve, reject) => {
+		fetchData(api.categories + id)
+			.then(category => resolve(category))
+			.catch(err => reject(err))
+	})
+}
+
+export function getCategoryByTime () {
 	return new Promise((resolve, reject) => {
 		// console.log(api.categories + id)
 		let id

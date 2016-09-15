@@ -1,11 +1,8 @@
 import React, { Component, PropTypes } from 'react'
-import { View, NativeModules, ScrollView, InteractionManager } from 'react-native'
-import Slider from '../../components/Slider'
+import { View, ScrollView, InteractionManager } from 'react-native'
 import ui from '../../constants/css'
 import { LOADING, SUCCESS, ERROR } from '../../constants/actionTypes'
 import Preloader from '../../components/Preloader'
-import * as _ from 'lodash'
-const AppMetrica = NativeModules.AppMetrika
 import Card from '../../components/Card/Card'
 import css from './Category.css'
 
@@ -13,36 +10,19 @@ class Category extends Component {
 	componentWillMount () {
 		this.setState({isReady: false})
 		InteractionManager.runAfterInteractions(() => {
-			this.props.fetchCategory()
+			const { currentCategory } = this.props
+			this.props.fetchCategory(currentCategory)
 			this.setState({isReady: true})
 		})
 	}
 	_onPressHandler (recipeID) {
 		const { navigatePush, setCurrentRecipe } = this.props
-		// const addFromLast = _.find(lastViewedRecipes, {'_id': recipeID})
-		// if (addFromLast) {
-		// 	AppMetrica.send(JSON.stringify({
-		// 		from: 'lastViewed',
-		// 		title: addFromLast.title,
-		// 		id: recipeID
-		// 	}))
-		// }
 		setCurrentRecipe(recipeID)
 		navigatePush({
 			key: 'RecipeView',
 			title: 'Подготовка'
 		})
 	}
-	// renderCategory (category) {
-	// 	const { title, id, recipes } = category
-	// 	return (
-	// 		<Slider
-	// 			title={title}
-	// 			key={id} id={id}
-	// 			onPressHandler={this._onPressHandler.bind(this)}
-	// 			recipes={recipes} />
-	// 	)
-	// }
 	renderRecipe (recipe) {
 		return (
 			<Card
@@ -66,7 +46,6 @@ class Category extends Component {
 
 	renderContent () {
 		const { status, category } = this.props
-		console.log(category, status)
 		switch (status) {
 			case LOADING:
 				return <Preloader margin={280} />
@@ -80,7 +59,6 @@ class Category extends Component {
 				return null
 		}
 	}
-// {categories.categories.map(category => this.renderCategory(category))}
 	render () {
 		if (this.state.isReady) {
 			return (
@@ -94,10 +72,9 @@ class Category extends Component {
 
 Category.propTypes = {
 	navigatePush: PropTypes.func.isRequired,
-	// fetchCategories: PropTypes.func.isRequired,
 	fetchCategory: PropTypes.func.isRequired,
 	categories: PropTypes.object.isRequired,
-	// category: PropTypes.array.isRequired,
+	currentCategory: PropTypes.string,
 	setCurrentRecipe: PropTypes.func.isRequired,
 	status: PropTypes.string.isRequired
 }

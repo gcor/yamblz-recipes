@@ -1,5 +1,6 @@
 import {
 	SET_CURRRENT_RECIPE,
+	SET_CURRENT_CATEGORY,
 	IS_FETCHED_CATEGORIES,
 	SAVE_IN_LAST_VIEWED
 } from '../constants/actionTypes'
@@ -8,6 +9,7 @@ import { AsyncStorage } from 'react-native'
 import { createAction } from 'redux-actions'
 
 export const setCurrentRecipe = createAction(SET_CURRRENT_RECIPE)
+export const setCurrentCategory = createAction(SET_CURRENT_CATEGORY)
 
 // Function, that executes when the categories are first fetched.
 export const isFetchedCategories = createAction(IS_FETCHED_CATEGORIES)

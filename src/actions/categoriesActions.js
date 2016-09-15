@@ -4,8 +4,7 @@ import {
 	FETCH_RECOMMEND,
 	FETCH_CATEGORY
 } from '../constants/actionTypes'
-import { getCategories, getJumbotron, getRecommend, getCategory } from '../api/categories'
-import { isFetchedCategories } from './generalActions'
+import { getCategories, getJumbotron, getRecommend, getCategory, getCategoryByTime } from '../api/categories'
 import { createAction } from 'redux-actions'
 import { formatImageSrc } from '../utils'
 
@@ -20,8 +19,8 @@ export const fetchCategories = createAction(FETCH_CATEGORIES, async () => {
 	return categories
 })
 
-export const fetchCategory = createAction(FETCH_CATEGORY, async () => {
-	const category = await getCategory()
+export const fetchCategory = createAction(FETCH_CATEGORY, async (id) => {
+	const category = (id) ? await getCategory(id) : await getCategoryByTime()
 	if (!category) Promise.reject('No category found')
 	return category
 })
@@ -37,19 +36,3 @@ export const fetchRecommend = createAction(FETCH_RECOMMEND, async () => {
 	if (!recommend) Promise.reject('No recommend')
 	return recommend
 })
-// export const fetchCategories = () => (dispatch, getState) => {
-// 	if (getState().general.fetched.categories) {
-// 		return false // Categories has already been fetched.
-// 	}
-// 	getCategories()
-// 		.then(categories => {
-// 			// Fix http protocol image
-// 			categories.forEach(category => {
-// 				category.recipes.forEach(recipe => {
-// 					recipe.image = formatImageSrc(recipe.image)
-// 				})
-// 			})
-// 			dispatch(_fetchCategories(categories))
-// 			dispatch(isFetchedCategories(true))
-// 		})
-// }
