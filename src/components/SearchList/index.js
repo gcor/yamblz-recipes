@@ -2,7 +2,7 @@ import SearchList from './SearchList'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { navigatePush, navigatePop } from '../../actions/navigationActions'
-import { setCurrentRecipe } from '../../actions/generalActions'
+import { setCurrentRecipe, setCurrentCategory } from '../../actions/generalActions'
 import { searchGo } from '../../actions/searchActions'
 
 const stateToProps = state => ({
@@ -17,6 +17,7 @@ const dispatchToProps = dispatch => (
 		searchGo,
 		navigatePush,
 		navigatePop,
+		setCurrentCategory,
 		setCurrentRecipe
 	}, dispatch))
 export default connect(stateToProps, dispatchToProps)(SearchList)
