@@ -1,7 +1,10 @@
 import React, { Component, PropTypes } from 'react'
-import { Text, View, ListView, Image } from 'react-native'
+import { Text, View, ListView, Image, TouchableHighlight } from 'react-native'
 import css from './IngredientList.css'
 import { getAmount } from './util'
+import CloseButton from '../../icons/close_w.png'
+import PlusButton from '../../icons/plus.png'
+import MinusButton from '../../icons/minus.png'
 
 export default class IngredientList extends Component {
 	constructor (props) {
@@ -22,7 +25,6 @@ export default class IngredientList extends Component {
 			extra: this.ds.cloneWithRows(extraProducts)
 		})
 	}
-
 	render () {
 		return (
 			<View>
@@ -32,9 +34,21 @@ export default class IngredientList extends Component {
 							<Text style={css.portions__text}> Порции </Text>
 						</View>
 						<View style={css.portions__controls}>
-							<Text style={[css.controls__button, css.portions__text]} onPress={this.props.onDecrement}> - </Text>
-							<Text style={[css.controls__value, css.portions__text]}> {this.props.recipe.portion} </Text>
-							<Text style={[css.controls__button, css.portions__text]} onPress={this.props.onIncrement}> + </Text>
+							<TouchableHighlight
+								underlayColor='transparent'
+								style={css.controls__button}
+								onPress={this.props.onDecrement}>
+								<Image source={MinusButton} />
+							</TouchableHighlight>
+							<Text style={[css.controls__value, css.portions__text]}>
+								{this.props.recipe.portion}
+							</Text>
+							<TouchableHighlight
+								underlayColor='transparent'
+								style={css.controls__button}
+								onPress={this.props.onIncrement}>
+								<Image source={PlusButton} />
+							</TouchableHighlight>
 						</View>
 					</View>
 					<ListView
@@ -56,7 +70,9 @@ export default class IngredientList extends Component {
 	_renderCloseButton (isVisible, id) {
 		if (isVisible) {
 			return (
-				<Text style={css.closeButton} onPress={this.props.setExtra.bind(this, id)}> X </Text>
+				<TouchableHighlight style={css.closeButton} onPress={this.props.setExtra.bind(this, id)}>
+					<Image source={CloseButton} />
+				</TouchableHighlight>
 			)
 		} else return false
 	}
