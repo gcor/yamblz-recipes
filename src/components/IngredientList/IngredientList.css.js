@@ -13,7 +13,8 @@ export default StyleSheet.create({
 		borderBottomColor: '#eee'
 	},
 	portions__controls: {
-		flexDirection: 'row'
+		flexDirection: 'row',
+		alignItems: 'center'
 	},
 	portions__text: {
 		fontSize: 22,
@@ -21,7 +22,7 @@ export default StyleSheet.create({
 		color: '#444'
 	},
 	controls__button: {
-		fontSize: 22
+		padding: 10
 	},
 	controls__value: {
 		textAlign: 'center',

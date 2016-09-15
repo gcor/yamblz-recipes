@@ -81,16 +81,15 @@ export default class RecipeView extends Component {
 						title={'можно добавить'}
 						setMain={setProductAsMain}
 						recipe={this.props.recipe} />
-					<ToolsList
-						title={'Вам может понадобиться'}
-						tools={['Ёмкость для запекания', 'Нож', 'Разделочная доска']}
-						/>
 				</View>
 			)
 			case ERROR: return 'Сломалось или нет Интернета'
 		}
 	}
-
+	// <ToolsList
+	// 	title={'Вам может понадобиться'}
+	// 	tools={['Ёмкость для запекания', 'Нож', 'Разделочная доска']}
+	// 	/>
 	renderContent () {
 		const { isReady } = this.state
 		if (isReady) {

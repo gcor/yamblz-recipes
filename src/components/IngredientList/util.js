@@ -1,20 +1,57 @@
-import { pronunciation } from '../../utils'
+// import { pronunciation } from '../../utils'
+
+const convertToFraction = (number) => {
+	const integer = Math.floor(number)
+	const reminder = number % 1
+	switch (reminder) {
+		case 0.25:
+			return (integer === 0) ? '¼' : integer + '¼'
+		case 0.5:
+			return (integer === 0) ? '½' : integer + '½'
+		case 0.75:
+			return (integer === 0) ? '¾' : integer + '¾'
+		default:
+			return number
+	}
+}
+
+const roundQuarter = (number) => {
+	return Math.round(number * 4) / 4
+}
+
+const pronunciation = (number, endings) => {
+	var sEnding, i
+	number = number % 100
+	if (number >= 11 && number <= 19) {
+		sEnding = endings[2]
+	} else {
+		i = number % 10
+		if (i === 1) sEnding = endings[0]
+		else if ((i < 1 && i > 0) || (i > 1 && i < 5)) sEnding = endings[1]
+		else sEnding = endings[2]
+	}
+	return sEnding
+}
+
+const getResult = (amount, endings) => {
+	return convertToFraction(amount) + ' ' + pronunciation(amount, endings)
+}
+
 export const getAmount = (amount, measure, baseMeasure) => {
 	const unaltered = amount + ' ' + measure
 	if (!amount) return 'по вкусу'
-	amount = Math.ceil(amount)
 	switch (measure) {
 		case 'пучок':
-			return amount + ' ' + pronunciation(amount, ['пучок', 'пучка', 'пучков'])
+			return getResult(amount, ['пучок', 'пучка', 'пучков'])
 		case 'зубчик':
-			return amount + ' ' + pronunciation(amount, ['зубчик', 'зубчика', 'зубчиков'])
+			return getResult(amount, ['зубчик', 'зубчика', 'зубчиков'])
 		case 'стебель':
-			return amount + ' ' + pronunciation(amount, ['стебель', 'стебля', 'стеблей'])
+			return getResult(amount, ['стебель', 'стебля', 'стеблей'])
 		case 'гр':
 			if (amount >= 1000) {
 				return (amount / 1000).toFixed(1) + ' ' + 'кг'
 			} else {
-				return unaltered
+				return getResult(Math.round(amount), ['грамм', 'грамма', 'грамм'])
 			}
 		case 'мл':
 			if (amount >= 1000) {
@@ -22,11 +59,22 @@ export const getAmount = (amount, measure, baseMeasure) => {
 			} else {
 				return unaltered
 			}
-		case 'ст.л.':
-			if (amount >= 14) {
-				return (amount / 14).toFixed(1) + ' ' + 'стак.'
+		case 'шт':
+			return getResult(amount, ['штука', 'штуки', 'штук'])
+		case 'чайн.л.':
+			if (amount >= 3) {
+				// const spoon = Math.round(amount / 3)
+				const spoon = roundQuarter(amount / 3)
+				return getResult(spoon, ['ст.ложка', 'ст.ложки', 'ст.ложек'])
 			} else {
-				return unaltered
+				return getResult(amount, ['ч.ложка', 'ч.ложки', 'ч.ложек'])
+			}
+		case 'ст.л.':
+			if (amount >= 8) {
+				const glass = (amount / 16).toFixed(2)
+				return getResult(roundQuarter(glass), ['стакан', 'стакана', 'стаканов'])
+			} else {
+				return getResult(amount, ['ст.ложка', 'ст.ложки', 'ст.ложек'])
 			}
 		case 'стак.':
 			if (baseMeasure === 'гр') {
