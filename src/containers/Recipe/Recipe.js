@@ -44,6 +44,7 @@ class RecipePage extends Component {
 		SensorManager.stopProximity()
 		this.proximityListener.remove()
 		this.props.resetSlider()
+		this.props.resetTimers()
 	}
 
 	scrollTo () {
@@ -128,7 +129,7 @@ RecipePage.propTypes = {
 	currentHeight: PropTypes.number.isRequired,
 	slides: PropTypes.array.isRequired,
 	currentSlide: PropTypes.number.isRequired,
-	execTimers: PropTypes.func.isRequired
+	resetTimers: PropTypes.func.isRequired
 }
 
 export default RecipePage

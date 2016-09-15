@@ -26,12 +26,6 @@ class Timer extends Component {
 	handlePress () {
 		const { timeout, actionLabel, timerLabel, setTimer } = this.props
 		if (!timeout || !actionLabel || !timerLabel) return false
-		// Notifications.pushNotification()
-		setTimer({
-			actionLabel: actionLabel,
-			timerLabel: timerLabel,
-			timeout: timeout
-		})
 
 		const duration = 400
 		const config = {toValue: 100, duration: duration}
@@ -40,6 +34,11 @@ class Timer extends Component {
 			self.setState({
 				textValue: 'Таймер установлен'.toUpperCase(),
 				activated: true
+			})
+			setTimer({
+				actionLabel: actionLabel,
+				timerLabel: timerLabel,
+				timeout: timeout
 			})
 		}, duration)
 

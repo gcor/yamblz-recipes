@@ -19,6 +19,7 @@
     "react-native-linear-gradient": "^1.5.12",
     "react-native-push-notification": "2.0.2",
     "react-native-sensor-manager": "0.1.7",
+    "react-native-swipe-list-view": "^0.3.0",
     "react-native-swiper": "^1.4.11",
     "react-redux": "^4.4.5",
     "redux": "^3.5.2",

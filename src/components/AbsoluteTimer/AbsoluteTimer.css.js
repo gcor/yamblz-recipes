@@ -2,7 +2,8 @@ import { StyleSheet } from 'react-native'
 
 export default StyleSheet.create({
 	container: {
-		elevation: 20
+		elevation: 10,
+		backgroundColor: 'white'
 	},
 	drawer: {
 		height: 20,

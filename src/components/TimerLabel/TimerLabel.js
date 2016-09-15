@@ -1,11 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import {
-	View,
-	Text,
-	Dimensions,
-	DeviceEventEmitter,
-	Image
-} from 'react-native'
+import { View, Text, Dimensions, Image } from 'react-native'
 import { convertTimeToMinutesAndSeconds } from './util'
 import s from './TimerLabel.css'
 import Notifications from '../Notification'
@@ -16,7 +10,6 @@ export default class TimerLabel extends Component {
 		super(props)
 		this.stop = this.stop.bind(this)
 		this.tick = this.tick.bind(this)
-		// console.log(DeviceEventEmitter)
 		this.state = {
 			timeout: this.props.timeout,
 			previousTick: new Date(Date.now()),
@@ -26,29 +19,23 @@ export default class TimerLabel extends Component {
 			width: Dimensions.get('window').width
 		}
 		this.interval = setInterval(this.tick, 1000)
-		// this.sendPushAfterTimeout()
+		this.sendPushAfterTimeout()
 	}
 
 	sendPushAfterTimeout () {
-		Notifications.push('Мессага без напряга', this.state.timeout)
+		Notifications.push('У вас тут таймер сработал. Может, уже готово?', this.state.timeout)
 	}
 
 	sync (previousTick, currentTick) {
 		const latency = currentTick - previousTick - 1000
 		const { timeout } = this.state
-		// if latency is more than 5 seconds
 		if (latency > 5000) {
 			if (timeout - latency > 0) {
-				// console.log(latency)
 				this.setState({
 					timeout: timeout - latency
 				})
 			} else {
-				// time is out
-				this.setState({
-					timeout: 0,
-					relativePercent: 1
-				})
+				this.setState({timeout: 0, relativePercent: 1})
 			}
 		}
 	}
@@ -56,8 +43,11 @@ export default class TimerLabel extends Component {
 	tick () {
 		const { timeout, initialTime, previousTick } = this.state
 		const currentTick = new Date(Date.now())
-		// console.log(timeout)
-		this.sync(previousTick, currentTick)
+		if (this.props.paused) {
+			return null
+		} else {
+			this.sync(previousTick, currentTick)
+		}
 		if (timeout > 1000) {
 
 		} else {
@@ -119,5 +109,6 @@ export default class TimerLabel extends Component {
 TimerLabel.propTypes = {
 	actionLabel: PropTypes.string.isRequired,
 	timeout: PropTypes.number.isRequired,
-	withTimeline: PropTypes.bool
+	withTimeline: PropTypes.bool,
+	paused: PropTypes.bool
 }
