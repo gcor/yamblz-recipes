@@ -56,12 +56,10 @@ export default class History extends Component {
 				<ScrollView style={{marginTop: 60, backgroundColor: '#FAF9F7'}}>
 					<Slider
 						title={'Вы недавно смотрели'}
-						id={'1'}
 						onPressHandler={this._onCardPress.bind(this)}
 						recipes={lastViewedRecipes} />
 					<Slider
 						title={'Сохраненные'}
-						id={'1'}
 						onPressHandler={this._onCardPress.bind(this)}
 						recipes={historyRecipes || []} />
 				</ScrollView>

@@ -18,7 +18,6 @@ export default class Bookmark extends Component {
 	}
 	componentWillReceiveProps (props) {
 		this.setState({isFavourite: props.isFavourite})
-		console.log(this.state.isFavourite)
 	}
 	handleClick () {
 		const { navigationRole, addToHistory,
@@ -34,7 +33,6 @@ export default class Bookmark extends Component {
 		}
 	}
 	render () {
-		console.log(this.props, this.state.isFavourite)
 		return (
 			<TouchableHighlight style={css.bar__hilight}
 				onPress={this.handleClick}
