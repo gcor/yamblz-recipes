@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { TouchableOpacity, View, Animated, ListView, Text } from 'react-native'
+import { TouchableOpacity, View, Animated, ListView } from 'react-native'
 import TimerLabel from '../TimerLabel'
 import TimerActions from '../TimerActions'
 import { SwipeListView } from 'react-native-swipe-list-view'
@@ -25,18 +25,18 @@ export default class AbsoluteTimer extends Component {
 	}
 
 	renderTimers () {
-		const { timers } = this.props
+		const { timers, removeTimer, pauseTimer } = this.props
 		return (
 			<SwipeListView
-				style={{height: timerHeight * (timers.length)}}
+				style={{height: timerHeight * (timers.length) + 5}}
 				disableRightSwipe
-				rightOpenValue={-120}
+				rightOpenValue={-100}
 				dataSource={this.ds.cloneWithRows(timers)}
 				renderRow={timer => {
-					const { actionLabel, timeout } = timer
+					const { actionLabel, timeout, paused } = timer
 					const index = timers.indexOf(timer)
 					return (
-						<TouchableOpacity activeOpacity={0.9}
+						<TouchableOpacity activeOpacity={1}
 							onPress={index === 0
 								? this.handleToggle
 								: null}>
@@ -45,13 +45,22 @@ export default class AbsoluteTimer extends Component {
 								withTimeline={index === 0}
 								actionLabel={actionLabel}
 								timeout={timeout}
+								paused={paused || false}
 							/>
 						</TouchableOpacity>
 					)
 				}}
-				renderHiddenRow={data => (
-					<TimerActions />
-				)}
+				renderHiddenRow={timer => {
+					const { actionLabel, timeout } = timer
+					const index = timers.indexOf(timer)
+					return (
+						<TimerActions
+							removeTimer={removeTimer}
+							pauseTimer={pauseTimer}
+							timerID={index}
+						/>
+					)
+				}}
 			/>
 	)
 	}
@@ -81,17 +90,21 @@ export default class AbsoluteTimer extends Component {
 		if (timers.length === 0) return null
 		const { translateY } = this.state
 		return (
-			<Animated.View
-				style={[s.container, {marginBottom: translateY}]}
-				showsVerticalScrollIndicator={false}>
-				{this.renderDrawer()}
-				{this.renderTimers()}
-			</Animated.View>
+			<View>
+				<Animated.View
+					style={[s.container, {marginBottom: translateY}]}
+					showsVerticalScrollIndicator={false}>
+					{this.renderDrawer()}
+					{this.renderTimers()}
+				</Animated.View>
+			</View>
 		)
 	}
 }
 
 AbsoluteTimer.propTypes = {
 	timers: PropTypes.array.isRequired,
-	goToTimers: PropTypes.func.isRequired
+	goToTimers: PropTypes.func.isRequired,
+	removeTimer: PropTypes.func.isRequired,
+	pauseTimer: PropTypes.func.isRequired
 }

@@ -9,7 +9,9 @@ export default StyleSheet.create({
 		padding: 20,
 		justifyContent: 'space-between',
 		alignItems: 'center',
-		height: 60
+		height: 60,
+		borderRightWidth: 1,
+		borderRightColor: '#eee'
 	},
 	timeout: {
 		color: 'black',

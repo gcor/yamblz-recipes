@@ -78,6 +78,7 @@ class RecipePage extends Component {
 		)
 	}
 
+	// <View style={{zIndex: 2, position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0,0,0,0.5)'}} />
 	// <Button
 	// 	onPress={this._onPress.bind(this)}
 	// 	text='Диктовка' />

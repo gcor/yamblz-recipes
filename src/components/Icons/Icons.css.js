@@ -9,5 +9,21 @@ export default StyleSheet.create({
 		height: 24,
 		width: 24,
 		resizeMode: 'contain'
+	},
+	playpause: {
+		padding: 16
+	},
+	playpause__icon: {
+		height: 22,
+		width: 22,
+		resizeMode: 'contain'
+	},
+	remove: {
+		padding: 16
+	},
+	remove__icon: {
+		height: 22,
+		width: 22,
+		resizeMode: 'contain'
 	}
 })
