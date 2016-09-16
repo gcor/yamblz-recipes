@@ -67,30 +67,11 @@ export default class AppBar extends Component {
 		)
 	}
 
-	renderRecipe() {
-		const { recipe, navigateBack } =  this.props
-		return (
-			<View style={[css.bar, css.bar_centered, css.bar_white]}>
-                <TouchableHighlight style={css.bar__hilight}
-					underlayColor={underlayColor}
-					onPress={navigateBack.bind(this)}>
-					<Image style={css.bar__icon} source={BackBlackIcon} />
-				</TouchableHighlight>
-                <View style={css.bar__content}>                             
-                    <Text style={[css.bar__title, css.bar__title_black]}>{recipe.title}</Text>
-                </View>
-                <RecipeSpeech /> 
-            </View>
-
-		)
-	}
-
 	render () {
 		const { navigationState } = this.props
 		switch (navigationState.routes[navigationState.routes.length - 1].key) {
 			case 'Home': return this.renderHomeBar()
 			case 'RecipeView': return this.renderRecipeViewBar()
-			case 'Recipe': return this.renderRecipe()
 			default: return null
 		}
 	}
