@@ -41,7 +41,7 @@ public class SpeechApiModule extends ReactContextBaseJavaModule implements Vocal
 		VocalizeEndedCallback = onVocalizeEnded;
 		VocalizeErrorCallback = onVocalizeError;
 		resetVocalizer();
-		vocalizer = Vocalizer.createVocalizer(Vocalizer.Language.RUSSIAN, text, true, Vocalizer.Voice.JANE);
+		vocalizer = Vocalizer.createVocalizer(Vocalizer.Language.RUSSIAN, text, true, Vocalizer.Voice.OMAZH);
 		vocalizer.setListener(SpeechApiModule.this);
 		vocalizer.start();
 	}

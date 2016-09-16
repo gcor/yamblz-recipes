@@ -30,7 +30,7 @@ export default class SoonInApp extends Component {
 					<Text style={{fontSize: 16, color: 'rgba(0,0,0,.56)', marginLeft: 24, marginBottom: 16, marginTop: 24}}>
 						СКОРО В ПРИЛОЖЕНИИ
 					</Text>
-					<View style={css.home__notificationCard}>
+					<View style={{margin: 8}}>
 						<CardSmall title={'Овощи'} amount={20} image={'http://fitnesslair.ru/wp-content/uploads/2016/06/sovmestimost-produktov-pitaniya2.jpg'} />
 						<Text style={{fontSize: 16, color: 'black', marginLeft: 16, marginBottom: 4, marginTop: 24, marginRight: 16, textAlign: 'center'}}>
 							Категория появится через 7 дней.

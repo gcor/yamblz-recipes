@@ -7,12 +7,11 @@ import { ScrollView,
 } from 'react-native'
 
 import Recipe from '../../components/Recipe'
-import AppBar from '../../components/AppBar'
 import Button from '../../components/Button'
 import AbsoluteTimer from '../../components/AbsoluteTimer'
 import { SensorManager } from 'NativeModules'
 import { throttle } from 'lodash'
-const Speech = NativeModules.SpeechApi
+import RecipeAppBar from '../../components/RecipeAppBar'
 
 class RecipePage extends Component {
 	constructor (props) {
@@ -29,11 +28,6 @@ class RecipePage extends Component {
 			this.setState({ready: true})
 		})
 		SensorManager.startProximity(50)
-
-		DeviceEventEmitter.addListener('phraseSpotted', this.phraseSpotted.bind(this))
-		DeviceEventEmitter.addListener('spotterError', function (e) {
-			alert('Error: ' + e.error)
-		})
 	}
 
 	componentWillReceiveProps (props) {
@@ -49,45 +43,9 @@ class RecipePage extends Component {
 		}
 	}
 
-	phraseSpotted (e) {
-		switch (e.command) {
-			case 'диктовка':
-				const { recipe, currentSlide } = this.props
-				Speech.stopSpotter()
-				this.vocalizedStage = currentSlide
-				this.vocalizeStage(currentSlide, recipe.stages[currentSlide], this.readyCallback.bind(this), this.errorCallback.bind(this))
-				break
-			case 'следующий-шаг':
-				this.props.nextSlide()
-				this.scrollTo()
-				currentSlide = this.props.currentSlide
-				recipe = this.props.recipe
-				Speech.stopSpotter()
-				if (this.vocalizedStage !== currentSlide) {
-					this.vocalizeStage(currentSlide, recipe.stages[currentSlide], this.readyCallback.bind(this), this.errorCallback.bind(this))
-					this.vocalizedStage = currentSlide
-				} else {
-					Speech.vocalize('Блюдо готово.', '', () => {
-					}, () => {
-						alert('Ошибка во время преобразования текста в речь')
-					})
-				}
-		}
-		alert(e.command)
-	}
-
 	componentDidMount () {
 		this.proximityListener = DeviceEventEmitter.addListener('Proximity',
 			throttle(this.proximityHandler, 800))
-
-		Speech.loadSpotter(() => {
-			alert('Spotter loaded')
-			Speech.startSpotter((error) => {
-				alert('Spotter error ' + error)
-			})
-		}, (error) => {
-			alert(error)
-		})
 	}
 
 	proximityHandler (data) {
@@ -102,55 +60,13 @@ class RecipePage extends Component {
 		this.proximityListener.remove()
 		this.props.resetSlider()
 		this.props.resetTimers()
-		Speech.stopSpotter()
 	}
 
 	scrollTo () {
-		this.setState({scroll: this.props.currentHeight})
 		this.recipe.scrollTo({
-			y: this.state.scroll,
+			y: this.props.currentHeight,
 			animated: true
 		})
-	}
-
-	vocalizeTimeout (phrasesToVocalize, readyCallback, errorCallback) {
-		var phrase = phrasesToVocalize.shift()
-		Speech.vocalize(phrase, '', () => {
-			if (phrasesToVocalize.length > 0) {
-				setTimeout(this.vocalizeTimeout.bind(this), 1000, phrasesToVocalize, readyCallback, errorCallback)
-			} else {
-				readyCallback()
-			}
-		}, (error) => {
-			errorCallback(error)
-		})
-	}
-
-	vocalizeStage (index, stage, readyCallback, errorCallback) {
-		var phrasesToVocalize = []
-		phrasesToVocalize.push('Шаг' + (index + 1) + '. ' + stage.title)
-		stage.steps.forEach(function (element, index) {
-			phrasesToVocalize.push(element.title)
-		})
-
-		this.vocalizeTimeout(phrasesToVocalize, readyCallback, errorCallback)
-	}
-
-	readyCallback () {
-		Speech.startSpotter((error) => {
-			alert('Spotter error ' + error)
-		})
-	}
-
-	errorCallback () {
-		alert('Ошибка во время преобразования текста в речь')
-	}
-
-	_onPress () {
-		const { recipe, currentSlide } = this.props
-		Speech.stopSpotter()
-		this.vocalizedStage = currentSlide
-		this.vocalizeStage(currentSlide, recipe.stages[currentSlide], this.readyCallback.bind(this), this.errorCallback.bind(this))
 	}
 
 	renderRecipe (recipe) {
@@ -162,13 +78,8 @@ class RecipePage extends Component {
 		)
 	}
 
-	// <Button
-	// 	onPress={this._onPress.bind(this)}
-	// 	text='Диктовка' />
-
 	handleScroll = e => {
 		const { slides, currentSlide } = this.props
-		// console.log(currentSlide, slides.lengtsh)
 		if (currentSlide >= slides.length - 1) {
 			this.props.previousSlide({scroll: false})
 			return false
@@ -191,7 +102,7 @@ class RecipePage extends Component {
 		const { recipe } = this.props
 		return (
 			<View style={{flex: 1, justifyContent: 'space-between'}}>
-				<AppBar />
+				<RecipeAppBar />
 				<View style={{flex: 1}}>
 					<ScrollView
 						onScroll={this.handleScroll}
