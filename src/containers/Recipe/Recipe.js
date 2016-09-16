@@ -7,6 +7,7 @@ import { ScrollView,
 } from 'react-native'
 
 import Recipe from '../../components/Recipe'
+import AppBar from '../../components/AppBar'
 import Button from '../../components/Button'
 import AbsoluteTimer from '../../components/AbsoluteTimer'
 import { SensorManager } from 'NativeModules'
@@ -141,13 +142,14 @@ class RecipePage extends Component {
 		if (!this.state.ready) return null
 		return (
 			<View>
-				<Button
-					onPress={this._onPress.bind(this)}
-					text='Диктовка' />
 				<Recipe data={recipe} />
 			</View>
 		)
 	}
+
+	// <Button
+	// 	onPress={this._onPress.bind(this)}
+	// 	text='Диктовка' />
 
 	handleScroll = e => {
 		const { slides, currentSlide } = this.props
@@ -173,13 +175,16 @@ class RecipePage extends Component {
 	render () {
 		const { recipe } = this.props
 		return (
-			<View style={{flex: 1, marginTop: 56}}>
-				<ScrollView
-					onScroll={this.handleScroll}
-					scrollEventThrottle={200}
-					ref={(r) => { this.recipe = r }}>
-					{this.renderRecipe(recipe)}
-				</ScrollView>
+			<View style={{flex: 1, justifyContent: 'space-between'}}>
+				<AppBar />
+				<View style={{flex: 1}}>
+					<ScrollView
+						onScroll={this.handleScroll}
+						scrollEventThrottle={200}
+						ref={(r) => { this.recipe = r }}>
+						{this.renderRecipe(recipe)}
+					</ScrollView>
+				</View>
 				<AbsoluteTimer />
 			</View>
 		)
