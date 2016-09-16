@@ -64,10 +64,10 @@ class RecipeItem extends Component {
 	}
 
 	_renderImage () {
-		const { stage } = this.props
-		const { timer } = stage
+		// const { stage } = this.props
+		// const { timer } = stage
 		let { image } = this.props
-		if (timer) return null
+		// if (timer) return null
 		if (image === '') return null
 		image = formatImageSrc(image)
 		if (image) {
