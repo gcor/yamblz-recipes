@@ -11,18 +11,14 @@ export default class IngredientList extends Component {
 		super(props)
 		this.ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 })
 		const requiredProducts = this.props.recipe.ingredients.filter(item => item.isMain === true)
-		// const extraProducts = this.props.recipe.ingredients.filter(item => item.extra === true && item.isMain === true)
 		this.state = {
 			list: this.ds.cloneWithRows(requiredProducts)
-			// extra: this.ds.cloneWithRows(extraProducts)
 		}
 	}
 	componentWillReceiveProps (props) {
 		const requiredProducts = this.props.recipe.ingredients.filter(item => item.isMain === true)
-		// const extraProducts = this.props.recipe.ingredients.filter(item => item.extra === true && item.isMain === true)
 		this.setState({
 			list: this.ds.cloneWithRows(requiredProducts)
-			// extra: this.ds.cloneWithRows(extraProducts)
 		})
 	}
 	render () {
@@ -45,7 +41,7 @@ export default class IngredientList extends Component {
 							</Text>
 							<TouchableHighlight
 								underlayColor='transparent'
-								style={css.controls__button}
+								style={[css.controls__button, css.controls__button_plus]}
 								onPress={this.props.onIncrement}>
 								<Image source={PlusButton} />
 							</TouchableHighlight>
@@ -60,13 +56,6 @@ export default class IngredientList extends Component {
 			</View>
 		)
 	}
-	// <View style={css.extraIngredients}>
-	// 	<ListView
-	// 		enableEmptySections
-	// 		dataSource={this.state.extra}
-	// 		renderRow={this._renderIngredient.bind(this)}
-	// 	/>
-	// </View>
 	_renderCloseButton (isVisible, id) {
 		if (isVisible) {
 			return (
