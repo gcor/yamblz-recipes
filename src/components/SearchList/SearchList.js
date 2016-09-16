@@ -91,8 +91,6 @@ class SearchList extends Component {
 					onPressHandler={this._onCardPress.bind(this)}
 					recipes={recipes || []} />
 			)
-		} else {
-			return this.renderCategories()
 		}
 	}
 
@@ -112,6 +110,7 @@ class SearchList extends Component {
 					/>
 				</View>
 			{this.renderFound()}
+			{this.renderCategories()}
 			</View>
 		)
 	}
