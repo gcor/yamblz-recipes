@@ -14,7 +14,8 @@ const stateToProps = state => ({
 	recipe: state.recipe,
 	currentHeight: state.recipeSwiper.currentHeight,
 	slides: state.recipeSwiper.slides,
-	currentSlide: state.recipeSwiper.currentSlide
+	currentSlide: state.recipeSwiper.currentSlide,
+	scroll: state.recipeSwiper.scroll
 })
 
 const dipsatchToProps = dispatch => (bindActionCreators({

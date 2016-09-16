@@ -20,7 +20,10 @@ class RecipePage extends Component {
 	}
 	componentWillMount () {
 		DeviceEventEmitter.removeAllListeners('Proximity')
-		this.setState({ready: false, scroll: 0})
+		this.setState({
+			ready: false, scroll: 0,
+			currentSlide: 0
+		})
 		InteractionManager.runAfterInteractions(() => {
 			this.setState({ready: true})
 		})
@@ -32,9 +35,22 @@ class RecipePage extends Component {
 		})
 	}
 
+	componentWillReceiveProps (props) {
+		console.log(props.scroll, props.currentSlide)
+		if (props.currentSlide !== this.state.currentSlide &&
+			props.scroll) {
+			this.scrollTo()
+		}
+		if (this.state.currentSlide !== props.currentSlide) {
+			this.setState({
+				currentSlide: props.currentSlide
+			})
+		}
+	}
+
 	phraseSpotted (e) {
 		switch (e.command) {
-			case 'диктовка': 
+			case 'диктовка':
 				const { recipe, currentSlide } = this.props
 				Speech.stopSpotter()
 				this.vocalizedStage = currentSlide
@@ -77,7 +93,6 @@ class RecipePage extends Component {
 		const { isNear } = data
 		if (isNear) {
 			this.props.nextSlide()
-			this.scrollTo()
 		}
 	}
 
@@ -153,7 +168,7 @@ class RecipePage extends Component {
 		const { slides, currentSlide } = this.props
 		// console.log(currentSlide, slides.lengtsh)
 		if (currentSlide >= slides.length - 1) {
-			this.props.previousSlide()
+			this.props.previousSlide({scroll: false})
 			return false
 		}
 		const currentY = Math.floor(e.nativeEvent.contentOffset.y)
@@ -163,11 +178,11 @@ class RecipePage extends Component {
 			if (currentSlide >= slides.length - 2) {
 				return false
 			}
-			this.props.nextSlide()
+			this.props.nextSlide({scroll: false})
 		}
 
 		if (currentScreenOffset < slides[currentSlide].offsetY) {
-			this.props.previousSlide()
+			this.props.previousSlide({scroll: false})
 		}
 	}
 	render () {
@@ -196,7 +211,8 @@ RecipePage.propTypes = {
 	currentHeight: PropTypes.number.isRequired,
 	slides: PropTypes.array.isRequired,
 	currentSlide: PropTypes.number.isRequired,
-	resetTimers: PropTypes.func.isRequired
+	resetTimers: PropTypes.func.isRequired,
+	scroll: PropTypes.bool.isRequired
 }
 
 export default RecipePage
