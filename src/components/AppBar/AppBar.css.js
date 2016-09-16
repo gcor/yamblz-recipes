@@ -5,18 +5,26 @@ export default StyleSheet.create({
 	bar: {
 		paddingLeft: 16,
 		paddingRight: 16,
-		marginTop: 32,
+		height: 70,
+		flexDirection: 'row',
+		justifyContent: 'space-between'
+	},
+	bar_shift: {
+		marginTop: 32
+	},
+	bar_absolute: {
 		position: 'absolute',
 		top: 0,
 		left: 0,
 		bottom: 0,
-		right: 0,
-		height: 60,
-		flexDirection: 'row',
-		justifyContent: 'space-between'
+		right: 0
+	},
+	bar_white: {
+		backgroundColor: 'white',
+		elevation: 3
 	},
 	bar_centered: {
-			alignItems: 'center'
+		alignItems: 'center'
 	},
 	bar__hilight: {
 			padding: 8
@@ -48,6 +56,9 @@ export default StyleSheet.create({
 			fontWeight: '100',
 			color: 'white',
 			flexWrap: 'wrap'
+	},
+	bar__title_black: {
+			color: 'black'
 	},
 	bar__info: {
 			marginTop: 8,

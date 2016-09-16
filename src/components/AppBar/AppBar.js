@@ -3,7 +3,9 @@ import { Text, View, TouchableHighlight, Image } from 'react-native'
 import css from './AppBar.css'
 import SearchIcon from './assets/search.png'
 import BackIcon from './assets/back.png'
+import BackBlackIcon from '../../icons/arrow.png'
 import Bookmark from '../Icons/Bookmark'
+import RecipeSpeech from '../RecipeSpeech'
 
 const underlayColor = 'rgba(255,255,255,0.2)'
 export default class AppBar extends Component {
@@ -22,7 +24,7 @@ export default class AppBar extends Component {
 	renderHomeBar () {
 		const { pushToHistory, pushToSearch, pushToCategory } = this.props
 		return (
-			<View style={[css.bar, css.bar_centered]}>
+			<View style={[css.bar, css.bar_centered, css.bar_shift, css.bar_absolute]}>
 				<Bookmark navigationRole />
 				<TouchableHighlight style={css.bar__hilight} onPress={pushToCategory.bind(this, this.dayTime())}>
 					<View style={css.bar__category}
@@ -44,7 +46,7 @@ export default class AppBar extends Component {
 		const { title, time, energy } = recipe
 		if (!title) return null
 		return (
-			<View style={css.bar}>
+			<View style={[css.bar, css.bar_shift, css.bar_absolute]}>
 				<TouchableHighlight style={css.bar__hilight}
 					underlayColor={underlayColor}
 					onPress={navigateBack.bind(this)}>
@@ -60,16 +62,26 @@ export default class AppBar extends Component {
 						<Text style={css.bar__energy}>{energy} ккал</Text>
 					</View>
 				</View>
-
 				<Bookmark />
 			</View>
 		)
 	}
 
 	renderRecipe() {
+		const { recipe, navigateBack } =  this.props
 		return (
-			<View>
-			</View>
+			<View style={[css.bar, css.bar_centered, css.bar_white]}>
+                <TouchableHighlight style={css.bar__hilight}
+					underlayColor={underlayColor}
+					onPress={navigateBack.bind(this)}>
+					<Image style={css.bar__icon} source={BackBlackIcon} />
+				</TouchableHighlight>
+                <View style={css.bar__content}>                             
+                    <Text style={[css.bar__title, css.bar__title_black]}>{recipe.title}</Text>
+                </View>
+                <RecipeSpeech /> 
+            </View>
+
 		)
 	}
 

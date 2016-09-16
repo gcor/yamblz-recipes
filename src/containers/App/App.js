@@ -39,6 +39,7 @@ class App extends Component {
 		switch (navigationState.routes[navigationState.routes.length - 1].key) {
 			case 'Home':
 			case 'RecipeView':
+			case 'Recipe':
 			case 'Search': return null
 		}
 
