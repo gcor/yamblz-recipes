@@ -26,12 +26,37 @@ class RecipePage extends Component {
 		})
 		SensorManager.startProximity(50)
 
-		DeviceEventEmitter.addListener('phraseSpotted', function (e) {
-			alert(e.command)
-		})
+		DeviceEventEmitter.addListener('phraseSpotted', this.phraseSpotted.bind(this))
 		DeviceEventEmitter.addListener('spotterError', function (e) {
 			alert('Error: ' + e.error)
 		})
+	}
+
+	phraseSpotted (e) {
+		switch (e.command) {
+			case 'диктовка': 
+				const { recipe, currentSlide } = this.props
+				Speech.stopSpotter()
+				this.vocalizedStage = currentSlide
+				this.vocalizeStage(currentSlide, recipe.stages[currentSlide], this.readyCallback.bind(this), this.errorCallback.bind(this))
+				break
+			case 'следующий-шаг':
+				this.props.nextSlide()
+				this.scrollTo()
+				currentSlide = this.props.currentSlide
+				recipe = this.props.recipe
+				Speech.stopSpotter()
+				if (this.vocalizedStage !== currentSlide) {
+					this.vocalizeStage(currentSlide, recipe.stages[currentSlide], this.readyCallback.bind(this), this.errorCallback.bind(this))
+					this.vocalizedStage = currentSlide
+				} else {
+					Speech.vocalize('Блюдо готово.', '', () => {
+					}, () => {
+						alert('Ошибка во время преобразования текста в речь')
+					})
+				}
+		}
+		alert(e.command)
 	}
 
 	componentDidMount () {
@@ -61,6 +86,7 @@ class RecipePage extends Component {
 		this.proximityListener.remove()
 		this.props.resetSlider()
 		this.props.resetTimers()
+		Speech.stopSpotter()
 	}
 
 	scrollTo () {
@@ -95,18 +121,9 @@ class RecipePage extends Component {
 	}
 
 	readyCallback () {
-		this.props.nextSlide()
-		this.scrollTo()
-		const { recipe, currentSlide } = this.props
-		if (this.vocalizedStage !== currentSlide) {
-			this.vocalizeStage(currentSlide, recipe.stages[currentSlide], this.readyCallback.bind(this), this.errorCallback.bind(this))
-			this.vocalizedStage = currentSlide
-		} else {
-			Speech.vocalize('Блюдо готово.', '', () => {
-			}, () => {
-				alert('Ошибка во время преобразования текста в речь')
-			})
-		}
+		Speech.startSpotter((error) => {
+			alert('Spotter error ' + error)
+		})
 	}
 
 	errorCallback () {
@@ -115,6 +132,7 @@ class RecipePage extends Component {
 
 	_onPress () {
 		const { recipe, currentSlide } = this.props
+		Speech.stopSpotter()
 		this.vocalizedStage = currentSlide
 		this.vocalizeStage(currentSlide, recipe.stages[currentSlide], this.readyCallback.bind(this), this.errorCallback.bind(this))
 	}
