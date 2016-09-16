@@ -10,19 +10,19 @@ export default class IngredientList extends Component {
 	constructor (props) {
 		super(props)
 		this.ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 })
-		const requiredProducts = this.props.recipe.ingredients.filter(item => item.extra === false)
-		const extraProducts = this.props.recipe.ingredients.filter(item => item.extra === true && item.isMain === true)
+		const requiredProducts = this.props.recipe.ingredients.filter(item => item.isMain === true)
+		// const extraProducts = this.props.recipe.ingredients.filter(item => item.extra === true && item.isMain === true)
 		this.state = {
-			list: this.ds.cloneWithRows(requiredProducts),
-			extra: this.ds.cloneWithRows(extraProducts)
+			list: this.ds.cloneWithRows(requiredProducts)
+			// extra: this.ds.cloneWithRows(extraProducts)
 		}
 	}
 	componentWillReceiveProps (props) {
-		const requiredProducts = this.props.recipe.ingredients.filter(item => item.extra === false)
-		const extraProducts = this.props.recipe.ingredients.filter(item => item.extra === true && item.isMain === true)
+		const requiredProducts = this.props.recipe.ingredients.filter(item => item.isMain === true)
+		// const extraProducts = this.props.recipe.ingredients.filter(item => item.extra === true && item.isMain === true)
 		this.setState({
-			list: this.ds.cloneWithRows(requiredProducts),
-			extra: this.ds.cloneWithRows(extraProducts)
+			list: this.ds.cloneWithRows(requiredProducts)
+			// extra: this.ds.cloneWithRows(extraProducts)
 		})
 	}
 	render () {
@@ -57,16 +57,16 @@ export default class IngredientList extends Component {
 						renderRow={this._renderIngredient.bind(this)}
 					/>
 				</View>
-				<View style={css.extraIngredients}>
-					<ListView
-						enableEmptySections
-						dataSource={this.state.extra}
-						renderRow={this._renderIngredient.bind(this)}
-					/>
-				</View>
 			</View>
 		)
 	}
+	// <View style={css.extraIngredients}>
+	// 	<ListView
+	// 		enableEmptySections
+	// 		dataSource={this.state.extra}
+	// 		renderRow={this._renderIngredient.bind(this)}
+	// 	/>
+	// </View>
 	_renderCloseButton (isVisible, id) {
 		if (isVisible) {
 			return (
@@ -79,7 +79,7 @@ export default class IngredientList extends Component {
 	_renderIngredient = ingredient => {
 		const ingredientStyle = (ingredient.extra === false) ? css.ingredients__item : css.extraIngredients__item
 		return (
-			<View style={ingredientStyle}>
+			<View style={css.ingredients__item}>
 				<View style={css.ingredients__imageBox}>
 					<Image style={css.ingredients__image} source={{uri: ingredient.product.image}} />
 				</View>
