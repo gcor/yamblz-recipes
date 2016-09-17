@@ -46,7 +46,8 @@ public class SpeechApiModule extends ReactContextBaseJavaModule implements Vocal
 		vocalizer.start();
 	}
 
-	private void resetVocalizer() {
+	@ReactMethod
+	public void resetVocalizer() {
 		if (vocalizer != null) {
 			vocalizer.cancel();
 			vocalizer = null;
