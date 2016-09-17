@@ -144,5 +144,5 @@ RecipeSpeech.propTypes = {
 	previousSlide: PropTypes.func.isRequired,
 	resetSlider: PropTypes.func.isRequired,
 	currentSlide: PropTypes.number.isRequired,
-	scroll: PropTypes.bool.isRequired
+	scroll: PropTypes.bool.isRequired  
 }

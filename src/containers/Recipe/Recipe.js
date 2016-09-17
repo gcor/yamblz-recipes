@@ -49,7 +49,7 @@ class RecipePage extends Component {
 		const { isNear } = data
 		if (isNear) {
 			this.props.nextSlide()
-			this.scrollTo()
+			// this.scrollTo()
 		}
 	}
 
