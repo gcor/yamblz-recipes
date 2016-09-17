@@ -6,7 +6,6 @@ export default StyleSheet.create({
 		height: 56,
 		alignItems: 'center',
 		paddingLeft: 15,
-		paddingRight: 15,
 		flexDirection: 'row',
 		justifyContent: 'space-between',
 		borderBottomWidth: 1,
@@ -22,7 +21,13 @@ export default StyleSheet.create({
 		color: '#444'
 	},
 	controls__button: {
-		padding: 10
+		paddingTop: 20,
+		paddingBottom: 20,
+		paddingLeft: 10,
+		paddingRight: 10
+	},
+	controls__button_plus: {
+		paddingRight: 25
 	},
 	controls__value: {
 		textAlign: 'center',
