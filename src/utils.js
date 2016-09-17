@@ -45,3 +45,10 @@ export function getCookingTime (time) {
 	if (time > 60) return hours + ` ${hoursPronunciation} ` + minutes + ' мин'
 	return time + ' мин'
 }
+
+export function format3points (string) {
+	if (string.length > 30) {
+		return string.substr(0, string.length - string.length * 0.3) + '...'
+	}
+	return string
+}
