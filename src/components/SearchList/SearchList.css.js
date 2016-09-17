@@ -20,8 +20,8 @@ export default StyleSheet.create({
 		flex: 1
 	},
 	searchList__back: {
-		height: 20,
-		width: 20,
+		height: 30,
+		width: 30,
 		marginLeft: 20,
 		marginRight: 10,
 		resizeMode: 'contain'
