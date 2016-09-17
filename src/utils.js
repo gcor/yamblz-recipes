@@ -8,8 +8,9 @@ export function formatImageSrc (src) {
 	return src
 }
 
-// Choose good ending according to number
-// 32 ['час', 'часа', 'часов'] → 32 часа
+/** Choose good ending according to number
+* 32 ['час', 'часа', 'часов'] → 32 часа
+*/
 export function pronunciation (number, endings) {
 	var sEnding, i
 	number = number % 100

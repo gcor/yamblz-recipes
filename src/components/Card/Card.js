@@ -1,29 +1,39 @@
 import React, { Component, PropTypes } from 'react'
 import { Text, View, TouchableHighlight, Image } from 'react-native'
 import css from './Card.css'
+import * as utils from '../../utils'
 
 export default class Card extends Component {
+	/**
+	*	format cooking time
+	* @param {Number} minutes
+	* @returns {String} hours + pronunciation + minutes (2 часа 20 мин)
+	*/
 	getCookingTime (time) {
-		if (time > 60) return ~~(time / 60) + ' час ' + (time % 60) + ' мин'
-		else return time + ' мин'
+		var hours = ~~(time / 60)
+		var minutes = time % 60
+		var hoursPronunciation = utils.pronunciation(hours, ['час', 'часа', 'часов'])
+		if (time > 60) return hours + ` ${hoursPronunciation} ` + minutes + ' мин'
+		return time + ' мин'
 	}
-
 	render () {
-		const { data } = this.props
+		const { data, isFullWidth } = this.props
 		const { title, time, energy, image, _id: recipeID } = data
+		const cardCSS = (isFullWidth) ? css.card : [css.card, css.card_type_slider]
+		const cardImageCSS = (isFullWidth) ? css.card__image : [css.card__image, css.card__image_type_slider]
+
 		return (
 			<TouchableHighlight
 				underlayColor='transparent'
 				onPress={this.props.onPressHandler.bind(this, recipeID)}
 				>
-				<View style={[css.card, this.props.style]}>
-					<View>
-						<Image source={{uri: image}} style={[css.card__image, this.props.style_image]} />
-					</View>
+				<View style={cardCSS}>
+					<Image source={{uri: image}} style={cardImageCSS} />
 					<Text numberOfLines={1} style={css.card__title}>{title}</Text>
 					<View style={css.card__description}>
 						<View style={css.card__side}>
-							<Text style={css.card__text}>{this.getCookingTime(time)}  ·  </Text>
+							<Text style={css.card__text}>{this.getCookingTime(time)}</Text>
+							<Text style={[css.card__text, css.card__point]}>·</Text>
 							<Text style={css.card__text}>{energy} ккал</Text>
 						</View>
 						<View style={css.card__side}>
@@ -37,7 +47,6 @@ export default class Card extends Component {
 }
 Card.propTypes = {
 	onPressHandler: PropTypes.func.isRequired,
-	style: PropTypes.number,
-	style_image: PropTypes.number,
+	isFullWidth: PropTypes.bool,
 	data: PropTypes.object.isRequired
 }

@@ -9,11 +9,5 @@ export default StyleSheet.create({
 		marginLeft: 24,
 		marginBottom: 16,
 		marginTop: 24
-	},
-	slider__item: {
-		width: Dimensions.get('window').width * 0.9,
-		marginLeft: 8,
-		marginRight: 5,
-		marginBottom: 10
 	}
 })
