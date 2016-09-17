@@ -79,7 +79,6 @@ export default class AbsoluteTimer extends Component {
 		? -(this.props.timers.length - 1) * timerHeight
 		: 0
 		this.setState({isHidden: !this.state.isHidden})
-		console.log(animatedValue)
 		Animated.spring(this.state.translateY, {
 			toValue: animatedValue
 		}).start()

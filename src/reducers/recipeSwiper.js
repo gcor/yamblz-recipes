@@ -17,7 +17,7 @@ const initialState = {
 
 const marginConst = 20
 function recipeSwiper (state = initialState, action) {
-	const { currentSlide, currentHeight, slides } = state
+	const { currentSlide, slides } = state
 	switch (action.type) {
 		case SLIDER_NEXT_SLIDE:
 			if (currentSlide >= slides.length - 1) return state
@@ -28,7 +28,6 @@ function recipeSwiper (state = initialState, action) {
 					isScroll = action.payload.scroll
 				}
 			}
-			console.log('isScroll ' + isScroll)
 			return {
 				// ...state,
 				...{slides: state.slides},
