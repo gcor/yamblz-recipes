@@ -41,7 +41,7 @@ export default class IngredientList extends Component {
 							</Text>
 							<TouchableHighlight
 								underlayColor='transparent'
-								style={[css.controls__button, css.controls__button_plus]}
+								style={css.controls__button}
 								onPress={this.props.onIncrement}>
 								<Image source={PlusButton} />
 							</TouchableHighlight>
