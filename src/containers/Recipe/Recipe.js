@@ -22,7 +22,7 @@ class RecipePage extends Component {
 		DeviceEventEmitter.removeAllListeners('Proximity')
 		this.setState({
 			ready: false, scroll: 0,
-			currentSlide: 0
+			currentSlide: 4
 		})
 		InteractionManager.runAfterInteractions(() => {
 			this.setState({ready: true})
@@ -32,9 +32,9 @@ class RecipePage extends Component {
 
 	componentWillReceiveProps (props) {
 		console.log(props.scroll, props.currentSlide)
-		if (props.currentSlide !== this.state.currentSlide &&
+		if (
 			props.scroll) {
-			this.scrollTo()
+			// this.scrollTo()
 		}
 		if (this.state.currentSlide !== props.currentSlide) {
 			this.setState({
@@ -52,6 +52,7 @@ class RecipePage extends Component {
 		const { isNear } = data
 		if (isNear) {
 			this.props.nextSlide()
+			this.scrollTo()
 		}
 	}
 

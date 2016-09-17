@@ -31,3 +31,10 @@ export function pronunciation (number, endings) {
 export function CapitalizeFirstLetter (sentence) {
 	return sentence = sentence[0].toUpperCase() + sentence.slice(1)
 }
+
+export function format3points (string) {
+	if (string.length > 30) {
+		return string.substr(0, string.length - string.length * 0.3) + '...'
+	}
+	return string
+}

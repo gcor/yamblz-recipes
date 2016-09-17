@@ -1,6 +1,12 @@
 import fuzzysearch from 'fuzzysearch'
 import { CapitalizeFirstLetter } from '../../utils'
+/**
+	Class respresents delivering logic between RecipeItem component
+	and IngredientList. Here we go through ingredients and trying t
 
+	@constructor
+	@param {string}
+*/
 class Brain {
 	constructor () {
 		this.ingredients = []

@@ -31,9 +31,9 @@ function recipeSwiper (state = initialState, action) {
 			console.log('isScroll ' + isScroll)
 			return {
 				...state,
-				currentSlide: currentSlide + 1,
-				currentHeight: slides[currentSlide + 1].offsetY - marginConst,
-				scroll: isScroll
+				...{currentSlide: currentSlide + 1},
+				...{currentHeight: slides[currentSlide + 1].offsetY - marginConst},
+				...{scroll: isScroll}
 			}
 		case SLIDER_PREVIOUS_SLIDE:
 			if (currentSlide <= 0) return state
