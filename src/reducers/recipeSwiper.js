@@ -28,7 +28,6 @@ function recipeSwiper (state = initialState, action) {
 					isScroll = action.payload.scroll
 				}
 			}
-			console.log('isScroll ' + isScroll)
 			return {
 				// ...state,
 				...{slides: state.slides},
@@ -46,10 +45,10 @@ function recipeSwiper (state = initialState, action) {
 				}
 			}
 			return {
-				...state,
-				currentSlide: currentSlide - 1,
-				currentHeight: slides[currentSlide - 1].offsetY - marginConst,
-				scroll: isScroll
+				...{slides: state.slides},
+				...{currentSlide: currentSlide - 1},
+				...{currentHeight: slides[currentSlide - 1].offsetY - marginConst},
+				...{scroll: isScroll}
 			}
 		case SLIDER_SET_CURRENT_SLIDE:
 			// TODO - do not know now how to recursive to this

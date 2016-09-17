@@ -101,19 +101,18 @@ export default class RecipeSpeech extends Component {
 	}
 
 	_onPress () {
-		this.props.nextSlide()
-		console.log('going next slide')
-		// var state = !this.state.isSpeechEnabled
-		// this.setState({isSpeechEnabled: state})
-		// alert(state)
-		//
-		// if (state) {
-		// 	Speech.startSpotter((error) => {
-		// 		alert('Spotter error ' + error)
-		// 	})
-		// } else {
-		// 	Speech.stopSpotter()
-		// }
+
+		var state = !this.state.isSpeechEnabled
+		this.setState({isSpeechEnabled: state})
+		alert(state)
+
+		if (state) {
+			Speech.startSpotter((error) => {
+				alert('Spotter error ' + error)
+			})
+		} else {
+			Speech.stopSpotter()
+		}
 	}
 
 	render () {
@@ -134,5 +133,5 @@ RecipeSpeech.propTypes = {
 	previousSlide: PropTypes.func.isRequired,
 	resetSlider: PropTypes.func.isRequired,
 	currentSlide: PropTypes.number.isRequired,
-	scroll: PropTypes.bool.isRequired
+	scroll: PropTypes.bool.isRequired  
 }
