@@ -4,16 +4,15 @@ import css from './ProductCard.css'
 
 export default class ProductCard extends Component {
 	render () {
+		const { ingredient } = this.props
 		return (
 			<TouchableHighlight
 				underlayColor='transparent'
-				onPress={this.props.onProductClick.bind(this, this.props.ingredient.product._id)}
+				onPress={this.props.onProductClick.bind(this, ingredient.product._id)}
 				>
 				<View style={[css.productCard, this.props.style]}>
-					<View>
-						<Image source={{uri: this.props.ingredient.product.image}} style={css.productCard__image} />
-					</View>
-					<Text numberOfLines={1} style={css.productCard__title}>{this.props.ingredient.product.title}</Text>
+					<Image source={{uri: ingredient.product.image}} style={css.productCard__image} />
+					<Text numberOfLines={1} style={css.productCard__title}>{ingredient.product.title}</Text>
 				</View>
 			</TouchableHighlight>
 		)
