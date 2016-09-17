@@ -6,16 +6,17 @@ import BackIcon from './assets/back.png'
 import BackBlackIcon from '../../icons/arrow.png'
 import Bookmark from '../Icons/Bookmark'
 import RecipeSpeech from '../RecipeSpeech'
+import * as utils from '../../utils'
 
 const underlayColor = 'rgba(255,255,255,0.2)'
 export default class AppBar extends Component {
 
 	dayTime () {
 		let dayTime
-		const now = (new Date()).getHours()
-		if (now > 3 && now <= 11) {
+		const currentHours = (new Date()).getHours()
+		if (currentHours > 3 && currentHours <= 11) {
 			dayTime = 'Завтрак'
-		} else if (now > 11 && now <= 17) {
+		} else if (currentHours > 11 && currentHours <= 17) {
 			dayTime = 'Обед'
 		} else dayTime = 'Ужин'
 		return dayTime
@@ -57,7 +58,7 @@ export default class AppBar extends Component {
 					<Text style={css.bar__title}>{title}</Text>
 					<View style={css.bar__info}>
 						<Text style={css.bar__time}>
-								{this.getCookingTime(time)} ·
+								{utils.getCookingTime(time)} ·
 						</Text>
 						<Text style={css.bar__energy}>{energy} ккал</Text>
 					</View>
@@ -74,11 +75,6 @@ export default class AppBar extends Component {
 			case 'RecipeView': return this.renderRecipeViewBar()
 			default: return null
 		}
-	}
-
-	getCookingTime (time) {
-		if (time > 60) return ~~(time / 60) + ' час ' + (time % 60) + ' мин'
-		else return time + ' мин'
 	}
 
 	addToSavedRecipes () {

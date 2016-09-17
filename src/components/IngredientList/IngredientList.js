@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { Text, View, ListView, Image, TouchableHighlight } from 'react-native'
 import css from './IngredientList.css'
 import { getAmount } from './util'
-import CloseButton from '../../icons/close_w.png'
+import CloseButton from '../../icons/close.png'
 import PlusButton from '../../icons/plus.png'
 import MinusButton from '../../icons/minus.png'
 
@@ -57,7 +57,7 @@ export default class IngredientList extends Component {
 		)
 	}
 	/**
-	 * Рендеринг кнопки удалить для добавленных игридиентов
+	 * Рендеринг кнопки "удалить" для добавленных игридиентов
 	 */
 	_renderCloseButton (isVisible, id) {
 		if (isVisible) {
@@ -91,11 +91,11 @@ export default class IngredientList extends Component {
 }
 
 IngredientList.propTypes = {
-	// уменьшить уолличество порций
+	// уменьшить количество порций
 	onDecrement: PropTypes.func.isRequired,
-	// увеличить уолличество порций
+	// увеличить количество порций
 	onIncrement: PropTypes.func.isRequired,
-	// перенос ингредиент в "можно добавить"
+	// перенос ингредиента в "можно добавить"
 	setExtra: PropTypes.func.isRequired,
 	recipe: PropTypes.object.isRequired
 }
