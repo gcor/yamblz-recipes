@@ -47,13 +47,13 @@ export const getAmount = (amount, measure, baseMeasure) => {
 			return getResult(amount, ['стебель', 'стебля', 'стеблей'])
 		case 'гр':
 			if (amount >= 1000) {
-				return (amount / 1000).toFixed(1) + ' ' + 'кг'
+				return (amount / 1000).toFixed(1) + ' кг'
 			} else {
 				return getResult(Math.round(amount), ['грамм', 'грамма', 'грамм'])
 			}
 		case 'мл':
 			if (amount >= 1000) {
-				return (amount / 1000).toFixed(1) + ' ' + 'л'
+				return (amount / 1000).toFixed(1) + ' л'
 			} else {
 				return getResult(Math.round(amount), ['мл', 'мл', 'мл'])
 			}
@@ -75,10 +75,10 @@ export const getAmount = (amount, measure, baseMeasure) => {
 			}
 		case 'стак.':
 			if (baseMeasure === 'гр') {
-				return (amount >= 5) ? (amount / 5).toFixed(1) + ' ' + 'кг' : unaltered
+				return (amount >= 5) ? (amount / 5).toFixed(1) + ' кг' : unaltered
 			}
 			if (baseMeasure === 'мл') {
-				return (amount >= 5) ? (amount / 5).toFixed(1) + ' ' + 'л' : unaltered
+				return (amount >= 5) ? (amount / 5).toFixed(1) + ' л' : unaltered
 			}
 			break
 		default:

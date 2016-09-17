@@ -2,7 +2,6 @@ import { StyleSheet, Dimensions } from 'react-native'
 import ui from '../../constants/css'
 
 export default StyleSheet.create({
-	list: {},
 	item: {
 		marginTop: 8,
 		marginBottom: 8
@@ -16,7 +15,6 @@ export default StyleSheet.create({
 		left: 20,
 		top: 8
 	},
-	item__point_active: {},
 	item__value: {
 		fontSize: ui.fontL,
 		color: 'black',

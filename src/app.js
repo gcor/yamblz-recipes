@@ -16,7 +16,7 @@ const enhancer = compose(
 			promiseTypeSuffixes: [LOADING, SUCCESS, ERROR]
 		})
 	),
-	global.reduxNativeDevTools ? global.reduxNativeDevTools(/*options*/) : nope => nope,
+	global.reduxNativeDevTools ? global.reduxNativeDevTools() : nope => nope,
 )
 let store = createStore(reducers(), enhancer)
 if (global.reduxNativeDevTools) {

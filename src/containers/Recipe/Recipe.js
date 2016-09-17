@@ -29,8 +29,6 @@ class RecipePage extends Component {
 	}
 
 	componentWillReceiveProps (props) {
-		console.log(props)
-		// console.log(props.scroll, props.currentSlide)
 		const { scroll, currentHeight } = props
 		if (scroll) {
 			this.scrollTo(currentHeight)
@@ -51,7 +49,7 @@ class RecipePage extends Component {
 		const { isNear } = data
 		if (isNear) {
 			this.props.nextSlide()
-			this.scrollTo()
+			// this.scrollTo()
 		}
 	}
 
