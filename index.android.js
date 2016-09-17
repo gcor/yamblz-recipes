@@ -1,3 +1,7 @@
 import { AppRegistry } from 'react-native'
-import Wrapper from './src/app'
-AppRegistry.registerComponent('kitchen', () => Wrapper)
+import App from './src/app'
+try {
+	AppRegistry.registerComponent('kitchen', () => App)
+} catch (err) {
+	console.info('Приложение, между прочим, упало!')
+}

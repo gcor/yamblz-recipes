@@ -3,12 +3,9 @@ import { Text, View, Image, TouchableHighlight, Dimensions } from 'react-native'
 import Swiper from 'react-native-swiper'
 import LinearGradient from 'react-native-linear-gradient'
 import css from './HomeSwiper.css'
+import * as utils from '../../utils'
 
 export default class HomeSwiper extends Component {
-	getCookingTime (time) {
-		if (time > 60) return ~~(time / 60) + ' час ' + (time % 60) + ' мин'
-		else return time + ' мин'
-	}
 	render () {
 		const { items } = this.props
 		return (
@@ -34,7 +31,7 @@ export default class HomeSwiper extends Component {
 										<Text style={css.swiper__title}>{item.title}</Text>
 										<View style={css.swiper__info}>
 											<Text style={css.swiper__time}>
-												{this.getCookingTime(item.time)} ·
+												{utils.getCookingTime(item.time)} ·
 											</Text>
 											<Text style={css.swiper__energy}>{item.energy} ккал</Text>
 										</View>
