@@ -2,8 +2,6 @@ import { StyleSheet, Dimensions } from 'react-native'
 import ui from '../../constants/css'
 
 export default StyleSheet.create({
-	swiper: {
-	},
 	swiper__slide: {
 		flex: 1,
 		justifyContent: 'center',

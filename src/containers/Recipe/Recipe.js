@@ -2,12 +2,10 @@ import React, { Component, PropTypes } from 'react'
 import { ScrollView,
 	InteractionManager,
 	DeviceEventEmitter,
-	View,
-	NativeModules
+	View
 } from 'react-native'
 
 import Recipe from '../../components/Recipe'
-import Button from '../../components/Button'
 import AbsoluteTimer from '../../components/AbsoluteTimer'
 import { SensorManager } from 'NativeModules'
 import { throttle } from 'lodash'
@@ -22,7 +20,7 @@ class RecipePage extends Component {
 		DeviceEventEmitter.removeAllListeners('Proximity')
 		this.setState({
 			ready: false, scroll: 0,
-			currentSlide: 0
+			currentSlide: 4
 		})
 		InteractionManager.runAfterInteractions(() => {
 			this.setState({ready: true})
@@ -31,10 +29,11 @@ class RecipePage extends Component {
 	}
 
 	componentWillReceiveProps (props) {
-		console.log(props.scroll, props.currentSlide)
-		if (props.currentSlide !== this.state.currentSlide &&
-			props.scroll) {
-			this.scrollTo()
+		console.log(props)
+		// console.log(props.scroll, props.currentSlide)
+		const { scroll, currentHeight } = props
+		if (scroll) {
+			this.scrollTo(currentHeight)
 		}
 		if (this.state.currentSlide !== props.currentSlide) {
 			this.setState({
@@ -52,6 +51,7 @@ class RecipePage extends Component {
 		const { isNear } = data
 		if (isNear) {
 			this.props.nextSlide()
+			this.scrollTo()
 		}
 	}
 
@@ -62,9 +62,11 @@ class RecipePage extends Component {
 		this.props.resetTimers()
 	}
 
-	scrollTo () {
+	scrollTo (currentHeight) {
+		if (!currentHeight) currentHeight = this.props.currentHeight
+		console.log('scrolling to' + currentHeight)
 		this.recipe.scrollTo({
-			y: this.props.currentHeight,
+			y: currentHeight,
 			animated: true
 		})
 	}

@@ -131,9 +131,9 @@ export default class RecipeSpeech extends Component {
 			<TouchableHighlight style={css.speech__highlight}
 				underlayColor='rgba(255,255,255,0.2)'
 				onPress={this._onPress.bind(this)}>
-				<Image style={css.speech__icon} 
+				<Image style={css.speech__icon}
 					source={this.state.isSpeechEnabled ? SpeechIconOn : SpeechIcon} />
-			</TouchableHighlight>  
+			</TouchableHighlight>
 		)
 	}
 }
@@ -144,5 +144,5 @@ RecipeSpeech.propTypes = {
 	previousSlide: PropTypes.func.isRequired,
 	resetSlider: PropTypes.func.isRequired,
 	currentSlide: PropTypes.number.isRequired,
-	scroll: PropTypes.bool.isRequired  
+	scroll: PropTypes.bool.isRequired
 }

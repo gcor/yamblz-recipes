@@ -3,15 +3,18 @@ import { Text, View, ListView } from 'react-native'
 import Card from '../Card/Card'
 import css from './Slider.css'
 
-class Slider extends Component {
+export default class Slider extends Component {
 	constructor (props) {
 		super(props)
+		// create recipes list from props.recipes
 		this.ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 })
+		// init state
 		this.state = {
 			dataSource: this.ds.cloneWithRows(props.recipes)
 		}
 	}
 	componentWillReceiveProps (props) {
+		// update when state change
 		this.setState({
 			dataSource: this.ds.cloneWithRows(props.recipes)
 		})
@@ -46,5 +49,3 @@ Slider.propTypes = {
 	title: PropTypes.string.isRequired,
 	recipes: PropTypes.array.isRequired
 }
-
-export default Slider

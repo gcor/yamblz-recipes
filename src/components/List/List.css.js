@@ -19,7 +19,6 @@ export default StyleSheet.create({
 	item__point_active: {},
 	item__value: {
 		fontSize: ui.fontL,
-		// lineHeight: 30,
 		color: 'black',
 		width: Dimensions.get('window').width - 80,
 		marginLeft: 50
