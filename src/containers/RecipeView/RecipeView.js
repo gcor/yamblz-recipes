@@ -123,12 +123,12 @@ RecipeView.propTypes = {
 	saveInLastViewed: PropTypes.func.isRequired,
 	incrementRecipePortion: PropTypes.func.isRequired,
 	decrementRecipePortion: PropTypes.func.isRequired,
-	addToHistory: PropTypes.func.isRequired,
-	removeFromHistory: PropTypes.func.isRequired,
+	addToSavedRecipes: PropTypes.func.isRequired,
+	removeFromSavedRecipes: PropTypes.func.isRequired,
 	setProductAsMain: PropTypes.func.isRequired,
 	setProductAsExtra: PropTypes.func.isRequired,
 	navigatePush: PropTypes.func.isRequired,
 	currentRecipe: PropTypes.string.isRequired,
 	resetRecipe: PropTypes.func.isRequired,
-	addToHistoryButtonText: PropTypes.string
+	addToSavedRecipesButtonText: PropTypes.string
 }

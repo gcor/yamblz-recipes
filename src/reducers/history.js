@@ -1,7 +1,7 @@
 import {
-	FETCH_HISTORY_LOADING,
-	FETCH_HISTORY_SUCCESS,
-	FETCH_HISTORY_ERROR,
+	FETCH_SAVED_RECIPES_LOADING,
+	FETCH_SAVED_RECIPES_SUCCESS,
+	FETCH_SAVED_RECIPES_ERROR,
 	LOADING,
 	SUCCESS,
 	ERROR
@@ -14,9 +14,9 @@ const initialState = {
 
 function history (state = initialState, action) {
 	switch (action.type) {
-		case FETCH_HISTORY_LOADING:
+		case FETCH_SAVED_RECIPES_LOADING:
 			return {...state, ...{state: LOADING}}
-		case FETCH_HISTORY_SUCCESS:
+		case FETCH_SAVED_RECIPES_SUCCESS:
 			return {
 				// Мы отправляем каждый раз новое
 				// ...state,
@@ -25,7 +25,7 @@ function history (state = initialState, action) {
 				state: SUCCESS,
 				historyRecipes: action.payload
 			}
-		case FETCH_HISTORY_ERROR:
+		case FETCH_SAVED_RECIPES_ERROR:
 			return {...state, ...{state: ERROR}}
 		default:
 			return state

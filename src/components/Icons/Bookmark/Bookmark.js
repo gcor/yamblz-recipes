@@ -20,15 +20,15 @@ export default class Bookmark extends Component {
 		this.setState({isFavourite: props.isFavourite})
 	}
 	handleClick () {
-		const { navigationRole, addToHistory,
-			pushToHistory, removeFromHistory, recipeID } = this.props
+		const { navigationRole, addToSavedRecipes,
+			pushToHistory, removeFromSavedRecipes, recipeID } = this.props
 		if (navigationRole) return pushToHistory()
 		const { isFavourite } = this.state
 		if (isFavourite) {
-			removeFromHistory(recipeID)
+			removeFromSavedRecipes(recipeID)
 			this.setState({isFavourite: false})
 		} else {
-			addToHistory(recipeID)
+			addToSavedRecipes(recipeID)
 			this.setState({isFavourite: true})
 		}
 	}
@@ -46,8 +46,8 @@ export default class Bookmark extends Component {
 }
 
 Bookmark.propTypes = {
-	addToHistory: PropTypes.func.isRequired,
-	removeFromHistory: PropTypes.func.isRequired,
+	addToSavedRecipes: PropTypes.func.isRequired,
+	removeFromSavedRecipes: PropTypes.func.isRequired,
 	recipeID: PropTypes.string.isRequired,
 	isFavourite: PropTypes.bool.isRequired,
 	navigationRole: PropTypes.bool,
