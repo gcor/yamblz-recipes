@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { View, Text, NativeModules } from 'react-native'
+import { View, Text, Alert, NativeModules } from 'react-native'
 import css from './SoonInApp.css'
 import CardSmall from '../CardSmall'
 import Button from '../Button'
@@ -20,7 +20,7 @@ export default class SoonInApp extends Component {
 		AppMetrica.categorySubscribe(JSON.stringify({
 			title: 'Следующая категория'
 		}))
-		this.setState ({isVisible: !this.state.isVisible})
+		this.setState({isVisible: !this.state.isVisible})
 	}
 
 	render () {
