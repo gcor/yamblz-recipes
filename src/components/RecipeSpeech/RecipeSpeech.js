@@ -21,48 +21,54 @@ export default class RecipeSpeech extends Component {
 
 	componentDidMount () {
 		Speech.loadSpotter(() => {
-			if (this.state.isSpeechEnabled) {
-				Speech.startSpotter((error) => {
-					alert('Spotter error ' + error)
-				})
-			}
+			//if (this.state.isSpeechEnabled) {
+				//Speech.startSpotter((error) => {
+					//alert('Spotter error ' + error)
+				//})
+			//}
 		}, (error) => {
 			alert(error)
 		})
+		Speech.stopSpotter()
 	}
 
 	componentWillUnmount () {
 		Speech.stopSpotter()
+		//DeviceEventEmitter.removeAllListeners('phraseSpotted')
+		//DeviceEventEmitter.removeAllListeners('spotterError')
 	}
 
 	phraseSpotted (e) {
-		switch (e.command) {
-			case 'диктовка':
-				const { recipe, currentSlide } = this.props
-				Speech.stopSpotter()
-				this.vocalizedStage = currentSlide
-				this.vocalizeStage(currentSlide, recipe.stages[currentSlide], this.readyCallback.bind(this), this.errorCallback.bind(this))
-				break
-			case 'следующий-шаг':
-				this.props.nextSlide()
-				currentSlide = this.props.currentSlide
-				recipe = this.props.recipe
-				Speech.stopSpotter()
-				if (this.vocalizedStage !== currentSlide) {
-					this.vocalizeStage(currentSlide, recipe.stages[currentSlide], this.readyCallback.bind(this), this.errorCallback.bind(this))
-					this.vocalizedStage = currentSlide
-				}
-			case 'предыдущий-шаг':
-				this.props.previousSlide()
-				currentSlide = this.props.currentSlide
-				recipe = this.props.recipe
-				Speech.stopSpotter()
-				if (this.vocalizedStage !== currentSlide) {
-					this.vocalizeStage(currentSlide, recipe.stages[currentSlide], this.readyCallback.bind(this), this.errorCallback.bind(this))
-					this.vocalizedStage = currentSlide
-				}
-		}
 		alert(e.command)
+		// switch (e.command) {
+		// 	case 'диктовка':
+		// 		const { recipe, currentSlide } = this.props
+		// 		Speech.stopSpotter()
+		// 		this.vocalizedStage = currentSlide
+		// 		this.vocalizeStage(currentSlide, recipe.stages[currentSlide], this.readyCallback.bind(this), this.errorCallback.bind(this))
+		// 		break
+		// 	case 'следующий-шаг':
+		// 		this.props.nextSlide()
+		// 		currentSlide = this.props.currentSlide
+		// 		recipe = this.props.recipe
+		// 		Speech.stopSpotter()
+		// 		if (this.vocalizedStage !== currentSlide) {
+		// 			this.vocalizeStage(currentSlide, recipe.stages[currentSlide], this.readyCallback.bind(this), this.errorCallback.bind(this))
+		// 			this.vocalizedStage = currentSlide
+		// 		}
+		// 	case 'предыдущий-шаг':
+		// 		this.props.previousSlide()
+		// 		currentSlide = this.props.currentSlide
+		// 		recipe = this.props.recipe
+		// 		Speech.stopSpotter()
+		// 		if (this.vocalizedStage !== currentSlide) {
+		// 			this.vocalizeStage(currentSlide, recipe.stages[currentSlide], this.readyCallback.bind(this), this.errorCallback.bind(this))
+		// 			this.vocalizedStage = currentSlide
+		// 		}
+		// }
+		const { recipe } = this.props
+		Speech.stopSpotter()
+		this.vocalizeStage(0, recipe.stages[0], this.readyCallback.bind(this), this.errorCallback.bind(this))
 	}
 
 	vocalizeTimeout (phrasesToVocalize, readyCallback, errorCallback) {
@@ -85,34 +91,39 @@ export default class RecipeSpeech extends Component {
 			phrasesToVocalize.push(element.title)
 		})
 
+		//alert(phrasesToVocalize)
+
 		this.vocalizeTimeout(phrasesToVocalize, readyCallback, errorCallback)
 	}
 
 	readyCallback () {
-		if (this.state.isSpeechEnabled) {
+		//if (this.state.isSpeechEnabled) {
 			Speech.startSpotter((error) => {
 				alert('Spotter error ' + error)
 			})
-		}
+		//}
 	}
 
 	errorCallback () {
+		Speech.startSpotter((error) => {
+			alert('Spotter error ' + error)
+		})
 		alert('Ошибка во время преобразования текста в речь')
 	}
 
 	_onPress () {
-		
-		var state = !this.state.isSpeechEnabled
-		this.setState({isSpeechEnabled: state})
-		alert(state)
-
-		if (state) {
-			Speech.startSpotter((error) => {
-				alert('Spotter error ' + error)
-			})
-		} else {
+		const { isSpeechEnabled } = this.state
+		if (isSpeechEnabled) {
 			Speech.stopSpotter()
+			Speech.resetVocalizer()
+			this.setState({ isSpeechEnabled: false })
 		}
+		else {
+			Speech.startSpotter((error) => {
+			})
+			this.setState({ isSpeechEnabled: true })
+		}
+		alert(this.state.isSpeechEnabled)
 	}
 
 	render () {
