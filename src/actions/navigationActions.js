@@ -1,5 +1,5 @@
 import {
-	NAVIGATE, NAV_PUSH, NAV_POP,
+	NAV_PUSH, NAV_POP,
 	NAV_JUMP_TO_KEY, NAV_JUMP_TO_INDEX, NAV_RESET
 } from '../constants/actionTypes'
 

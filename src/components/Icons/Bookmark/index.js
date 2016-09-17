@@ -1,6 +1,6 @@
 import Bookmark from './Bookmark'
 import { connect } from 'react-redux'
-import { addToHistory, removeFromHistory } from '../../../actions/historyActions'
+import { addToSavedRecipes, removeFromSavedRecipes } from '../../../actions/historyActions'
 import { navigatePush } from '../../../actions/navigationActions'
 
 export default connect(
@@ -9,8 +9,8 @@ export default connect(
 		isFavourite: state.recipe.isFavourite
 	}),
 	dispatch => ({
-		addToHistory: id => dispatch(addToHistory(id)),
-		removeFromHistory: id => dispatch(removeFromHistory(id)),
+		addToSavedRecipes: id => dispatch(addToSavedRecipes(id)),
+		removeFromSavedRecipes: id => dispatch(removeFromSavedRecipes(id)),
 		pushToHistory: () => dispatch(navigatePush({
 			key: 'History',
 			title: 'Ваши рецепты'

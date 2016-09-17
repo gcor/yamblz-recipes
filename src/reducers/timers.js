@@ -25,7 +25,6 @@ const checkForDuplications = (timers, newTimer) => {
 	if (!timers || !newTimer) return true
 	const { actionLabel, timeout } = newTimer
 	for (var i = 0; i < timers.length; i++) {
-		console.log(timers[i].actionLabel, actionLabel)
 		if (timers[i].actionLabel === actionLabel &&
 				timers[i].timeout === timeout) {
 			return true
@@ -36,20 +35,23 @@ const checkForDuplications = (timers, newTimer) => {
 
 function timers (state = initialState, action) {
 	switch (action.type) {
+// SET_TIMER
 		case SET_TIMER:
 			if (!action.payload) return state
-			console.log(action.payload)
 			let timers = state
 			if (checkForDuplications(timers, action.payload)) return state
 			timers.push(action.payload)
 			timers = sortTimersByHands(timers)
 
 			return [...timers]
+// REMOVE_TIMER
 		case REMOVE_TIMER:
 			timers = state
 			timers.splice(action.payload, 1)
 			return [...timers]
+// SORT_TIMERS
 		case SORT_TIMERS: return state
+// PAUSE_TIMER
 		case PAUSE_TIMER:
 			if (!action.payload) return state
 			timers = state.timers
@@ -57,6 +59,7 @@ function timers (state = initialState, action) {
 				timers[action.payload].paused = !timers[action.payload].paused
 			}
 			return [...timers]
+// RESET_TIMERS
 		case RESET_TIMERS: return []
 		default: return state
 	}

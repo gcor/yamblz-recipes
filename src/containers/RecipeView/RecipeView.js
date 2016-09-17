@@ -10,7 +10,7 @@ import {
 import Button from '../../components/Button'
 import IngredientList from '../../components/IngredientList'
 import ExtraProducts from '../../components/ExtraProducts'
-import ToolsList from '../../components/ToolsList'
+// import ToolsList from '../../components/ToolsList'
 import css from './RecipeView.css'
 import { LOADING, SUCCESS, ERROR } from '../../constants/actionTypes'
 import Preloader from '../../components/Preloader'
@@ -105,7 +105,7 @@ export default class RecipeView extends Component {
 
 	render () {
 		return (
-			<View style={{flex:1, justifyContent: 'space-between'}}>
+			<View style={{flex: 1, justifyContent: 'space-between'}}>
 				<View style={{flex: 1}}>
 					{this.renderContent()}
 				</View>
@@ -123,12 +123,12 @@ RecipeView.propTypes = {
 	saveInLastViewed: PropTypes.func.isRequired,
 	incrementRecipePortion: PropTypes.func.isRequired,
 	decrementRecipePortion: PropTypes.func.isRequired,
-	addToHistory: PropTypes.func.isRequired,
-	removeFromHistory: PropTypes.func.isRequired,
+	addToSavedRecipes: PropTypes.func.isRequired,
+	removeFromSavedRecipes: PropTypes.func.isRequired,
 	setProductAsMain: PropTypes.func.isRequired,
 	setProductAsExtra: PropTypes.func.isRequired,
 	navigatePush: PropTypes.func.isRequired,
 	currentRecipe: PropTypes.string.isRequired,
 	resetRecipe: PropTypes.func.isRequired,
-	addToHistoryButtonText: PropTypes.string
+	addToSavedRecipesButtonText: PropTypes.string
 }
