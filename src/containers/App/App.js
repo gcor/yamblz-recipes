@@ -20,7 +20,6 @@ class App extends Component {
 		if (navigationState.index === 0) {
 			return false
 		}
-
 		backAction()
 		return true
 	}

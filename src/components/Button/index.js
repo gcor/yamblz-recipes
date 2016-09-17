@@ -1,6 +1,5 @@
 import Button from './Button'
 import { connect } from 'react-redux'
-// import { bindActionCreators } from 'redux'
 
 const stateToProps = state => ({
 	navigationState: state.navigationState

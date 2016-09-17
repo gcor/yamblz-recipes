@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Dimensions } from 'react-native'
 import ui from '../../constants/css'
 
 export default StyleSheet.create({
@@ -8,12 +8,21 @@ export default StyleSheet.create({
 		borderColor: 'transparent',
 		backgroundColor: 'white',
 		borderRadius: 3,
-		elevation: 4
+		elevation: 4,
+		marginBottom: 20,
+		marginLeft: 8,
+		marginRight: 8
+	},
+	card_type_slider: {
+		width: Dimensions.get('window').width * 0.9
 	},
 	card__image: {
-		height: 250,
+		height: 312,
 		borderTopLeftRadius: 3,
 		borderTopRightRadius: 3
+	},
+	card__image_type_slider: {
+		height: 250
 	},
 	card__stars: {
 		flexDirection: 'row',
@@ -33,7 +42,6 @@ export default StyleSheet.create({
 	card__title: {
 		fontSize: ui.fontL,
 		fontWeight: '500',
-		// height: 50,
 		paddingLeft: 15,
 		paddingRight: 15,
 		marginTop: 24,
@@ -50,6 +58,10 @@ export default StyleSheet.create({
 		fontSize: ui.fontS,
 		marginTop: 4,
 		color: '#333'
+	},
+	card__point: {
+		marginLeft: 10,
+		marginRight: 10
 	},
 	card__text_right: {
 		textAlign: 'right'
