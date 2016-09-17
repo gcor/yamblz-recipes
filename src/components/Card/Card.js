@@ -4,18 +4,6 @@ import css from './Card.css'
 import * as utils from '../../utils'
 
 export default class Card extends Component {
-	/**
-	*	format cooking time
-	* @param {Number} minutes
-	* @returns {String} hours + pronunciation + minutes (2 часа 20 мин)
-	*/
-	getCookingTime (time) {
-		var hours = ~~(time / 60)
-		var minutes = time % 60
-		var hoursPronunciation = utils.pronunciation(hours, ['час', 'часа', 'часов'])
-		if (time > 60) return hours + ` ${hoursPronunciation} ` + minutes + ' мин'
-		return time + ' мин'
-	}
 	render () {
 		const { data, isFullWidth } = this.props
 		const { title, time, energy, image, _id: recipeID } = data
@@ -32,7 +20,7 @@ export default class Card extends Component {
 					<Text numberOfLines={1} style={css.card__title}>{title}</Text>
 					<View style={css.card__description}>
 						<View style={css.card__side}>
-							<Text style={css.card__text}>{this.getCookingTime(time)}</Text>
+							<Text style={css.card__text}>{utils.getCookingTime(time)}</Text>
 							<Text style={[css.card__text, css.card__point]}>·</Text>
 							<Text style={css.card__text}>{energy} ккал</Text>
 						</View>
