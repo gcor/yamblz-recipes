@@ -10,7 +10,7 @@ import {
 import Button from '../../components/Button'
 import IngredientList from '../../components/IngredientList'
 import ExtraProducts from '../../components/ExtraProducts'
-import ToolsList from '../../components/ToolsList'
+// import ToolsList from '../../components/ToolsList'
 import css from './RecipeView.css'
 import { LOADING, SUCCESS, ERROR } from '../../constants/actionTypes'
 import Preloader from '../../components/Preloader'
@@ -105,7 +105,7 @@ export default class RecipeView extends Component {
 
 	render () {
 		return (
-			<View style={{flex:1, justifyContent: 'space-between'}}>
+			<View style={{flex: 1, justifyContent: 'space-between'}}>
 				<View style={{flex: 1}}>
 					{this.renderContent()}
 				</View>
