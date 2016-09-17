@@ -3,17 +3,19 @@ import { Text, View, ListView } from 'react-native'
 import ProductCard from '../ProductCard'
 import css from './ExtraProducts.css'
 
-class ExtraProducts extends Component {
+export default class ExtraProducts extends Component {
 	constructor (props) {
 		super(props)
+		const {recipe} = this.props
+		const unrequiredProducts = recipe.ingredients.filter(item => item.isMain === false)
 		this.ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 })
-		const unrequiredProducts = this.props.recipe.ingredients.filter(item => item.isMain === false)
 		this.state = {
 			list: this.ds.cloneWithRows(unrequiredProducts)
 		}
 	}
 	componentWillReceiveProps (props) {
-		const unrequiredProducts = this.props.recipe.ingredients.filter(item => item.isMain === false)
+		const {recipe} = this.props
+		const unrequiredProducts = recipe.ingredients.filter(item => item.isMain === false)
 		this.setState({
 			list: this.ds.cloneWithRows(unrequiredProducts)
 		})
@@ -32,9 +34,8 @@ class ExtraProducts extends Component {
 					/>
 				</View>
 			)
-		} else {
-			return false
 		}
+		return null
 	}
 	_renderProductCard (cardData) {
 		return (
@@ -52,5 +53,3 @@ ExtraProducts.propTypes = {
 	title: PropTypes.string.isRequired,
 	recipe: PropTypes.object.isRequired
 }
-
-export default ExtraProducts
