@@ -1,15 +1,15 @@
 import * as api from '../constants/api'
-import { fetchData } from './common'
 
 /**
  * Возвращает объект конкретной категории
  *
- * @param {Number} id - id категории
- * @returns {Object}
+ * @param {Number} id - идентификатор категории
+ * @returns {Object} категория
  */
 export function getCategory (id) {
 	return new Promise((resolve, reject) => {
-		fetchData(api.categories + id)
+		fetch(api.categories + id)
+			.then(res => res.json())
 			.then(category => resolve(category))
 			.catch(err => reject(err))
 	})
@@ -18,7 +18,7 @@ export function getCategory (id) {
 /**
  * Возвращает объект категории, в зависимости от времени суток
  *
- * @returns {Object}
+ * @returns {Object} категория
  */
 export function getCategoryByCurrentTime () {
 	return new Promise((resolve, reject) => {
@@ -33,7 +33,8 @@ export function getCategoryByCurrentTime () {
 		} else if (currentHour > 11 && currentHour <= 17) {
 			currentId = lunchId
 		} else currentId = supperId
-		fetchData(api.categories + currentId)
+		fetch(api.categories + currentId)
+			.then(res => res.json())
 			.then(category => resolve(category))
 			.catch(err => reject(err))
 	})
@@ -43,7 +44,7 @@ export function getCategoryByCurrentTime () {
  * Возвращает 3 рандомных рецепта для свайпера на
  * главной странице
  *
- * @returns {Object}
+ * @returns {Array} коллекция рецептов
  */
 export function getJumbotron () {
 	const currentHour = (new Date()).getHours()
@@ -68,7 +69,7 @@ export function getJumbotron () {
 /**
  * Возвращает рекомендованные рецепты
  *
- * @returns {Object}
+ * @returns {Array} коллекция рецептов
  */
 export function getRecommend () {
 	return new Promise(async (resolve, reject) => {

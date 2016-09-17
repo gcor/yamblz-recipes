@@ -1,5 +1,4 @@
 import { search } from '../constants/api'
-import { fetchData } from './common'
 
 /**
  * Запрашивает результаты поискового запроса
@@ -9,8 +8,8 @@ import { fetchData } from './common'
  */
 export function searchFor (query) {
 	return new Promise((resolve, reject) => {
-		const q = `${search}?q=${query}`
-		fetchData(q)
+		fetch(`${search}?q=${query}`)
+			.then(res => res.json())
 			.then(response => resolve(response))
 			.catch(e => reject(e))
 	})
