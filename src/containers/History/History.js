@@ -12,7 +12,6 @@ export default class History extends Component {
 			this.props.fetchLastViewed()
 			this.setState({isReady: true})
 		})
-		console.log(this.props) // приходит [] и undefined. why?
 	}
 	_onCardPress (recipeID) {
 		const {
