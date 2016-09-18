@@ -21,7 +21,7 @@ export default class ExtraProducts extends Component {
 		})
 	}
 	render () {
-		if (this.state.list._cachedRowCount) {
+		if (this.state.list._cachedRowCount) { // _cachedRowCount - кол-во элементов
 			return (
 				<View style={css.extraProducts}>
 					<Text style={css.extraProducts__title}>{this.props.title.toUpperCase()}</Text>

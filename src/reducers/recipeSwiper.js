@@ -17,7 +17,7 @@ const initialState = {
 
 const marginConst = 20
 function recipeSwiper (state = initialState, action) {
-	const { currentSlide, currentHeight, slides } = state
+	const { currentSlide, slides } = state
 	switch (action.type) {
 		case SLIDER_NEXT_SLIDE:
 			if (currentSlide >= slides.length - 1) return state
@@ -29,7 +29,6 @@ function recipeSwiper (state = initialState, action) {
 				}
 			}
 			return {
-				// ...state,
 				...{slides: state.slides},
 				...{currentSlide: currentSlide + 1},
 				...{currentHeight: slides[currentSlide + 1].offsetY - marginConst},

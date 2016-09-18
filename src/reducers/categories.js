@@ -7,10 +7,6 @@ import {
 	FETCH_RECOMMEND_SUCCESS,
 	FETCH_RECOMMEND_ERROR,
 
-	FETCH_CATEGORIES_LOADING,
-	FETCH_CATEGORIES_SUCCESS,
-	FETCH_CATEGORIES_ERROR,
-
 	FETCH_CATEGORY_LOADING,
 	FETCH_CATEGORY_SUCCESS,
 	FETCH_CATEGORY_ERROR,
@@ -21,7 +17,6 @@ import {
 } from '../constants/actionTypes'
 const initialState = {
 	status: '',
-	categories: [],
 	jumbotron: [],
 	recommend: [],
 	category: []
@@ -29,24 +24,6 @@ const initialState = {
 
 function categories (state = initialState, action) {
 	switch (action.type) {
-		// @deprecated
-		// case FETCH_CATEGORY_BY_ID: return [...state, ...action.payload]
-
-		case FETCH_CATEGORIES_LOADING:
-			return {
-				...state,
-				...{status: LOADING}}
-		case FETCH_CATEGORIES_SUCCESS:
-			return {
-				...state,
-				...{categories: action.payload},
-				...{status: SUCCESS}
-			}
-		case FETCH_CATEGORIES_ERROR:
-			return {
-				...state,
-				...{status: ERROR}
-			}
 
 		case FETCH_CATEGORY_LOADING:
 			return {

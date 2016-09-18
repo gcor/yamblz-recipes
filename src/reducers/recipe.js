@@ -19,7 +19,7 @@ const minPortions = 1
 const maxPortions = 12
 
 const initialState = {
-	status: 'LOADING', // the initial fetch state of every fetch query
+	status: 'LOADING',
 	title: '',
 	cookingTime: 0,
 	image: 'src',
@@ -37,8 +37,13 @@ const initialState = {
 
 function recipe (state = initialState, action) {
 	switch (action.type) {
+// FETCH_RECIPE_LOADING
 		case FETCH_RECIPE_LOADING:
-			return {...state, ...{status: LOADING}}
+			return {
+				...state,
+				...{status: LOADING}
+			}
+// FETCH_RECIPE_SUCCESS
 		case FETCH_RECIPE_SUCCESS:
 			let ingredients = action.payload.ingredients
 			let stages = action.payload.stages
@@ -59,20 +64,28 @@ function recipe (state = initialState, action) {
 				...{stages: stages},
 				...action.payload
 			}
+// FETCH_RECIPE_ERROR
 		case FETCH_RECIPE_ERROR:
 			return {
 				...state,
 				...{status: ERROR}
 			}
-
+// INCREMENT_RECIPE_PORTION
 		case INCREMENT_RECIPE_PORTION:
 			if (state.portion >= maxPortions) return state
 			ingredients = state.ingredients
 			let portion = state.portion + 1
+
 			ingredients.forEach(item => {
 				item.amount = portion * item.amountPerPortion
 			})
-			return {...state, ...{portion: portion}, ...{ingredients: ingredients}}
+
+			return {
+				...state,
+				...{portion: portion},
+				...{ingredients: ingredients}
+			}
+// DECREMENT_RECIPE_PORTION
 		case DECREMENT_RECIPE_PORTION:
 			if (state.portion <= minPortions) return state
 			ingredients = state.ingredients
@@ -81,15 +94,22 @@ function recipe (state = initialState, action) {
 			ingredients.forEach(item => {
 				item.amount = portion * item.amountPerPortion
 			})
-			return {...state, ...{portion: portion}, ...{ingredients: ingredients}}
 
+			return {
+				...state,
+				...{portion: portion},
+				...{ingredients: ingredients}
+			}
+// SET_PRODUCT_AS_MAIN
 		case SET_PRODUCT_AS_MAIN:
 			ingredients = state.ingredients
+
 			ingredients.forEach((item, i) => {
 				if (item.product._id === action.id) {
 					ingredients[i].isMain = true
 				}
 			})
+
 			stages = state.stages
 			for (const stage of stages) {
 				for (const step of stage.steps) {
@@ -98,15 +118,22 @@ function recipe (state = initialState, action) {
 					}
 				}
 			}
-			return {...state, ...{ingredients: ingredients}, ...(stages: stages)}
 
+			return {
+				...state,
+				...{ingredients: ingredients},
+				...(stages: stages)
+			}
+// SET_PRODUCT_AS_EXTRA
 		case SET_PRODUCT_AS_EXTRA:
 			ingredients = state.ingredients
+
 			ingredients.forEach((item, i) => {
 				if (item.product._id === action.id) {
 					ingredients[i].isMain = false
 				}
 			})
+
 			stages = state.stages
 			for (const stage of stages) {
 				for (const step of stage.steps) {
@@ -115,8 +142,13 @@ function recipe (state = initialState, action) {
 					}
 				}
 			}
-			return {...state, ...{ingredients: ingredients}, ...(stages: stages)}
 
+			return {
+				...state,
+				...{ingredients: ingredients},
+				...(stages: stages)
+			}
+// RESET_RECIPE
 		case RESET_RECIPE: return initialState
 		default: return state
 	}

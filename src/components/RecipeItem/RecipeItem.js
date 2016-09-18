@@ -1,4 +1,4 @@
-import React, { Component, PropTypes, TouchableHighlight } from 'react'
+import React, { Component, PropTypes } from 'react'
 import { Text, View, ListView, Image } from 'react-native'
 import css from './RecipeItem.css'
 import listCSS from '../List/List.css'
@@ -53,7 +53,6 @@ class RecipeItem extends Component {
 		const { timer } = stage
 		if (!timer) return null
 		const { actionLabel, timerLabel, timeout } = timer
-		// console.log(actionLabel, timerLabel)
 		return (
 			<Timer
 				actionLabel={actionLabel}
@@ -64,10 +63,7 @@ class RecipeItem extends Component {
 	}
 
 	_renderImage () {
-		// const { stage } = this.props
-		// const { timer } = stage
 		let { image } = this.props
-		// if (timer) return null
 		if (image === '') return null
 		image = formatImageSrc(image)
 		if (image) {
@@ -82,8 +78,8 @@ class RecipeItem extends Component {
 	_renderActionItem (rowData) {
 		const { title, visible } = rowData
 		const cstring = Brain.search(title)
-		const renderProducts = cstring ?
-			<Text style={listCSS.item__action}>{cstring}</Text>
+		const renderProducts = cstring
+			? <Text style={listCSS.item__action}>{cstring}</Text>
 			: null
 		if (visible === false) return null
 		return (

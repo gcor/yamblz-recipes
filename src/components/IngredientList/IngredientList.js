@@ -2,21 +2,23 @@ import React, { Component, PropTypes } from 'react'
 import { Text, View, ListView, Image, TouchableHighlight } from 'react-native'
 import css from './IngredientList.css'
 import { getAmount } from './util'
-import CloseButton from '../../icons/close_w.png'
+import CloseButton from '../../icons/close.png'
 import PlusButton from '../../icons/plus.png'
 import MinusButton from '../../icons/minus.png'
 
 export default class IngredientList extends Component {
 	constructor (props) {
 		super(props)
+		const { recipe } = this.props
+		const requiredProducts = recipe.ingredients.filter(item => item.isMain === true)
 		this.ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 })
-		const requiredProducts = this.props.recipe.ingredients.filter(item => item.isMain === true)
 		this.state = {
 			list: this.ds.cloneWithRows(requiredProducts)
 		}
 	}
 	componentWillReceiveProps (props) {
-		const requiredProducts = this.props.recipe.ingredients.filter(item => item.isMain === true)
+		const { recipe } = this.props
+		const requiredProducts = recipe.ingredients.filter(item => item.isMain === true)
 		this.setState({
 			list: this.ds.cloneWithRows(requiredProducts)
 		})
@@ -26,9 +28,7 @@ export default class IngredientList extends Component {
 			<View>
 				<View style={css.ingredients}>
 					<View style={css.portions}>
-						<View style={{}}>
-							<Text style={css.portions__text}> Порции </Text>
-						</View>
+						<Text style={css.portions__text}>Порции</Text>
 						<View style={css.portions__controls}>
 							<TouchableHighlight
 								underlayColor='transparent'
@@ -41,7 +41,7 @@ export default class IngredientList extends Component {
 							</Text>
 							<TouchableHighlight
 								underlayColor='transparent'
-								style={[css.controls__button, css.controls__button_plus]}
+								style={css.controls__button}
 								onPress={this.props.onIncrement}>
 								<Image source={PlusButton} />
 							</TouchableHighlight>
@@ -56,17 +56,23 @@ export default class IngredientList extends Component {
 			</View>
 		)
 	}
+	/**
+	 * Рендеринг кнопки "удалить" для добавленных игридиентов
+	 */
 	_renderCloseButton (isVisible, id) {
 		if (isVisible) {
 			return (
-				<TouchableHighlight style={css.closeButton} onPress={this.props.setExtra.bind(this, id)}>
+				<TouchableHighlight
+					style={css.closeButton}
+					onPress={this.props.setExtra.bind(this, id)}
+					>
 					<Image source={CloseButton} />
 				</TouchableHighlight>
 			)
-		} else return false
+		}
+		return null
 	}
 	_renderIngredient = ingredient => {
-		const ingredientStyle = (ingredient.extra === false) ? css.ingredients__item : css.extraIngredients__item
 		return (
 			<View style={css.ingredients__item}>
 				<View style={css.ingredients__imageBox}>
@@ -85,8 +91,11 @@ export default class IngredientList extends Component {
 }
 
 IngredientList.propTypes = {
+	// уменьшить количество порций
 	onDecrement: PropTypes.func.isRequired,
+	// увеличить количество порций
 	onIncrement: PropTypes.func.isRequired,
+	// перенос ингредиента в "можно добавить"
 	setExtra: PropTypes.func.isRequired,
 	recipe: PropTypes.object.isRequired
 }

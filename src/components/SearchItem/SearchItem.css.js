@@ -12,8 +12,8 @@ export default StyleSheet.create({
 		alignItems: 'center'
 	},
 	searchItem__icon: {
-		width: 25,
-		height: 20,
+		width: 30,
+		height: 30,
 		resizeMode: 'contain'
 	},
 	searchItem__title: {

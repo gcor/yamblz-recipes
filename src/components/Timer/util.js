@@ -1,6 +1,8 @@
 import { pronunciation } from '../../utils'
+
 // Convert milliseconds to seconds
 export const msToSeconds = ms => (Math.floor(ms / 1000))
+
 // Convert secods to minutes
 export const secsToMinutes = secs => (Math.floor(secs / 60))
 
