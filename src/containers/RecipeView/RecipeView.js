@@ -10,7 +10,6 @@ import {
 import Button from '../../components/Button'
 import IngredientList from '../../components/IngredientList'
 import ExtraProducts from '../../components/ExtraProducts'
-// import ToolsList from '../../components/ToolsList'
 import css from './RecipeView.css'
 import { LOADING, SUCCESS, ERROR } from '../../constants/actionTypes'
 import Preloader from '../../components/Preloader'
@@ -86,10 +85,7 @@ export default class RecipeView extends Component {
 			case ERROR: return 'Сломалось или нет Интернета'
 		}
 	}
-	// <ToolsList
-	// 	title={'Вам может понадобиться'}
-	// 	tools={['Ёмкость для запекания', 'Нож', 'Разделочная доска']}
-	// 	/>
+
 	renderContent () {
 		const { isReady } = this.state
 		if (isReady) {

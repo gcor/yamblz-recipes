@@ -1,6 +1,6 @@
 import {
 	SET_CURRRENT_RECIPE,
-	SET_CURRENT_CATEGORY
+	SET_CURRENT_CATEGORY,
 } from '../constants/actionTypes'
 
 const initialState = {

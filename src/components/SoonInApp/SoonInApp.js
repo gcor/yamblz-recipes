@@ -1,53 +1,63 @@
-import React, { Component, PropTypes } from 'react'
-import { View, Text, Alert, NativeModules } from 'react-native'
+import React, { Component } from 'react'
+import { View, Text, NativeModules, AsyncStorage } from 'react-native'
 import css from './SoonInApp.css'
 import CardSmall from '../CardSmall'
 import Button from '../Button'
-import SoonModal from '../SoonModal'
-
+import { SOON_IN_APP_STATUS_KEY } from '../../constants/keys'
 const AppMetrica = NativeModules.AppMetrika
 
 export default class SoonInApp extends Component {
-	constructor () {
-		super()
-		this.state = {
-			isVisible: false
-		}
-		this.toggleSoonModal = this.toggleSoonModal.bind(this)
+	componentWillMount () {
+		this.setState({isSubscribe: false})
+		const statusFromStorage = AsyncStorage.getItem(SOON_IN_APP_STATUS_KEY)
+		statusFromStorage.then(r => {
+			const json = JSON.parse(r)
+			const status = !!json ? json.isSubscribe : false
+			this.setState({isSubscribe: status})
+		})
 	}
-
 	toggleSoonModal () {
 		AppMetrica.categorySubscribe(JSON.stringify({
 			title: 'Следующая категория'
 		}))
-		this.setState({isVisible: !this.state.isVisible})
+		const status = {isSubscribe: true}
+		AsyncStorage.setItem(SOON_IN_APP_STATUS_KEY, JSON.stringify(status))
+		this.setState(status)
 	}
-
+	_renderSoonInAppButton () {
+		const text = 'Напомним об открытии категории'
+		if (this.state.isSubscribe) {
+			return (
+				<View style={css.soonbtn_disable}>
+					<Text style={css.soonbtn__text}>{text.toUpperCase()}</Text>
+				</View>
+			)
+		}
+		return (
+			<Button
+				text='Напомнить'
+				style={css.soon__btn}
+				onPress={this.toggleSoonModal.bind(this)} />
+		)
+	}
 	render () {
 		return (
 			<View>
-				<View style={{marginBottom: 16}}>
-					<Text style={{fontSize: 16, color: 'rgba(0,0,0,.56)', marginLeft: 24, marginBottom: 16, marginTop: 24}}>
-						СКОРО В ПРИЛОЖЕНИИ
-					</Text>
-					<View style={{margin: 8}}>
-						<CardSmall title={'Овощи'} amount={20} image={'http://fitnesslair.ru/wp-content/uploads/2016/06/sovmestimost-produktov-pitaniya2.jpg'} />
-						<Text style={{fontSize: 16, color: 'black', marginLeft: 16, marginBottom: 4, marginTop: 24, marginRight: 16, textAlign: 'center'}}>
-							Категория появится через 7 дней.
-						</Text>
-						<Text style={{fontSize: 16, color: 'black', marginLeft: 16, marginBottom: 24, marginTop: 4, marginRight: 16, textAlign: 'center'}}>
-							Отправить оповещение?
-						</Text>
-						<View style={{marginLeft: 16, marginRight: 16, marginBottom: 16}} >
-							<Button text='НАПОМНИТЬ'
-								onPress={this.toggleSoonModal} />
+				<View style={css.soon}>
+					<Text style={css.soon__header}>СКОРО В ПРИЛОЖЕНИИ</Text>
+					<View style={css.soon__wrap}>
+						<CardSmall
+							title={'Салаты'}
+							amount={20}
+							image={'http://fitnesslair.ru/wp-content/uploads/2016/06/sovmestimost-produktov-pitaniya2.jpg'}
+						/>
+						<View style={css.soon__description}>
+							<Text style={css.soon__text}> Категория появится через 7 дней.</Text>
+							<Text style={css.soon__text}> Отправить оповещение? </Text>
 						</View>
+						{this._renderSoonInAppButton.bind(this)()}
 					</View>
 				</View>
-				<SoonModal
-					toggleModal={this.toggleSoonModal}
-					visible={this.state.isVisible}
-					/>
 			</View>
 		)
 	}
