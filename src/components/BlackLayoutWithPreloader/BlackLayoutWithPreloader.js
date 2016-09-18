@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { Animated, View, ProgressBarAndroid } from 'react-native'
+import { Animated, View, ProgressBarAndroid, Text } from 'react-native'
 import s from '../../constants/css'
 import css from './BlackLayoutWithPreloader.css'
 
@@ -57,6 +57,9 @@ export default class BlackLayoutWithPreloader extends Component {
 			<Animated.View
 				style={[css.container, {opacity: opacity}]}>
 				<View style={css.preloader}>
+					<View style={css.textHolder}>
+						<Text style={css.preloaderText}>к предыдущему шагу</Text>
+					</View>
 					<ProgressBarAndroid
 						style={{width: 200}}
 						progress={progress}

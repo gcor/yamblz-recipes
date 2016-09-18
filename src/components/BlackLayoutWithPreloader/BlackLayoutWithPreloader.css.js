@@ -11,7 +11,15 @@ export default StyleSheet.create({
 		height: height
 	},
 	preloader: {
-		marginTop: height * 0.5,
-		marginLeft: width * 0.5 - 100,
+		marginTop: height * 0.5 - 30,
+		marginLeft: width * 0.5 - 100
+	},
+	textHolder: {
+		marginLeft: -80
+	},
+	preloaderText: {
+		marginBottom: 20,
+		textAlign: 'center',
+		color: 'white'
 	}
 })

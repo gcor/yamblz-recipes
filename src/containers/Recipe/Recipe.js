@@ -2,7 +2,8 @@ import React, { Component, PropTypes } from 'react'
 import { ScrollView,
 	InteractionManager,
 	DeviceEventEmitter,
-	View
+	View,
+	Vibration
 } from 'react-native'
 
 import Recipe from '../../components/Recipe'
@@ -16,6 +17,7 @@ class RecipePage extends Component {
 	constructor (props) {
 		super(props)
 		this.proximityHandler = this.proximityHandler.bind(this)
+		this.vibrationHandler = this.vibrationHandler.bind(this)
 	}
 	componentWillMount () {
 		DeviceEventEmitter.removeAllListeners('Proximity')
@@ -51,6 +53,10 @@ class RecipePage extends Component {
 			throttle(this.proximityHandler, 800))
 	}
 
+	vibrationHandler () {
+		Vibration.vibrate([0, 100])
+	}
+
 	proximityHandler (data) {
 		const { isNear } = data
 		const { isDelayed } = this.state
@@ -59,6 +65,7 @@ class RecipePage extends Component {
 				this.setState({isLayoutVisible: true})
 			}, 800)
 			this.sliderTimeout = setTimeout(() => {
+				this.vibrationHandler()
 				this.props.previousSlide()
 				this.setState({
 					isDelayed: true,
@@ -66,7 +73,9 @@ class RecipePage extends Component {
 				})
 			}, 2500)
 		}
+		/*
 
+		*/
 		if (!isNear) {
 			clearTimeout(this.sliderTimeout)
 			clearTimeout(this.waitingTimeout)
@@ -78,7 +87,7 @@ class RecipePage extends Component {
 				return false
 			}
 			this.props.nextSlide()
-			// this.scrollTo()
+			this.vibrationHandler()
 		}
 	}
 
