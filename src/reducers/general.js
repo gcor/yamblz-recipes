@@ -1,7 +1,7 @@
 import {
 	IS_FETCHED_CATEGORIES,
 	SET_CURRRENT_RECIPE,
-	SET_CURRENT_CATEGORY
+	SET_CURRENT_CATEGORY,
 } from '../constants/actionTypes'
 
 const initialState = {
@@ -18,8 +18,10 @@ function general (state = initialState, action) {
 		case SET_CURRENT_CATEGORY:
 			return {...state, ...{currentCategory: action.payload}}
 		case IS_FETCHED_CATEGORIES:
-			return {...state,
-				...{fetched: {...state.fetched, ...{categories: action.payload}}}}
+			return {
+				...state,
+				...{fetched: {...state.fetched, ...{categories: action.payload}}}
+			}
 		default: return state
 	}
 }
