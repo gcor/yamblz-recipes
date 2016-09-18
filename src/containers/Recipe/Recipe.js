@@ -18,6 +18,7 @@ class RecipePage extends Component {
 		super(props)
 		this.proximityHandler = this.proximityHandler.bind(this)
 		this.vibrationHandler = this.vibrationHandler.bind(this)
+		this.toggleBlackLayout = this.toggleBlackLayout.bind(this)
 	}
 	componentWillMount () {
 		DeviceEventEmitter.removeAllListeners('Proximity')
@@ -25,6 +26,7 @@ class RecipePage extends Component {
 			ready: false, scroll: 0,
 			currentSlide: 4,
 			isLayoutVisible: false,
+			isLayoutForTimers: false,
 			isDelayed: false
 		})
 		InteractionManager.runAfterInteractions(() => {
@@ -50,27 +52,32 @@ class RecipePage extends Component {
 
 	componentDidMount () {
 		this.proximityListener = DeviceEventEmitter.addListener('Proximity',
-			throttle(this.proximityHandler, 800))
+			throttle(this.proximityHandler, 1000))
 	}
 
 	vibrationHandler () {
 		Vibration.vibrate([0, 100])
 	}
 
+	toggleBlackLayout (isLayoutForTimers) {
+		this.setState({
+			isLayoutVisible: !this.state.isLayoutVisible
+		})
+		if (isLayoutForTimers) {
+			this.setState({isLayoutForTimers: !this.state.isLayoutForTimers})
+		}
+	}
+
 	proximityHandler (data) {
 		const { isNear } = data
 		const { isDelayed } = this.state
 		if (isNear) {
-			this.waitingTimeout = setTimeout(() => {
-				this.setState({isLayoutVisible: true})
-			}, 800)
+			this.waitingTimeout = setTimeout(this.toggleBlackLayout, 1000)
 			this.sliderTimeout = setTimeout(() => {
 				this.vibrationHandler()
 				this.props.previousSlide()
-				this.setState({
-					isDelayed: true,
-					isLayoutVisible: false
-				})
+				this.setState({isDelayed: true})
+				this.toggleBlackLayout()
 			}, 2500)
 		}
 		/*
@@ -140,7 +147,10 @@ class RecipePage extends Component {
 	renderBlackLayout () {
 		if (this.state.isLayoutVisible) {
 			return (
-				<BlackLayoutWithPreloader />
+				<BlackLayoutWithPreloader
+					hideProgressBar={this.state.isLayoutForTimers}
+					endless={this.state.isLayoutForTimers}
+				/>
 			)
 		}
 
@@ -160,7 +170,9 @@ class RecipePage extends Component {
 						{this.renderRecipe(recipe)}
 					</ScrollView>
 				</View>
-				<AbsoluteTimer />
+				<AbsoluteTimer
+					toggleBlackLayout={this.toggleBlackLayout}
+				/>
 				{this.renderBlackLayout()}
 			</View>
 		)

@@ -35,10 +35,13 @@ export default class BlackLayoutWithPreloader extends Component {
 	stopPreloader () {
 		clearInterval(this.preloader)
 		this.preloader = null
-		this.setState({
-			progress: 0,
-			visible: false
-		})
+		if (!this.props.endless) {
+			this.setState({
+				progress: 0,
+				visible: false
+			})
+			this.animate(0)
+		}
 	}
 
 	tick () {
@@ -46,33 +49,40 @@ export default class BlackLayoutWithPreloader extends Component {
 			progress: (this.state.progress + 0.012)
 		})
 		if (this.state.progress > 1) {
-			this.animate(0)
 			this.stopPreloader()
 		}
 	}
 
+	renderProgressBar () {
+		if (this.props.hideProgressBar) return null
+		return (
+			<View style={css.preloader}>
+				<View style={css.textHolder}>
+					<Text style={css.preloaderText}>к предыдущему шагу</Text>
+				</View>
+				<ProgressBarAndroid
+					style={{width: 200}}
+					progress={this.state.progress}
+					indeterminate={false}
+					styleAttr='Horizontal'
+					color={s.yellow}
+				/>
+			</View>
+		)
+	}
+
 	render () {
-		const { progress, opacity } = this.state
 		return (
 			<Animated.View
-				style={[css.container, {opacity: opacity}]}>
-				<View style={css.preloader}>
-					<View style={css.textHolder}>
-						<Text style={css.preloaderText}>к предыдущему шагу</Text>
-					</View>
-					<ProgressBarAndroid
-						style={{width: 200}}
-						progress={progress}
-						indeterminate={false}
-						styleAttr='Horizontal'
-						color={s.yellow}
-					/>
-				</View>
+				style={[css.container, {opacity: this.state.opacity}]}>
+				{this.renderProgressBar()}
 			</Animated.View>
 		)
 	}
 }
 
 BlackLayoutWithPreloader.propTypes = {
-	visible: PropTypes.bool.isRequired
+	visible: PropTypes.bool.isRequired,
+	hideProgressBar: PropTypes.bool.isRequired,
+	endless: PropTypes.bool.isRequired
 }
