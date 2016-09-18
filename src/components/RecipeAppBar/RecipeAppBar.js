@@ -19,7 +19,7 @@ export default class AppBar extends Component {
 					<Image style={css.bar__icon} source={BackBlackIcon} />
 				</TouchableHighlight>
 				<View style={css.bar__content}>
-					<Text style={[css.bar__title, css.bar__title_black]}>{format3points(recipe.title)}</Text>
+					<Text numberOfLines={2} style={[css.bar__title, css.bar__title_black]}>{recipe.title}</Text>
 				</View>
 				<RecipeSpeech />
 			</View>

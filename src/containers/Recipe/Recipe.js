@@ -10,20 +10,26 @@ import AbsoluteTimer from '../../components/AbsoluteTimer'
 import { SensorManager } from 'NativeModules'
 import { throttle } from 'lodash'
 import RecipeAppBar from '../../components/RecipeAppBar'
+import BlackLayoutWithPreloader from '../../components/BlackLayoutWithPreloader'
 
 class RecipePage extends Component {
 	constructor (props) {
 		super(props)
 		this.proximityHandler = this.proximityHandler.bind(this)
+		this.toggleBackgroundLayout = this.toggleBackgroundLayout.bind(this)
 	}
 	componentWillMount () {
 		DeviceEventEmitter.removeAllListeners('Proximity')
 		this.setState({
 			ready: false, scroll: 0,
-			currentSlide: 4
+			currentSlide: 4,
+			isLayoutVisible: false,
+			isLayoutHidden: true,
+			isDelayed: false
 		})
 		InteractionManager.runAfterInteractions(() => {
 			this.setState({ready: true})
+			this.props.fetchRecipes('57dc0628f36d2873d81b0c93')
 		})
 		SensorManager.startProximity(50)
 	}
@@ -47,9 +53,50 @@ class RecipePage extends Component {
 			throttle(this.proximityHandler, 800))
 	}
 
+	toggleBackgroundLayout () {
+		let hiddenDelay = 0
+		let visibleDelay = 0
+		if (this.state.isLayoutHidden) {
+			visibleDelay = 500
+			hiddenDelay = 0
+		} else {
+			visibleDelay = 0
+			hiddenDelay = 500
+		}
+		setTimeout(() => {
+			this.setState({isLayoutHidden: !this.state.isLayoutHidden})
+		}, hiddenDelay)
+
+		setTimeout(() => {
+			this.setState({isLayoutVisible: !this.state.isLayoutVisible})
+		}, visibleDelay)
+	}
+
 	proximityHandler (data) {
 		const { isNear } = data
+		const { isDelayed } = this.state
 		if (isNear) {
+			this.waitingTimeout = setTimeout(() => {
+				this.toggleBackgroundLayout()
+			}, 500)
+			this.sliderTimeout = setTimeout(() => {
+				this.props.previousSlide()
+				this.setState({isDelayed: true})
+				setTimeout(() => {
+					this.toggleBackgroundLayout()
+				}, 500)
+			}, 2500)
+		}
+
+		if (!isNear) {
+			clearTimeout(this.sliderTimeout)
+			clearTimeout(this.waitingTimeout)
+			this.sliderTimeout = null
+			this.waitingTimeout = null
+			if (isDelayed) {
+				this.setState({isDelayed: false})
+				return false
+			}
 			this.props.nextSlide()
 			// this.scrollTo()
 		}
@@ -114,6 +161,10 @@ class RecipePage extends Component {
 					</ScrollView>
 				</View>
 				<AbsoluteTimer />
+				<BlackLayoutWithPreloader
+					hidden={this.state.isLayoutHidden}
+					visible={this.state.isLayoutVisible}
+				/>
 			</View>
 		)
 	}
