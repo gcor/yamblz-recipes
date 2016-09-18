@@ -15,18 +15,21 @@ const initialState = {
 function lastViewed (state = initialState, action) {
 	switch (action.type) {
 		case FETCH_LAST_VIEWED_LOADING:
-			return {...state, ...{state: LOADING}}
+			return {
+				...state,
+				...{status: LOADING}
+			}
 		case FETCH_LAST_VIEWED_SUCCESS:
 			return {
-				// Мы отправляем каждый раз новое
-				// ...state,
-				// ...{state: SUCCESS},
-				// ...{lastViewedRecipes: [...state.lastViewedRecipes, ...action.payload]}
-				state: SUCCESS,
-				lastViewedRecipes: action.payload
+				...state,
+				...{status: SUCCESS},
+				...{lastViewedRecipes: action.payload}
 			}
 		case FETCH_LAST_VIEWED_ERROR:
-			return {...state, ...{state: ERROR}}
+			return {
+				...state,
+				...{status: ERROR}
+			}
 		default:
 			return state
 	}

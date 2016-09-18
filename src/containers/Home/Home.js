@@ -113,7 +113,6 @@ export default class Home extends Component {
 		)
 	}
 }
-// <Button onPress={this._onPushToTimers.bind(this)} text='Перейти к таймерам' />
 
 Home.propTypes = {
 	navigatePush: PropTypes.func.isRequired,

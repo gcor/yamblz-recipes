@@ -1,8 +1,6 @@
 export function formatImageSrc (src) {
 	let regex = /http/
-	if (regex.test(src)) {
-		// console.log(true)
-	} else {
+	if (!regex.test(src)) {
 		src = 'http://' + src
 	}
 	return src

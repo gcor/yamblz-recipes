@@ -6,6 +6,8 @@ import SearchIconBlack from '../../icons/search.png'
 import BackIcon from '../../icons/arrow_w.png'
 import BackBlackIcon from '../../icons/arrow.png'
 import Bookmark from '../Icons/Bookmark'
+import RecipeSpeech from '../RecipeSpeech'
+import * as utils from '../../utils'
 
 const underlayColor = 'rgba(255,255,255,0.2)'
 export default class AppBar extends Component {
@@ -21,10 +23,10 @@ export default class AppBar extends Component {
 
 	dayTime () {
 		let dayTime
-		const now = (new Date()).getHours()
-		if (now > 3 && now <= 11) {
+		const currentHours = (new Date()).getHours()
+		if (currentHours > 3 && currentHours <= 11) {
 			dayTime = 'Завтрак'
-		} else if (now > 11 && now <= 17) {
+		} else if (currentHours > 11 && currentHours <= 17) {
 			dayTime = 'Обед'
 		} else dayTime = 'Ужин'
 		return dayTime
@@ -85,7 +87,7 @@ export default class AppBar extends Component {
 	}
 
 	renderRecipeViewBar () {
-		const { recipe, navigateBack, addToHistory, removeFromHistory } = this.props
+		const { recipe, navigateBack, addToSavedRecipes, removeFromSavedRecipes } = this.props
 		const { title, time, energy } = recipe
 
 		if (!title) return null
@@ -101,7 +103,7 @@ export default class AppBar extends Component {
 					<Text style={css.bar__title}>{title}</Text>
 					<View style={css.bar__info}>
 						<Text style={css.bar__time}>
-								{this.getCookingTime(time)} ·
+								{utils.getCookingTime(time)} ·
 						</Text>
 						<Text style={css.bar__energy}>{energy} ккал</Text>
 					</View>
@@ -120,21 +122,16 @@ export default class AppBar extends Component {
 		}
 	}
 
-	getCookingTime (time) {
-		if (time > 60) return ~~(time / 60) + ' час ' + (time % 60) + ' мин'
-		else return time + ' мин'
-	}
-
-	addToHistory () {
-		const {addToHistory, removeFromHistory, recipe} = this.props
+	addToSavedRecipes () {
+		const {addToSavedRecipes, removeFromSavedRecipes, recipe} = this.props
 		if (recipe.isFavourite) {
-			removeFromHistory.call(this, recipe._id)
+			removeFromSavedRecipes.call(this, recipe._id)
 			recipe.isFavourite = false
-			this.setState({addToHistoryButtonText: 'Добавить в избранное'})
+			this.setState({addToSavedRecipesButtonText: 'Добавить в избранное'})
 		} else {
-			addToHistory.call(this, recipe._id)
+			addToSavedRecipes.call(this, recipe._id)
 			recipe.isFavourite = true
-			this.setState({addToHistoryButtonText: 'Удалить из избранного'})
+			this.setState({addToSavedRecipesButtonText: 'Удалить из избранного'})
 		}
 	}
 }

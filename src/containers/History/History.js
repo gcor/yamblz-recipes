@@ -8,11 +8,10 @@ export default class History extends Component {
 	componentWillMount () {
 		this.setState({isReady: false})
 		InteractionManager.runAfterInteractions(() => {
-			this.props.fetchHistory()
+			this.props.fetchSavedRecipes()
 			this.props.fetchLastViewed()
 			this.setState({isReady: true})
 		})
-		console.log(this.props) // приходит [] и undefined. why?
 	}
 	_onCardPress (recipeID) {
 		const {
@@ -72,7 +71,7 @@ export default class History extends Component {
 History.propTypes = {
 	navigatePush: PropTypes.func.isRequired,
 	setCurrentRecipe: PropTypes.func.isRequired,
-	fetchHistory: PropTypes.func.isRequired,
+	fetchSavedRecipes: PropTypes.func.isRequired,
 	fetchLastViewed: PropTypes.func.isRequired,
 	lastViewedRecipes: PropTypes.array.isRequired,
 	historyRecipes: PropTypes.array.isRequired
