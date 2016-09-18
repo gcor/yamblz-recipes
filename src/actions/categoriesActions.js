@@ -1,26 +1,19 @@
 import {
-	FETCH_CATEGORIES,
 	FETCH_JUMBOTRON,
 	FETCH_RECOMMEND,
 	FETCH_CATEGORY
 } from '../constants/actionTypes'
-import { getCategories, getJumbotron, getRecommend, getCategory, getCategoryByTime } from '../api/categories'
+import { getJumbotron,
+	getRecommend,
+	getCategory,
+	getCategoryByCurrentTime
+} from '../api/categories'
 import { createAction } from 'redux-actions'
-import { formatImageSrc } from '../utils'
-
-export const fetchCategories = createAction(FETCH_CATEGORIES, async () => {
-	const categories = await getCategories()
-	if (!categories) Promise.reject('No categories found')
-	categories.forEach(category => {
-		category.recipes.forEach(recipe => {
-			recipe.image = formatImageSrc(recipe.image)
-		})
-	})
-	return categories
-})
 
 export const fetchCategory = createAction(FETCH_CATEGORY, async (id) => {
-	const category = (id) ? await getCategory(id) : await getCategoryByTime()
+	// Если приходит id, то запрашиваем конкретную категорию. Если не приходит,
+	// то запрашиваем категорию в зависимости от текущего времени суток
+	const category = (id) ? await getCategory(id) : await getCategoryByCurrentTime()
 	if (!category) Promise.reject('No category found')
 	return category
 })

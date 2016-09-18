@@ -29,7 +29,6 @@ function recipeSwiper (state = initialState, action) {
 				}
 			}
 			return {
-				// ...state,
 				...{slides: state.slides},
 				...{currentSlide: currentSlide + 1},
 				...{currentHeight: slides[currentSlide + 1].offsetY - marginConst},

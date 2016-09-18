@@ -20,13 +20,10 @@ export default StyleSheet.create({
 		color: '#444'
 	},
 	controls__button: {
-		paddingTop: 20,
-		paddingBottom: 20,
-		paddingLeft: 10,
-		paddingRight: 10
-	},
-	controls__button_plus: {
-		paddingRight: 25
+		paddingTop: 15,
+		paddingBottom: 15,
+		paddingLeft: 15,
+		paddingRight: 15
 	},
 	controls__value: {
 		textAlign: 'center',
