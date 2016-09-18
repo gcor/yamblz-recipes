@@ -8,45 +8,51 @@ export default class BlackLayoutWithPreloader extends Component {
 		super(props)
 		this.state = {
 			opacity: new Animated.Value(0),
-			progress: 0
+			progress: 0,
+			visible: false
 		}
 		this.tick = this.tick.bind(this)
+		this.stopPreloader = this.stopPreloader.bind(this)
+	}
+
+	componentDidMount () {
+		this.startPreloader()
 	}
 
 	startPreloader () {
 		this.setState({progress: 0})
 		this.preloader = setInterval(this.tick, 0.25)
+		this.animate(0.7)
 	}
 
-	stopPreloader () {
-		clearInterval(this.preloader)
-		this.preloader = null
-	}
-
-	tick () {
-		this.setState({
-			progress: (this.state.progress + 0.01)
-		})
-		if (this.state.progress > 0.98) {
-			this.stopPreloader()
-		}
-	}
-
-	componentWillReceiveProps (props) {
-		let opacity = props.visible ? 0.7 : 0
-		this.stopPreloader()
-		if (props.visible) {
-			this.startPreloader()
-		}
+	animate (opacity) {
 		Animated.timing(this.state.opacity, {
 			toValue: opacity,
 			duration: 200
 		}).start()
 	}
 
+	stopPreloader () {
+		clearInterval(this.preloader)
+		this.preloader = null
+		this.setState({
+			progress: 0,
+			visible: false
+		})
+	}
+
+	tick () {
+		this.setState({
+			progress: (this.state.progress + 0.012)
+		})
+		if (this.state.progress > 1) {
+			this.animate(0)
+			this.stopPreloader()
+		}
+	}
+
 	render () {
 		const { progress, opacity } = this.state
-		if (this.props.hidden === true) return null
 		return (
 			<Animated.View
 				style={[css.container, {opacity: opacity}]}>
@@ -65,7 +71,5 @@ export default class BlackLayoutWithPreloader extends Component {
 }
 
 BlackLayoutWithPreloader.propTypes = {
-	visible: PropTypes.bool.isRequired,
-	hidden: PropTypes.bool.isRequired,
-	onTimePassedCallback: PropTypes.func.isRequired
+	visible: PropTypes.bool.isRequired
 }

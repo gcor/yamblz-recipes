@@ -16,7 +16,6 @@ class RecipePage extends Component {
 	constructor (props) {
 		super(props)
 		this.proximityHandler = this.proximityHandler.bind(this)
-		this.toggleBackgroundLayout = this.toggleBackgroundLayout.bind(this)
 	}
 	componentWillMount () {
 		DeviceEventEmitter.removeAllListeners('Proximity')
@@ -24,7 +23,6 @@ class RecipePage extends Component {
 			ready: false, scroll: 0,
 			currentSlide: 4,
 			isLayoutVisible: false,
-			isLayoutHidden: true,
 			isDelayed: false
 		})
 		InteractionManager.runAfterInteractions(() => {
@@ -53,38 +51,19 @@ class RecipePage extends Component {
 			throttle(this.proximityHandler, 800))
 	}
 
-	toggleBackgroundLayout () {
-		let hiddenDelay = 0
-		let visibleDelay = 0
-		if (this.state.isLayoutHidden) {
-			visibleDelay = 500
-			hiddenDelay = 0
-		} else {
-			visibleDelay = 0
-			hiddenDelay = 500
-		}
-		setTimeout(() => {
-			this.setState({isLayoutHidden: !this.state.isLayoutHidden})
-		}, hiddenDelay)
-
-		setTimeout(() => {
-			this.setState({isLayoutVisible: !this.state.isLayoutVisible})
-		}, visibleDelay)
-	}
-
 	proximityHandler (data) {
 		const { isNear } = data
 		const { isDelayed } = this.state
 		if (isNear) {
 			this.waitingTimeout = setTimeout(() => {
-				this.toggleBackgroundLayout()
-			}, 500)
+				this.setState({isLayoutVisible: true})
+			}, 800)
 			this.sliderTimeout = setTimeout(() => {
 				this.props.previousSlide()
-				this.setState({isDelayed: true})
-				setTimeout(() => {
-					this.toggleBackgroundLayout()
-				}, 500)
+				this.setState({
+					isDelayed: true,
+					isLayoutVisible: false
+				})
 			}, 2500)
 		}
 
@@ -93,6 +72,7 @@ class RecipePage extends Component {
 			clearTimeout(this.waitingTimeout)
 			this.sliderTimeout = null
 			this.waitingTimeout = null
+			this.setState({isLayoutVisible: false})
 			if (isDelayed) {
 				this.setState({isDelayed: false})
 				return false
@@ -147,6 +127,17 @@ class RecipePage extends Component {
 			this.props.previousSlide({scroll: false})
 		}
 	}
+
+	renderBlackLayout () {
+		if (this.state.isLayoutVisible) {
+			return (
+				<BlackLayoutWithPreloader />
+			)
+		}
+
+		return null
+	}
+
 	render () {
 		const { recipe } = this.props
 		return (
@@ -161,10 +152,7 @@ class RecipePage extends Component {
 					</ScrollView>
 				</View>
 				<AbsoluteTimer />
-				<BlackLayoutWithPreloader
-					hidden={this.state.isLayoutHidden}
-					visible={this.state.isLayoutVisible}
-				/>
+				{this.renderBlackLayout()}
 			</View>
 		)
 	}
