@@ -21,7 +21,7 @@ export default class AppBar extends Component {
 				<View style={css.bar__content}>
 					<Text numberOfLines={2} style={[css.bar__title, css.bar__title_black]}>{recipe.title}</Text>
 				</View>
-				<RecipeSpeech />
+				<RecipeSpeech recipe={recipe} />
 			</View>
 		)
 	}

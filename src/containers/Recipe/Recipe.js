@@ -158,11 +158,9 @@ class RecipePage extends Component {
 			return (
 				<BlackLayoutWithPreloader
 					hideProgressBar={this.state.isLayoutForTimers}
-					endless={this.state.isLayoutForTimers}
-				/>
+					endless={this.state.isLayoutForTimers}  />
 			)
 		}
-
 		return null
 	}
 
@@ -170,7 +168,7 @@ class RecipePage extends Component {
 		const { recipe } = this.props
 		return (
 			<View style={{flex: 1, justifyContent: 'space-between'}}>
-				<RecipeAppBar />
+				<RecipeAppBar recipe={recipe} />
 				<View style={{flex: 1}}>
 					<ScrollView
 						onScroll={this.handleScroll}
@@ -183,8 +181,7 @@ class RecipePage extends Component {
 					</ScrollView>
 				</View>
 				<AbsoluteTimer
-					toggleBlackLayout={this.toggleBlackLayout}
-				/>
+					toggleBlackLayout={this.toggleBlackLayout}/>
 				{this.renderBlackLayout()}
 			</View>
 		)
