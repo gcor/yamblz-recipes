@@ -25,7 +25,7 @@ export default class SoonInApp extends Component {
 		this.setState(status)
 	}
 	_renderSoonInAppButton () {
-		const text = 'Напомним об открытии категории'
+		const text = 'Вы подписаны'
 		if (this.state.isSubscribe) {
 			return (
 				<View style={css.soonbtn_disable}>

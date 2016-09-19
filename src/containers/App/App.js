@@ -77,7 +77,10 @@ class App extends Component {
 			<NavigationCardStack
 				navigationState={navigationState}
 				onNavigateBack={backAction}
-				style={{flex: 1, paddingTop: this.setStatusBar(navigationState.routes[navigationState.routes.length - 1].key)}}
+				style={{
+					flex: 1,
+					paddingTop: this.setStatusBar(navigationState.routes[navigationState.routes.length - 1].key)
+				}}
 				direction={navigationState.routes[navigationState.index].key === 'Recipe'
 					? 'vertical' : 'horizontal'
 				}

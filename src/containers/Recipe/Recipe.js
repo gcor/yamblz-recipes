@@ -2,7 +2,9 @@ import React, { Component, PropTypes } from 'react'
 import { ScrollView,
 	InteractionManager,
 	DeviceEventEmitter,
-	View
+	View,
+	Vibration,
+	ToastAndroid
 } from 'react-native'
 
 import Recipe from '../../components/Recipe'
@@ -10,22 +12,27 @@ import AbsoluteTimer from '../../components/AbsoluteTimer'
 import { SensorManager } from 'NativeModules'
 import { throttle } from 'lodash'
 import RecipeAppBar from '../../components/RecipeAppBar'
+import BlackLayoutWithPreloader from '../../components/BlackLayoutWithPreloader'
 
 class RecipePage extends Component {
 	constructor (props) {
 		super(props)
 		this.proximityHandler = this.proximityHandler.bind(this)
+		this.vibrationHandler = this.vibrationHandler.bind(this)
+		this.toggleBlackLayout = this.toggleBlackLayout.bind(this)
 	}
 	componentWillMount () {
-		DeviceEventEmitter.removeAllListeners('Proximity')
 		this.setState({
 			ready: false, scroll: 0,
-			currentSlide: 4
+			currentSlide: 4,
+			isLayoutVisible: false,
+			isLayoutForTimers: false,
+			isDelayed: false
 		})
 		InteractionManager.runAfterInteractions(() => {
 			this.setState({ready: true})
+			this.props.fetchRecipes('57dc0628f36d2873d81b0c93')
 		})
-		SensorManager.startProximity(50)
 	}
 
 	componentWillReceiveProps (props) {
@@ -41,15 +48,58 @@ class RecipePage extends Component {
 	}
 
 	componentDidMount () {
+		SensorManager.startProximity(50)
 		this.proximityListener = DeviceEventEmitter.addListener('Proximity',
-			throttle(this.proximityHandler, 800))
+			throttle(this.proximityHandler, 1000))
+		setTimeout(() => {
+			ToastAndroid.showWithGravity(
+				'Чтобы попробовать бесконтактные жесты, ' +
+				'проведи рукой над верхней частью экрана', ToastAndroid.LONG,
+				ToastAndroid.BOTTOM,
+			)
+		}, 5000)
+	}
+
+	vibrationHandler () {
+		Vibration.vibrate([0, 100])
+	}
+
+	toggleBlackLayout (isLayoutForTimers) {
+		this.setState({
+			isLayoutVisible: !this.state.isLayoutVisible
+		})
+		if (isLayoutForTimers) {
+			this.setState({isLayoutForTimers: !this.state.isLayoutForTimers})
+		}
 	}
 
 	proximityHandler (data) {
 		const { isNear } = data
+		const { isDelayed } = this.state
 		if (isNear) {
+			this.waitingTimeout = setTimeout(this.toggleBlackLayout, 1000)
+			this.sliderTimeout = setTimeout(() => {
+				this.vibrationHandler()
+				this.props.previousSlide()
+				this.setState({isDelayed: true})
+				this.toggleBlackLayout()
+			}, 2500)
+		}
+		/*
+
+		*/
+		if (!isNear) {
+			clearTimeout(this.sliderTimeout)
+			clearTimeout(this.waitingTimeout)
+			this.sliderTimeout = null
+			this.waitingTimeout = null
+			this.setState({isLayoutVisible: false})
+			if (isDelayed) {
+				this.setState({isDelayed: false})
+				return false
+			}
 			this.props.nextSlide()
-			// this.scrollTo()
+			this.vibrationHandler()
 		}
 	}
 
@@ -98,6 +148,20 @@ class RecipePage extends Component {
 			this.props.previousSlide({scroll: false})
 		}
 	}
+
+	renderBlackLayout () {
+		if (this.state.isLayoutVisible) {
+			return (
+				<BlackLayoutWithPreloader
+					hideProgressBar={this.state.isLayoutForTimers}
+					endless={this.state.isLayoutForTimers}
+				/>
+			)
+		}
+
+		return null
+	}
+
 	render () {
 		const { recipe } = this.props
 		return (
@@ -111,7 +175,10 @@ class RecipePage extends Component {
 						{this.renderRecipe(recipe)}
 					</ScrollView>
 				</View>
-				<AbsoluteTimer />
+				<AbsoluteTimer
+					toggleBlackLayout={this.toggleBlackLayout}
+				/>
+				{this.renderBlackLayout()}
 			</View>
 		)
 	}
