@@ -3,6 +3,7 @@ import { ScrollView,
 	InteractionManager,
 	DeviceEventEmitter,
 	View,
+	Text,
 	Vibration,
 	ToastAndroid
 } from 'react-native'
@@ -13,6 +14,7 @@ import { SensorManager } from 'NativeModules'
 import { throttle } from 'lodash'
 import RecipeAppBar from '../../components/RecipeAppBar'
 import BlackLayoutWithPreloader from '../../components/BlackLayoutWithPreloader'
+import css from './Recipe.css'
 
 class RecipePage extends Component {
 	constructor (props) {
@@ -172,6 +174,9 @@ class RecipePage extends Component {
 						scrollEventThrottle={200}
 						ref={(r) => { this.recipe = r }}>
 						{this.renderRecipe(recipe)}
+						<View style={css.bonappetite}>
+							<Text style={css.bonappetite__text}>Приятного аппетита</Text>
+						</View>
 					</ScrollView>
 				</View>
 				<AbsoluteTimer

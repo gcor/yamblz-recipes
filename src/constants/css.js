@@ -3,7 +3,7 @@ export default {
 	yellow: '#FFEC3B',
 	gray: '#777',
 	lightgray: '#F4F3F1',
-	elevation: 5,
+	elevation: 3,
 	fontXL: 24,
 	fontL: 20,
 	fontM: 18,
