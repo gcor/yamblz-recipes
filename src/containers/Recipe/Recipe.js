@@ -51,9 +51,7 @@ class RecipePage extends Component {
 
 	componentDidMount () {
 		SensorManager.startProximity(30)
-		setTimeout(() => {
-			DeviceEventEmitter.addListener('Proximity', this.proximityHandler)
-		}, 5000)
+		DeviceEventEmitter.addListener('Proximity', this.proximityHandler)
 
 		setTimeout(() => {
 			ToastAndroid.showWithGravity(
