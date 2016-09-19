@@ -12,7 +12,9 @@ export default class RecipeSpeech extends Component {
 			isSpeechEnabled: false,
 			scale: new Animated.Value(1)
 		}
+		this.vocalizedStage = 0
 	}
+
 	componentWillMount () {
 		DeviceEventEmitter.addListener('phraseSpotted', this.phraseSpotted.bind(this))
 		DeviceEventEmitter.addListener('spotterError', function (e) {
@@ -22,11 +24,6 @@ export default class RecipeSpeech extends Component {
 
 	componentDidMount () {
 		Speech.loadSpotter(() => {
-			//if (this.state.isSpeechEnabled) {
-				//Speech.startSpotter((error) => {
-					//alert('Spotter error ' + error)
-				//})
-			//}
 		}, (error) => {
 			alert(error)
 		})
@@ -41,36 +38,35 @@ export default class RecipeSpeech extends Component {
 	}
 
 	phraseSpotted (e) {
-		alert(e.command)
+		let { recipe, currentSlide } = this.props
+
 		switch (e.command) {
-			case 'будем-готовить':
-				const { recipe, currentSlide } = this.props
-				Speech.stopSpotter()
-				this.vocalizedStage = currentSlide
-				this.vocalizeStage(currentSlide, recipe.stages[currentSlide], this.readyCallback.bind(this), this.errorCallback.bind(this))
+			case 'будем_готовить': 
+				//this.props.resetSlider()
+				currentSlide = currentSlide
 				break
-			case 'давай-дальше':
+			case 'давай_дальше': 
 				this.props.nextSlide()
-				currentSlide = this.props.currentSlide
-				recipe = this.props.recipe
-				Speech.stopSpotter()
-				if (this.vocalizedStage !== currentSlide) {
-					this.vocalizeStage(currentSlide, recipe.stages[currentSlide], this.readyCallback.bind(this), this.errorCallback.bind(this))
-					this.vocalizedStage = currentSlide
+				if (currentSlide + 1 < recipe.stages.length) {
+					currentSlide = currentSlide + 1
 				}
-			case 'верни-обратно':
-				this.props.previousSlide()
-				currentSlide = this.props.currentSlide
-				recipe = this.props.recipe
-				Speech.stopSpotter()
-				if (this.vocalizedStage !== currentSlide) {
-					this.vocalizeStage(currentSlide, recipe.stages[currentSlide], this.readyCallback.bind(this), this.errorCallback.bind(this))
-					this.vocalizedStage = currentSlide
+				break
+			case 'верни_обратно': this.props.previousSlide()
+				if (currentSlide - 1 >= 0) {
+					currentSlide = currentSlide - 1
 				}
+				break
+			case 'повтори_заново':
+				break
 		}
-		const { recipe } = this.props
+
+		console.log(currentSlide, this.vocalizedStage)
+		if (this.vocalizedStage === currentSlide) {
+			if (e.command === 'давай_дальше' || e.command === 'верни_обратно') return
+		}
 		Speech.stopSpotter()
-		this.vocalizeStage(0, recipe.stages[0], this.readyCallback.bind(this), this.errorCallback.bind(this))
+		this.vocalizeStage(currentSlide, recipe.stages[currentSlide], this.readyCallback.bind(this), this.errorCallback.bind(this))
+		this.vocalizedStage = currentSlide
 	}
 
 	vocalizeTimeout (phrasesToVocalize, readyCallback, errorCallback) {
@@ -93,7 +89,6 @@ export default class RecipeSpeech extends Component {
 		stage.steps.forEach(function (element, index) {
 			phrasesToVocalize.push(element.title)
 		})
-
 		this.vocalizeTimeout(phrasesToVocalize, readyCallback, errorCallback)
 	}
 
@@ -136,17 +131,17 @@ export default class RecipeSpeech extends Component {
 	}
 
 	animateState (scale) {  
- 		Animated.timing(this.state.scale, {
- 			toValue: scale,
- 			duration: 200
- 		}).start()
- 	}
+		Animated.timing(this.state.scale, {
+			toValue: scale,
+			duration: 200
+		}).start()
+	}
 
 	render () {
 		const { scale } = this.state
 		return (
 			<TouchableHighlight style={css.speech__highlight}
-				underlayColor='rgba(255,255,255,0.2)'
+				underlayColor='rgba(0,0,0,0.2)'
 				onPress={this._onPress.bind(this)}>
 				<Animated.View style={{transform: [{scale: scale}]}}>
 					<Image style={css.speech__icon}
