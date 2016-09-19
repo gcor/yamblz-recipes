@@ -1,8 +1,9 @@
 import React, { Component, PropTypes } from 'react'
-import { ScrollView, NativeModules, InteractionManager } from 'react-native'
+import { Text, ScrollView, NativeModules, InteractionManager } from 'react-native'
 import Slider from '../../components/Slider'
 import * as _ from 'lodash'
 const AppMetrica = NativeModules.AppMetrika
+import css from './History.css'
 
 export default class History extends Component {
 	componentWillMount () {
@@ -47,20 +48,43 @@ export default class History extends Component {
 			title: 'Сохраненные'
 		})
 	}
+	_renderLastViewed (lastViewedRecipes) {
+		if (lastViewedRecipes.length > 0) {
+			return (
+				<Slider
+					title={'Вы недавно смотрели'}
+					onPressHandler={this._onCardPress.bind(this)}
+					recipes={lastViewedRecipes} />
+			)
+		}
+	}
+	_renderHistory (historyRecipes) {
+		if (historyRecipes.length > 0) {
+			return (
+				<Slider
+					title={'Сохраненные'}
+					onPressHandler={this._onCardPress.bind(this)}
+					recipes={historyRecipes} />
+			)
+		} else {
+			return (<Text style={css.emptytext}>Здесь будут ваши сохраненные рецепты</Text>)
+		}
+	}
 	render () {
 		const { isReady } = this.state
 		if (isReady) {
 			const { lastViewedRecipes, historyRecipes } = this.props
+			if (lastViewedRecipes.length === 0 && historyRecipes.length === 0) {
+				return (
+					<ScrollView style={css.page}>
+						<Text style={css.emptytext}>Здесь будут ваши сохраненные и&nbsp;недавно просмотренные рецепты</Text>
+					</ScrollView>
+				)
+			}
 			return (
-				<ScrollView style={{marginTop: 60, backgroundColor: '#FAF9F7'}}>
-					<Slider
-						title={'Вы недавно смотрели'}
-						onPressHandler={this._onCardPress.bind(this)}
-						recipes={lastViewedRecipes} />
-					<Slider
-						title={'Сохраненные'}
-						onPressHandler={this._onCardPress.bind(this)}
-						recipes={historyRecipes || []} />
+				<ScrollView style={css.page}>
+					{this._renderLastViewed(lastViewedRecipes)}
+					{this._renderHistory(historyRecipes)}
 				</ScrollView>
 			)
 		}
