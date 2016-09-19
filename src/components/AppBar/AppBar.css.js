@@ -10,7 +10,7 @@ export default StyleSheet.create({
 		justifyContent: 'space-between'
 	},
 	bar_shift: {
-		marginTop: 32
+		marginTop: 24
 	},
 	bar_absolute: {
 		position: 'absolute',
@@ -43,8 +43,7 @@ export default StyleSheet.create({
 		borderWidth: 2,
 		borderStyle: 'solid',
 		borderColor: 'white',
-		borderRadius: 18,
-		backgroundColor: 'rgba(0,0,0,0.2)'
+		borderRadius: 18
 	},
 	bar__content: {
 			flex: 1,
