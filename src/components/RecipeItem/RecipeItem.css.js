@@ -6,7 +6,8 @@ export default StyleSheet.create({
 		backgroundColor: 'white',
 		margin: 10,
 		paddingTop: 20,
-		paddingBottom: 20
+		paddingBottom: 20,
+		elevation: ui.elevation
 	},
 	recipeItem__header: {
 		flexDirection: 'row',
@@ -26,7 +27,7 @@ export default StyleSheet.create({
 		color: 'black'
 	},
 	recipeItem__title: {
-		fontSize: ui.fontL,
+		fontSize: ui.fontXL,
 		color: 'black'
 	},
 	recipeItem__body: {},
