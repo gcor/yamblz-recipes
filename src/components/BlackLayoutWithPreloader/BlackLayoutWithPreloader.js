@@ -32,6 +32,10 @@ export default class BlackLayoutWithPreloader extends Component {
 		}).start()
 	}
 
+	componentWillUnmount () {
+		this.stopPreloader()
+	}
+
 	stopPreloader () {
 		clearInterval(this.preloader)
 		this.preloader = null
@@ -71,11 +75,21 @@ export default class BlackLayoutWithPreloader extends Component {
 		)
 	}
 
+	renderAddToBookmarks () {
+		if (!this.props.addToBookmarks) return null
+		return (
+			<View>
+				<Text style={{color: 'white'}}>Added to bookmarks</Text>
+			</View>
+		)
+	}
+
 	render () {
 		return (
 			<Animated.View
 				style={[css.container, {opacity: this.state.opacity}]}>
 				{this.renderProgressBar()}
+				{this.renderAddToBookmarks()}
 			</Animated.View>
 		)
 	}
@@ -84,5 +98,6 @@ export default class BlackLayoutWithPreloader extends Component {
 BlackLayoutWithPreloader.propTypes = {
 	visible: PropTypes.bool.isRequired,
 	hideProgressBar: PropTypes.bool.isRequired,
+	addToBookmarks: PropTypes.bool.isRequired,
 	endless: PropTypes.bool.isRequired
 }

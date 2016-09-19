@@ -15,6 +15,7 @@ import { LOADING, SUCCESS, ERROR } from '../../constants/actionTypes'
 import Preloader from '../../components/Preloader'
 import AppBar from '../../components/AppBar'
 import LinearGradient from 'react-native-linear-gradient'
+import BlackLayoutWithPreloader from '../../components/BlackLayoutWithPreloader'
 const AppMetrika = NativeModules.AppMetrika
 
 export default class RecipeView extends Component {
@@ -108,10 +109,17 @@ export default class RecipeView extends Component {
 				<Button
 					onPress={this._onPress.bind(this)}
 					text='Начать готовить' />
+
 			</View>
 		)
 	}
 }
+
+// <BlackLayoutWithPreloader
+// 	endless={false}
+// 	hideProgressBar
+// 	addToBookmarks
+// />
 
 RecipeView.propTypes = {
 	recipe: PropTypes.object.isRequired,
