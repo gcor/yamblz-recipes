@@ -1,28 +1,82 @@
-# prj-c-kitchen
+# Яндекс Рецепты
 
-`git clone https://github.com/yandexdataschool/prj-c-kitchen.git`
+Команда разработки:
 
-`cd prf-c-kitchen && npm install`
+- [Филипп Романов](https://github.com/fletcherist)
+- [Антон Ахатов](https://github.com/gcor)
+- [Яна Берникова](https://github.com/Solechko)
+- [Артем Лучин](https://github.com/artemluchin)
 
-#https://intense-earth-33481.herokuapp.com BACKAND
+## Технологии
 
-### Start development with android
-`npm run a`
+- [React Native](https://facebook.github.io/react-native/) + [Redux](https://github.com/reactjs/redux)
+- [Node.js](https://nodejs.org/en/) + [Express](http://expressjs.com/) + [MongoDB](https://www.mongodb.com/)
+- TeamCity CI
+- AppMetrica
+- ESLint ([config](https://github.com/yandexdataschool/prj-c-kitchen/blob/master/.eslintrc))
 
-### With iOS
-`npm run i`
+## Разработка
 
+Подготовка к разработке:
 
+```
+$ git clone https://github.com/yandexdataschool/prj-c-kitchen.git
+$ cd prj-c-kitchen
+$ npm install
+```
 
-## *Important*
-to open debugging menu on 5.x devices in console:
-`adb shell input keyevent 82`
+Если разработка будет проходить не на реальном девайсе, то необходимо запустить эмулятор устройства на базе Android. Если используется Android Studio, то эмулятор можно запустить следующей командой:
 
-**Ребята, ура ооо react-native Experimental Router анимация, оказывается, всегда работала. Когда включаешь Chrome JS debug, она выключается. На осознание этого ушло, по-моему, слишком много времени. Ну да ладно, зато сейчас пойдёт.**
+```
+$ emulator @<emulator_name>
+```
 
+Проверить подключено устройство или нет можно следующей командой:
+```
+$ adb devices
+```
 
+### Debug-версия
+Запуск _debug_-версии приложения:
 
-Вот и проблемы подъехали ¯\_(ツ)_/¯:
+```
+$ npm run a
+```
+Приложение запустится и будет готово для разработки.
 
-*This often happens during Navigator transitions: when you push a new route, the JavaScript thread needs...*
-[Далее..](https://facebook.github.io/react-native/docs/performance.html)
+Для удобства имеется debugging-меню, которое всплывает при нажитии на кнопку меню устройства. В нем содержатся полезные утилиты для отладки (_Hot reloading_, _Remote console_ и т.д.).
+
+__Внимание!__ Если версия Android > 5.x, то debugging-меню запускается следующей командой из терминала:
+```
+$ adb shell input keyevent 82
+```
+
+Если не используется Hot reloading, то обновить приложение после внесенных правок можно двойным нажатием кнопки `R` в эмуляторе. На девайсе нужно вызвать debugging-меню и нажать на `Reload`.
+
+### Release-версия
+
+Для запуска релизной версии приложения нужно выполнить следующую команду:
+
+```
+$ npm run t
+```
+
+### Release apk
+
+Для подготовки релизного .apk выполнить следующую команду:
+
+```
+$ npm run b
+```
+
+Файл .apk будет находиться тут:
+
+`prj-c-kitchen/android/app/build/outputs/apk/release.apk`
+
+## API
+
+Для предоставления данных используется сервер, который работает с базой данных рецептов. Посмотреть реализацию сервера можно [тут](https://github.com/yandexdataschool/prj-c-kitchen-backend).
+
+## Git Flow
+
+Разработка ведется в отдельных ветках, которые потом, посредством pull-request'ов, добавляются в главную ветку - `master`.
