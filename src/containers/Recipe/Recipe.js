@@ -31,7 +31,6 @@ class RecipePage extends Component {
 		})
 		InteractionManager.runAfterInteractions(() => {
 			this.setState({ready: true})
-			this.props.fetchRecipes('57dc0628f36d2873d81b0c93')
 		})
 	}
 

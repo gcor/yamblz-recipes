@@ -17,6 +17,7 @@ export default class Home extends Component {
 		this.props.fetchRecommend()
 		this.state = { appBarVisible: 'transparent' } // 3 states: transparent hidden white
 		this.previousY = 0
+		this._handleScroll = this._handleScroll.bind(this)
 	}
 
 	setModalVisible (visible) {
@@ -58,26 +59,31 @@ export default class Home extends Component {
 	}
 
 	_handleScroll (e) {
+		console.log('scroll handled')
+		if (!e) return null
+		if (!e.nativeEvent) return null
+		if (!e.nativeEvent.contentOffset) return null
+		if (!e.nativeEvent.contentOffset.y) return null
 		const currentY = Math.floor(e.nativeEvent.contentOffset.y)
 		isUnderSwiper = currentY > 50
 		color = isUnderSwiper ? 'black' : 'transparent'
   		StatusBar.setBackgroundColor(color, false)
 
 		if (currentY < this.previousY && isUnderSwiper) {
-			this.setState({appBarVisible: 'white'})	
-		} 
+			this.setState({appBarVisible: 'white'})
+		}
 
 		if (currentY < this.previousY && !isUnderSwiper) {
-			this.setState({appBarVisible: 'transparent'})	
-		} 
+			this.setState({appBarVisible: 'transparent'})
+		}
 
 		if (currentY > this.previousY && isUnderSwiper) {
-			this.setState({appBarVisible: 'hidden'})	
-		} 
+			this.setState({appBarVisible: 'hidden'})
+		}
 
 		if (currentY > this.previousY && !isUnderSwiper) {
-			this.setState({appBarVisible: 'transparent'})	
-		} 
+			this.setState({appBarVisible: 'transparent'})
+		}
 		this.previousY = currentY
 	}
 
@@ -88,11 +94,14 @@ export default class Home extends Component {
 		}
 		const { jumbotron, recommend } = this.props
 		const { appBarVisible } = this.state
+		// this._handleScroll.bind(this)
 		return (
 			<View style={{flex: 1}}>
 				<ScrollView style={css.home}
-					onScroll={this._handleScroll.bind(this)}>
-					<View onLayout={this._getHeight.bind(this)}>
+					onMomentumScrollEnd={this._handleScroll}
+					onScrollEndDrag={this._handleScroll}>
+					<View
+						onLayout={this._getHeight.bind(this)}>
 						<HomeSwiper
 							onPressHandler={this._onCardPress.bind(this)}
 							items={jumbotron} />

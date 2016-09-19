@@ -13,12 +13,16 @@ export default class AppBar extends Component {
 
 	constructor () {
  		super()
- 		this.state = { 
+ 		this.state = {
  			translateY: new Animated.Value(0),
  			backgroundColor: new Animated.Value(0),
  			isBookmarkBlack: false
  		}
  	}
+
+	shouldComponentUpdate (nextProps) {
+		return this.props.visible !== nextProps.visible
+	}
 
 	dayTime () {
 		let dayTime
@@ -33,30 +37,30 @@ export default class AppBar extends Component {
 
 	componentWillReceiveProps (props) {
  		switch (props.visible) {
- 			case 'white': 
+ 			case 'white':
  				this.animateState(0)
  				this.setState({isBookmarkBlack: true})
  				break
  			case 'transparent': this.animateState(0)
  				this.setState({isBookmarkBlack: false})
  				break
- 			case 'hidden': 
+ 			case 'hidden':
  				this.animateState(-100)
  				break
  		}
  	}
- 
- 	animateState (translateY) {  
+
+ 	animateState (translateY) {
  		Animated.timing(this.state.translateY, {
  			toValue: translateY,
- 			duration: 500
+ 			duration: 400
  		}).start()
  	}
 
 	renderHomeBar () {
 		const { pushToHistory, pushToSearch, pushToCategory } = this.props
 		const { translateY } = this.state
- 
+
 		var color = this.props.visible === 'white' ? 'black' : 'white'
 		var elevation = this.props.visible === 'white' ? 3 : 0
 		var backgroundColor = this.props.visible === 'white' ? 'white' : 'transparent'
@@ -78,7 +82,7 @@ export default class AppBar extends Component {
   				<TouchableHighlight style={css.bar__hilight}
   					onPress={pushToSearch.bind(this)}
   					underlayColor={underlayColor}>
-					<Image style={css.bar__icon} 
+					<Image style={css.bar__icon}
 						source={this.props.visible === 'white' ? SearchIconBlack : SearchIcon} />
   				</TouchableHighlight>
 			</Animated.View>
@@ -140,5 +144,6 @@ AppBar.propTypes = {
 	pushToCategory: PropTypes.func.isRequired,
 	navigateBack: PropTypes.func.isRequired,
 	recipe: PropTypes.object.isRequired,
-	navigationState: PropTypes.object.isRequired
+	navigationState: PropTypes.object.isRequired,
+	visible: PropTypes.bool.isRequired
 }
