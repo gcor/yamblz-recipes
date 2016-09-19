@@ -6,6 +6,7 @@ import HomeSwiper from '../../components/HomeSwiper'
 import Slider from '../../components/Slider'
 import AppBar from '../../components/AppBar'
 import SoonInApp from '../../components/SoonInApp'
+import { throttle } from 'lodash'
 
 const AppMetrica = NativeModules.AppMetrika
 
@@ -15,6 +16,8 @@ export default class Home extends Component {
 		this.state = {modalVisible: false}
 		this.props.fetchJumbotron()
 		this.props.fetchRecommend()
+		this.state = { appBarVisible: 'transparent' } // 3 states: transparent hidden white
+		this.previousY = 0
 	}
 
 	setModalVisible (visible) {
@@ -57,8 +60,30 @@ export default class Home extends Component {
 
 	_handleScroll (e) {
 		const currentY = Math.floor(e.nativeEvent.contentOffset.y)
-		var color = currentY + 24 > this.swiperHeight ? 'black' : 'transparent'
+		isUnderSwiper = currentY + 24 + 70 > this.swiperHeight
+		color = isUnderSwiper ? 'black' : 'transparent'
 		StatusBar.setBackgroundColor(color, false)
+
+		if (currentY < this.previousY && isUnderSwiper) {
+			this.setState({appBarVisible: 'white'})	
+			alert('white')
+		} 
+
+		if (currentY < this.previousY && !isUnderSwiper) {
+			this.setState({appBarVisible: 'transparent'})	
+			alert('transparent')
+		} 
+
+		if (currentY > this.previousY && isUnderSwiper) {
+			this.setState({appBarVisible: 'hidden'})	
+			alert('hidden')
+		} 
+
+		if (currentY > this.previousY && !isUnderSwiper) {
+			this.setState({appBarVisible: 'transparent'})	
+			alert('transparent')
+		} 
+		this.previousY = currentY
 	}
 
 	render () {
@@ -67,16 +92,15 @@ export default class Home extends Component {
 			soon: 'скоро в приложении'.toUpperCase()
 		}
 		const { jumbotron, recommend } = this.props
+		const { appBarVisible } = this.state
 		return (
 			<View style={{flex: 1}}>
 				<ScrollView style={css.home}
-					onScroll={this._handleScroll.bind(this)}
-					scrollEventThrottle={200}>
+					onScroll={this._handleScroll.bind(this)}>
 					<View onLayout={this._getHeight.bind(this)}>
 						<HomeSwiper
 							onPressHandler={this._onCardPress.bind(this)}
 							items={jumbotron} />
-						<AppBar />
 					</View>
 					<Slider style={css.home__recomended}
 						title={titles.recommend}
@@ -84,6 +108,7 @@ export default class Home extends Component {
 						recipes={recommend} />
 					<SoonInApp />
 				</ScrollView>
+				<AppBar visible={this.state.appBarVisible} />
 			</View>
 		)
 	}
