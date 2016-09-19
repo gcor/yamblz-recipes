@@ -60,28 +60,28 @@ export default class Home extends Component {
 
 	_handleScroll (e) {
 		const currentY = Math.floor(e.nativeEvent.contentOffset.y)
-		isUnderSwiper = currentY + 24 + 70 > this.swiperHeight
+		isUnderSwiper = currentY > 50
 		color = isUnderSwiper ? 'black' : 'transparent'
 		StatusBar.setBackgroundColor(color, false)
 
 		if (currentY < this.previousY && isUnderSwiper) {
 			this.setState({appBarVisible: 'white'})	
-			alert('white')
+			//alert('white')
 		} 
 
 		if (currentY < this.previousY && !isUnderSwiper) {
 			this.setState({appBarVisible: 'transparent'})	
-			alert('transparent')
+			//alert('transparent')
 		} 
 
 		if (currentY > this.previousY && isUnderSwiper) {
 			this.setState({appBarVisible: 'hidden'})	
-			alert('hidden')
+			//alert('hidden')
 		} 
 
 		if (currentY > this.previousY && !isUnderSwiper) {
 			this.setState({appBarVisible: 'transparent'})	
-			alert('transparent')
+			//alert('transparent')
 		} 
 		this.previousY = currentY
 	}
