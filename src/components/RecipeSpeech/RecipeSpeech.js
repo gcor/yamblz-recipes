@@ -1,15 +1,16 @@
 import React, { Component, PropTypes } from 'react'
-import { Text, View, TouchableHighlight, Image, DeviceEventEmitter, NativeModules } from 'react-native'
+import { Text, View, TouchableHighlight, Image, DeviceEventEmitter, NativeModules, Animated } from 'react-native'
 import css from './RecipeSpeech.css'
 import SpeechIcon from '../../icons/micro.png'
 import SpeechIconOn from './assets/micro2.png'
 const Speech = NativeModules.SpeechApi
 
 export default class RecipeSpeech extends Component {
-	constructor () {
-		super()
+	constructor (props) {
+		super(props)
 		this.state = {
-			isSpeechEnabled: false
+			isSpeechEnabled: false,
+			scale: new Animated.Value(1)
 		}
 	}
 	componentWillMount () {
@@ -34,44 +35,46 @@ export default class RecipeSpeech extends Component {
 
 	componentWillUnmount () {
 		Speech.stopSpotter()
-		//DeviceEventEmitter.removeAllListeners('phraseSpotted')
-		//DeviceEventEmitter.removeAllListeners('spotterError')
+		Speech.resetVocalizer()
+		DeviceEventEmitter.removeAllListeners('phraseSpotted')
+		DeviceEventEmitter.removeAllListeners('spotterError')
 	}
 
 	phraseSpotted (e) {
 		alert(e.command)
-		// switch (e.command) {
-		// 	case 'диктовка':
-		// 		const { recipe, currentSlide } = this.props
-		// 		Speech.stopSpotter()
-		// 		this.vocalizedStage = currentSlide
-		// 		this.vocalizeStage(currentSlide, recipe.stages[currentSlide], this.readyCallback.bind(this), this.errorCallback.bind(this))
-		// 		break
-		// 	case 'следующий-шаг':
-		// 		this.props.nextSlide()
-		// 		currentSlide = this.props.currentSlide
-		// 		recipe = this.props.recipe
-		// 		Speech.stopSpotter()
-		// 		if (this.vocalizedStage !== currentSlide) {
-		// 			this.vocalizeStage(currentSlide, recipe.stages[currentSlide], this.readyCallback.bind(this), this.errorCallback.bind(this))
-		// 			this.vocalizedStage = currentSlide
-		// 		}
-		// 	case 'предыдущий-шаг':
-		// 		this.props.previousSlide()
-		// 		currentSlide = this.props.currentSlide
-		// 		recipe = this.props.recipe
-		// 		Speech.stopSpotter()
-		// 		if (this.vocalizedStage !== currentSlide) {
-		// 			this.vocalizeStage(currentSlide, recipe.stages[currentSlide], this.readyCallback.bind(this), this.errorCallback.bind(this))
-		// 			this.vocalizedStage = currentSlide
-		// 		}
-		// }
+		switch (e.command) {
+			case 'будем-готовить':
+				const { recipe, currentSlide } = this.props
+				Speech.stopSpotter()
+				this.vocalizedStage = currentSlide
+				this.vocalizeStage(currentSlide, recipe.stages[currentSlide], this.readyCallback.bind(this), this.errorCallback.bind(this))
+				break
+			case 'давай-дальше':
+				this.props.nextSlide()
+				currentSlide = this.props.currentSlide
+				recipe = this.props.recipe
+				Speech.stopSpotter()
+				if (this.vocalizedStage !== currentSlide) {
+					this.vocalizeStage(currentSlide, recipe.stages[currentSlide], this.readyCallback.bind(this), this.errorCallback.bind(this))
+					this.vocalizedStage = currentSlide
+				}
+			case 'верни-обратно':
+				this.props.previousSlide()
+				currentSlide = this.props.currentSlide
+				recipe = this.props.recipe
+				Speech.stopSpotter()
+				if (this.vocalizedStage !== currentSlide) {
+					this.vocalizeStage(currentSlide, recipe.stages[currentSlide], this.readyCallback.bind(this), this.errorCallback.bind(this))
+					this.vocalizedStage = currentSlide
+				}
+		}
 		const { recipe } = this.props
 		Speech.stopSpotter()
 		this.vocalizeStage(0, recipe.stages[0], this.readyCallback.bind(this), this.errorCallback.bind(this))
 	}
 
 	vocalizeTimeout (phrasesToVocalize, readyCallback, errorCallback) {
+		if (!this.state.isSpeechEnabled) return
 		var phrase = phrasesToVocalize.shift()
 		Speech.vocalize(phrase, '', () => {
 			if (phrasesToVocalize.length > 0) {
@@ -91,17 +94,15 @@ export default class RecipeSpeech extends Component {
 			phrasesToVocalize.push(element.title)
 		})
 
-		//alert(phrasesToVocalize)
-
 		this.vocalizeTimeout(phrasesToVocalize, readyCallback, errorCallback)
 	}
 
 	readyCallback () {
-		//if (this.state.isSpeechEnabled) {
+		if (this.state.isSpeechEnabled) {
 			Speech.startSpotter((error) => {
 				alert('Spotter error ' + error)
 			})
-		//}
+		}
 	}
 
 	errorCallback () {
@@ -117,22 +118,40 @@ export default class RecipeSpeech extends Component {
 			Speech.stopSpotter()
 			Speech.resetVocalizer()
 			this.setState({ isSpeechEnabled: false })
+			clearInterval(this.timer)
+			this.animateState(1)
 		}
 		else {
 			Speech.startSpotter((error) => {
 			})
 			this.setState({ isSpeechEnabled: true })
+
+			startValue = true 
+			this.timer = setInterval(() => {
+				value = startValue ? 1.2 : 1
+				this.animateState(value)
+				startValue = !startValue
+			}, 300)
 		}
-		alert(this.state.isSpeechEnabled)
 	}
 
+	animateState (scale) {  
+ 		Animated.timing(this.state.scale, {
+ 			toValue: scale,
+ 			duration: 200
+ 		}).start()
+ 	}
+
 	render () {
+		const { scale } = this.state
 		return (
 			<TouchableHighlight style={css.speech__highlight}
 				underlayColor='rgba(255,255,255,0.2)'
 				onPress={this._onPress.bind(this)}>
-				<Image style={css.speech__icon}
-					source={this.state.isSpeechEnabled ? SpeechIconOn : SpeechIcon} />
+				<Animated.View style={{transform: [{scale: scale}]}}>
+					<Image style={css.speech__icon}
+						source={this.state.isSpeechEnabled ? SpeechIconOn : SpeechIcon} />
+				</Animated.View>
 			</TouchableHighlight>
 		)
 	}
