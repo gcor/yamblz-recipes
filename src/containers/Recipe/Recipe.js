@@ -20,6 +20,7 @@ class RecipePage extends Component {
 		this.proximityHandler = this.proximityHandler.bind(this)
 		this.vibrationHandler = this.vibrationHandler.bind(this)
 		this.toggleBlackLayout = this.toggleBlackLayout.bind(this)
+		this.proximityListener = null
 	}
 	componentWillMount () {
 		this.setState({
@@ -47,9 +48,11 @@ class RecipePage extends Component {
 	}
 
 	componentDidMount () {
-		SensorManager.startProximity(50)
-		this.proximityListener = DeviceEventEmitter.addListener('Proximity',
-			throttle(this.proximityHandler, 1000))
+		SensorManager.startProximity(30)
+		setTimeout(() => {
+			DeviceEventEmitter.addListener('Proximity', this.proximityHandler)
+		}, 5000)
+
 		setTimeout(() => {
 			ToastAndroid.showWithGravity(
 				'Чтобы попробовать бесконтактные жесты, ' +
@@ -74,15 +77,16 @@ class RecipePage extends Component {
 
 	proximityHandler (data) {
 		const { isNear } = data
+		console.log(isNear)
 		const { isDelayed } = this.state
 		if (isNear) {
-			this.waitingTimeout = setTimeout(this.toggleBlackLayout, 1000)
+			this.waitingTimeout = setTimeout(this.toggleBlackLayout, 500)
 			this.sliderTimeout = setTimeout(() => {
 				this.vibrationHandler()
 				this.props.previousSlide()
 				this.setState({isDelayed: true})
 				this.toggleBlackLayout()
-			}, 2500)
+			}, 1500)
 		}
 		/*
 
@@ -103,8 +107,9 @@ class RecipePage extends Component {
 	}
 
 	componentWillUnmount () {
+		DeviceEventEmitter.removeListener('Proximity', this.proximityHandler)
 		SensorManager.stopProximity()
-		this.proximityListener.remove()
+
 		this.props.resetSlider()
 		this.props.resetTimers()
 	}

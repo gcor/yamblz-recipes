@@ -50,7 +50,7 @@ export default class BlackLayoutWithPreloader extends Component {
 
 	tick () {
 		this.setState({
-			progress: (this.state.progress + 0.012)
+			progress: (this.state.progress + 0.02)
 		})
 		if (this.state.progress > 1) {
 			this.stopPreloader()
