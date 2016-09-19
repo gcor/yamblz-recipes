@@ -3,7 +3,8 @@ import { ScrollView,
 	InteractionManager,
 	DeviceEventEmitter,
 	View,
-	Vibration
+	Vibration,
+	ToastAndroid
 } from 'react-native'
 
 import Recipe from '../../components/Recipe'
@@ -21,7 +22,6 @@ class RecipePage extends Component {
 		this.toggleBlackLayout = this.toggleBlackLayout.bind(this)
 	}
 	componentWillMount () {
-		DeviceEventEmitter.removeAllListeners('Proximity')
 		this.setState({
 			ready: false, scroll: 0,
 			currentSlide: 4,
@@ -33,7 +33,6 @@ class RecipePage extends Component {
 			this.setState({ready: true})
 			this.props.fetchRecipes('57dc0628f36d2873d81b0c93')
 		})
-		SensorManager.startProximity(50)
 	}
 
 	componentWillReceiveProps (props) {
@@ -49,8 +48,16 @@ class RecipePage extends Component {
 	}
 
 	componentDidMount () {
+		SensorManager.startProximity(50)
 		this.proximityListener = DeviceEventEmitter.addListener('Proximity',
 			throttle(this.proximityHandler, 1000))
+		setTimeout(() => {
+			ToastAndroid.showWithGravity(
+				'Чтобы попробовать бесконтактные жесты, ' +
+				'проведи рукой над верхней частью экрана', ToastAndroid.LONG,
+				ToastAndroid.BOTTOM,
+			)
+		}, 5000)
 	}
 
 	vibrationHandler () {
