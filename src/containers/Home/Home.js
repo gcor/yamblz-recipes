@@ -65,24 +65,24 @@ export default class Home extends Component {
 		StatusBar.setBackgroundColor(color, false)
 
 		if (currentY < this.previousY && isUnderSwiper) {
-			this.setState({appBarVisible: 'white'})	
-			alert('white')
-		} 
+			this.setState({appBarVisible: 'white'})
+			// alert('white')
+		}
 
 		if (currentY < this.previousY && !isUnderSwiper) {
-			this.setState({appBarVisible: 'transparent'})	
-			alert('transparent')
-		} 
+			this.setState({appBarVisible: 'transparent'})
+			// alert('transparent')
+		}
 
 		if (currentY > this.previousY && isUnderSwiper) {
-			this.setState({appBarVisible: 'hidden'})	
-			alert('hidden')
-		} 
+			this.setState({appBarVisible: 'hidden'})
+			// alert('hidden')
+		}
 
 		if (currentY > this.previousY && !isUnderSwiper) {
-			this.setState({appBarVisible: 'transparent'})	
-			alert('transparent')
-		} 
+			this.setState({appBarVisible: 'transparent'})
+			// alert('transparent')
+		}
 		this.previousY = currentY
 	}
 
