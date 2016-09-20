@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { Text, View, ListView, Image, TouchableHighlight } from 'react-native'
 import css from './IngredientList.css'
 import { getAmount } from './util'
-import CloseButton from '../../icons/close.png'
+import CloseButton from '../../icons/gray_close.png'
 import PlusButton from '../../icons/plus.png'
 import MinusButton from '../../icons/minus.png'
 
@@ -63,6 +63,7 @@ export default class IngredientList extends Component {
 		if (isVisible) {
 			return (
 				<TouchableHighlight
+					underlayColor='transparent'
 					style={css.closeButton}
 					onPress={this.props.setExtra.bind(this, id)}
 					>

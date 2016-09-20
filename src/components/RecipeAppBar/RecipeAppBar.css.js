@@ -30,7 +30,7 @@ export default StyleSheet.create({
 		paddingRight: 8
 	},
 	bar__title: {
-		fontSize: 20,
+		fontSize: 18,
 		fontWeight: '100',
 		color: 'white',
 		flexWrap: 'wrap'

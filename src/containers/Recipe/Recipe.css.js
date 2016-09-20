@@ -16,7 +16,7 @@ export default StyleSheet.create({
 		marginBottom: 20
 	},
 	bonappetite__text: {
-		fontSize: ui.fontXL,
+		fontSize: ui.fontL,
 		color: 'black'
 	}
 })

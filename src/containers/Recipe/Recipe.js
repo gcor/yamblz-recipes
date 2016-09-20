@@ -158,7 +158,7 @@ class RecipePage extends Component {
 			return (
 				<BlackLayoutWithPreloader
 					hideProgressBar={this.state.isLayoutForTimers}
-					endless={this.state.isLayoutForTimers}  />
+					endless={this.state.isLayoutForTimers} />
 			)
 		}
 		return null
@@ -176,12 +176,12 @@ class RecipePage extends Component {
 						ref={(r) => { this.recipe = r }}>
 						{this.renderRecipe(recipe)}
 						<View style={css.bonappetite}>
-							<Text style={css.bonappetite__text}>Приятного аппетита</Text>
+							<Text style={css.bonappetite__text}>Приятного аппетита!</Text>
 						</View>
 					</ScrollView>
 				</View>
 				<AbsoluteTimer
-					toggleBlackLayout={this.toggleBlackLayout}/>
+					toggleBlackLayout={this.toggleBlackLayout} />
 				{this.renderBlackLayout()}
 			</View>
 		)
