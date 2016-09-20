@@ -37,9 +37,8 @@ export default StyleSheet.create({
 	},
 	ingredients__item: {
 		borderBottomWidth: 1,
-		flex: 1,
 		flexDirection: 'row',
-		height: 84,
+		alignItems: 'center',
 		borderBottomColor: '#eee'
 	},
 	ingredients__imageBox: {
@@ -55,37 +54,26 @@ export default StyleSheet.create({
 	},
 	ingredients__content: {
 		flex: 3,
-		marginLeft: 25,
-		marginRight: 25
+		flexDirection: 'column',
+		paddingLeft: 25,
+		paddingRight: 25,
+		paddingTop: 16,
+		paddingBottom: 16
 	},
 	ingredients__title: {
 		fontSize: 20,
-		color: 'black',
-		marginTop: 16
+		color: 'black'
 	},
 	ingredients__amount: {
 		fontSize: 16,
 		color: 'rgba(0,0,0,.6)',
-		marginTop: 6
-	},
-
-	extraIngredients: {
-		marginTop: 5
-	},
-	extraIngredients__item: {
-		flex: 1,
-		flexDirection: 'row',
-		height: 84,
-		marginBottom: 5,
-		marginLeft: 10,
-		marginRight: 10,
-		backgroundColor: 'white',
-		elevation: 2
+		paddingTop: 6
 	},
 
 	closeButton: {
 		position: 'absolute',
-		top: 15,
-		right: 15
+		top: 0,
+		right: 0,
+		padding: 10
 	}
 })

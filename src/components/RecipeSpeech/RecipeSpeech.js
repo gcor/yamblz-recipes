@@ -1,17 +1,20 @@
 import React, { Component, PropTypes } from 'react'
-import { Text, View, TouchableHighlight, Image, DeviceEventEmitter, NativeModules } from 'react-native'
+import { Text, View, TouchableHighlight, Image, DeviceEventEmitter, NativeModules, Animated } from 'react-native'
 import css from './RecipeSpeech.css'
 import SpeechIcon from '../../icons/micro.png'
 import SpeechIconOn from './assets/micro2.png'
 const Speech = NativeModules.SpeechApi
 
 export default class RecipeSpeech extends Component {
-	constructor () {
-		super()
+	constructor (props) {
+		super(props)
 		this.state = {
-			isSpeechEnabled: false
+			isSpeechEnabled: false,
+			scale: new Animated.Value(1)
 		}
+		this.vocalizedStage = 0
 	}
+
 	componentWillMount () {
 		DeviceEventEmitter.addListener('phraseSpotted', this.phraseSpotted.bind(this))
 		DeviceEventEmitter.addListener('spotterError', function (e) {
@@ -21,11 +24,6 @@ export default class RecipeSpeech extends Component {
 
 	componentDidMount () {
 		Speech.loadSpotter(() => {
-			//if (this.state.isSpeechEnabled) {
-				//Speech.startSpotter((error) => {
-					//alert('Spotter error ' + error)
-				//})
-			//}
 		}, (error) => {
 			alert(error)
 		})
@@ -34,44 +32,45 @@ export default class RecipeSpeech extends Component {
 
 	componentWillUnmount () {
 		Speech.stopSpotter()
-		//DeviceEventEmitter.removeAllListeners('phraseSpotted')
-		//DeviceEventEmitter.removeAllListeners('spotterError')
+		Speech.resetVocalizer()
+		DeviceEventEmitter.removeAllListeners('phraseSpotted')
+		DeviceEventEmitter.removeAllListeners('spotterError')
 	}
 
 	phraseSpotted (e) {
-		alert(e.command)
-		// switch (e.command) {
-		// 	case 'диктовка':
-		// 		const { recipe, currentSlide } = this.props
-		// 		Speech.stopSpotter()
-		// 		this.vocalizedStage = currentSlide
-		// 		this.vocalizeStage(currentSlide, recipe.stages[currentSlide], this.readyCallback.bind(this), this.errorCallback.bind(this))
-		// 		break
-		// 	case 'следующий-шаг':
-		// 		this.props.nextSlide()
-		// 		currentSlide = this.props.currentSlide
-		// 		recipe = this.props.recipe
-		// 		Speech.stopSpotter()
-		// 		if (this.vocalizedStage !== currentSlide) {
-		// 			this.vocalizeStage(currentSlide, recipe.stages[currentSlide], this.readyCallback.bind(this), this.errorCallback.bind(this))
-		// 			this.vocalizedStage = currentSlide
-		// 		}
-		// 	case 'предыдущий-шаг':
-		// 		this.props.previousSlide()
-		// 		currentSlide = this.props.currentSlide
-		// 		recipe = this.props.recipe
-		// 		Speech.stopSpotter()
-		// 		if (this.vocalizedStage !== currentSlide) {
-		// 			this.vocalizeStage(currentSlide, recipe.stages[currentSlide], this.readyCallback.bind(this), this.errorCallback.bind(this))
-		// 			this.vocalizedStage = currentSlide
-		// 		}
-		// }
-		const { recipe } = this.props
+		let { recipe, currentSlide } = this.props
+
+		switch (e.command) {
+			case 'будем_готовить': 
+				//this.props.resetSlider()
+				currentSlide = currentSlide
+				break
+			case 'давай_дальше': 
+				this.props.nextSlide()
+				if (currentSlide + 1 < recipe.stages.length) {
+					currentSlide = currentSlide + 1
+				}
+				break
+			case 'верни_обратно': this.props.previousSlide()
+				if (currentSlide - 1 >= 0) {
+					currentSlide = currentSlide - 1
+				}
+				break
+			case 'повтори_заново':
+				break
+		}
+
+		console.log(currentSlide, this.vocalizedStage)
+		if (this.vocalizedStage === currentSlide) {
+			if (e.command === 'давай_дальше' || e.command === 'верни_обратно') return
+		}
 		Speech.stopSpotter()
-		this.vocalizeStage(0, recipe.stages[0], this.readyCallback.bind(this), this.errorCallback.bind(this))
+		this.vocalizeStage(currentSlide, recipe.stages[currentSlide], this.readyCallback.bind(this), this.errorCallback.bind(this))
+		this.vocalizedStage = currentSlide
 	}
 
 	vocalizeTimeout (phrasesToVocalize, readyCallback, errorCallback) {
+		if (!this.state.isSpeechEnabled) return
 		var phrase = phrasesToVocalize.shift()
 		Speech.vocalize(phrase, '', () => {
 			if (phrasesToVocalize.length > 0) {
@@ -86,22 +85,20 @@ export default class RecipeSpeech extends Component {
 
 	vocalizeStage (index, stage, readyCallback, errorCallback) {
 		var phrasesToVocalize = []
-		phrasesToVocalize.push('Шаг' + (index + 1) + '. ' + stage.title)
+		var stageTitle = stage.title ? stage.title : ''
+		phrasesToVocalize.push('Шаг' + (index + 1) + '. ' + stageTitle)
 		stage.steps.forEach(function (element, index) {
 			phrasesToVocalize.push(element.title)
 		})
-
-		//alert(phrasesToVocalize)
-
 		this.vocalizeTimeout(phrasesToVocalize, readyCallback, errorCallback)
 	}
 
 	readyCallback () {
-		//if (this.state.isSpeechEnabled) {
+		if (this.state.isSpeechEnabled) {
 			Speech.startSpotter((error) => {
 				alert('Spotter error ' + error)
 			})
-		//}
+		}
 	}
 
 	errorCallback () {
@@ -117,22 +114,40 @@ export default class RecipeSpeech extends Component {
 			Speech.stopSpotter()
 			Speech.resetVocalizer()
 			this.setState({ isSpeechEnabled: false })
+			clearInterval(this.timer)
+			this.animateState(1)
 		}
 		else {
 			Speech.startSpotter((error) => {
 			})
 			this.setState({ isSpeechEnabled: true })
+
+			startValue = true 
+			this.timer = setInterval(() => {
+				value = startValue ? 1.2 : 1
+				this.animateState(value)
+				startValue = !startValue
+			}, 300)
 		}
-		alert(this.state.isSpeechEnabled)
+	}
+
+	animateState (scale) {  
+		Animated.timing(this.state.scale, {
+			toValue: scale,
+			duration: 200
+		}).start()
 	}
 
 	render () {
+		const { scale } = this.state
 		return (
 			<TouchableHighlight style={css.speech__highlight}
-				underlayColor='rgba(255,255,255,0.2)'
+				underlayColor='rgba(0,0,0,0.2)'
 				onPress={this._onPress.bind(this)}>
-				<Image style={css.speech__icon}
-					source={this.state.isSpeechEnabled ? SpeechIconOn : SpeechIcon} />
+				<Animated.View style={{transform: [{scale: scale}]}}>
+					<Image style={css.speech__icon}
+						source={this.state.isSpeechEnabled ? SpeechIconOn : SpeechIcon} />
+				</Animated.View>
 			</TouchableHighlight>
 		)
 	}

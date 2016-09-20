@@ -104,7 +104,7 @@ class SearchList extends Component {
 						<Image style={css.searchList__back} source={icons.back} />
 					</TouchableHighlight>
 					<TextInput
-						placeholderTextColor={'black'}
+						placeholderTextColor={'gray'}
 						style={css.searchlist__input}
 						onChangeText={this.handleInput.bind(this)}
 						placeholder={this.state.text}

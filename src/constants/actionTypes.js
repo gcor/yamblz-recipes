@@ -84,6 +84,8 @@ export const SEARCH_GO_LOADING = 'SEARCH_GO_LOADING'
 export const SEARCH_GO_SUCCESS = 'SEARCH_GO_SUCCESS'
 export const SEARCH_GO_ERROR = 'SEARCH_GO_ERROR'
 
+export const RESET_SEARCH = 'RESET_SEARCH'
+
 /*
 	History Actions
 */
