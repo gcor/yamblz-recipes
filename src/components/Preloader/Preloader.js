@@ -11,7 +11,7 @@ export default class Preloader extends Component {
 			<View style={style}>
 				<ActivityIndicator
 					animating
-					color={s.yellow}
+					color={'#ffd11a'}
 					size='large'
 				/>
 			</View>
