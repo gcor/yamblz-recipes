@@ -69,7 +69,7 @@ function recipeSwiper (state = initialState, action) {
 			return {
 				...state,
 				...{currentSlide: 0},
-				...{currentHeight: 0},
+				...{currentHeight: slides[0].offsetY - marginConst},
 				...{scroll: true}
 			}
 		case SLIDER_RESET:
