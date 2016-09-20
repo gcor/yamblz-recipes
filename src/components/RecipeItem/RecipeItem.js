@@ -29,7 +29,7 @@ class RecipeItem extends Component {
 					<View style={css.recipeItem__step}>
 						<Text style={css.recipeItem__stepValue}>{numberOfStage}</Text>
 					</View>
-					<Text style={css.recipeItem__title}>{stage.title}</Text>
+					<Text numberOfLines={2} style={css.recipeItem__title}>{stage.title}</Text>
 				</View>
 				{this._renderImage()}
 				<View style={css.recipeItem__footer}>

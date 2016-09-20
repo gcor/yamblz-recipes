@@ -45,7 +45,8 @@ export default StyleSheet.create({
 	swiper__title: {
 		fontSize: 26,
 		fontWeight: '100',
-		color: 'white'
+		color: 'white',
+		marginRight: 28
 	},
 	swiper__info: {
 		marginTop: 8,

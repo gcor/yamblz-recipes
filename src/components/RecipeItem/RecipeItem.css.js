@@ -20,15 +20,17 @@ export default StyleSheet.create({
 		justifyContent: 'center',
 		marginRight: 20,
 		borderTopRightRadius: 100,
-		borderBottomRightRadius: 100
+		borderBottomRightRadius: 100,
+		height: 25
 	},
 	recipeItem__stepValue: {
 		fontSize: ui.fontS,
 		color: 'black'
 	},
 	recipeItem__title: {
-		fontSize: ui.fontXL,
-		color: 'black'
+		fontSize: ui.fontL,
+		color: 'black',
+		width: 300
 	},
 	recipeItem__body: {},
 	recipeItem__img: {

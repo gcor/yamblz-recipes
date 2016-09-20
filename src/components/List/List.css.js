@@ -16,7 +16,7 @@ export default StyleSheet.create({
 		top: 8
 	},
 	item__value: {
-		fontSize: ui.fontL,
+		fontSize: ui.fontM,
 		color: 'black',
 		width: Dimensions.get('window').width - 80,
 		marginLeft: 50
