@@ -38,34 +38,37 @@ export default class RecipeSpeech extends Component {
 
 	phraseSpotted (e) {
 		let { recipe, currentSlide } = this.props
+		let slideToVocalize = this.vocalizedStage
+
+		alert(e.command)
 
 		switch (e.command) {
 			case 'будем_готовить': 
-				//this.props.resetSlider()
-				currentSlide = currentSlide
+				slideToVocalize = 0
 				break
 			case 'давай_дальше': 
-				this.props.nextSlide()
-				if (currentSlide + 1 < recipe.stages.length) {
-					currentSlide = currentSlide + 1
+				if (this.vocalizedStage + 1 < recipe.stages.length) {
+					slideToVocalize = this.vocalizedStage + 1
 				}
 				break
 			case 'верни_обратно': this.props.previousSlide()
-				if (currentSlide - 1 >= 0) {
-					currentSlide = currentSlide - 1
+				if (this.vocalizedStage - 1 >= 0) {
+					slideToVocalize = this.vocalizedStage - 1	
 				}
 				break
 			case 'повтори_заново':
+				slideToVocalize = this.vocalizedStage
 				break
 		}
 
-		console.log(currentSlide, this.vocalizedStage)
-		if (this.vocalizedStage === currentSlide) {
+		this.props.goTo(slideToVocalize)
+		alert(e.command)
+		if (this.vocalizedStage === slideToVocalize) {
 			if (e.command === 'давай_дальше' || e.command === 'верни_обратно') return
 		}
 		Speech.stopSpotter()
-		this.vocalizeStage(currentSlide, recipe.stages[currentSlide], this.readyCallback.bind(this), this.errorCallback.bind(this))
-		this.vocalizedStage = currentSlide
+		this.vocalizeStage(slideToVocalize, recipe.stages[slideToVocalize], this.readyCallback.bind(this), this.errorCallback.bind(this))
+		this.vocalizedStage = slideToVocalize
 	}
 
 	vocalizeTimeout (phrasesToVocalize, readyCallback, errorCallback) {
@@ -132,5 +135,7 @@ RecipeSpeech.propTypes = {
 	previousSlide: PropTypes.func.isRequired,
 	resetSlider: PropTypes.func.isRequired,
 	currentSlide: PropTypes.number.isRequired,
-	scroll: PropTypes.bool.isRequired  
+	scroll: PropTypes.bool.isRequired,
+	goToStart: PropTypes.func.isRequired,
+	goTo: PropTypes.func.isRequired
 }
