@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import {
 	TouchableWithoutFeedback,
-	Image
+	Animated
 } from 'react-native'
 import css from '../Icons.css'
 import BookmarkIcon from '../../../icons/bookmark_w.png'
@@ -13,7 +13,8 @@ export default class Bookmark extends Component {
 		super(props)
 		this.handleClick = this.handleClick.bind(this)
 		this.state = {
-			isFavourite: props.isFavourite
+			isFavourite: props.isFavourite,
+			scale: new Animated.Value(1)
 		}
 	}
 
@@ -21,9 +22,23 @@ export default class Bookmark extends Component {
 		this.setState({isFavourite: props.isFavourite})
 	}
 
+	handleAnimation () {
+		Animated.sequence([
+			Animated.timing(this.state.scale, {
+				toValue: 1.6,
+				duration: 300
+			}),
+			Animated.timing(this.state.scale, {
+				toValue: 1,
+				duration: 100
+			})
+		]).start()
+	}
+
 	handleClick () {
 		const { navigationRole, addToSavedRecipes,
 			pushToHistory, removeFromSavedRecipes, recipeID } = this.props
+		this.handleAnimation()
 		if (navigationRole) return pushToHistory()
 		const { isFavourite } = this.state
 		if (isFavourite) {
@@ -43,8 +58,10 @@ export default class Bookmark extends Component {
 			<TouchableWithoutFeedback style={css.bar__hilight}
 				onPress={this.handleClick}
 				underlayColor={underlayColor}>
-				<Image style={css.bar__icon}
-					source={this.state.isFavourite ? BookmarkFav : BookmarkIcon} />
+				<Animated.Image
+					style={[css.bar__icon, {transform: [{scale: this.state.scale}]}]}
+					source={this.state.isFavourite ? BookmarkFav : BookmarkIcon}
+				/>
 			</TouchableWithoutFeedback>
 		)
 	}

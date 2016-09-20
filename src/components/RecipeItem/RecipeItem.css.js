@@ -1,5 +1,6 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Dimensions } from 'react-native'
 import ui from '../../constants/css'
+const { width, height } = Dimensions.get('window')
 
 export default StyleSheet.create({
 	recipeItem: {
@@ -11,7 +12,9 @@ export default StyleSheet.create({
 	},
 	recipeItem__header: {
 		flexDirection: 'row',
-		paddingBottom: 20
+		paddingBottom: 20,
+		marginRight: 10,
+		flex: 1
 	},
 	recipeItem__step: {
 		backgroundColor: ui.yellow,
@@ -30,7 +33,7 @@ export default StyleSheet.create({
 	recipeItem__title: {
 		fontSize: ui.fontL,
 		color: 'black',
-		width: 300
+		width: width * 0.74
 	},
 	recipeItem__body: {},
 	recipeItem__img: {
