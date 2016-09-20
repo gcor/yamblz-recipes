@@ -15,14 +15,12 @@ export default class RecipeSpeech extends Component {
 		this.vocalizedStage = 0
 	}
 
-	componentWillMount () {
+	componentDidMount () {
 		DeviceEventEmitter.addListener('phraseSpotted', this.phraseSpotted.bind(this))
 		DeviceEventEmitter.addListener('spotterError', function (e) {
 			alert('Error: ' + e.error)
 		})
-	}
 
-	componentDidMount () {
 		Speech.loadSpotter(() => {
 		}, (error) => {
 			alert(error)
@@ -40,9 +38,6 @@ export default class RecipeSpeech extends Component {
 	phraseSpotted (e) {
 		let { recipe, currentSlide } = this.props
 		let slideToVocalize = this.vocalizedStage
-
-		alert(e.command)
-
 		switch (e.command) {
 			case 'будем_готовить': 
 				slideToVocalize = 0
