@@ -8,19 +8,6 @@ import {
 
 const initialState = []
 
-const sortTimersByHands = timers => {
-	for (var i = 0; i < timers.length; i++) {
-		for (var e = 0; e < timers.length; e++) {
-			if (timers[i].timeout < timers[e].timeout) {
-				var tmp = timers[i]
-				timers[i] = timers[e]
-				timers[e] = tmp
-			}
-		}
-	}
-	return timers
-}
-
 const checkForDuplications = (timers, newTimer) => {
 	if (!timers || !newTimer) return true
 	const { actionLabel, timeout } = newTimer
@@ -41,7 +28,7 @@ function timers (state = initialState, action) {
 			let timers = state
 			if (checkForDuplications(timers, action.payload)) return state
 			timers.push(action.payload)
-			timers = sortTimersByHands(timers)
+			timers.sort((a, b) => a < b)
 
 			return [...timers]
 // REMOVE_TIMER

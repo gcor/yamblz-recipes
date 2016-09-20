@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { View, Text } from 'react-native'
 import Micro from '../../components/Icons/Micro'
 import Plus from '../../components/Icons/Plus'
+import Minus from '../../components/Icons/Minus'
 
 export default class Animations extends Component {
 	handlePress (toggle) {
@@ -14,6 +15,7 @@ export default class Animations extends Component {
 				<Text>Hello world</Text>
 				<Micro handlePress={this.handlePress.bind(this)} />
 				<Plus />
+				<Minus />
 			</View>
 		)
 	}
