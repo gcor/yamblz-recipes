@@ -6,7 +6,7 @@ import {
 } from '../constants/actionTypes'
 import { createAction } from 'redux-actions'
 import { AsyncStorage, NativeModules } from 'react-native'
-import { SAVED_RECIPES_STORAGE_KEY, LAST_VIEWED_KEY } from '../constants/keys'
+import { SAVED_RECIPES_STORAGE_KEY, LAST_VIEWED_KEY, RECIPES_STORAGE_KEY } from '../constants/keys'
 import { getRecipeById } from '../api/recipes'
 
 const AppMetrica = NativeModules.AppMetrika
@@ -27,8 +27,13 @@ export const addToSavedRecipes = createAction(ADD_TO_SAVED_RECIPES, async (id) =
 	AppMetrica.addFavourite(JSON.stringify({id: id}))
 	const idsFromStorage = await AsyncStorage.getItem(SAVED_RECIPES_STORAGE_KEY)
 	const ids = JSON.parse(idsFromStorage) || []
-	if (ids.indexOf(id) < 0) ids.push(id)
+	if (ids.indexOf(id) < 0) ids.unshift(id)
 	await AsyncStorage.setItem(SAVED_RECIPES_STORAGE_KEY, JSON.stringify(ids))
+	const savedRecipeFromStorage = await AsyncStorage.getItem(RECIPES_STORAGE_KEY + id) || '{}'
+	const savedRecipe = JSON.parse(savedRecipeFromStorage)
+	return {
+		recipe: savedRecipe
+	}
 })
 
 export const removeFromSavedRecipes = createAction(REMOVE_FROM_SAVED_RECIPES, async (id) => {
@@ -38,4 +43,9 @@ export const removeFromSavedRecipes = createAction(REMOVE_FROM_SAVED_RECIPES, as
 	const index = ids.indexOf(id)
 	if (index > -1) ids.splice(index, 1)
 	await AsyncStorage.setItem(SAVED_RECIPES_STORAGE_KEY, JSON.stringify(ids))
+	const removedRecipeFromStorage = await AsyncStorage.getItem(RECIPES_STORAGE_KEY + id) || '{}'
+	const removedRecipe = JSON.parse(removedRecipeFromStorage)
+	return {
+		removedRecipeId: removedRecipe._id
+	}
 })
