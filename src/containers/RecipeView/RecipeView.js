@@ -69,10 +69,10 @@ export default class RecipeView extends Component {
 
 	renderIngredientList () {
 		const { status } = this.props.recipe
-		const { incrementRecipePortion,
-						decrementRecipePortion,
-						setProductAsMain,
-						setProductAsExtra } = this.props
+		const {
+			setProductAsMain,
+			setProductAsExtra
+		} = this.props
 		const imageSrc = this.props.recipe.image
 		switch (status) {
 			case LOADING: return (
@@ -89,8 +89,6 @@ export default class RecipeView extends Component {
 					</View>
 					<IngredientList
 						tabLabel='Продукты'
-						onDecrement={decrementRecipePortion}
-						onIncrement={incrementRecipePortion}
 						setExtra={setProductAsExtra}
 						recipe={this.props.recipe} />
 					<ExtraProducts
@@ -147,8 +145,6 @@ RecipeView.propTypes = {
 	recipe: PropTypes.object.isRequired,
 	fetchRecipes: PropTypes.func.isRequired,
 	saveInLastViewed: PropTypes.func.isRequired,
-	incrementRecipePortion: PropTypes.func.isRequired,
-	decrementRecipePortion: PropTypes.func.isRequired,
 	addToSavedRecipes: PropTypes.func.isRequired,
 	removeFromSavedRecipes: PropTypes.func.isRequired,
 	setProductAsMain: PropTypes.func.isRequired,

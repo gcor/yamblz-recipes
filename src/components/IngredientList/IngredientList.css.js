@@ -19,12 +19,6 @@ export default StyleSheet.create({
 		fontWeight: 'bold',
 		color: '#444'
 	},
-	controls__button: {
-		paddingTop: 15,
-		paddingBottom: 15,
-		paddingLeft: 15,
-		paddingRight: 15
-	},
 	controls__value: {
 		textAlign: 'center',
 		width: 40

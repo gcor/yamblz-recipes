@@ -3,8 +3,9 @@ import { Text, View, ListView, Image, TouchableHighlight } from 'react-native'
 import css from './IngredientList.css'
 import { getAmount } from './util'
 import CloseButton from '../../icons/gray_close.png'
-import PlusButton from '../../icons/plus.png'
-import MinusButton from '../../icons/minus.png'
+
+import PlusButton from '../Icons/Plus'
+import MinusButton from '../Icons/Minus'
 
 export default class IngredientList extends Component {
 	constructor (props) {
@@ -30,21 +31,11 @@ export default class IngredientList extends Component {
 					<View style={css.portions}>
 						<Text style={css.portions__text}>Порции</Text>
 						<View style={css.portions__controls}>
-							<TouchableHighlight
-								underlayColor='transparent'
-								style={css.controls__button}
-								onPress={this.props.onDecrement}>
-								<Image source={MinusButton} />
-							</TouchableHighlight>
+							<MinusButton />
 							<Text style={[css.controls__value, css.portions__text]}>
 								{this.props.recipe.portion}
 							</Text>
-							<TouchableHighlight
-								underlayColor='transparent'
-								style={css.controls__button}
-								onPress={this.props.onIncrement}>
-								<Image source={PlusButton} />
-							</TouchableHighlight>
+							<PlusButton />
 						</View>
 					</View>
 					<ListView
