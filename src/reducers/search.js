@@ -4,7 +4,8 @@ import {
 	ERROR,
 	SEARCH_GO_LOADING,
 	SEARCH_GO_SUCCESS,
-	SEARCH_GO_ERROR
+	SEARCH_GO_ERROR,
+	RESET_SEARCH
 } from '../constants/actionTypes'
 
 const initialState = {
@@ -33,6 +34,8 @@ function search (state = initialState, action) {
 				...state,
 				...{status: ERROR}
 			}
+		case RESET_SEARCH:
+			return initialState
 		default: return state
 	}
 }
