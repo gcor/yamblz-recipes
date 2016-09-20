@@ -3,7 +3,9 @@ import { connect } from 'react-redux'
 import {
 	nextSlide,
 	previousSlide,
-	resetSlider
+	resetSlider,
+    goToStart,
+    goTo
 } from '../../actions/recipeSwiperActions'
 import { bindActionCreators } from 'redux'
 
@@ -16,6 +18,8 @@ const stateToProps = state => ({
 const dipsatchToProps = dispatch => (bindActionCreators({
 	nextSlide,
 	previousSlide,
-	resetSlider
+	resetSlider,
+    goToStart,
+    goTo
 }, dispatch))
 export default connect(stateToProps, dipsatchToProps)(RecipeSpeech)
