@@ -15,8 +15,6 @@ export default class Home extends Component {
 		this.state = {modalVisible: false}
 		this.props.fetchJumbotron()
 		this.props.fetchRecommend()
-		this.state = { appBarVisible: 'transparent' } // 3 states: transparent hidden white
-		this.previousY = 0
 		this._handleScroll = this._handleScroll.bind(this)
 	}
 
@@ -59,32 +57,14 @@ export default class Home extends Component {
 	}
 
 	_handleScroll (e) {
-		console.log('scroll handled')
 		if (!e) return null
 		if (!e.nativeEvent) return null
 		if (!e.nativeEvent.contentOffset) return null
 		if (!e.nativeEvent.contentOffset.y) return null
+		
 		const currentY = Math.floor(e.nativeEvent.contentOffset.y)
-		isUnderSwiper = currentY > 50
-		color = isUnderSwiper ? 'black' : 'transparent'
+		var color = currentY + 24 > this.swiperHeight ? 'black' : 'transparent'
   		StatusBar.setBackgroundColor(color, false)
-
-		if (currentY < this.previousY && isUnderSwiper) {
-			this.setState({appBarVisible: 'white'})
-		}
-
-		if (currentY < this.previousY && !isUnderSwiper) {
-			this.setState({appBarVisible: 'transparent'})
-		}
-
-		if (currentY > this.previousY && isUnderSwiper) {
-			this.setState({appBarVisible: 'hidden'})
-		}
-
-		if (currentY > this.previousY && !isUnderSwiper) {
-			this.setState({appBarVisible: 'transparent'})
-		}
-		this.previousY = currentY
 	}
 
 	render () {
@@ -94,7 +74,7 @@ export default class Home extends Component {
 		}
 		const { jumbotron, recommend } = this.props
 		const { appBarVisible } = this.state
-		// this._handleScroll.bind(this)
+		
 		return (
 			<View style={{flex: 1}}>
 				<ScrollView style={css.home}
@@ -105,6 +85,7 @@ export default class Home extends Component {
 						<HomeSwiper
 							onPressHandler={this._onCardPress.bind(this)}
 							items={jumbotron} />
+						<AppBar />
 					</View>
 					<Slider style={css.home__recomended}
 						title={titles.recommend}
@@ -112,7 +93,6 @@ export default class Home extends Component {
 						recipes={recommend} />
 					<SoonInApp />
 				</ScrollView>
-				<AppBar visible={this.state.appBarVisible} />
 			</View>
 		)
 	}
