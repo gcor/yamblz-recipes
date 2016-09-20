@@ -2,11 +2,13 @@ import React, { Component, PropTypes } from 'react'
 import { Animated, View, ProgressBarAndroid, Text } from 'react-native'
 import s from '../../constants/css'
 import css from './BlackLayoutWithPreloader.css'
+import BookmarkSave from '../Icons/BookmarkSave'
 
 export default class BlackLayoutWithPreloader extends Component {
 	constructor (props) {
 		super(props)
 		this.state = {
+			backgroundColor: new Animated.Value(0),
 			opacity: new Animated.Value(0),
 			progress: 0,
 			visible: false
@@ -21,15 +23,28 @@ export default class BlackLayoutWithPreloader extends Component {
 
 	startPreloader () {
 		this.setState({progress: 0})
-		this.preloader = setInterval(this.tick, 0.25)
-		this.animate(0.7)
+
+		this.animate(150)
+		if (this.props.addToBookmarks) {
+			setTimeout(() => {
+				this.stopPreloader()
+			}, 1500)
+		} else {
+			this.preloader = setInterval(this.tick, 0.25)
+		}
 	}
 
 	animate (opacity) {
-		Animated.timing(this.state.opacity, {
-			toValue: opacity,
-			duration: 200
-		}).start()
+		Animated.parallel([
+			Animated.timing(this.state.backgroundColor, {
+				toValue: opacity,
+				duration: 200
+			}),
+			Animated.timing(this.state.opacity, {
+				toValue: opacity,
+				duration: 150
+			})
+		]).start()
 	}
 
 	componentWillUnmount () {
@@ -52,6 +67,9 @@ export default class BlackLayoutWithPreloader extends Component {
 		this.setState({
 			progress: (this.state.progress + 0.02)
 		})
+		if (this.props.addToBookmarks) {
+			return false
+		}
 		if (this.state.progress > 1) {
 			this.stopPreloader()
 		}
@@ -78,16 +96,21 @@ export default class BlackLayoutWithPreloader extends Component {
 	renderAddToBookmarks () {
 		if (!this.props.addToBookmarks) return null
 		return (
-			<View>
-				<Text style={{color: 'white'}}>Added to bookmarks</Text>
-			</View>
+			<Animated.View style={[css.icon, {opacity: this.state.opacity}]}>
+				<BookmarkSave />
+				<Text style={css.text}>Сохранено в ваших рецептах</Text>
+			</Animated.View>
 		)
 	}
 
 	render () {
+		let backgroundColor = this.state.backgroundColor.interpolate({
+			inputRange: [0, 150],
+			outputRange: ['rgba(0, 0, 0, 0)', ['rgba(0, 0, 0, .78)']]
+		})
 		return (
 			<Animated.View
-				style={[css.container, {opacity: this.state.opacity}]}>
+				style={[css.container, {backgroundColor: backgroundColor}]}>
 				{this.renderProgressBar()}
 				{this.renderAddToBookmarks()}
 			</Animated.View>

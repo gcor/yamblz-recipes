@@ -20,13 +20,26 @@ const AppMetrika = NativeModules.AppMetrika
 
 export default class RecipeView extends Component {
 	componentWillMount () {
-		this.setState({isReady: false})
+		this.setState({
+			isReady: false,
+			showBlackLayout: false
+		})
 		InteractionManager.runAfterInteractions(() => {
 			this.setState({isReady: true})
 			const { fetchRecipes, saveInLastViewed, currentRecipe } = this.props
 			saveInLastViewed(currentRecipe)
 			fetchRecipes(currentRecipe)
 		})
+		setTimeout(() => {
+			this.setState({
+				showBlackLayout: true
+			})
+		}, 1000)
+		setTimeout(() => {
+			this.setState({
+				showBlackLayout: false
+			})
+		}, 3000)
 	}
 
 	componentWillUnmount () {
@@ -100,6 +113,18 @@ export default class RecipeView extends Component {
 		return null
 	}
 
+	renderBlackLayout () {
+		if (this.state.showBlackLayout) {
+			return (
+				<BlackLayoutWithPreloader
+					hideProgressBar
+					addToBookmarks
+				/>
+			)
+		}
+		return null
+	}
+
 	render () {
 		return (
 			<View style={{flex: 1, justifyContent: 'space-between'}}>
@@ -109,17 +134,11 @@ export default class RecipeView extends Component {
 				<Button
 					onPress={this._onPress.bind(this)}
 					text='Начать готовить' />
-
+				{this.renderBlackLayout()}
 			</View>
 		)
 	}
 }
-
-// <BlackLayoutWithPreloader
-// 	endless={false}
-// 	hideProgressBar
-// 	addToBookmarks
-// />
 
 RecipeView.propTypes = {
 	recipe: PropTypes.object.isRequired,

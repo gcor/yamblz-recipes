@@ -15,6 +15,12 @@
 - AppMetrica
 - ESLint ([config](https://github.com/yandexdataschool/prj-c-kitchen/blob/master/.eslintrc))
 
+## Open Source модули
+
+- [react-native-sensor-manager](https://github.com/kprimice/react-native-sensor-manager)
+- [react-native-linear-gradient](https://github.com/react-native-community/react-native-linear-gradient)
+- [react-native-push-notification](https://github.com/zo0r/react-native-push-notification)
+
 ## Разработка
 
 Подготовка к разработке:

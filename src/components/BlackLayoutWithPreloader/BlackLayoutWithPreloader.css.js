@@ -14,6 +14,13 @@ export default StyleSheet.create({
 		marginTop: height * 0.5 - 30,
 		marginLeft: width * 0.5 - 100
 	},
+	icon: {
+		marginTop: height * 0.43
+	},
+	text: {
+		color: 'white',
+		textAlign: 'center'
+	},
 	textHolder: {
 		marginLeft: -80
 	},
