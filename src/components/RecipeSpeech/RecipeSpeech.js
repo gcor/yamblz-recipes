@@ -14,14 +14,12 @@ export default class RecipeSpeech extends Component {
 		this.vocalizedStage = 0
 	}
 
-	componentWillMount () {
+	componentDidMount () {
 		DeviceEventEmitter.addListener('phraseSpotted', this.phraseSpotted.bind(this))
 		DeviceEventEmitter.addListener('spotterError', function (e) {
 			alert('Error: ' + e.error)
 		})
-	}
 
-	componentDidMount () {
 		Speech.loadSpotter(() => {
 		}, (error) => {
 			alert(error)
@@ -62,7 +60,6 @@ export default class RecipeSpeech extends Component {
 		}
 
 		this.props.goTo(slideToVocalize)
-		alert(e.command)
 		if (this.vocalizedStage === slideToVocalize) {
 			if (e.command === 'давай_дальше' || e.command === 'верни_обратно') return
 		}
@@ -92,6 +89,7 @@ export default class RecipeSpeech extends Component {
 		stage.steps.forEach(function (element, index) {
 			phrasesToVocalize.push(element.title)
 		})
+		alert (phrasesToVocalize)
 		this.vocalizeTimeout(phrasesToVocalize, readyCallback, errorCallback)
 	}
 
@@ -124,7 +122,7 @@ export default class RecipeSpeech extends Component {
 
 	render () {
 		return (
-			<Micro handlePress={this.handlePress} />
+			<Micro handlePress={this.handlePress.bind(this)} />
 		)
 	}
 }
