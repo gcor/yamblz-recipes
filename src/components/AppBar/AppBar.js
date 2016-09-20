@@ -1,24 +1,13 @@
 import React, { Component, PropTypes } from 'react'
-import { Text, View, TouchableHighlight, Image, Animated } from 'react-native'
+import { Text, View, TouchableHighlight, Image } from 'react-native'
 import css from './AppBar.css'
 import SearchIcon from '../../icons/search_w.png'
-import SearchIconBlack from '../../icons/search.png'
 import BackIcon from '../../icons/arrow_w.png'
-import BackBlackIcon from '../../icons/arrow.png'
 import Bookmark from '../Icons/Bookmark'
 import * as utils from '../../utils'
 
 const underlayColor = 'rgba(255,255,255,0.2)'
 export default class AppBar extends Component {
-
-	constructor () {
- 		super()
- 		this.state = {
- 			translateY: new Animated.Value(0),
- 			backgroundColor: new Animated.Value(0),
- 			isBookmarkBlack: false
- 		}
- 	}
 
 	shouldComponentUpdate (nextProps) {
 		return this.props.visible !== nextProps.visible
@@ -35,57 +24,24 @@ export default class AppBar extends Component {
 		return dayTime
 	}
 
-	componentWillReceiveProps (props) {
- 		switch (props.visible) {
- 			case 'white':
- 				this.animateState(0)
- 				this.setState({isBookmarkBlack: true})
- 				break
- 			case 'transparent': this.animateState(0)
- 				this.setState({isBookmarkBlack: false})
- 				break
- 			case 'hidden':
- 				this.animateState(-100)
- 				break
- 		}
- 	}
-
- 	animateState (translateY) {
- 		Animated.timing(this.state.translateY, {
- 			toValue: translateY,
- 			duration: 400
- 		}).start()
- 	}
-
 	renderHomeBar () {
 		const { pushToHistory, pushToSearch, pushToCategory } = this.props
-		const { translateY } = this.state
-
-		var color = this.props.visible === 'white' ? 'black' : 'white'
-		var elevation = this.props.visible === 'white' ? 3 : 0
-		var backgroundColor = this.props.visible === 'white' ? 'white' : 'transparent'
-
+		
 		return (
-			<Animated.View style={[
- 				css.bar, css.bar_centered, css.bar_shift, css.bar_absolute, {
-					transform: [{translateY: translateY}],
-					backgroundColor: backgroundColor,
-					elevation: elevation
-				}]}>
-				<Bookmark navigationRole isBlack={this.state.isBookmarkBlack} />
+			<View style={[css.bar, css.bar_centered, css.bar_shift, css.bar_absolute]}>
+				<Bookmark navigationRole />
 				<TouchableHighlight style={css.bar__hilight} onPress={pushToCategory.bind(this, this.dayTime())}
 					underlayColor={underlayColor}>
-					<View style={[css.bar__category, {borderColor: color}]}>
-						<Text style={[css.bar__time], {color: color}}>{this.dayTime()}</Text>
-  					</View>
+					<View style={css.bar__category}>
+						<Text style={css.bar__time}>{this.dayTime()}</Text>
+					</View>
   				</TouchableHighlight>
   				<TouchableHighlight style={css.bar__hilight}
   					onPress={pushToSearch.bind(this)}
   					underlayColor={underlayColor}>
-					<Image style={css.bar__icon}
-						source={this.props.visible === 'white' ? SearchIconBlack : SearchIcon} />
+					<Image style={css.bar__icon} source={SearchIcon} />
   				</TouchableHighlight>
-			</Animated.View>
+			</View>
 		)
 	}
 
@@ -110,7 +66,7 @@ export default class AppBar extends Component {
 						<Text style={css.bar__energy}>{energy} ккал</Text>
 					</View>
 				</View>
-				<Bookmark isFavourite={recipe.isFavourite} isBlack={false} />
+				<Bookmark isFavourite={recipe.isFavourite} />
 			</View>
 		)
 	}
