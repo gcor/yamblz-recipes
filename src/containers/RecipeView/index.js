@@ -16,7 +16,8 @@ import { bindActionCreators } from 'redux'
 const stateToProps = state => ({
 	recipe: state.recipe,
 	currentRecipe: state.general.currentRecipe,
-	addToSavedRecipesButtonText: ''
+	addToSavedRecipesButtonText: '',
+	general: state.general
 })
 
 const dipsatchToProps = dispatch => (bindActionCreators({

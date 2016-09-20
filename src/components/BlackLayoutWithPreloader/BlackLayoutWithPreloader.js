@@ -42,7 +42,7 @@ export default class BlackLayoutWithPreloader extends Component {
 			}),
 			Animated.timing(this.state.opacity, {
 				toValue: opacity,
-				duration: 150
+				duration: 100
 			})
 		]).start()
 	}
@@ -119,8 +119,8 @@ export default class BlackLayoutWithPreloader extends Component {
 }
 
 BlackLayoutWithPreloader.propTypes = {
-	visible: PropTypes.bool.isRequired,
-	hideProgressBar: PropTypes.bool.isRequired,
-	addToBookmarks: PropTypes.bool.isRequired,
-	endless: PropTypes.bool.isRequired
+	visible: PropTypes.bool,
+	hideProgressBar: PropTypes.bool,
+	addToBookmarks: PropTypes.bool,
+	endless: PropTypes.bool
 }

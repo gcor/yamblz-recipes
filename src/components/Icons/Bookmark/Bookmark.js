@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import {
-	TouchableHighlight,
+	TouchableWithoutFeedback,
 	Image
 } from 'react-native'
 import css from '../Icons.css'
@@ -13,12 +13,12 @@ export default class Bookmark extends Component {
 		super(props)
 		this.handleClick = this.handleClick.bind(this)
 		this.state = {
-			isFavourite: props.isFavourite,
+			isFavourite: props.isFavourite
 		}
 	}
 
 	componentWillReceiveProps (props) {
-  		this.setState({isFavourite: props.isFavourite})
+		this.setState({isFavourite: props.isFavourite})
 	}
 
 	handleClick () {
@@ -32,16 +32,20 @@ export default class Bookmark extends Component {
 		} else {
 			addToSavedRecipes(recipeID)
 			this.setState({isFavourite: true})
+			this.props.showBookmarkModal(true)
+			setTimeout(() => {
+				this.props.showBookmarkModal(false)
+			}, 1000)
 		}
 	}
 	render () {
 		return (
-			<TouchableHighlight style={css.bar__hilight}
+			<TouchableWithoutFeedback style={css.bar__hilight}
 				onPress={this.handleClick}
 				underlayColor={underlayColor}>
-				<Image style={css.bar__icon} 
+				<Image style={css.bar__icon}
 					source={this.state.isFavourite ? BookmarkFav : BookmarkIcon} />
-			</TouchableHighlight>
+			</TouchableWithoutFeedback>
 		)
 	}
 }
@@ -52,5 +56,6 @@ Bookmark.propTypes = {
 	recipeID: PropTypes.string.isRequired,
 	isFavourite: PropTypes.bool.isRequired,
 	navigationRole: PropTypes.bool,
-	pushToHistory: PropTypes.func.isRequired
+	pushToHistory: PropTypes.func.isRequired,
+	showBookmarkModal: PropTypes.func.isRequired
 }

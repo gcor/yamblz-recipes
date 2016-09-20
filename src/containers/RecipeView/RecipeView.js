@@ -30,20 +30,23 @@ export default class RecipeView extends Component {
 			saveInLastViewed(currentRecipe)
 			fetchRecipes(currentRecipe)
 		})
-		setTimeout(() => {
-			this.setState({
-				showBlackLayout: true
-			})
-		}, 1000)
-		setTimeout(() => {
-			this.setState({
-				showBlackLayout: false
-			})
-		}, 3000)
 	}
 
 	componentWillUnmount () {
 		this.props.resetRecipe()
+	}
+
+	componentWillReceiveProps (props) {
+		if (props.general.isBookmarkModalOpen) {
+			this.setState({
+				showBlackLayout: true
+			})
+			setTimeout(() => {
+				this.setState({
+					showBlackLayout: false
+				})
+			}, 2500)
+		}
 	}
 
 	_onPress () {
@@ -153,5 +156,6 @@ RecipeView.propTypes = {
 	navigatePush: PropTypes.func.isRequired,
 	currentRecipe: PropTypes.string.isRequired,
 	resetRecipe: PropTypes.func.isRequired,
-	addToSavedRecipesButtonText: PropTypes.string
+	addToSavedRecipesButtonText: PropTypes.string,
+	general: PropTypes.object.isRequired
 }
