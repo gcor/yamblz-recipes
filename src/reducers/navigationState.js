@@ -7,8 +7,8 @@ import {
 const initialNavState = {
 	index: 0,
 	routes: [
-		{ key: 'Animations', title: 'Анимации' }
-		// { key: 'Home', title: 'Меню' }
+		// { key: 'Animations', title: 'Анимации' }
+		{ key: 'Home', title: 'Меню' }
 	]
 }
 

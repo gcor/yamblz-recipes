@@ -1,8 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { Text, View, TouchableHighlight, Image, DeviceEventEmitter, NativeModules, Animated } from 'react-native'
 import css from './RecipeSpeech.css'
-import SpeechIcon from '../../icons/micro.png'
-import SpeechIconOn from './assets/micro2.png'
+import Micro from '../Icons/Micro'
 const Speech = NativeModules.SpeechApi
 
 export default class RecipeSpeech extends Component {
@@ -108,47 +107,21 @@ export default class RecipeSpeech extends Component {
 		alert('Ошибка во время преобразования текста в речь')
 	}
 
-	_onPress () {
-		const { isSpeechEnabled } = this.state
-		if (isSpeechEnabled) {
-			Speech.stopSpotter()
-			Speech.resetVocalizer()
-			this.setState({ isSpeechEnabled: false })
-			clearInterval(this.timer)
-			this.animateState(1)
+	handlePress(toggle) {
+		if (toggle) {
+			Speech.startSpotter((error) => { })
+			alert('started')
 		}
 		else {
-			Speech.startSpotter((error) => {
-			})
-			this.setState({ isSpeechEnabled: true })
-
-			startValue = true 
-			this.timer = setInterval(() => {
-				value = startValue ? 1.2 : 1
-				this.animateState(value)
-				startValue = !startValue
-			}, 300)
+			Speech.stopSpotter()
+			Speech.resetVocalizer()
+			alert('stoped')
 		}
-	}
-
-	animateState (scale) {  
-		Animated.timing(this.state.scale, {
-			toValue: scale,
-			duration: 200
-		}).start()
 	}
 
 	render () {
-		const { scale } = this.state
 		return (
-			<TouchableHighlight style={css.speech__highlight}
-				underlayColor='rgba(0,0,0,0.2)'
-				onPress={this._onPress.bind(this)}>
-				<Animated.View style={{transform: [{scale: scale}]}}>
-					<Image style={css.speech__icon}
-						source={this.state.isSpeechEnabled ? SpeechIconOn : SpeechIcon} />
-				</Animated.View>
-			</TouchableHighlight>
+			<Micro handlePress={this.handlePress} />
 		)
 	}
 }

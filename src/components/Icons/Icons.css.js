@@ -9,7 +9,8 @@ export default StyleSheet.create({
 	bar__icon: {
 		height: 24,
 		width: 24,
-		resizeMode: 'contain'
+		resizeMode: 'contain',
+		margin: 4
 	},
 	playpause: {
 		padding: 16
