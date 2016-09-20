@@ -36,5 +36,11 @@ export default StyleSheet.create({
 		width: 40,
 		height: 40,
 		resizeMode: 'contain'
+	},
+	plus_minus: {
+		paddingTop: 15,
+		paddingBottom: 15,
+		paddingLeft: 15,
+		paddingRight: 15
 	}
 })

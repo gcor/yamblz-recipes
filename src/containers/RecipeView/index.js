@@ -3,8 +3,6 @@ import { connect } from 'react-redux'
 import { navigatePush } from '../../actions/navigationActions'
 import {
 	fetchRecipes,
-	incrementRecipePortion,
-	decrementRecipePortion,
 	setProductAsMain,
 	setProductAsExtra,
 	resetRecipe
@@ -26,8 +24,6 @@ const dipsatchToProps = dispatch => (bindActionCreators({
 	addToSavedRecipes,
 	removeFromSavedRecipes,
 	saveInLastViewed,
-	incrementRecipePortion,
-	decrementRecipePortion,
 	setProductAsMain,
 	setProductAsExtra,
 	resetRecipe

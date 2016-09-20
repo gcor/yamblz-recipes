@@ -75,7 +75,6 @@ export default class AbsoluteTimer extends Component {
 	}
 
 	handleToggle () {
-		this.props.toggleBlackLayout(true)
 		const animatedValue = this.state.isHidden
 		? -(this.props.timers.length - 1) * timerHeight
 		: 0
