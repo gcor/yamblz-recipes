@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { Text, View, TouchableHighlight, Image, DeviceEventEmitter, NativeModules, Animated } from 'react-native'
 import css from './RecipeSpeech.css'
 import SpeechIcon from '../../icons/micro.png'
-import SpeechIconOn from './assets/micro2.png'
+import SpeechIconOn from '../../icons/micro.png'
 const Speech = NativeModules.SpeechApi
 
 export default class RecipeSpeech extends Component {
@@ -39,17 +39,17 @@ export default class RecipeSpeech extends Component {
 		let { recipe, currentSlide } = this.props
 		let slideToVocalize = this.vocalizedStage
 		switch (e.command) {
-			case 'будем_готовить': 
+			case 'будем_готовить':
 				slideToVocalize = 0
 				break
-			case 'давай_дальше': 
+			case 'давай_дальше':
 				if (this.vocalizedStage + 1 < recipe.stages.length) {
 					slideToVocalize = this.vocalizedStage + 1
 				}
 				break
 			case 'верни_обратно': this.props.previousSlide()
 				if (this.vocalizedStage - 1 >= 0) {
-					slideToVocalize = this.vocalizedStage - 1	
+					slideToVocalize = this.vocalizedStage - 1
 				}
 				break
 			case 'повтори_заново':
@@ -119,7 +119,7 @@ export default class RecipeSpeech extends Component {
 			})
 			this.setState({ isSpeechEnabled: true })
 
-			startValue = true 
+			startValue = true
 			this.timer = setInterval(() => {
 				value = startValue ? 1.2 : 1
 				this.animateState(value)
@@ -128,7 +128,7 @@ export default class RecipeSpeech extends Component {
 		}
 	}
 
-	animateState (scale) {  
+	animateState (scale) {
 		Animated.timing(this.state.scale, {
 			toValue: scale,
 			duration: 200

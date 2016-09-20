@@ -34,30 +34,30 @@ class Brain {
 				// console.log(productTitle, title)
 				// const matcher = new RegExp(productTitle, 'ig')
 				// console.log(productTitle.split(' ').length > 1)
-				if (productTitle.split(' ').length > 0) {
-					let arr = productTitle.split(' ')
-					let outputArr = []
-					for (const ele of arr) {
-						let elem = ele.toLowerCase()
+				// if (productTitle.split(' ').length > 0) {
+					// let arr = productTitle.split(' ')
+					// let outputArr = []
+					// for (const ele of arr) {
+						// let elem = ele.toLowerCase()
 						// if (!this.checkIsItNeedForSearch(elem)) {
 						// 	return false
 						// }
 						// const matcher = new RegExp(productTitle, 'ig')
-						if (fuzzysearch(elem, title.toLowerCase())) {
+						if (fuzzysearch(productTitle.toLowerCase(), title.toLowerCase())) {
 							// console.log(elem, title)
 							productTitle = CapitalizeFirstLetter(productTitle)
 							// return title.replace(matcher, `${productTitle} ${amount} ${measure}`)
 							let outputString = `${productTitle}: ${amount} ${measure}`
 							// outputArr.push(outputString)
-							this.removeIngredientFromIndex(elem)
+							// this.removeIngredientFromIndex(elem)
 							return outputString
 						}
-					}
-					return outputArr.join(', ')
-				}
-			} else {
-				console.log('something went wrong')
+					// }
+					// return outputArr.join(', ')
 			}
+			// } else {
+				// console.log('something went wrong')
+			// }
 		}
 		return false
 	}
