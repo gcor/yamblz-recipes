@@ -8,7 +8,8 @@ import { fetchJumbotron, fetchRecommend } from '../../actions/categoriesActions'
 export default connect(
 	state => ({
 		jumbotron: state.categories.jumbotron,
-		recommend: state.categories.recommend
+		recommend: state.categories.recommend,
+		status: state.categories.status
 	}),
 	dispatch => (bindActionCreators({
 		navigatePush,

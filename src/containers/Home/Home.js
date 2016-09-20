@@ -1,11 +1,13 @@
 import React, { Component, PropTypes } from 'react'
 import { View, NativeModules, ScrollView, StatusBar } from 'react-native'
+import { LOADING, SUCCESS, ERROR } from '../../constants/actionTypes'
 import css from './Home.css'
 import * as _ from 'lodash'
 import HomeSwiper from '../../components/HomeSwiper'
 import Slider from '../../components/Slider'
 import AppBar from '../../components/AppBar'
 import SoonInApp from '../../components/SoonInApp'
+import Preloader from '../../components/Preloader'
 
 const AppMetrica = NativeModules.AppMetrika
 
@@ -61,22 +63,24 @@ export default class Home extends Component {
 		if (!e.nativeEvent) return null
 		if (!e.nativeEvent.contentOffset) return null
 		if (!e.nativeEvent.contentOffset.y) return null
-		
+
 		const currentY = Math.floor(e.nativeEvent.contentOffset.y)
 		var color = currentY + 24 > this.swiperHeight ? 'black' : 'transparent'
-  		StatusBar.setBackgroundColor(color, false)
+		StatusBar.setBackgroundColor(color, false)
 	}
 
-	render () {
+	renderHome () {
 		const titles = {
 			recommend: 'рекомендуем'.toUpperCase(),
 			soon: 'скоро в приложении'.toUpperCase()
 		}
 		const { jumbotron, recommend } = this.props
-		const { appBarVisible } = this.state
-		
-		return (
-			<View style={{flex: 1}}>
+		const { status } = this.props
+		switch (status) {
+			case LOADING: return (
+				<Preloader margin={200} />
+			)
+			case SUCCESS: return (
 				<ScrollView style={css.home}
 					onMomentumScrollEnd={this._handleScroll}
 					onScrollEndDrag={this._handleScroll}>
@@ -93,6 +97,15 @@ export default class Home extends Component {
 						recipes={recommend} />
 					<SoonInApp />
 				</ScrollView>
+			)
+			case ERROR: return 'Сломалось или нет Интернета'
+		}
+	}
+
+	render () {
+		return (
+			<View style={{flex: 1}}>
+				{this.renderHome()}
 			</View>
 		)
 	}
@@ -103,6 +116,7 @@ Home.propTypes = {
 	setCurrentRecipe: PropTypes.func.isRequired,
 	jumbotron: PropTypes.array.isRequired,
 	recommend: PropTypes.array.isRequired,
+	status: PropTypes.string.isRequired,
 	fetchJumbotron: PropTypes.func.isRequired,
 	fetchRecommend: PropTypes.func.isRequired
 }
