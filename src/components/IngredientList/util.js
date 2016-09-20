@@ -16,6 +16,9 @@ const convertToFraction = (number) => {
 const roundQuarter = (number) => {
 	return Math.round(number * 4) / 4
 }
+const roundTen = (number) => {
+	return Math.round(number / 10) * 10
+}
 
 const pronunciation = (number, endings) => {
 	var sEnding, i
@@ -49,7 +52,7 @@ export const getAmount = (amount, measure, baseMeasure) => {
 			if (amount >= 1000) {
 				return (amount / 1000).toFixed(1) + ' кг'
 			} else {
-				return getResult(Math.round(amount), ['грамм', 'грамма', 'грамм'])
+				return getResult(roundTen(Math.round(amount)), ['грамм', 'грамма', 'грамм'])
 			}
 		case 'мл':
 			if (amount >= 1000) {
