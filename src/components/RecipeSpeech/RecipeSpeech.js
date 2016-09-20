@@ -58,37 +58,36 @@ export default class RecipeSpeech extends Component {
 		}
 
 		this.props.goTo(slideToVocalize)
-		alert(e.command)
 		if (this.vocalizedStage === slideToVocalize) {
 			if (e.command === 'давай_дальше' || e.command === 'верни_обратно') return
 		}
 		Speech.stopSpotter()
-		this.vocalizeStage(slideToVocalize, recipe.stages[slideToVocalize], this.readyCallback.bind(this), this.errorCallback.bind(this))
+		this.vocalizeStage(slideToVocalize, recipe.stages[slideToVocalize])
 		this.vocalizedStage = slideToVocalize
 	}
 
-	vocalizeTimeout (phrasesToVocalize, readyCallback, errorCallback) {
+	vocalizeTimeout (phrasesToVocalize) {
 		if (!this.state.isSpeechEnabled) return
 		var phrase = phrasesToVocalize.shift()
 		Speech.vocalize(phrase, '', () => {
 			if (phrasesToVocalize.length > 0) {
-				setTimeout(this.vocalizeTimeout.bind(this), 1000, phrasesToVocalize, readyCallback, errorCallback)
+				setTimeout(this.vocalizeTimeout.bind(this), 1000, phrasesToVocalize)
 			} else {
-				readyCallback()
+				this.readyCallback()
 			}
 		}, (error) => {
-			errorCallback(error)
+			this.errorCallback(error)
 		})
 	}
 
-	vocalizeStage (index, stage, readyCallback, errorCallback) {
+	vocalizeStage (index, stage) {
 		var phrasesToVocalize = []
 		var stageTitle = stage.title ? stage.title : ''
 		phrasesToVocalize.push('Шаг' + (index + 1) + '. ' + stageTitle)
 		stage.steps.forEach(function (element, index) {
 			phrasesToVocalize.push(element.title)
 		})
-		this.vocalizeTimeout(phrasesToVocalize, readyCallback, errorCallback)
+		this.vocalizeTimeout(phrasesToVocalize)
 	}
 
 	readyCallback () {
