@@ -9,10 +9,6 @@ import * as utils from '../../utils'
 const underlayColor = 'rgba(255,255,255,0.2)'
 export default class AppBar extends Component {
 
-	shouldComponentUpdate (nextProps) {
-		return this.props.visible !== nextProps.visible
-	}
-
 	dayTime () {
 		let dayTime
 		const currentHours = (new Date()).getHours()
@@ -25,8 +21,8 @@ export default class AppBar extends Component {
 	}
 
 	renderHomeBar () {
-		const { pushToHistory, pushToSearch, pushToCategory } = this.props
-		
+		const { pushToSearch, pushToCategory } = this.props
+
 		return (
 			<View style={[css.bar, css.bar_centered, css.bar_shift, css.bar_absolute]}>
 				<Bookmark navigationRole />
@@ -35,22 +31,22 @@ export default class AppBar extends Component {
 					<View style={css.bar__category}>
 						<Text style={css.bar__time}>{this.dayTime()}</Text>
 					</View>
-  				</TouchableHighlight>
-  				<TouchableHighlight style={css.bar__hilight}
-  					onPress={pushToSearch.bind(this)}
-  					underlayColor={underlayColor}>
+				</TouchableHighlight>
+				<TouchableHighlight style={css.bar__hilight}
+					onPress={pushToSearch.bind(this)}
+					underlayColor={underlayColor}>
 					<Image style={css.bar__icon} source={SearchIcon} />
-  				</TouchableHighlight>
+				</TouchableHighlight>
 			</View>
 		)
 	}
 
 	renderRecipeViewBar () {
-		const { recipe, navigateBack, addToSavedRecipes, removeFromSavedRecipes } = this.props
+		const { recipe, navigateBack } = this.props
 		const { title, time, energy } = recipe
 		if (!title) return null
 		return (
-			<View style={[css.bar, css.bar_shift, css.bar_absolute]}>
+			<View style={[css.bar, css.bar_shift_recipe, css.bar_absolute]}>
 				<TouchableHighlight style={css.bar__hilight}
 					underlayColor={underlayColor}
 					onPress={navigateBack.bind(this)}>

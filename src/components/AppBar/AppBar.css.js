@@ -12,6 +12,9 @@ export default StyleSheet.create({
 	bar_shift: {
 		marginTop: 24
 	},
+	bar_shift_recipe: {
+		marginTop: 36
+	},
 	bar_absolute: {
 		position: 'absolute',
 		top: 0,
