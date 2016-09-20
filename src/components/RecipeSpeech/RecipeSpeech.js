@@ -85,7 +85,8 @@ export default class RecipeSpeech extends Component {
 
 	vocalizeStage (index, stage, readyCallback, errorCallback) {
 		var phrasesToVocalize = []
-		phrasesToVocalize.push('Шаг' + (index + 1) + '. ' + stage.title)
+		var stageTitle = stage.title ? stage.title : ''
+		phrasesToVocalize.push('Шаг' + (index + 1) + '. ' + stageTitle)
 		stage.steps.forEach(function (element, index) {
 			phrasesToVocalize.push(element.title)
 		})
