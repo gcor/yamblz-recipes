@@ -76,7 +76,7 @@ export default class BlackLayoutWithPreloader extends Component {
 	}
 
 	renderProgressBar () {
-		if (this.props.hideProgressBar) return null
+		if (!this.props.progressBar) return null
 		return (
 			<View style={css.preloader}>
 				<View style={css.textHolder}>
@@ -103,6 +103,15 @@ export default class BlackLayoutWithPreloader extends Component {
 		)
 	}
 
+	renderVoiceHelper () {
+		if (!this.props.voiceHelper) return null
+		return (
+			<Animated.View>
+				<Text>Hello world</Text>
+			</Animated.View>
+		)
+	}
+
 	render () {
 		let backgroundColor = this.state.backgroundColor.interpolate({
 			inputRange: [0, 150],
@@ -120,7 +129,8 @@ export default class BlackLayoutWithPreloader extends Component {
 
 BlackLayoutWithPreloader.propTypes = {
 	visible: PropTypes.bool,
-	hideProgressBar: PropTypes.bool,
+	progressBar: PropTypes.bool,
 	addToBookmarks: PropTypes.bool,
+	voiceHelper: PropTypes.bool,
 	endless: PropTypes.bool
 }

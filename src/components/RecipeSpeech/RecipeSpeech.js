@@ -117,10 +117,21 @@ export default class RecipeSpeech extends Component {
 			Speech.resetVocalizer()
 			this.setState({ isSpeechEnabled: false })
 		} else {
-			Speech.startSpotter()
+			Speech.startSpotter((error) => {
+				alert('Spotter error ' + error)
+			})
 			this.setState({ isSpeechEnabled: true })
 			this.animateState()
+
+			this.showHelpModal()
 		}
+	}
+
+	showHelpModal () {
+		this.props.showVoiceModal(true)
+		setTimeout(() => {
+			this.props.showVoiceModal(false)
+		}, 2000)
 	}
 
 	animateState () {
@@ -156,5 +167,6 @@ RecipeSpeech.propTypes = {
 	recipe: PropTypes.object.isRequired,
 	currentSlide: PropTypes.number.isRequired,
 	previousSlide: PropTypes.func.isRequired,
-	goTo: PropTypes.func.isRequired
+	goTo: PropTypes.func.isRequired,
+	showVoiceModal: PropTypes.func.isRequired
 }

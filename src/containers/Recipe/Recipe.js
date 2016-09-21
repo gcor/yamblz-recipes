@@ -11,12 +11,11 @@ import { ScrollView,
 import Recipe from '../../components/Recipe'
 import AbsoluteTimer from '../../components/AbsoluteTimer'
 import { SensorManager } from 'NativeModules'
-import { throttle } from 'lodash'
 import RecipeAppBar from '../../components/RecipeAppBar'
 import BlackLayoutWithPreloader from '../../components/BlackLayoutWithPreloader'
 import css from './Recipe.css'
 
-class RecipePage extends Component {
+export default class RecipePage extends Component {
 	constructor (props) {
 		super(props)
 		this.proximityHandler = this.proximityHandler.bind(this)
@@ -30,6 +29,8 @@ class RecipePage extends Component {
 			currentSlide: 4,
 			isLayoutVisible: false,
 			isLayoutForTimers: false,
+			isLayoutForProgressBar: false,
+			isLayoutForVoiceHelper: false,
 			isDelayed: false
 		})
 		InteractionManager.runAfterInteractions(() => {
@@ -38,7 +39,7 @@ class RecipePage extends Component {
 	}
 
 	componentWillReceiveProps (props) {
-		const { scroll, currentHeight } = props
+		const { scroll, currentHeight, isVoiceModalOpen } = props
 		if (scroll) {
 			this.scrollTo(currentHeight)
 		}
@@ -46,6 +47,13 @@ class RecipePage extends Component {
 			this.setState({
 				currentSlide: props.currentSlide
 			})
+		}
+		console.log('isVoiceModalOpen ' + isVoiceModalOpen)
+		if (isVoiceModalOpen) {
+			this.setState({
+				isLayoutForVoiceHelper: true
+			})
+			this.toggleBlackLayout()
 		}
 	}
 
@@ -63,7 +71,7 @@ class RecipePage extends Component {
 	}
 
 	vibrationHandler () {
-		Vibration.vibrate([0, 100])
+		Vibration.vibrate([0, 10])
 	}
 
 	toggleBlackLayout (isLayoutForTimers) {
@@ -77,25 +85,33 @@ class RecipePage extends Component {
 
 	proximityHandler (data) {
 		const { isNear } = data
-		console.log(isNear)
 		const { isDelayed } = this.state
 		if (isNear) {
-			this.waitingTimeout = setTimeout(this.toggleBlackLayout, 500)
+			this.waitingTimeout = setTimeout(() => {
+				this.setState({
+					isLayoutForProgressBar: true
+				})
+				this.toggleBlackLayout()
+			}, 500)
 			this.sliderTimeout = setTimeout(() => {
 				this.vibrationHandler()
 				this.props.previousSlide()
-				this.setState({isDelayed: true})
+				this.setState({
+					isDelayed: true,
+					isLayoutForProgressBar: false
+				})
 				this.toggleBlackLayout()
 			}, 1500)
 		}
-		/*
-		*/
 		if (!isNear) {
 			clearTimeout(this.sliderTimeout)
 			clearTimeout(this.waitingTimeout)
 			this.sliderTimeout = null
 			this.waitingTimeout = null
-			this.setState({isLayoutVisible: false})
+			this.setState({
+				isLayoutVisible: false,
+				isLayoutForProgressBar: false
+			})
 			if (isDelayed) {
 				this.setState({isDelayed: false})
 				return false
@@ -115,7 +131,6 @@ class RecipePage extends Component {
 
 	scrollTo (currentHeight) {
 		if (!currentHeight) currentHeight = this.props.currentHeight
-		console.log('scrolling to' + currentHeight)
 		this.recipe.scrollTo({
 			y: currentHeight,
 			animated: true
@@ -156,8 +171,10 @@ class RecipePage extends Component {
 		if (this.state.isLayoutVisible) {
 			return (
 				<BlackLayoutWithPreloader
-					hideProgressBar={this.state.isLayoutForTimers}
-					endless={this.state.isLayoutForTimers} />
+					progressBar={this.state.isLayoutForProgressBar}
+					endless={this.state.isLayoutForTimers}
+					voiceHelper={this.state.isLayoutForVoiceHelper}
+				/>
 			)
 		}
 		return null
@@ -180,7 +197,8 @@ class RecipePage extends Component {
 					</ScrollView>
 				</View>
 				<AbsoluteTimer
-					toggleBlackLayout={this.toggleBlackLayout} />
+					toggleBlackLayout={this.toggleBlackLayout}
+				/>
 				{this.renderBlackLayout()}
 			</View>
 		)
@@ -200,5 +218,3 @@ RecipePage.propTypes = {
 	resetTimers: PropTypes.func.isRequired,
 	scroll: PropTypes.bool.isRequired
 }
-
-export default RecipePage

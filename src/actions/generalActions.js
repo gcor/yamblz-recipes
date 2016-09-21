@@ -2,7 +2,8 @@ import {
 	SET_CURRRENT_RECIPE,
 	SET_CURRENT_CATEGORY,
 	SAVE_IN_LAST_VIEWED,
-	OPEN_MODAL_BOOKMARK_SAVED
+	OPEN_MODAL_BOOKMARK_SAVED,
+	OPEN_MODAL_VOICE_HELP
 } from '../constants/actionTypes'
 import { LAST_VIEWED_KEY } from '../constants/keys'
 import { AsyncStorage } from 'react-native'
@@ -11,6 +12,7 @@ import { createAction } from 'redux-actions'
 export const setCurrentRecipe = createAction(SET_CURRRENT_RECIPE)
 export const setCurrentCategory = createAction(SET_CURRENT_CATEGORY)
 export const showBookmarkModal = createAction(OPEN_MODAL_BOOKMARK_SAVED)
+export const showVoiceModal = createAction(OPEN_MODAL_VOICE_HELP)
 
 export const saveInLastViewed = createAction(SAVE_IN_LAST_VIEWED, async (id) => {
 	// Достаем массив с id просмотренных рецептов

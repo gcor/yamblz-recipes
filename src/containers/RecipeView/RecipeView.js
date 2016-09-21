@@ -118,7 +118,6 @@ export default class RecipeView extends Component {
 		if (this.state.showBlackLayout) {
 			return (
 				<BlackLayoutWithPreloader
-					hideProgressBar
 					addToBookmarks
 				/>
 			)

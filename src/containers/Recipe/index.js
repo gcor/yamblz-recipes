@@ -15,7 +15,8 @@ const stateToProps = state => ({
 	currentHeight: state.recipeSwiper.currentHeight,
 	slides: state.recipeSwiper.slides,
 	currentSlide: state.recipeSwiper.currentSlide,
-	scroll: state.recipeSwiper.scroll
+	scroll: state.recipeSwiper.scroll,
+	isVoiceModalOpen: state.general.isVoiceModalOpen
 })
 
 const dipsatchToProps = dispatch => (bindActionCreators({

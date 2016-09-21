@@ -4,9 +4,10 @@ import {
 	nextSlide,
 	previousSlide,
 	resetSlider,
-    goToStart,
-    goTo
+	goToStart,
+	goTo
 } from '../../actions/recipeSwiperActions'
+import { showVoiceModal } from '../../actions/generalActions'
 import { bindActionCreators } from 'redux'
 
 const stateToProps = state => ({
@@ -19,7 +20,8 @@ const dipsatchToProps = dispatch => (bindActionCreators({
 	nextSlide,
 	previousSlide,
 	resetSlider,
-    goToStart,
-    goTo
+	goToStart,
+	goTo,
+	showVoiceModal
 }, dispatch))
 export default connect(stateToProps, dipsatchToProps)(RecipeSpeech)
