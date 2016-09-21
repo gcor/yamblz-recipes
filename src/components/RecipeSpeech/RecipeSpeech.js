@@ -1,5 +1,10 @@
 import React, { Component, PropTypes } from 'react'
-import { Text, View, TouchableWithoutFeedback, Image, DeviceEventEmitter, NativeModules, Animated } from 'react-native'
+import {
+	TouchableWithoutFeedback,
+	DeviceEventEmitter,
+	NativeModules,
+	Animated
+} from 'react-native'
 import css from './RecipeSpeech.css'
 import SpeechIcon from '../../icons/micro.png'
 import SpeechIconOn from '../../icons/micro2.png'
@@ -36,7 +41,7 @@ export default class RecipeSpeech extends Component {
 	}
 
 	phraseSpotted (e) {
-		let { recipe, currentSlide } = this.props
+		let { recipe } = this.props
 		let slideToVocalize = this.vocalizedStage
 		switch (e.command) {
 			case 'будем_готовить':
@@ -111,22 +116,20 @@ export default class RecipeSpeech extends Component {
 			Speech.stopSpotter()
 			Speech.resetVocalizer()
 			this.setState({ isSpeechEnabled: false })
-		}
-		else {
-			Speech.startSpotter((error) => {
-			})
+		} else {
+			Speech.startSpotter()
 			this.setState({ isSpeechEnabled: true })
 			this.animateState()
 		}
 	}
 
-	animateState () {  
+	animateState () {
 		Animated.sequence([
 			Animated.timing(this.state.scale, {
 				toValue: 1.1,
 				duration: 200
 			}),
-				Animated.timing(this.state.scale, {
+			Animated.timing(this.state.scale, {
 				toValue: 1,
 				duration: 200
 			})
@@ -142,8 +145,8 @@ export default class RecipeSpeech extends Component {
 		return (
 			<TouchableWithoutFeedback style={css.speech__highlight}
 				onPress={this._onPress.bind(this)}>
-					<Animated.Image style={[css.speech__icon, {transform: [{scale: scale}]}]}
-						source={this.state.isSpeechEnabled ? SpeechIconOn : SpeechIcon} />
+				<Animated.Image style={[css.speech__icon, {transform: [{scale: scale}]}]}
+					source={this.state.isSpeechEnabled ? SpeechIconOn : SpeechIcon} />
 			</TouchableWithoutFeedback>
 		)
 	}
@@ -151,6 +154,7 @@ export default class RecipeSpeech extends Component {
 
 RecipeSpeech.propTypes = {
 	recipe: PropTypes.object.isRequired,
-	currentSlide: PropTypes.number.isRequired
+	currentSlide: PropTypes.number.isRequired,
+	previousSlide: PropTypes.func.isRequired,
 	goTo: PropTypes.func.isRequired
 }
