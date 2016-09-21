@@ -3,7 +3,8 @@ import {
 	TouchableWithoutFeedback,
 	DeviceEventEmitter,
 	NativeModules,
-	Animated
+	Animated,
+	ToastAndroid
 } from 'react-native'
 import css from './RecipeSpeech.css'
 import SpeechIcon from '../../icons/micro.png'
@@ -124,6 +125,13 @@ export default class RecipeSpeech extends Component {
 			this.animateState()
 
 			this.showHelpModal()
+			ToastAndroid.showWithGravity(
+				'«Будем готовить» для начала процесса, \n ' +
+				'«Давай дальше» — к следующему этапу, \n' +
+				'«Верни обратно» — к предыдущему этапу, \n' +
+				'«Повтори заного» — повторить шаг.', ToastAndroid.LONG,
+				ToastAndroid.BOTTOM,
+			)
 		}
 	}
 

@@ -48,12 +48,12 @@ export default class RecipePage extends Component {
 				currentSlide: props.currentSlide
 			})
 		}
-		console.log('isVoiceModalOpen ' + isVoiceModalOpen)
 		if (isVoiceModalOpen) {
 			this.setState({
 				isLayoutForVoiceHelper: true
 			})
-			this.toggleBlackLayout()
+			// Todo
+			// this.toggleBlackLayout()
 		}
 	}
 
