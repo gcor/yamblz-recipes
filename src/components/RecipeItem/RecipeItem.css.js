@@ -1,6 +1,6 @@
 import { StyleSheet, Dimensions } from 'react-native'
 import ui from '../../constants/css'
-const { width, height } = Dimensions.get('window')
+const { width } = Dimensions.get('window')
 
 export default StyleSheet.create({
 	recipeItem: {
@@ -8,7 +8,8 @@ export default StyleSheet.create({
 		margin: 10,
 		paddingTop: 20,
 		paddingBottom: 20,
-		elevation: ui.elevation
+		elevation: ui.elevation,
+		borderRadius: 2
 	},
 	recipeItem__header: {
 		flexDirection: 'row',
