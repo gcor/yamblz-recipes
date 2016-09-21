@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react'
-import { Text, View, TouchableHighlight, Image, DeviceEventEmitter, NativeModules, Animated } from 'react-native'
+import { Text, View, TouchableWithoutFeedback, Image, DeviceEventEmitter, NativeModules, Animated } from 'react-native'
 import css from './RecipeSpeech.css'
 import SpeechIcon from '../../icons/micro.png'
-import SpeechIconOn from '../../icons/micro.png'
+import SpeechIconOn from '../../icons/micro2.png'
 const Speech = NativeModules.SpeechApi
 
 export default class RecipeSpeech extends Component {
@@ -111,52 +111,46 @@ export default class RecipeSpeech extends Component {
 			Speech.stopSpotter()
 			Speech.resetVocalizer()
 			this.setState({ isSpeechEnabled: false })
-			clearInterval(this.timer)
-			this.animateState(1)
 		}
 		else {
 			Speech.startSpotter((error) => {
 			})
 			this.setState({ isSpeechEnabled: true })
-
-			startValue = true
-			this.timer = setInterval(() => {
-				value = startValue ? 1.2 : 1
-				this.animateState(value)
-				startValue = !startValue
-			}, 300)
+			this.animateState()
 		}
 	}
 
-	animateState (scale) {
-		Animated.timing(this.state.scale, {
-			toValue: scale,
-			duration: 200
-		}).start()
+	animateState () {  
+		Animated.sequence([
+			Animated.timing(this.state.scale, {
+				toValue: 1.1,
+				duration: 200
+			}),
+				Animated.timing(this.state.scale, {
+				toValue: 1,
+				duration: 200
+			})
+		]).start(() => {
+			if (this.state.isSpeechEnabled) {
+				this.animateState()
+			}
+		})
 	}
 
 	render () {
 		const { scale } = this.state
 		return (
-			<TouchableHighlight style={css.speech__highlight}
-				underlayColor='rgba(0,0,0,0)'
+			<TouchableWithoutFeedback style={css.speech__highlight}
 				onPress={this._onPress.bind(this)}>
-				<Animated.View style={{transform: [{scale: scale}]}}>
-					<Image style={css.speech__icon}
+					<Animated.Image style={[css.speech__icon, {transform: [{scale: scale}]}]}
 						source={this.state.isSpeechEnabled ? SpeechIconOn : SpeechIcon} />
-				</Animated.View>
-			</TouchableHighlight>
+			</TouchableWithoutFeedback>
 		)
 	}
 }
 
 RecipeSpeech.propTypes = {
 	recipe: PropTypes.object.isRequired,
-	nextSlide: PropTypes.func.isRequired,
-	previousSlide: PropTypes.func.isRequired,
-	resetSlider: PropTypes.func.isRequired,
-	currentSlide: PropTypes.number.isRequired,
-	scroll: PropTypes.bool.isRequired,
-	goToStart: PropTypes.func.isRequired,
+	currentSlide: PropTypes.number.isRequired
 	goTo: PropTypes.func.isRequired
 }
