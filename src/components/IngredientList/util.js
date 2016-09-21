@@ -58,7 +58,7 @@ export const getAmount = (amount, measure, baseMeasure) => {
 			if (amount >= 1000) {
 				return (amount / 1000).toFixed(1) + ' л'
 			} else {
-				return getResult(Math.round(amount), ['мл', 'мл', 'мл'])
+				return getResult(roundTen(Math.round(amount)), ['мл', 'мл', 'мл'])
 			}
 		case 'шт':
 			return getResult(roundQuarter(amount), ['штука', 'штуки', 'штук'])
