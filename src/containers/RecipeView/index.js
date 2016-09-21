@@ -8,7 +8,10 @@ import {
 	resetRecipe
 } from '../../actions/recipesActions'
 import { saveInLastViewed } from '../../actions/generalActions.js'
-import { addToSavedRecipes, removeFromSavedRecipes } from '../../actions/historyActions'
+import {
+	addToSavedRecipes,
+	removeFromSavedRecipes
+} from '../../actions/historyActions'
 import { bindActionCreators } from 'redux'
 
 const stateToProps = state => ({

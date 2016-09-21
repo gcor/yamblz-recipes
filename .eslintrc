@@ -24,7 +24,7 @@
     "react/jsx-no-bind": 0,
     "react/self-closing-comp": 0,
     "no-return-assign": 0,
-    "max-len": 0,
+    "max-len": 1,
     "react/prop-types": 2,
     "generator-star-spacing": 0,
     "babel/generator-star-spacing": 1,

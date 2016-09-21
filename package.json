@@ -4,7 +4,6 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "i": "node node_modules/react-native/local-cli/cli.js run-ios",
     "a": "node node_modules/react-native/local-cli/cli.js run-android",
     "l": "node node_modules/react-native/local-cli/cli.js log-android",
     "b": "cd android && ./gradlew assembleRelease",
